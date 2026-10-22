@@ -1,4 +1,4 @@
-# Numogram Lab
+# Hyperstition Lab
 
 An interactive page for playing with AQ gematria on the Ccru's Numogram (the Decimal Labyrinth).
 
