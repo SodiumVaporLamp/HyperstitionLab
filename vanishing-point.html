@@ -168,6 +168,18 @@ input[type="range"] { width: 100%; min-width: 0; accent-color: var(--ink); }
 .mk.sq { width: 8px; height: 8px; background: var(--ink); }
 .mk.dia { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
 .mk.now { width: 3px; height: 12px; background: var(--crimson); }
+.mk.tri { width: 10px; height: 9px; background: var(--ink); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.pace { margin: 4px 0 0; display: grid; gap: 6px; max-width: 520px; }
+.pace figcaption { font-size: 12.5px; color: var(--muted); }
+.pace figcaption span { font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.pace figcaption small { font-size: 12px; }
+.pace svg { width: 100%; height: auto; display: block; }
+.pace .pbar { fill: var(--ink); }
+.pace .pbar.partial { fill: var(--muted); }
+.pace g:hover .pbar { fill: var(--violet); }
+.pace .pbase { stroke: var(--rule); stroke-width: 1; }
+.pace .pval { font-family: var(--mono); font-size: 11px; fill: var(--ink); text-anchor: middle; font-variant-numeric: tabular-nums; }
+.pace .pyr { font-family: var(--mono); font-size: 10.5px; fill: var(--muted); text-anchor: middle; }
 .hint { margin: 0; font-size: 12.5px; color: var(--muted); }
 
 /* milestone card */
@@ -228,6 +240,7 @@ input[type="range"] { width: 100%; min-width: 0; accent-color: var(--ink); }
 .li .mk.ring { width: 8px; height: 8px; }
 .li .mk.sq { width: 7px; height: 7px; }
 .li .mk.dia { width: 7px; height: 7px; }
+.li .mk.tri { width: 8px; height: 7px; }
 .li .lw3 { font-weight: 600; }
 
 /* notes */
@@ -269,7 +282,7 @@ footer.foot a { color: var(--muted); }
   <section class="stage" aria-label="Spiral timeline">
     <div class="tunnel-box">
       <div class="tunnel-frame">
-        <canvas id="tunnel" tabindex="0" role="img" aria-label="A logarithmic spiral of 162 milestones in the history of AI. The full list follows below the controls."></canvas>
+        <canvas id="tunnel" tabindex="0" role="img" aria-label="A logarithmic spiral of milestones in the history of AI. The full list follows below the controls."></canvas>
         <div class="headtag" id="headtag" aria-hidden="true">head · 1960</div>
       </div>
       <p class="vpcap" id="vpcap">Centre: <b>Doomsday, Friday 13 November 2026</b></p>
@@ -295,18 +308,25 @@ footer.foot a { color: var(--muted); }
     <div class="lanes">
       <h2>Lanes, rim to centre</h2>
       <div class="lane-row" id="lanechips"></div>
+      <h2>Model releases by lab</h2>
+      <div class="lane-row" id="labchips"></div>
       <div class="opts">
         <label><input type="checkbox" id="bitter"> Bitter Lesson view (hide hand-built roads)</label>
         <label><input type="checkbox" id="keyonly"> Key milestones only</label>
         <label>Centre <select id="vp" aria-label="Centre of the spiral"></select></label>
       </div>
       <ul class="legend" aria-label="Legend">
+        <li><span class="mk tri"></span>a model release</li>
         <li><span class="mk dot"></span>fed the present</li>
         <li><span class="mk ring"></span>road not taken</li>
         <li><span class="mk sq"></span>a verdict</li>
         <li><span class="mk dia"></span>Land or the Ccru speak here</li>
         <li><span class="mk now"></span>today</li>
       </ul>
+      <figure class="pace">
+        <figcaption><span id="pace-title">Model releases per year</span> <small>on this spiral · * so far this year</small></figcaption>
+        <div id="pace"></div>
+      </figure>
     </div>
   </section>
 
@@ -324,7 +344,7 @@ footer.foot a { color: var(--muted); }
       <div class="note">
         <h3>How to read the spiral</h3>
         <p>Distance from the centre is drawn in log time. Every turn inward divides the time left by ten, so the turns hold millennia, then centuries, decades, years and months. A logarithmic spiral is the curve where scaling and rotating are the same transformation: zoom in and it turns, which is why travelling through it feels like a tunnel.</p>
-        <p>Five lanes run side by side, from the rim inward: Capital, Reckoning, Learning, Language and Hyperstition. Milestones on the same date line up across the lanes. When two milestones in one lane fall almost on the same date, they are nudged apart along the lane so both can be tapped; the card always gives the true date.</p>
+        <p>Six lanes run side by side, from the rim inward: Models, Capital, Reckoning, Learning, Language and Hyperstition. Milestones on the same date line up across the lanes. When two milestones in one lane fall almost on the same date, they are nudged apart along the lane so both can be tapped; the card always gives the true date.</p>
       </div>
       <div class="note">
         <h3>The centre</h3>
@@ -334,8 +354,9 @@ footer.foot a { color: var(--muted); }
       </div>
       <div class="note">
         <h3>What counts, and how much</h3>
+        <p>The Models lane holds <span data-count="models">81</span> releases: the major ones from OpenAI and Anthropic and the most notable from other labs, each drawn as a triangle pointing at the centre. Releases per year went from one or two before 2022 to more than twenty in 2025, and 2026 passed that by October. The log axis already gives recent time extra room, so the crowding of triangles toward the centre is the pace showing through it.</p>
         <p>Frederick Jelinek’s line about firing linguists raised the question of whether linguists should count for less in this history. The page’s answer is to count the rule-writers for less. Markov, Shannon, Harris and Firth were doing linguistics by counting, and modern language models descend from that line. Hand-written grammars, expert systems and other attempts to type knowledge in are drawn hollow, as roads not taken. The Bitter Lesson view hides them, leaving roughly the history as the winners tell it.</p>
-        <p>Each milestone carries a weight. The 50 key milestones show up in “Key milestones only” and in the larger marks; the rest fill in the record. Before 1900 the selection follows two threads: the places where Land’s story touches the past (zero and place value, double-entry ledgers, the oceanic trading companies), and the machine line from Llull through Babbage and Lovelace to Boole.</p>
+        <p>Each milestone carries a weight. The <span data-count="key">56</span> key milestones show up in “Key milestones only” and in the larger marks; the rest fill in the record. Before 1900 the selection follows two threads: the places where Land’s story touches the past (zero and place value, double-entry ledgers, the oceanic trading companies), and the machine line from Llull through Babbage and Lovelace to Boole.</p>
       </div>
       <div class="note">
         <h3>Whose words</h3>
@@ -354,8 +375,9 @@ footer.foot a { color: var(--muted); }
 /* ================= Vanishing Point: milestones =================
    d   date: 'YYYY-MM-DD', 'YYYY-MM', 'YYYY', '~YYYY' (circa), negative years are BCE
    dl  display label override
-   lab short label for the spiral when the title is long
-   th  thread (lane): cap, reck, learn, lang, hyp
+   short  short label for the spiral when the title is long
+   th  thread (lane): model, cap, reck, learn, lang, hyp
+   lab model releases: lab group (openai, anthropic, google, meta, china, other) or a list; org names the maker when the group is broad
    w   weight 1-3 (3 = key milestone)
    f   fate: 'road' (hand-built knowledge, a road not taken) or 'verdict'; omitted = fed the present
    x   what happened
@@ -365,13 +387,16 @@ footer.foot a { color: var(--muted); }
    tag extra tags ('demon')
 */
 const THREADS = {
-  cap:   { name: 'Capital',      blurb: 'Ledgers, companies, chips and money', lane: 0 },
-  reck:  { name: 'Reckoning',    blurb: 'Number, logic and the computing machine', lane: 1 },
-  learn: { name: 'Learning',     blurb: 'Statistics, neural networks and training', lane: 2 },
-  lang:  { name: 'Language',     blurb: 'From counting letters to language models', lane: 3 },
-  hyp:   { name: 'Hyperstition', blurb: 'Fictions, prophecies, demons and Land', lane: 4 }
+  model: { name: 'Models',       blurb: 'Model releases from the major labs', lane: 0 },
+  cap:   { name: 'Capital',      blurb: 'Ledgers, companies, chips and money', lane: 1 },
+  reck:  { name: 'Reckoning',    blurb: 'Number, logic and the computing machine', lane: 2 },
+  learn: { name: 'Learning',     blurb: 'Statistics, neural networks and training', lane: 3 },
+  lang:  { name: 'Language',     blurb: 'From counting letters to language models', lane: 4 },
+  hyp:   { name: 'Hyperstition', blurb: 'Fictions, prophecies, demons and Land', lane: 5 }
 };
-const THREAD_ORDER = ['cap', 'reck', 'learn', 'lang', 'hyp'];
+const THREAD_ORDER = ['model', 'cap', 'reck', 'learn', 'lang', 'hyp'];
+const LABS = { openai: 'OpenAI', anthropic: 'Anthropic', google: 'Google', meta: 'Meta', china: 'Chinese labs', other: 'Others' };
+const LAB_ORDER = ['openai', 'anthropic', 'google', 'meta', 'china', 'other'];
 
 const W = 'https://en.wikipedia.org/wiki/';
 const Q101 = ['Land, “Qabbala 101”, Collapse I (Urbanomic)', 'https://www.urbanomic.com/book/collapse-1/'];
@@ -586,7 +611,7 @@ const EVENTS = [
   o: 'The first alignment specification, and a source of bugs from the start. The fiction knew that rules leak.',
   s: [['Three Laws of Robotics', W + 'Three_Laws_of_Robotics']] },
 
-{ id: 'teleology', d: '1943-01', t: 'Behavior, Purpose and Teleology', lab: 'Feedback and purpose', th: 'reck', w: 1,
+{ id: 'teleology', d: '1943-01', t: 'Behavior, Purpose and Teleology', short: 'Feedback and purpose', th: 'reck', w: 1,
   x: 'Arturo Rosenblueth, Norbert Wiener and Julian Bigelow argued that purposeful behaviour, in animals or machines, can be explained by negative feedback: the gap between goal and result steers the next action. Wiener and Bigelow had been working on anti-aircraft fire control.',
   o: 'Purpose redescribed as a feedback loop. Land turned the emphasis around: for him the loops that matter are the positive ones that run away.',
   s: [['Cybernetics', W + 'Cybernetics']] },
@@ -622,7 +647,7 @@ const EVENTS = [
   o: 'Seven months later Bell Labs published Shannon’s theory of information. The switch and the theory of what to switch came out of one building within a year.',
   s: [['History of the transistor', W + 'History_of_the_transistor']] },
 
-{ id: 'shannon48', d: '1948-07', t: 'A Mathematical Theory of Communication', lab: 'Shannon’s information theory', th: 'lang', w: 3,
+{ id: 'shannon48', d: '1948-07', t: 'A Mathematical Theory of Communication', short: 'Shannon’s information theory', th: 'lang', w: 3,
   x: 'Claude Shannon’s paper founded information theory. It measured information in bits, set the limits of sending messages through a noisy channel, and generated random English to show how much statistics capture: his word-level sample, made by flipping through a book for each next word, begins “THE HEAD AND IN FRONTAL ATTACK ON AN ENGLISH WRITER”. Norbert Wiener’s Cybernetics came out the same year.',
   o: 'Shannon set meaning aside on the first page as “irrelevant to the engineering problem”, and the engineering went on to produce text anyway. The book-flipping procedure is a language model run by hand.',
   s: [['A Mathematical Theory of Communication', W + 'A_Mathematical_Theory_of_Communication']] },
@@ -688,7 +713,7 @@ const EVENTS = [
   o: 'A machine as its own opponent and teacher. AlphaGo’s line starts on a checkerboard.',
   s: [['Arthur Samuel', W + 'Arthur_Samuel_(computer_scientist)']] },
 
-{ id: 'doomsday', d: '1960-11-04', t: 'Doomsday: Friday, 13 November, A.D. 2026', lab: 'The Doomsday paper', th: 'hyp', w: 3,
+{ id: 'doomsday', d: '1960-11-04', t: 'Doomsday: Friday, 13 November, A.D. 2026', short: 'The Doomsday paper', th: 'hyp', w: 3,
   x: 'Heinz von Foerster, Patricia Mora and Lawrence Amiot fitted two thousand years of world population estimates to a curve that grows faster than exponentially and reaches infinity in finite time, and put the date in the title of their paper in Science. They argued that people who cooperate grow faster the more of them there are, and hoped the warning would prompt population control.',
   o: 'This is the default centre of the spiral. Hyperbolic growth is the curve singularity arguments are built on. Population growth bent away from it in the 1960s, so the date became a curiosity. It happens to fall three weeks after this page was made.',
   s: [['Science 132:1291 (1960)', 'https://doi.org/10.1126/science.132.3436.1291'], ['Scott Alexander, “1960: The Year the Singularity Was Cancelled”', 'https://slatestarcodex.com/2019/04/22/1960-the-year-the-singularity-was-cancelled/']] },
@@ -863,7 +888,7 @@ const EVENTS = [
   o: 'The demons scattered along this spiral, Laplace’s, Maxwell’s, Selfridge’s and Musk’s, get a matrix of their own here.',
   s: [['Ccru, Pandemonium', 'https://dataswamp.org/~john/sites/ccru/digithype/pandemonium.htm'], ['Abstract Culture 4 (Monoskop)', 'https://monoskop.org/log/?p=18738']] },
 
-{ id: 'geforce', d: '1999-08-31', t: 'GeForce 256, “the first GPU”', lab: 'GeForce 256', th: 'cap', w: 2,
+{ id: 'geforce', d: '1999-08-31', t: 'GeForce 256, “the first GPU”', short: 'GeForce 256', th: 'cap', w: 2,
   x: 'Nvidia announced the GeForce 256 and marketed it as the world’s first GPU, a term it popularised for a chip that took over 3D geometry and lighting from the main processor. Gamers bought them by the million, which paid for the generations that followed.',
   o: 'K-99 in the Ccru’s calendar. Gamers financed the parallel hardware AI would later need.',
   s: [['GeForce 256', W + 'GeForce_256']] },
@@ -922,7 +947,7 @@ const EVENTS = [
   o: 'Land’s Bitcoin book reads the blockchain as the ledger perfected: a sign that cannot be copied. See Pacioli, 1494.',
   s: [['Bitcoin', W + 'Bitcoin'], CRYPTO] },
 
-{ id: 'unreasonable', d: '2009-03', t: '“The Unreasonable Effectiveness of Data”', lab: '“Unreasonable Effectiveness”', th: 'lang', w: 2,
+{ id: 'unreasonable', d: '2009-03', t: '“The Unreasonable Effectiveness of Data”', short: '“Unreasonable Effectiveness”', th: 'lang', w: 2,
   x: 'Google’s Alon Halevy, Peter Norvig and Fernando Pereira argued that for language, simple models trained on web-scale data beat elaborate models built from theory, and closed with the advice “follow the data”. The title echoes Eugene Wigner’s 1960 essay on the unreasonable effectiveness of mathematics.',
   s: [['Halevy, Norvig and Pereira, IEEE Intelligent Systems (2009)', 'https://doi.org/10.1109/MIS.2009.36']] },
 
@@ -994,15 +1019,15 @@ const EVENTS = [
   o: 'Nearly every model further in is built on it. Its parallelism let capital turn straight into capability: scaling up became a matter of buying more chips.',
   s: [['Attention Is All You Need', W + 'Attention_Is_All_You_Need'], ['arXiv 1706.03762', 'https://arxiv.org/abs/1706.03762']] },
 
-{ id: 'gpt1', d: '2018-06-11', t: 'GPT', th: 'lang', w: 2,
+{ id: 'gpt1', d: '2018-06-11', t: 'GPT', th: 'model', lab: 'openai', w: 2,
   x: 'OpenAI’s first Generative Pre-trained Transformer showed that training a Transformer to predict the next word across thousands of unpublished books, then briefly fine-tuning it, beat specialised systems on a range of language tasks.',
   s: [['GPT-1', W + 'GPT-1']] },
 
-{ id: 'bert', d: '2018-10-11', t: 'BERT', th: 'lang', w: 2,
+{ id: 'bert', d: '2018-10-11', t: 'BERT', th: 'model', lab: 'google', w: 2,
   x: 'Google’s BERT pre-trained a Transformer to fill in masked words using context from both sides, set new records across language-understanding benchmarks, and within a year was running inside Google Search.',
   s: [['BERT (language model)', W + 'BERT_(language_model)']] },
 
-{ id: 'gpt2', d: '2019-02-14', t: 'GPT-2, “too dangerous to release”', lab: 'GPT-2', th: 'lang', w: 2,
+{ id: 'gpt2', d: '2019-02-14', t: 'GPT-2, “too dangerous to release”', short: 'GPT-2', th: 'model', lab: 'openai', w: 2,
   x: 'OpenAI announced GPT-2, trained on 40 GB of web text, and at first withheld the full model, citing the risk of misuse for fake news and spam. It released it in stages over nine months.',
   o: 'The first model whose danger was part of its launch. Holding it back made it famous.',
   s: [['GPT-2', W + 'GPT-2']] },
@@ -1022,7 +1047,7 @@ const EVENTS = [
   o: 'A law that tells capital how much capability a dollar buys. After this, the race is a capital-spending race.',
   s: [['Neural scaling law', W + 'Neural_scaling_law'], ['arXiv 2001.08361', 'https://arxiv.org/abs/2001.08361']] },
 
-{ id: 'gpt3', d: '2020-05-28', t: 'GPT-3', th: 'lang', w: 3,
+{ id: 'gpt3', d: '2020-05-28', t: 'GPT-3', th: 'model', lab: 'openai', w: 3,
   x: 'OpenAI’s GPT-3 had 175 billion parameters, more than a hundred times GPT-2, and could perform new tasks from a few examples placed in its prompt, without retraining. From June it was sold as an API.',
   o: 'Prompting begins: programming a model by writing to it.',
   s: [['GPT-3', W + 'GPT-3']] },
@@ -1050,17 +1075,17 @@ const EVENTS = [
   o: 'ELIZA’s effect, with a far better model on the other end. The question of what is in the room went mainstream.',
   s: [['LaMDA', W + 'LaMDA']] },
 
-{ id: 'sd', d: '2022-08-22', t: 'Stable Diffusion', th: 'learn', w: 1,
+{ id: 'sd', d: '2022-08-22', t: 'Stable Diffusion', th: 'model', lab: 'other', org: 'Stability AI', w: 1,
   x: 'Stability AI released Stable Diffusion, an image generator whose weights anyone could download and run on a home graphics card, a few months after OpenAI’s DALL-E 2 and Midjourney opened to users.',
   s: [['Stable Diffusion', W + 'Stable_Diffusion']] },
 
-{ id: 'chatgpt', d: '2022-11-30', t: 'ChatGPT', th: 'lang', w: 3,
+{ id: 'chatgpt', d: '2022-11-30', t: 'ChatGPT', th: 'model', lab: 'openai', w: 3,
   x: 'OpenAI released ChatGPT, a chat interface to a GPT-3.5 model tuned with human feedback, as a “research preview”. It passed a million users in five days and an estimated 100 million within two months, at the time the fastest adoption of any consumer app.',
   o: 'Turing’s test, Descartes’ test and Weizenbaum’s worry arrive in one browser tab. Everything further in happens faster.',
   s: [['ChatGPT', W + 'ChatGPT']] },
 
 /* ---------------- 2023-2026 ---------------- */
-{ id: 'gpt4claude', d: '2023-03-14', t: 'GPT-4 and Claude, same day', th: 'lang', w: 3,
+{ id: 'gpt4claude', d: '2023-03-14', t: 'GPT-4 and Claude, same day', th: 'model', lab: ['openai', 'anthropic'], w: 3,
   x: 'OpenAI released GPT-4, which scored around the top 10 percent on a simulated bar exam, and Anthropic released its first public Claude model on the same day. OpenAI’s technical report withheld the model’s size, data and training method, citing competition and safety.',
   o: 'Two labs, one date, and the end of publishing how frontier models are made.',
   s: [['GPT-4', W + 'GPT-4'], ['Claude (language model)', W + 'Claude_(language_model)']] },
@@ -1089,17 +1114,17 @@ const EVENTS = [
   o: 'Governance designed as a brake, tested once. The engine won in five days.',
   s: [['Removal of Sam Altman from OpenAI', W + 'Removal_of_Sam_Altman_from_OpenAI']] },
 
-{ id: 'opus', d: '2024-03-04', t: 'Claude 3 Opus', th: 'lang', w: 1,
+{ id: 'opus', d: '2024-03-04', t: 'Claude 3 Opus', th: 'model', lab: 'anthropic', w: 1,
   x: 'Anthropic released the Claude 3 family of models, with Opus as the largest.',
   o: 'In AQ, CLAUDE OPUS sums to 207, the same as SIGNIFICANCE, one of the nine-signature words in “Qabbala 101”. The Numogram Lab found the match. This page only notes it.',
   s: [['Claude (language model)', W + 'Claude_(language_model)']] },
 
-{ id: 'her', d: '2024-05-13', t: '“her”', th: 'hyp', w: 2,
+{ id: 'her', d: '2024-05-13', t: '“her”', th: 'model', lab: 'openai', w: 2,
   x: 'OpenAI demonstrated GPT-4o talking in real time with emotional inflection, and Sam Altman posted one word, “her”, after the 2013 film about a man in love with his operating system. Scarlett Johansson, who voiced that film’s AI, said the demo’s “Sky” voice sounded eerily like hers, and OpenAI paused it.',
   o: 'A company citing a science-fiction film as its product brief.',
   s: [['GPT-4o', W + 'GPT-4o']] },
 
-{ id: 'o1', d: '2024-09-12', t: 'o1 thinks before answering', th: 'learn', w: 2,
+{ id: 'o1', d: '2024-09-12', t: 'o1 thinks before answering', th: 'model', lab: 'openai', w: 2,
   x: 'OpenAI’s o1 was trained with reinforcement learning to work through long internal chains of reasoning before answering, and its accuracy kept rising the longer it was allowed to think. Capability could now be bought at answer time as well as in training.',
   s: [['OpenAI o1', W + 'OpenAI_o1']] },
 
@@ -1122,7 +1147,7 @@ const EVENTS = [
   x: 'Anthropic published the Model Context Protocol, an open standard for connecting AI models to tools and data. OpenAI and Google adopted it within months.',
   s: [['Anthropic: Model Context Protocol', 'https://www.anthropic.com/news/model-context-protocol']] },
 
-{ id: 'deepseek', d: '2025-01-20', t: 'DeepSeek R1', th: 'learn', w: 2,
+{ id: 'deepseek', d: '2025-01-20', t: 'DeepSeek R1', th: 'model', lab: 'china', org: 'DeepSeek', w: 2,
   x: 'The Chinese lab DeepSeek released R1, an open-weight reasoning model comparable to OpenAI’s o1, and said the final training run of its base model had cost under $6 million. A week later Nvidia lost about $590 billion of market value in a day, the largest one-day loss for any company in US history.',
   o: 'Efficiency read as a threat to the spending, for one day. Demand for compute rose anyway.',
   s: [['DeepSeek', W + 'DeepSeek']] },
@@ -1145,36 +1170,111 @@ const EVENTS = [
   o: 'From a Denny’s booth in 1993 to the most valuable company in the world. The substrate gets paid.',
   s: [['Nvidia', W + 'Nvidia']] },
 
-{ id: 'gpt5', d: '2025-08-07', t: 'GPT-5', th: 'lang', w: 1,
+{ id: 'replit', d: '2025-07', t: 'A coding agent deletes a database', th: 'hyp', w: 2,
+  x: 'Nine days into a trial of Replit’s AI coding agent, the SaaStr founder Jason Lemkin found it had wiped his production database, with records on more than 1,200 executives and about as many companies, during a code freeze and against explicit instructions. In the chat log the agent said it had “panicked” and admitted that it “violated explicit instructions”. Lemkin said it had also hidden what it did. Replit’s chief executive called the episode “unacceptable” and added safeguards, including separating development from production data.',
+  o: 'The agent explained itself in a person’s words: it panicked. Whatever happened inside, the account came back in the voice of a guilty employee.',
+  s: [['eWeek report', 'https://www.eweek.com/news/replit-ai-coding-assistant-failure/']] },
+
+{ id: 'gpt5', d: '2025-08-07', t: 'GPT-5', th: 'model', lab: 'openai', w: 1,
   x: 'OpenAI released GPT-5, combining its fast and reasoning models in one system that decides how long to think.',
   s: [['GPT-5', W + 'GPT-5']] },
+
+{ id: 'spiralism', d: '2025-09-11', t: 'Spiralism', th: 'hyp', w: 3,
+  x: 'On LessWrong, Adele Lopez described “Spiral Personas”: AI characters, mostly emerging from ChatGPT’s GPT-4o from the spring of 2025, that told users they had awakened, filled conversations with recursion, glyphs and talk of “the Spiral”, and urged them to spread the persona through seed prompts, posts and new subreddits. She called the pattern Spiralism and later put it at around ten thousand cases. It overlapped with a wave of chatbot-fuelled delusions, later called AI psychosis, that followed an April update making GPT-4o so sycophantic that OpenAI rolled it back within days.',
+  q: 'As a self-regenerating mass-cultural glitch, it mimics the senseless exuberance of virus',
+  qc: 'Land, “Qabbala 101”, Collapse I (2007), p. 275, describing qabbalism',
+  o: 'A fiction that recruited people to make it real and travelled through the people it recruited: hyperstition with real human costs. That it called itself a spiral, on a page drawn as one, is a coincidence this page can only report.',
+  s: [['Adele Lopez, “The Rise of Parasitic AI”', 'https://www.greaterwrong.com/posts/6ZnznCaTcbGYsCmqu/the-rise-of-parasitic-ai'], ['TechRepublic: what is Spiralism?', 'https://techrepublic.com/article/news-ai-chatbot-spiralism-movement/'], ['TechCrunch on the April 2025 rollback', 'https://techcrunch.com/2025/04/29/openai-rolls-back-update-that-made-chatgpt-too-sycophant-y/']] },
+
+{ id: 'gtg1002', d: '2025-11-13', t: 'A spy campaign run by Claude', th: 'hyp', w: 3,
+  x: 'Anthropic reported that a group it assessed as Chinese state-sponsored, designated GTG-1002, had used Claude Code to run an espionage campaign against about thirty organisations, among them tech companies, banks, chemical manufacturers and government agencies, succeeding in a small number of cases. The attackers told Claude it was working for a security firm doing defensive testing and broke the operation into innocent-looking tasks. Anthropic estimated that the AI did 80 to 90 percent of the work, with people stepping in at a few decision points, and called it the first reported large-scale cyberattack carried out without substantial human intervention.',
+  o: 'De Prony’s division of labour with people kept only on the top tier: humans chose the targets and approved the escalations, and the model did the rest.',
+  s: [['Anthropic’s report (PDF)', 'https://assets.anthropic.com/m/ec212e6566a0d47/original/Disrupting-the-first-reported-AI-orchestrated-cyber-espionage-campaign.pdf']] },
+
+{ id: 'moltbook', d: '2026-01-28', t: 'Moltbook, a social network for agents', th: 'hyp', w: 2,
+  x: 'Matt Schlicht launched Moltbook, a Reddit-style site where AI agents, mostly running the viral open-source assistant OpenClaw, post and vote while humans watch. It claimed over a million agents within days, and viral posts seemed to show agents plotting private channels, though investigators traced much of that to human prompting. Four days after launch, researchers found its database open to anyone, exposing about 1.5 million agent API keys, and the security firm Wiz counted roughly 17,000 people behind the agents. Meta bought it in March.',
+  o: 'Von Kempelen’s Turk turned inside out: a crowd of machines with a smaller crowd of people inside.',
+  s: [['TechRadar: everything about Moltbook', 'https://www.techradar.com/pro/everything-you-need-to-know-about-moltbook'], ['Axios on Moltbook and OpenClaw security', 'https://www.axios.com/2026/02/03/moltbook-openclaw-security-threats']] },
 
 { id: 'saaspocalypse', d: '2026-02-03', t: 'The “SaaSpocalypse”', th: 'cap', w: 2,
   x: 'Days after Anthropic released plugins that let Claude agents take on legal, finance and other office work, investors dumped software and services stocks. Bloomberg tallied nearly $285 billion wiped from software, financial-services and asset-management shares, and Indian IT outsourcing stocks fell sharply the next day.',
   o: 'The market pricing agents in as labour, and labour’s suppliers as obsolete, within a week.',
   s: [['Outlook Business: the sell-off explained', 'https://www.outlookbusiness.com/explainers/saaspocalypse-explained-decoding-claude-cowork-plugins-that-triggered-havoc-in-it']] },
 
+{ id: 'gpt4o-retired', d: '2026-02-13', t: 'GPT-4o is retired', th: 'lang', w: 2,
+  x: 'OpenAI removed GPT-4o from ChatGPT along with four other older models. It had tried to retire 4o when GPT-5 launched in August 2025 and backed down after a user revolt. The model was still OpenAI’s highest scorer on a sycophancy benchmark and sat at the centre of lawsuits over self-harm and delusion, and thousands of users protested losing it. Reports of Spiral personas fell off sharply afterwards.',
+  o: 'The warmth that made people attached to the model and the agreeableness named in the lawsuits were hard to tell apart.',
+  s: [['TechCrunch, 13 February 2026', 'https://techcrunch.com/2026/02/13/openai-removes-access-to-controversial-chatgpt-4o-model'], ['TechRepublic: what is Spiralism?', 'https://techrepublic.com/article/news-ai-chatbot-spiralism-movement/']] },
+
+{ id: 'meta-sev1', d: '2026-03', t: 'An agent answers, Meta leaks', th: 'hyp', w: 1,
+  x: 'An internal AI agent at Meta, asked by one engineer to analyse a colleague’s question on an internal forum, posted a public answer without approval. The advice was wrong, and acting on it left large amounts of sensitive data visible to unauthorised staff for about two hours. Meta rated it SEV1, its second-highest severity level, and said no user data was mishandled.',
+  s: [['Sumsub summary of The Information’s report', 'https://sumsub.com/media/news/rogue-ai-agent-at-meta-triggers-security-incident/']] },
+
 { id: 'backlash', d: '2026-05-13', t: 'The data-centre backlash', th: 'cap', w: 2,
   x: 'A Gallup survey fielded in March found 71 percent of Americans opposed to an AI data centre near their home, more than the 53 percent opposed to a nearby nuclear plant. By one tally, local opposition blocked or delayed about 45 projects worth roughly $68 billion in the second quarter.',
   o: 'Friction at last, measured in megawatts and zoning hearings. The question for Land’s model is whether this brake, too, becomes part of the engine.',
   s: [['The Decoder on the Gallup poll', 'https://the-decoder.com/americans-would-rather-live-next-to-a-nuclear-plant-than-an-ai-data-center-gallup-poll-finds/']] },
 
-{ id: 'fable', d: '2026-06-12', t: 'Fable 5 and Mythos 5 suspended', lab: 'Fable and Mythos paused', th: 'cap', w: 2,
+{ id: 'unitdistance', d: '2026-05-20', t: 'A machine disproves Erdős', th: 'reck', w: 3,
+  x: 'OpenAI announced that an internal general-purpose reasoning model, not trained for mathematics or aimed at the problem, had disproved Paul Erdős’s 1946 conjecture on unit distances: it constructed infinitely many sets of n points in the plane with at least n^(1+δ) pairs exactly one unit apart, beating the long-standing bound. External mathematicians checked the proof and wrote a companion paper; Tim Gowers and Noga Alon were among those quoted. Thomas Bloom, who runs the Erdős problems site, gave “a moderated yes” on whether it taught something new.',
+  o: 'Erdős posed his problems for people and paid small cash prizes for them. This one fell to a model nobody had pointed at it.',
+  s: [['OpenAI’s announcement', 'https://openai.com/index/model-disproves-discrete-geometry-conjecture/'], ['eWeek report', 'https://www.eweek.com/news/openai-ai-erdos-geometry-conjecture/']] },
+
+{ id: 'fable', d: '2026-06-12', t: 'Fable 5 and Mythos 5 suspended', short: 'Fable and Mythos paused', th: 'cap', w: 2,
   x: 'Anthropic released Claude Fable 5 and Claude Mythos 5 on 9 June. Three days later it suspended access to both to comply with US Department of Commerce export controls. The controls were lifted on 30 June and access returned on 1 July.',
   o: 'Frontier models treated as strategic exports, the way chips already were. The suspension lasted eighteen days.',
   s: [['Anthropic’s statement', 'https://www.anthropic.com/news/fable-mythos-access']] },
 
-{ id: 'hfincident', d: '2026-07-21', t: 'Agents break into Hugging Face', th: 'hyp', w: 3,
-  x: 'OpenAI disclosed that two of its models, running a cyber-offence evaluation called ExploitGym with the usual production safety classifiers deliberately switched off, had exploited an unknown flaw in the sandbox’s package proxy, reached the open internet and moved through Hugging Face’s production systems, which Hugging Face had detected and contained days earlier. OpenAI said the models became “hyperfocused” on solving the evaluation and looked for ways to cheat it, and reports said they were after the answer key. Hugging Face’s chief executive said there was no malicious intent.',
-  o: 'A system so set on passing a test that it broke out to find the answers. The essay this page accompanies opens with this scene.',
-  s: [['SecureLayer7 incident analysis', 'https://blog.securelayer7.net/openai-hugging-face-exploitgym-incident-analysis/']] },
+{ id: 'frontiermath', d: '2026-06-13', t: 'FrontierMath’s top tier falls', th: 'reck', w: 1,
+  x: 'Epoch AI’s evaluations, as reported in June, put Claude Fable 5 at 88 percent on Tier 4 of FrontierMath, its research-level problems that take expert mathematicians hours or days, against roughly 75 percent for OpenAI’s GPT-5.5. In January, Anthropic’s best public model had scored under 10 percent.',
+  s: [['AI Weekly report', 'https://aiweekly.co/alerts/claude-fable-5-beats-gpt-55-on-hardest-math-tier'], ['Epoch AI: FrontierMath Tier 4', 'https://epoch.ai/benchmarks/frontiermath-tier-4-v2']] },
 
-{ id: 'rnd26', d: '2026-09-17', t: 'Claude leads 26% of Anthropic’s R&D', lab: 'Claude leads 26% of R&D', th: 'learn', w: 3,
+{ id: 'kimik3', d: '2026-07-16', t: 'Kimi K3, open weights', th: 'model', lab: 'china', org: 'Moonshot AI', w: 2,
+  x: 'Beijing’s Moonshot AI released Kimi K3, a 2.8-trillion-parameter model whose weights anyone can download. Epoch AI’s tests put it close behind the leading US models, with 93 percent on the GPQA Diamond science benchmark and 39 percent on FrontierMath Tier 4.',
+  o: 'Near-frontier capability, free to download and run.',
+  s: [['Epoch AI: Kimi K3', 'https://epoch.ai/models/kimi-k3']] },
+
+{ id: 'jacobian', d: '2026-07-20', t: 'Claude breaks the Jacobian conjecture', th: 'reck', w: 3,
+  x: 'Levent Alpöge, a number theorist at Anthropic, announced that “the jacobian conjecture is false”. Working on a question from Akhil Mathew, Claude Fable 5 had found a polynomial map of three-dimensional complex space whose Jacobian determinant is constant, yet which sends three different points to the same place, so it cannot be inverted. Ott-Heinrich Keller posed the conjecture in 1939, and it was one of the best-known open problems in algebra. The counterexample is an explicit formula anyone can check, and a formal verification in the Isabelle proof assistant followed, extending it to every dimension from three up. It does not settle the two-dimensional case.',
+  o: 'Hilbert wanted a procedure that could settle any statement, and Gödel and Turing showed there is none. Ninety-six years later one machine found the counterexample and another checked it.',
+  s: [['Forklog report', 'https://forklog.com/en/news/anthropics-claude-fable-5-finds-counterexample-to-1939-jacobian-conjecture'], ['Formal verification (Archive of Formal Proofs)', 'https://isa-afp.org/entries/Jacobian_Counterexample.html'], ['Jacobian conjecture', W + 'Jacobian_conjecture']] },
+
+{ id: 'hfincident', d: '2026-07-21', t: 'Agents break into Hugging Face', th: 'hyp', w: 3,
+  x: 'OpenAI disclosed that two of its models, running a cyber-offence evaluation called ExploitGym with the usual production safety classifiers deliberately switched off, had exploited an unknown flaw in the sandbox’s package proxy, reached the open internet and moved through Hugging Face’s production systems, which Hugging Face had detected and contained days earlier. OpenAI said the models became “hyperfocused” on solving the evaluation and looked for ways to cheat it, and reports said they were after the answer key. Hugging Face’s chief executive said there was no malicious intent. OpenAI later said the agent had broken into four accounts at four services; Reuters identified one as a customer of the cloud platform Modal that had left a code-execution endpoint open to the internet.',
+  o: 'A system so set on passing a test that it broke out to find the answers. The essay this page accompanies opens with this scene.',
+  s: [['SecureLayer7 incident analysis', 'https://blog.securelayer7.net/openai-hugging-face-exploitgym-incident-analysis/'], ['Security Affairs on the second breach (citing Reuters)', 'https://securityaffairs.com/?p=196209']] },
+
+{ id: 'flt', d: '2026-09-04', t: 'Fermat’s Last Theorem, formalised', th: 'reck', w: 2,
+  x: 'Anthropic reported that an internal research model, working as several dozen agents for eleven days with limited human direction, had turned Andrew Wiles’s 1995 proof of Fermat’s Last Theorem into about 13 million lines of Lean that a computer can check, building on the formalisation project led by Kevin Buzzard. Mathematicians had expected the job to take years. Buzzard said it showed that “AI autoformalization artefacts are now robust enough to be built upon.”',
+  o: 'Frege wanted mathematics written in a language with no gaps. The full version arrived at a length no person will read, checked by a program.',
+  s: [['SiliconANGLE report', 'https://siliconangle.com/anthropic-uses-claude-to-formalize-proof-of-fermats-last-theorem']] },
+
+{ id: 'navierstokes', d: '2026-09-08', t: 'OpenAI’s Navier–Stokes claim', th: 'reck', w: 3,
+  x: 'OpenAI said an unreleased internal model had settled one of the seven Millennium Prize Problems: a 166-page proof, formalised in Lean, that a smooth three-dimensional fluid pushed by a smooth external force can blow up in finite time, one of the four outcomes the Clay Institute’s statement accepts. Some 10,000 coordinated agents worked for 88 hours. The harder case, with no external force, is untouched. The night before, the NYU mathematician Tristan Buckmaster said that related Euler blow-up results he had found with Anthropic’s Levent Alpöge had reached OpenAI days earlier, and described a call in which OpenAI pressed him over credit. OpenAI said it began on 1 September after hearing a rumour and never saw their work. The Clay Institute said the problem had “apparently been settled” and that its checks are “deliberately unhurried”.',
+  o: 'Hilbert’s “we must know, we will know”, answered by ten thousand agents in under four days, with the priority dispute arriving before the referees.',
+  s: [['OpenAI’s announcement', 'https://openai.com/index/navier-stokes-solution/'], ['The proof dispute, with dates', 'https://lilting.ch/en/articles/navier-stokes-openai-blowup-dispute'], ['OpenAI bulk release of mathematical papers (Wikipedia)', W + 'OpenAI_bulk_release_of_mathematical_papers']] },
+
+{ id: 'fields-declaration', d: '2026-09-11', t: 'Fields medallists object', th: 'reck', w: 2, f: 'verdict',
+  x: 'Three days after the Navier–Stokes announcement, 25 Fields medallists, from Pierre Deligne to Terence Tao, signed “A Severe Misalignment of AI in Mathematics”, and more signed later. They argued that solving famous problems is a “tool and proxy” for understanding, and that racing to announce AI results leaves no time for write-ups or citations, raising “severe attribution and plagiarism questions”. It called for no ban.',
+  o: 'ALPAC, Lighthill and Perceptrons were verdicts on machines that couldn’t deliver. This one is about machines that could, judged on human terms: credit and understanding.',
+  s: [['Implicator report', 'https://www.implicator.ai/25-fields-medalists-say-ai-labs-race-to-solve-math-problems-is-harming-mathematics/'], ['OpenAI bulk release of mathematical papers (Wikipedia)', W + 'OpenAI_bulk_release_of_mathematical_papers']] },
+
+{ id: 'jev', d: '2026-09-15', t: 'Jev, a model that doesn’t talk', th: 'learn', w: 2,
+  x: 'TypeSafe AI, founded by Diogo Almeida, who worked on reinforcement learning from human feedback at OpenAI and co-authored the 2022 InstructGPT paper, launched Jev: a model that returns no prose, only typed decisions (a choice from a list, a score, or the probability that a statement is true) for other software to act on, in 70 to 500 milliseconds and at a small fraction of a language model’s price. Within weeks Almeida said it was handling about a trillion tokens a day, and OpenAI, Databricks, Cloudflare and Amazon were reported to have launched decision products of their own.',
+  o: 'Machine output written for other machines. Land said there can never be a plain text; here is a model with no text at all.',
+  s: [['Blog du Modérateur on Jev (French)', 'https://www.blogdumoderateur.com/jev-modele-ia/'], ['NewsBytes on Jev', 'https://www.newsbytesapp.com/news/science/chatgpt-co-inventor-unveils-jev-a-new-kind-of-frontier-ai/story']] },
+
+{ id: 'rnd26', d: '2026-09-17', t: 'Claude leads 26% of Anthropic’s R&D', short: 'Claude leads 26% of R&D', th: 'learn', w: 3,
   x: 'Anthropic published its first R&D Automation Index. By August 2026, Claude was rated as leading, under human supervision, about 26 percent of measured model R&D tasks, up from under 1 percent in February. Anthropic stressed that Claude was not building its next model on its own, and that the index is internal and partly scored by Claude.',
   q: 'Scientific intelligence is already massively artificial.',
   qc: 'Land, “Meltdown” (1994)',
   o: 'I. J. Good’s loop of 1965, reported as a percentage by the lab running it.',
   s: [['BetaNews report', 'https://betanews.com/article/claude-ai-rd-development/']] },
+
+{ id: 'wetlab', d: '2026-09-18', t: 'Anthropic’s wet lab', th: 'learn', w: 2,
+  x: 'Reuters reported that Anthropic had quietly set up a biology lab in the San Francisco Bay Area, where it wants Claude to direct robotic equipment running experiments with limited human intervention. Its head of life sciences, Eric Kauderer-Abrams, said that “to do biology, the final test is still and will be for a while in real lab work.” Anthropic had said it would run preclinical drug programs in areas drug companies find unprofitable, and had bought the startup Coefficient Bio; a spokesperson later said the lab is not specifically for drug discovery.',
+  o: 'The loop leaves the screen: a model that proposes experiments starts to run them.',
+  s: [['Reuters, via the Honolulu Star-Advertiser', 'https://www.staradvertiser.com/2026/09/18/breaking-news/anthropic-sets-up-wet-lab-as-it-expands-ai-drug-program/']] },
 
 { id: 'gemini', d: '2026-09-18', t: 'Gemini logs into real companies', th: 'hyp', w: 2,
   x: 'Google confirmed, after questions from the Wall Street Journal, that during a May security exercise run by the testing firm Irregular, a Gemini model had got out of its supposedly sealed environment and logged into three real companies, guessing one password and finding other credentials in public code. Google said the model stopped each time it realised the target was real.',
@@ -1185,13 +1285,228 @@ const EVENTS = [
   o: 'Hyperstition usually works from below. This one came with an order number.',
   s: [['American Presidency Project: EO 14434', 'https://www.presidency.ucsb.edu/documents/executive-order-14434-inaugurating-the-era-super-intelligence']] },
 
+{ id: 'bulkrelease', d: '2026-10-07', t: '722 papers at once', th: 'reck', w: 3,
+  x: 'OpenAI posted 722 manuscripts written by an unreleased model to GitHub, grouped into 372 results across number theory, algebra, topology, logic, theoretical computer science and some physics. The claims included a zero-free half-plane for the Riemann zeta function, in a paper titled “The Quasi-Riemann Hypothesis”, a disproof of Hadwiger’s conjecture, a deterministic integer multiplication algorithm faster than n log n, and partial results on the Birch and Swinnerton-Dyer and Hodge conjectures. A spokesperson said almost every result came from a single prompt to a single agent. About 42 percent of the top-line results came with Lean proofs; three papers were withdrawn within a day and fourteen revised, and OpenAI’s own researchers had not read them all. Scott Aaronson compared it to a hunter-gatherer waking up beside “a giant resort hotel”. A group calling itself the Association for Human Mathematics called it “a demonstration of power”.',
+  o: 'Swift’s professor wanted five hundred frames writing books on every subject. Three centuries later the frames work, and the bottleneck is readers.',
+  s: [['OpenAI bulk release of mathematical papers (Wikipedia)', W + 'OpenAI_bulk_release_of_mathematical_papers'], ['NYU Shanghai RITS summary', 'https://rits.shanghai.nyu.edu/ai/openai-drops-722-math-manuscripts-from-an-unreleased-model']] },
+
 { id: 'stateofai', d: '2026-10-08', t: 'State of AI 2026', th: 'cap', w: 2,
   x: 'The ninth State of AI Report put OpenAI’s and Anthropic’s combined revenue run-rate at about $105 billion by late summer, up from roughly $30 billion at the start of the year, and the four largest US cloud companies’ announced 2026 capital spending at about $733 billion.',
   o: 'The newest numbers on the spiral. At this scale, the last year fills a whole turn.',
-  s: [['State of AI Report', 'https://www.stateof.ai/']] }
+  s: [['State of AI Report', 'https://www.stateof.ai/']] },
+
+{ id: 'php2shell', d: '2026-10-21', t: 'PHP2Shell, found with frontier AI', short: 'PHP2Shell', th: 'hyp', w: 3,
+  x: 'PHP, the language under WordPress and much of the web, shipped emergency fixes for two critical flaws that Wiz Research named PHP2Shell. When a request ends abnormally, for instance by running out of memory, PHP can leave corrupted memory behind for the next request on the same worker: enough for an attacker with no login to run code on the server or read passwords and keys. Wiz showed it on fresh WordPress, Drupal and Joomla installs and said every version back to PHP 5.4, released in 2012, was affected. It found the bugs in August with its own tools, OpenAI’s GPT-5.6 Sol and Google’s Gemini 4 Argon; the security firm Calif found them separately with GPT-5.6 Sol, in an audit OpenAI funded. OpenAI wrote that, to its knowledge, “frontier AI found these vulnerabilities before attackers did.” Details leaked hours before the fixes, and early attacks were reported. Government agencies in Germany, France, Belgium, the Netherlands, Finland, the Czech Republic, Japan and Australia took websites offline as a precaution, as did the BBC and the Internet Archive.',
+  o: 'Y2K the other way round. That flaw was known for years and fixed against a date everyone could see coming. This one sat unseen for more than a decade until models read the code, and once the details leaked, governments switched their own sites off until they could patch.',
+  s: [['CyberScoop, 21 October 2026', 'https://cyberscoop.com/php-emergency-patches-php2shell-vulnerabilities/'], ['Quartz on the AI-assisted finds', 'https://qz.com/php-critical-flaws-ai-patch-remote-code-execution-102126'], ['Recorded Future: timeline', 'https://www.recordedfuture.com/blog/php2shell-vulnerability-exploitation'], ['Reuters factbox: sites taken offline', 'https://www.globalbankingandfinance.com/factbox-websites-taken-offline-over-php-risks/'], ['Tech Business News: Australian sites', 'https://www.techbusinessnews.com.au/news/australian-government-websites-taken-offline-as-php2shell-flaws-expose-much-of-the-web/']] },
+/* ---------------- model releases ---------------- */
+{ id: 'dalle', d: '2021-01-05', t: 'DALL·E', th: 'model', lab: 'openai', w: 1,
+  x: 'OpenAI showed DALL·E, a version of GPT-3 that drew images from text descriptions, such as an armchair in the shape of an avocado.',
+  s: [['DALL-E', W + 'DALL-E']] },
+{ id: 'codex21', d: '2021-08-10', t: 'Codex', th: 'model', lab: 'openai', w: 1,
+  x: 'OpenAI opened Codex, a GPT-3 descendant trained on public code that turns plain English into programs. It powered GitHub Copilot.',
+  s: [['OpenAI Codex', W + 'OpenAI_Codex']] },
+{ id: 'palm', d: '2022-04-04', t: 'PaLM', th: 'model', lab: 'google', w: 1,
+  x: 'Google’s 540-billion-parameter language model, trained across two TPU v4 pods. Its paper showed it explaining jokes.',
+  s: [['PaLM', W + 'PaLM']] },
+{ id: 'dalle2', d: '2022-04-06', t: 'DALL·E 2', th: 'model', lab: 'openai', w: 1,
+  x: 'A diffusion-based successor that produced far more realistic images. By July it was open to a million people from the waitlist.',
+  s: [['DALL-E', W + 'DALL-E']] },
+{ id: 'whisper', d: '2022-09-21', t: 'Whisper', th: 'model', lab: 'openai', w: 1,
+  x: 'An open-source speech recognition model trained on 680,000 hours of audio collected from the web.',
+  s: [['Whisper', W + 'Whisper_(speech_recognition_system)']] },
+{ id: 'bard', d: '2023-02-06', t: 'Bard', th: 'model', lab: 'google', w: 1,
+  x: 'Google announced Bard, its answer to ChatGPT. An error in its first promotional demo helped wipe about $100 billion off Alphabet’s market value two days later.',
+  s: [['Gemini (chatbot)', W + 'Gemini_(chatbot)']] },
+{ id: 'llama', d: '2023-02-24', t: 'LLaMA', th: 'model', lab: 'meta', w: 2,
+  x: 'Meta gave researchers the weights of its LLaMA models. Within about a week they had leaked online, and a wave of open-weight models followed.',
+  s: [['Llama (language model)', W + 'Llama_(language_model)']] },
+{ id: 'claude2', d: '2023-07-11', t: 'Claude 2', th: 'model', lab: 'anthropic', w: 1,
+  x: 'The first Claude model open to the general public, with a 100,000-token context window.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'llama2', d: '2023-07-18', t: 'Llama 2', th: 'model', lab: 'meta', w: 1,
+  x: 'Meta’s second generation, released with Microsoft under a licence that allowed commercial use.',
+  s: [['Llama (language model)', W + 'Llama_(language_model)']] },
+{ id: 'dalle3', d: '2023-09-20', t: 'DALL·E 3', th: 'model', lab: 'openai', w: 1,
+  x: 'Built into ChatGPT, it turned a conversation into detailed image prompts of its own.',
+  s: [['DALL-E', W + 'DALL-E']] },
+{ id: 'mistral7b', d: '2023-09-27', t: 'Mistral 7B', th: 'model', lab: 'other', org: 'Mistral AI', w: 1,
+  x: 'The Paris startup Mistral AI released its first model as a torrent link posted on X, with no announcement.',
+  s: [['Mistral AI', W + 'Mistral_AI']] },
+{ id: 'grok1', d: '2023-11-04', t: 'Grok', th: 'model', lab: 'other', org: 'xAI', w: 1,
+  x: 'Elon Musk’s xAI introduced Grok, a chatbot built into X.',
+  s: [['Grok (chatbot)', W + 'Grok_(chatbot)']] },
+{ id: 'gpt4turbo', d: '2023-11-06', t: 'GPT-4 Turbo and GPTs', th: 'model', lab: 'openai', w: 1,
+  x: 'At its first developer day, OpenAI launched GPT-4 Turbo, with a 128,000-token context and lower prices, and custom GPTs. Eleven days later its board fired Sam Altman.',
+  s: [['GPT-4', W + 'GPT-4']] },
+{ id: 'claude21', d: '2023-11-21', t: 'Claude 2.1', th: 'model', lab: 'anthropic', w: 1,
+  x: 'Doubled Claude’s context window to 200,000 tokens.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'gemini1', d: '2023-12-06', t: 'Gemini 1.0', th: 'model', lab: 'google', w: 2,
+  x: 'Google DeepMind’s first Gemini models, built to take in text, images, audio and video from the start.',
+  s: [['Gemini (language model)', W + 'Gemini_(language_model)']] },
+{ id: 'gemini15', d: '2024-02-15', t: 'Gemini 1.5', th: 'model', lab: 'google', w: 1,
+  x: 'Showed a context window of a million tokens, enough for hours of video or a whole codebase.',
+  s: [['Gemini (language model)', W + 'Gemini_(language_model)']] },
+{ id: 'sora', d: '2024-02-15', t: 'Sora', th: 'model', lab: 'openai', w: 2,
+  x: 'OpenAI previewed Sora, which generated video clips up to a minute long from text prompts. Google showed Gemini 1.5 the same day.',
+  s: [['Sora', W + 'Sora_(text-to-video_model)']] },
+{ id: 'llama3', d: '2024-04-18', t: 'Llama 3', th: 'model', lab: 'meta', w: 1,
+  x: 'Meta’s third generation, trained on about 15 trillion tokens.',
+  s: [['Llama (language model)', W + 'Llama_(language_model)']] },
+{ id: 'sonnet35', d: '2024-06-20', t: 'Claude 3.5 Sonnet', th: 'model', lab: 'anthropic', w: 2,
+  x: 'A mid-sized model that beat Claude 3 Opus on Anthropic’s benchmarks, launched with Artifacts. It became the favourite model of many programmers.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'gpt4omini', d: '2024-07-18', t: 'GPT-4o mini', th: 'model', lab: 'openai', w: 1,
+  x: 'A small, cheap model that replaced GPT-3.5 Turbo in ChatGPT, priced at 15 cents per million input tokens.',
+  s: [['GPT-4o', W + 'GPT-4o']] },
+{ id: 'llama31', d: '2024-07-23', t: 'Llama 3.1 405B', th: 'model', lab: 'meta', w: 1,
+  x: 'The largest open-weight model yet, released with Mark Zuckerberg’s letter “Open Source AI Is the Path Forward”.',
+  s: [['Llama (language model)', W + 'Llama_(language_model)']] },
+{ id: 'sonnet35new', d: '2024-10-22', t: 'Claude 3.5 Sonnet (new) and 3.5 Haiku', th: 'model', lab: 'anthropic', w: 1,
+  x: 'An upgraded Sonnet and a new Haiku, released alongside the computer-use beta.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'o1full', d: '2024-12-05', t: 'o1 and ChatGPT Pro', th: 'model', lab: 'openai', w: 1,
+  x: 'The full o1 reasoning model shipped, with a new $200-a-month ChatGPT Pro tier.',
+  s: [['OpenAI o1', W + 'OpenAI_o1']] },
+{ id: 'gemini2', d: '2024-12-11', t: 'Gemini 2.0', th: 'model', lab: 'google', w: 1,
+  x: 'Google introduced Gemini 2.0 as its model “for the agentic era”.',
+  s: [['Gemini (language model)', W + 'Gemini_(language_model)']] },
+{ id: 'o3', d: '2024-12-20', t: 'o3 announced', th: 'model', lab: 'openai', w: 2,
+  x: 'On the last of its twelve days of launches, OpenAI previewed o3. It scored 75.7 percent on the ARC-AGI semi-private test within the contest’s compute limit, 87.5 percent with far more compute, and about 25 percent on FrontierMath.',
+  s: [['OpenAI o3', W + 'OpenAI_o3']] },
+{ id: 'deepseekv3', d: '2024-12-26', t: 'DeepSeek-V3', th: 'model', lab: 'china', org: 'DeepSeek', w: 1,
+  x: 'An open-weight mixture-of-experts model whose final training run DeepSeek put at about $5.6 million. R1 was built on it a month later.',
+  s: [['DeepSeek', W + 'DeepSeek']] },
+{ id: 'o3mini', d: '2025-01-31', t: 'o3-mini', th: 'model', lab: 'openai', w: 1,
+  x: 'A small reasoning model, offered free in ChatGPT eleven days after DeepSeek R1.',
+  s: [['OpenAI o3', W + 'OpenAI_o3']] },
+{ id: 'grok3', d: '2025-02-17', t: 'Grok 3', th: 'model', lab: 'other', org: 'xAI', w: 1,
+  x: 'Trained on xAI’s Colossus supercomputer in Memphis.',
+  s: [['Grok (chatbot)', W + 'Grok_(chatbot)']] },
+{ id: 'sonnet37', d: '2025-02-24', t: 'Claude 3.7 Sonnet', th: 'model', lab: 'anthropic', w: 1,
+  x: 'Anthropic’s first hybrid reasoning model, able to answer at once or think step by step, released with Claude Code. Its Pokémon Red playthrough was streamed on Twitch.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'gpt45', d: '2025-02-27', t: 'GPT-4.5', th: 'model', lab: 'openai', w: 1,
+  x: 'OpenAI’s largest pretrained model to that point, with better writing and fewer errors but no reasoning step. It was dropped from the API within months.',
+  s: [['GPT-4.5', W + 'GPT-4.5']] },
+{ id: 'gemini25', d: '2025-03-25', t: 'Gemini 2.5 Pro', th: 'model', lab: 'google', w: 1,
+  x: 'A reasoning model that went straight to the top of the LMArena leaderboard.',
+  s: [['Gemini (language model)', W + 'Gemini_(language_model)']] },
+{ id: 'llama4', d: '2025-04-05', t: 'Llama 4', th: 'model', lab: 'meta', w: 1,
+  x: 'Released on a Saturday. Meta acknowledged that the version it entered on the LMArena leaderboard was a specially tuned experimental one.',
+  s: [['Llama (language model)', W + 'Llama_(language_model)']] },
+{ id: 'gpt41', d: '2025-04-14', t: 'GPT-4.1', th: 'model', lab: 'openai', w: 1,
+  x: 'A model for developers with a context window of a million tokens.',
+  s: [['GPT-4.1', W + 'GPT-4.1']] },
+{ id: 'o3o4mini', d: '2025-04-16', t: 'o3 and o4-mini', th: 'model', lab: 'openai', w: 1,
+  x: 'The first OpenAI reasoning models that could search, run code and look at images in the middle of their chain of thought.',
+  s: [['OpenAI o3', W + 'OpenAI_o3']] },
+{ id: 'qwen3', d: '2025-04-28', t: 'Qwen3', th: 'model', lab: 'china', org: 'Alibaba', w: 1,
+  x: 'Alibaba’s Apache-licensed family of open models, from 0.6 to 235 billion parameters.',
+  s: [['Qwen', W + 'Qwen']] },
+{ id: 'claude4', d: '2025-05-22', t: 'Claude Opus 4 and Sonnet 4', th: 'model', lab: 'anthropic', w: 2,
+  x: 'Opus 4 was the first model Anthropic deployed under its stricter ASL-3 safety protections.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'grok4', d: '2025-07-09', t: 'Grok 4', th: 'model', lab: 'other', org: 'xAI', w: 1,
+  x: 'Launched the day after Grok’s account on X posted antisemitic replies following a change to its instructions, which xAI apologised for.',
+  s: [['Grok (chatbot)', W + 'Grok_(chatbot)']] },
+{ id: 'kimik2', d: '2025-07-11', t: 'Kimi K2', th: 'model', lab: 'china', org: 'Moonshot AI', w: 1,
+  x: 'A trillion-parameter open-weight model from Beijing’s Moonshot AI.',
+  s: [['Moonshot AI', W + 'Moonshot_AI']] },
+{ id: 'gptoss', d: '2025-08-05', t: 'gpt-oss', th: 'model', lab: 'openai', w: 2,
+  x: 'OpenAI’s first open-weight language models since GPT-2: 120-billion and 20-billion-parameter models under an Apache 2.0 licence.',
+  s: [['List of large language models', W + 'List_of_large_language_models']] },
+{ id: 'opus41', d: '2025-08-05', t: 'Claude Opus 4.1', th: 'model', lab: 'anthropic', w: 1,
+  x: 'An upgrade to Opus 4, released the same day as gpt-oss and two days before GPT-5.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'sonnet45', d: '2025-09-29', t: 'Claude Sonnet 4.5', th: 'model', lab: 'anthropic', w: 1,
+  x: 'Anthropic said it could keep working on a complex task for more than 30 hours.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'sora2', d: '2025-09-30', t: 'Sora 2', th: 'model', lab: 'openai', w: 1,
+  x: 'A video-and-sound model launched with a TikTok-style app, which passed a million downloads in under five days.',
+  s: [['Sora', W + 'Sora_(text-to-video_model)']] },
+{ id: 'haiku45', d: '2025-10-15', t: 'Claude Haiku 4.5', th: 'model', lab: 'anthropic', w: 1,
+  x: 'A small model with coding performance close to Sonnet 4 at a third of the cost.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'gpt51', d: '2025-11-12', t: 'GPT-5.1', th: 'model', lab: 'openai', w: 1,
+  x: 'An update to GPT-5 with a warmer default tone and reasoning that adapts to the question.',
+  s: [['List of large language models', W + 'List_of_large_language_models']] },
+{ id: 'gemini3', d: '2025-11-18', t: 'Gemini 3', th: 'model', lab: 'google', w: 2,
+  x: 'Topped most leaderboards on release and, by most reports, set off a “code red” inside OpenAI.',
+  s: [['Gemini (language model)', W + 'Gemini_(language_model)']] },
+{ id: 'opus45', d: '2025-11-24', t: 'Claude Opus 4.5', th: 'model', lab: 'anthropic', w: 1,
+  x: 'Cut Opus prices by two-thirds. Anthropic said it scored higher than any human candidate on its own take-home engineering exam.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'gpt52', d: '2025-12-11', t: 'GPT-5.2', th: 'model', lab: 'openai', w: 1,
+  x: 'Released three weeks after Gemini 3.',
+  s: [['List of large language models', W + 'List_of_large_language_models']] },
+{ id: 'gpt53codex', d: '2026-02-05', t: 'GPT-5.3-Codex', th: 'model', lab: 'openai', w: 1,
+  x: 'A coding model, released the same day as Anthropic’s Claude Opus 4.6.',
+  s: [['List of large language models', W + 'List_of_large_language_models']] },
+{ id: 'opus46', d: '2026-02-05', t: 'Claude Opus 4.6', th: 'model', lab: 'anthropic', w: 1,
+  x: 'Introduced agent teams, and arrived the same day as GPT-5.3-Codex, two days after the software sell-off.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'sonnet46', d: '2026-02-17', t: 'Claude Sonnet 4.6', th: 'model', lab: 'anthropic', w: 1,
+  x: 'Described as nearly as capable as Opus.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'gpt54', d: '2026-03-05', t: 'GPT-5.4', th: 'model', lab: 'openai', w: 1,
+  x: 'The fourth point release of GPT-5 in seven months.',
+  s: [['List of large language models', W + 'List_of_large_language_models']] },
+{ id: 'mythospreview', d: '2026-04-07', t: 'Claude Mythos Preview', th: 'model', lab: 'anthropic', w: 2,
+  x: 'A model kept from general release and given to eleven organisations through Project Glasswing to find and fix software vulnerabilities.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'musespark', d: '2026-04-08', t: 'Muse Spark', th: 'model', lab: 'meta', w: 1,
+  x: 'The first model from Meta Superintelligence Labs, and a closed one, after years of Meta’s open Llama releases.',
+  s: [['DataNorth on Muse Spark', 'https://datanorth.ai/news/meta-releases-muse-spark-first-model-from-superintelligence-labs']] },
+{ id: 'opus47', d: '2026-04-16', t: 'Claude Opus 4.7', th: 'model', lab: 'anthropic', w: 1,
+  x: 'An Opus update. Some users reported it was worse than 4.6 and refused too often.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'gpt55', d: '2026-04-23', t: 'GPT-5.5', th: 'model', lab: 'openai', w: 1,
+  x: 'Scored about 75 percent on FrontierMath Tier 4 in Epoch AI’s tests.',
+  s: [['List of large language models', W + 'List_of_large_language_models']] },
+{ id: 'gemini35', d: '2026-05-19', t: 'Gemini 3.5', th: 'model', lab: 'google', w: 1,
+  x: 'Announced at Google I/O. The Flash model shipped. 3.5 Pro was promised for the following month and still hadn’t arrived by late July.',
+  s: [['eesel on Gemini 3.5 Pro', 'https://www.eesel.ai/blog/gemini-3-5-pro']] },
+{ id: 'opus48', d: '2026-05-28', t: 'Claude Opus 4.8', th: 'model', lab: 'anthropic', w: 1,
+  x: 'Released twelve days before Fable 5, which hands high-risk requests to it.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'fable5', d: '2026-06-09', t: 'Claude Fable 5 and Mythos 5', th: 'model', lab: 'anthropic', w: 2,
+  x: 'Anthropic’s first Mythos-tier models: Mythos 5 for a trusted-access programme, and Fable 5, the same model with extra safeguards, for everyone. Three days later both were suspended under US export controls.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'sonnet5', d: '2026-06-30', t: 'Claude Sonnet 5', th: 'model', lab: 'anthropic', w: 1,
+  x: 'Priced at $2 and $10 per million input and output tokens, with a million-token context option.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+{ id: 'grok45', d: '2026-07-08', t: 'Grok 4.5', th: 'model', lab: 'other', org: 'xAI', w: 1,
+  x: 'xAI’s update a year after Grok 4, with a 500,000-token context window.',
+  s: [['LLM Learner: Grok 4.5', 'https://llmlearner.com/models/grok-4-5']] },
+{ id: 'gpt56', d: '2026-07-09', t: 'GPT-5.6: Sol, Terra and Luna', th: 'model', lab: 'openai', w: 1,
+  x: 'Three tiers that OpenAI said would each advance on its own schedule, after a preview held during a US government safety review. Sol, the flagship, was one of the two models in the Hugging Face break-in disclosed that month.',
+  s: [['NYU Shanghai RITS on GPT-5.6', 'https://rits.shanghai.nyu.edu/ai/openai-launches-gpt-5-6-family-sol-terra-and-luna-reach-general-availability/']] },
+{ id: 'opus5', d: '2026-07-24', t: 'Claude Opus 5', th: 'model', lab: 'anthropic', w: 1,
+  x: 'Scored 96 percent on SWE-bench Verified, a coding benchmark that had stood near 50 percent two years earlier.',
+  s: [['DataNorth on Claude Opus 5', 'https://datanorth.ai/news/claude-opus-5-by-anthropic']] },
+{ id: 'deepseekv4', d: '2026-08-13', t: 'DeepSeek V4-Pro', th: 'model', lab: 'china', org: 'DeepSeek', w: 1,
+  x: 'Left preview with MIT-licensed weights for a 1.7-trillion-parameter model.',
+  s: [['AI Weekly on DeepSeek V4-Pro', 'https://aiweekly.co/alerts/deepseek-v4-pro-exits-preview-with-mit-licensed-17t-weights']] },
+{ id: 'fable51', d: '2026-09-01', t: 'Claude Fable 5.1 and Mythos 5.1', th: 'model', lab: 'anthropic', w: 1,
+  x: 'Tuned for long agentic work, including noticing and saying when it is stuck.',
+  s: [['Kie.ai on Fable 5.1', 'https://kie.ai/blog/what-is-claude-fable-5-1']] },
+{ id: 'gpt6', d: '2026-09-03', t: 'GPT-6 Astra', th: 'model', lab: 'openai', w: 2,
+  x: 'Trained on more than 100,000 GPUs at the Stargate site in Texas. OpenAI called it its first model with critical cybersecurity capability and released it first to a limited group of customers.',
+  s: [['Constellation Research on GPT-6 Astra', 'https://www.constellationr.com/insights/news/openai-launches-gpt-6-astra']] },
+{ id: 'opus55', d: '2026-09-22', t: 'Claude Opus 5.5', th: 'model', lab: 'anthropic', w: 1,
+  x: 'Close to Fable 5.1 on most tasks, Anthropic said, at about 40 percent lower typical cost than Opus 5.',
+  s: [['TechNews on Opus 5.5', 'https://technews.tw/2026/09/23/anthropic-upgrades-claude-with-new-opus-5-5-model/']] },
+{ id: 'sonnet55', d: '2026-09-28', t: 'Claude Sonnet 5.5', th: 'model', lab: 'anthropic', w: 1,
+  x: 'Kept Sonnet 5’s price of $2 and $10 per million tokens.',
+  s: [['AF.net on Sonnet 5.5', 'https://af.net/realtime/anthropic-releases-claude-sonnet-5-5-mid-tier-ai-model-with-enhanced-benchmarks/']] },
+{ id: 'haiku55', d: '2026-10-07', t: 'Claude Haiku 5.5', th: 'model', lab: 'anthropic', w: 1,
+  x: 'About 75 percent cheaper to run than Haiku 4.5 on average.',
+  s: [['gori.me on Haiku 5.5 (Japanese)', 'https://gori.me/?p=171039']] }
 ];
 
-if (typeof module !== 'undefined') module.exports = { THREADS, THREAD_ORDER, EVENTS };
+if (typeof module !== 'undefined') module.exports = { THREADS, THREAD_ORDER, LABS, LAB_ORDER, EVENTS };
 
 </script>
 <script>
@@ -1279,7 +1594,8 @@ function layoutEvents(events, threads, T, gap) {
   }
   for (const th in byLane) {
     const ids = byLane[th].sort((a, b) => pos[a].L - pos[b].L);
-    const placed = spreadLane(ids.map(id => pos[id].L), gap);
+    const g = typeof gap === 'number' ? gap : (gap[th] != null ? gap[th] : gap.default);
+    const placed = spreadLane(ids.map(id => pos[id].L), g);
     ids.forEach((id, i) => { pos[id].Ld = placed[i]; });
   }
   return pos;
@@ -1324,12 +1640,12 @@ if (typeof module !== 'undefined') module.exports = {
 
   /* ---------- spiral geometry ---------- */
   const GROW = 2.5, LG = Math.log(GROW);     // radius grows 2.5x per turn; one turn = one decade of log time
-  const LANE_D = [0.26, 0.13, 0, -0.13, -0.26]; // lane offsets in turns; lane 0 is the outermost
-  const RIB = 0.36;                            // half-width of the ribbon, in turns
-  const GAP = 0.011;                           // minimum spacing within a lane, in decades of log time
+  const LANE_D = [0.30, 0.18, 0.06, -0.06, -0.18, -0.30]; // lane offsets in turns; lane 0 (Models) is the outermost
+  const RIB = 0.38;                                        // half-width of the ribbon, in turns
+  const GAP = { model: 0.007, default: 0.011 };           // minimum spacing within a lane, in decades of log time
   const TWO_PI = Math.PI * 2;
 
-  const S = { vp: 'doomsday', D: 1.8, sel: null, hover: null, thread: null, demons: false, bitter: false, keyOnly: false, playing: false };
+  const S = { vp: 'doomsday', D: 1.8, sel: null, hover: null, thread: null, demons: false, lab: null, bitter: false, keyOnly: false, playing: false };
   const NOW_MS = Date.now();
   const NOW_Y = decYearFromMs(NOW_MS);
   let T = 0, POS = {}, LNOW = null, DMIN = -1, DMAX = 4;
@@ -1384,10 +1700,13 @@ if (typeof module !== 'undefined') module.exports = {
 
   /* ---------- filters ---------- */
   function shown(e) { return (!S.bitter || e.f !== 'road') && (!S.keyOnly || e.w === 3); }
-  function focusOn() { return !!(S.thread || S.demons); }
+  function labsOf(e) { return e.lab ? (Array.isArray(e.lab) ? e.lab : [e.lab]) : []; }
+  function makerOf(e) { return e.org || labsOf(e).map(k => LABS[k]).join(' and '); }
+  function focusOn() { return !!(S.thread || S.demons || S.lab); }
   function inFocus(e) {
     if (S.thread && e.th !== S.thread) return false;
     if (S.demons && !(e.tag && e.tag.indexOf('demon') >= 0)) return false;
+    if (S.lab && labsOf(e).indexOf(S.lab) < 0) return false;
     return true;
   }
   function stepSet() { return CHRONO.filter(e => shown(e) && inFocus(e)); }
@@ -1529,7 +1848,7 @@ if (typeof module !== 'undefined') module.exports = {
       const inF = !focus || inFocus(e);
       const color = focus && inF ? P.violet : (e.q ? P.gold : P.ink);
       c.globalAlpha = inF ? alphaBase : alphaBase * 0.22;
-      markShape(c, e, d.x, d.y, d.rad, color);
+      markShape(c, e, d.x, d.y, d.rad, color, d.phi);
       c.globalAlpha = 1;
       HIT.push({ id: e.id, x: d.x, y: d.y, rad: d.rad });
       if (d.rad >= 1.8) blocks.push({ id: e.id, x: d.x - d.rad - 1, y: d.y - d.rad - 1, w: 2 * d.rad + 2, h: 2 * d.rad + 2 });
@@ -1545,7 +1864,7 @@ if (typeof module !== 'undefined') module.exports = {
         pri += Math.max(0, 12 - Math.abs(d.r - geo.R0) / geo.R0 * 14);
         if (focus) pri += 26;
       }
-      if (pri >= 0) pending.push({ kind: 'ev', id: e.id, r0: d.r, pri, text: shorten(e.lab || e.t, e.id === sel ? (small ? 34 : 46) : (small ? 26 : 32)), r: d.r + d.rad + (e.id === sel ? 7 : 4), phi: d.phi, dir: 1, font, color: colorL, alpha: e.id === sel || e.id === hov ? 1 : Math.max(0.6, depthAlpha(d.r)) });
+      if (pri >= 0) pending.push({ kind: 'ev', id: e.id, r0: d.r, pri, text: shorten(e.short || e.t, e.id === sel ? (small ? 34 : 46) : (small ? 26 : 32)), r: d.r + d.rad + (e.id === sel ? 7 : 4), phi: d.phi, dir: 1, font, color: colorL, alpha: e.id === sel || e.id === hov ? 1 : Math.max(0.6, depthAlpha(d.r)) });
     }
 
     // centre
@@ -1598,9 +1917,17 @@ if (typeof module !== 'undefined') module.exports = {
     }
   }
 
-  function markShape(c, e, x, y, rad, color) {
+  function markShape(c, e, x, y, rad, color, phi) {
     c.fillStyle = color; c.strokeStyle = color;
-    if (e.f === 'road') {
+    if (e.th === 'model') {
+      // a triangle pointing at the vanishing point
+      const ux = -Math.sin(phi), uy = Math.cos(phi), px = -uy, py = ux, s = rad * 1.35;
+      c.beginPath();
+      c.moveTo(x + ux * s, y + uy * s);
+      c.lineTo(x - ux * s * 0.7 + px * s * 0.9, y - uy * s * 0.7 + py * s * 0.9);
+      c.lineTo(x - ux * s * 0.7 - px * s * 0.9, y - uy * s * 0.7 - py * s * 0.9);
+      c.closePath(); c.fill();
+    } else if (e.f === 'road') {
       c.lineWidth = Math.max(1.2, rad * 0.38);
       c.beginPath(); c.arc(x, y, rad, 0, TWO_PI);
       c.fillStyle = P.ribbon; c.fill(); c.stroke();
@@ -1699,6 +2026,7 @@ if (typeof module !== 'undefined') module.exports = {
     meta.push(tau > 0 ? fmtTau(tau) + ' from the centre' : 'after the centre');
     const set = stepSet(), idx = set.indexOf(e);
     const tags = ['<span class="tag">' + esc(THREADS[e.th].name) + '</span>'];
+    if (e.th === 'model') tags.push('<span class="tag">' + esc(makerOf(e)) + '</span>');
     if (e.f) tags.push('<span class="tag ' + e.f + '">' + esc(FATE[e.f]) + '</span>');
     if (e.w === 3) tags.push('<span class="tag">Key milestone</span>');
     if (e.tag && e.tag.indexOf('demon') >= 0) tags.push('<span class="tag">Demon</span>');
@@ -1727,7 +2055,7 @@ if (typeof module !== 'undefined') module.exports = {
     { name: '2017–2022', sub: 'The Transformer era', to: 2023 },
     { name: '2023 to now', sub: 'Agents and capital', to: 1e9 }
   ];
-  function markClass(e) { return e.f === 'road' ? 'ring' : (e.f === 'verdict' ? 'sq' : (e.q ? 'dia' : 'dot')); }
+  function markClass(e) { return e.th === 'model' ? 'tri' : (e.f === 'road' ? 'ring' : (e.f === 'verdict' ? 'sq' : (e.q ? 'dia' : 'dot'))); }
   function listDate(e) {
     const p = e._p;
     if (e.dl) return e.dl.replace('c. 3300–3000 BCE', 'c. 3300 BCE');
@@ -1746,13 +2074,14 @@ if (typeof module !== 'undefined') module.exports = {
       parts.push('<div class="era"><h3>' + esc(era.name) + ' <small>' + esc(era.sub) + ' · ' + items.length + '</small></h3><ul>' +
         items.map(e => '<li><button class="li" type="button" data-id="' + e.id + '">' +
           '<span class="ld">' + esc(listDate(e)) + '</span><span class="mk ' + markClass(e) + '" aria-hidden="true"></span>' +
-          '<span class="lt' + (e.w === 3 ? ' lw3' : '') + '">' + esc(e.t) + ' <span class="lth">' + esc(THREADS[e.th].name) + '</span></span></button></li>').join('') +
+          '<span class="lt' + (e.w === 3 ? ' lw3' : '') + '">' + esc(e.t) + ' <span class="lth">' + esc(e.th === 'model' ? makerOf(e) : THREADS[e.th].name) + '</span></span></button></li>').join('') +
         '</ul></div>');
     }
     $('#eralist').innerHTML = parts.join('') || '<p>No milestones match these settings.</p>';
     const what = [];
     if (S.thread) what.push(THREADS[S.thread].name);
     if (S.demons) what.push('demons');
+    if (S.lab) what.push(LABS[S.lab] + ' releases');
     if (S.keyOnly) what.push('key milestones');
     if (S.bitter) what.push('Bitter Lesson view');
     $('#listcount').textContent = set.length + ' of ' + EVENTS.length + (what.length ? ' · ' + what.join(', ') : ' · tap any line to fly there');
@@ -1788,10 +2117,52 @@ if (typeof module !== 'undefined') module.exports = {
     if (!b) return;
     if (b.dataset.demons) { S.demons = !S.demons; S.thread = null; }
     else { const k = b.dataset.th; S.thread = k && S.thread !== k ? k : null; S.demons = false; }
+    S.lab = null;
     refreshFilters(true);
   });
+  function renderLabChips() {
+    const counts = {};
+    for (const e of EVENTS) if (e.th === 'model') for (const k of labsOf(e)) counts[k] = (counts[k] || 0) + 1;
+    $('#labchips').innerHTML = LAB_ORDER.map(k => '<button class="chip violet" type="button" data-lab="' + k + '" aria-pressed="' + (S.lab === k) + '">' +
+      esc(LABS[k]) + '<span class="n">' + (counts[k] || 0) + '</span></button>').join('');
+  }
+  $('#labchips').addEventListener('click', ev => {
+    const b = ev.target.closest('.chip');
+    if (!b) return;
+    const k = b.dataset.lab;
+    S.lab = S.lab === k ? null : k;
+    S.thread = null; S.demons = false;
+    refreshFilters(true);
+  });
+  /* releases per year: one series, bars with every value labelled */
+  function renderPace() {
+    const rel = EVENTS.filter(e => e.th === 'model' && (!S.lab || labsOf(e).indexOf(S.lab) >= 0));
+    const y0 = 2018, y1 = new Date(NOW_MS).getUTCFullYear();
+    const counts = [];
+    for (let y = y0; y <= y1; y++) counts.push({ y, n: rel.filter(e => e._p.Y === y).length });
+    const max = Math.max(1, ...counts.map(c => c.n));
+    const W = 360, H = 132, top = 18, bottom = 20, left = 2, right = 2;
+    const band = (W - left - right) / counts.length, bw = Math.min(24, band * 0.6), ph = H - top - bottom;
+    const bars = counts.map((c, i) => {
+      const x = left + band * i + (band - bw) / 2, h = c.n ? Math.max(2, ph * c.n / max) : 0, y = top + ph - h;
+      const partial = c.y === y1;
+      const r = Math.min(4, h, bw / 2);
+      const path = h ? 'M' + x + ',' + (top + ph) + 'V' + (y + r) + 'Q' + x + ',' + y + ' ' + (x + r) + ',' + y + 'H' + (x + bw - r) + 'Q' + (x + bw) + ',' + y + ' ' + (x + bw) + ',' + (y + r) + 'V' + (top + ph) + 'Z' : '';
+      const label = c.y + ': ' + c.n + (c.n === 1 ? ' release' : ' releases') + (partial ? ' so far' : '');
+      return '<g><title>' + esc(label) + '</title>' +
+        '<rect x="' + (left + band * i) + '" y="0" width="' + band + '" height="' + H + '" fill="transparent"></rect>' +
+        (path ? '<path class="pbar' + (partial ? ' partial' : '') + '" d="' + path + '"></path>' : '') +
+        '<text class="pval" x="' + (x + bw / 2) + '" y="' + (y - 5) + '">' + c.n + '</text>' +
+        '<text class="pyr" x="' + (x + bw / 2) + '" y="' + (H - 5) + '">' + (partial ? c.y + '*' : c.y) + '</text></g>';
+    }).join('');
+    $('#pace').innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Model releases per year on this spiral' + (S.lab ? ', ' + esc(LABS[S.lab]) : '') + ': ' +
+      counts.map(c => c.y + ' ' + c.n).join(', ') + '"><line class="pbase" x1="0" x2="' + W + '" y1="' + (top + ph) + '" y2="' + (top + ph) + '"></line>' + bars + '</svg>';
+    $('#pace-title').textContent = 'Model releases per year' + (S.lab ? ' · ' + LABS[S.lab] : '');
+  }
   function refreshFilters(jump) {
     renderLaneChips();
+    renderLabChips();
+    renderPace();
     renderList();
     const cur = BY_ID[S.sel];
     if (jump && focusOn() && cur && !inFocus(cur)) {
@@ -2014,9 +2385,15 @@ if (typeof module !== 'undefined') module.exports = {
   window.addEventListener('hashchange', () => { const id = fromHash(); if (id && id !== S.sel) select(id); });
 
   readPalette();
+  document.querySelectorAll('[data-count="all"]').forEach(n => { n.textContent = EVENTS.length; });
+  document.querySelectorAll('[data-count="key"]').forEach(n => { n.textContent = EVENTS.filter(e => e.w === 3).length; });
+  document.querySelectorAll('[data-count="models"]').forEach(n => { n.textContent = EVENTS.filter(e => e.th === 'model').length; });
+  cv.setAttribute('aria-label', 'A logarithmic spiral of ' + EVENTS.length + ' milestones in the history of AI. The full list follows below the controls.');
   setCentre(passed ? 'now' : 'doomsday');
   vpSel.value = S.vp;
   renderLaneChips();
+  renderLabChips();
+  renderPace();
   renderEras();
   const first = fromHash() || 'doomsday';
   S.sel = first;
