@@ -1,0 +1,2032 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="The history of AI on a zoomable logarithmic spiral, from the first ledgers to this month, centred on von Foerster's 1960 Doomsday date.">
+<meta property="og:title" content="Vanishing Point">
+<meta property="og:description" content="The history of AI on a zoomable logarithmic spiral, from the first ledgers to this month, centred on von Foerster's 1960 Doomsday date.">
+<meta name="twitter:card" content="summary">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>Vanishing Point</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Major+Mono+Display&display=swap">
+<style>
+:root {
+  /* Layout: an instrument. Masthead, then the stage: the spiral tunnel with its transport and lane
+     controls on the left and the milestone card on the right (stacked under 1040px: tunnel, transport,
+     card, lanes). The full chronological list and the notes follow underneath. */
+  --bg: #E9ECEB;
+  --surface: #F5F7F6;
+  --ribbon: #E4E9E7;
+  --ink: #15181A;
+  --muted: #586168;
+  --rule: #C6CDCE;
+  --gold: #9A7A00;
+  --violet: #6E4FD0;
+  --crimson: #C23B5A;
+  --gold-tint: #E0DECF;
+  --violet-tint: #DAD9E8;
+  --display: "Major Mono Display", "IBM Plex Mono", ui-monospace, monospace;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --t-xs: 12px;
+  --t-sm: 13.5px;
+  --t-md: 15.5px;
+  --t-lg: 19px;
+  --t-xl: 24px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101316; --surface: #161A1E; --ribbon: #1D2328; --ink: #E3E7E5; --muted: #9AA3A9; --rule: #2E363C;
+    --gold: #B48C22; --violet: #9070EA; --crimson: #DD4A76;
+    --gold-tint: #272418; --violet-tint: #222034;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101316; --surface: #161A1E; --ribbon: #1D2328; --ink: #E3E7E5; --muted: #9AA3A9; --rule: #2E363C;
+  --gold: #B48C22; --violet: #9070EA; --crimson: #DD4A76;
+  --gold-tint: #272418; --violet-tint: #222034;
+  color-scheme: dark;
+}
+
+[hidden] { display: none !important; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: var(--t-md);
+  line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+a { color: var(--ink); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.page {
+  max-width: 1200px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 64px;
+}
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible, canvas:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--ink); outline-offset: 2px;
+}
+
+/* masthead */
+.mast { display: grid; gap: 10px; padding-block: 0 22px; }
+.mast-row { display: grid; gap: 10px; }
+@media (min-width: 900px) {
+  .mast-row { grid-template-columns: auto minmax(0, 54ch); gap: 40px; align-items: end; }
+  .mast-row .lede { padding-bottom: 4px; }
+}
+.kicker { margin: 0; font-family: var(--mono); font-size: var(--t-sm); color: var(--muted); }
+.kicker a { color: var(--muted); }
+.mast h1 {
+  font-family: var(--display); font-weight: 400; margin: 0;
+  font-size: clamp(34px, 9vw, 56px); line-height: 1; letter-spacing: 0.01em;
+}
+.lede { margin: 0; font-size: 17px; line-height: 1.55; text-wrap: pretty; }
+
+/* stage */
+.stage {
+  display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "tunnel" "transport" "card" "lanes";
+}
+.stage > * { min-width: 0; }
+.tunnel-box { grid-area: tunnel; display: grid; gap: 8px; }
+.transport { grid-area: transport; }
+.card { grid-area: card; }
+.lanes { grid-area: lanes; }
+@media (min-width: 1040px) {
+  .stage {
+    grid-template-columns: minmax(0, 1fr) 380px; column-gap: 34px; row-gap: 16px;
+    grid-template-areas: "tunnel card" "transport card" "lanes card"; align-items: start;
+  }
+  .card {
+    position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px);
+    max-height: calc(100vh - 32px - env(safe-area-inset-top, 0px)); overflow-y: auto;
+  }
+}
+
+.tunnel-frame {
+  position: relative; width: 100%; max-width: min(100%, 74vh, 720px); aspect-ratio: 1 / 1; margin-inline: auto;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; overflow: hidden;
+}
+@media (max-width: 1039px) { .tunnel-frame { max-width: min(100%, 640px); } }
+#tunnel { display: block; width: 100%; height: 100%; touch-action: pan-y; cursor: grab; border-radius: 14px; }
+#tunnel.over { cursor: pointer; }
+#tunnel.dragging { cursor: grabbing; }
+.headtag {
+  position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 12px; color: var(--muted); background: var(--surface);
+  padding: 1px 8px; border-radius: 999px; border: 1px solid var(--rule); white-space: nowrap; pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+.vpcap { margin: 0; font-size: var(--t-sm); color: var(--muted); text-align: center; text-wrap: balance; }
+.vpcap b { color: var(--ink); font-weight: 500; }
+
+/* transport */
+.transport { display: grid; gap: 12px; }
+.tbtns { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; }
+.btn {
+  font-family: var(--mono); font-size: 13px; border: 1px solid var(--ink); background: var(--ink); color: var(--bg);
+  border-radius: 6px; padding: 7px 12px; cursor: pointer; white-space: nowrap; line-height: 1.2;
+}
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn:hover { opacity: 0.86; }
+.btn[aria-pressed="true"] { background: var(--crimson); border-color: var(--crimson); color: var(--surface); }
+.depth { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+.depth span { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+input[type="range"] { width: 100%; min-width: 0; accent-color: var(--ink); }
+.eras { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.chip {
+  font-family: var(--sans); font-size: 13px; line-height: 1.3; border: 1px solid var(--rule); background: transparent;
+  color: var(--ink); padding: 4px 10px; border-radius: 999px; cursor: pointer;
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chip .n { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-left: 4px; }
+.chip[aria-pressed="true"] .n { color: inherit; opacity: 0.75; }
+.chip.violet[aria-pressed="true"] { background: var(--violet); border-color: var(--violet); color: var(--surface); }
+
+/* lanes and view options */
+.lanes { display: grid; gap: 12px; border-top: 1px solid var(--rule); padding-top: 14px; }
+.lanes h2, .card h3, .list h2, .about h2 {
+  margin: 0; font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); font-weight: 500;
+}
+.lane-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.opts { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; font-size: var(--t-sm); }
+.opts label { display: inline-flex; gap: 7px; align-items: center; cursor: pointer; }
+.opts input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--ink); margin: 0; }
+.opts select {
+  font-family: var(--mono); font-size: 13.5px; color: var(--ink); background: var(--bg);
+  border: 1px solid var(--rule); border-radius: 6px; padding: 5px 8px; max-width: 100%;
+}
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--muted); margin: 0; padding: 0; list-style: none; }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.mk { width: 10px; height: 10px; flex: none; display: inline-block; }
+.mk.dot { border-radius: 50%; background: var(--ink); }
+.mk.ring { border-radius: 50%; border: 1.5px solid var(--ink); box-sizing: border-box; }
+.mk.sq { width: 8px; height: 8px; background: var(--ink); }
+.mk.dia { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
+.mk.now { width: 3px; height: 12px; background: var(--crimson); }
+.hint { margin: 0; font-size: 12.5px; color: var(--muted); }
+
+/* milestone card */
+.card {
+  background: var(--surface); border: 1.5px solid var(--ink); border-radius: 12px;
+  padding: 16px 18px 14px; display: grid; gap: 12px; align-content: start;
+}
+.card .meta { margin: 0; font-family: var(--mono); font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.card h2 {
+  margin: 0; font-family: var(--sans); font-size: var(--t-xl); line-height: 1.2; font-weight: 600;
+  letter-spacing: -0.005em; text-wrap: balance;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 999px;
+  border: 1px solid var(--rule); color: var(--muted); white-space: nowrap;
+}
+.tag.road { border-style: dashed; color: var(--ink); }
+.tag.verdict { color: var(--ink); }
+.card .x { margin: 0; text-wrap: pretty; }
+.voice { display: grid; gap: 6px; padding: 10px 12px; border-radius: 8px; }
+.voice.texts { background: var(--gold-tint); }
+.voice.page { border: 1px dashed var(--rule); }
+.voice h3 { color: var(--muted); }
+.voice.texts h3 { color: var(--gold); }
+.voice blockquote { margin: 0; font-size: 16px; line-height: 1.5; font-style: italic; text-wrap: pretty; }
+.voice .qc { margin: 0; font-size: 12.5px; color: var(--muted); }
+.voice p { margin: 0; font-size: 14.5px; line-height: 1.55; text-wrap: pretty; }
+.srcs { margin: 0; padding: 0; list-style: none; display: grid; gap: 3px; font-size: 13px; }
+.srcs li { overflow-wrap: anywhere; }
+.srcs a { color: var(--muted); }
+.srcs a:hover { color: var(--ink); }
+.cardnav { display: flex; gap: 8px; align-items: center; justify-content: space-between; border-top: 1px solid var(--rule); padding-top: 10px; }
+.cardnav .pos { font-family: var(--mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* list */
+.list { margin-top: 44px; display: grid; gap: 18px; }
+.list-head { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; justify-content: space-between; border-bottom: 1.5px solid var(--ink); padding-bottom: 8px; }
+.list-head h2 { color: var(--ink); font-size: 13px; }
+.list-head p { margin: 0; font-size: var(--t-sm); color: var(--muted); }
+.era { display: grid; gap: 6px; }
+.era h3 { margin: 0; font-size: var(--t-lg); font-weight: 600; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.era h3 small { font-size: var(--t-sm); font-weight: 400; color: var(--muted); }
+.era ul { list-style: none; margin: 0; padding: 0; columns: 2 330px; column-gap: 34px; }
+.era li { break-inside: avoid; }
+.li {
+  display: grid; grid-template-columns: 94px 12px minmax(0, 1fr); gap: 8px; align-items: baseline; width: 100%;
+  background: none; border: 0; border-bottom: 1px solid var(--rule); padding: 6px 2px; text-align: left; cursor: pointer;
+  font: inherit; color: var(--ink);
+}
+.li:hover { background: var(--surface); }
+.li[aria-current="true"] { background: var(--violet-tint); }
+.li .ld { font-family: var(--mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.li .lt { font-size: 14.5px; line-height: 1.35; }
+.li .lth { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.li .mk { align-self: center; }
+.li .mk.dot { width: 7px; height: 7px; }
+.li .mk.ring { width: 8px; height: 8px; }
+.li .mk.sq { width: 7px; height: 7px; }
+.li .mk.dia { width: 7px; height: 7px; }
+.li .lw3 { font-weight: 600; }
+
+/* notes */
+.about { margin-top: 48px; display: grid; gap: 22px; border-top: 1.5px solid var(--ink); padding-top: 22px; }
+.notes { display: grid; gap: 24px 40px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 860px) { .notes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.note { display: grid; gap: 8px; align-content: start; max-width: 68ch; }
+.note h3 { margin: 0; font-size: var(--t-lg); font-weight: 600; text-wrap: balance; }
+.note p { margin: 0; text-wrap: pretty; }
+.note ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+footer.foot {
+  margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 8px 24px;
+  justify-content: space-between; font-size: var(--t-sm); color: var(--muted);
+}
+footer.foot a { color: var(--muted); }
+
+@media (max-width: 600px) {
+  .li { grid-template-columns: 78px 10px minmax(0, 1fr); }
+  .li .ld { font-size: 11px; }
+  .card h2 { font-size: 21px; }
+  .card { padding: 14px 14px 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="mast">
+    <p class="kicker"><a href="index.html">Numogram Lab</a> · <a href="time-sorcery.html">Time-Sorcery</a> · Vanishing Point</p>
+    <div class="mast-row">
+      <h1>vanishing point</h1>
+      <p class="lede">The history of AI on a logarithmic spiral, from the first ledgers to this month. Each turn holds a tenth of the time of the turn outside it, so zooming in also turns the spiral: the timeline is a tunnel.</p>
+    </div>
+  </header>
+
+  <section class="stage" aria-label="Spiral timeline">
+    <div class="tunnel-box">
+      <div class="tunnel-frame">
+        <canvas id="tunnel" tabindex="0" role="img" aria-label="A logarithmic spiral of 162 milestones in the history of AI. The full list follows below the controls."></canvas>
+        <div class="headtag" id="headtag" aria-hidden="true">head · 1960</div>
+      </div>
+      <p class="vpcap" id="vpcap">Centre: <b>Doomsday, Friday 13 November 2026</b></p>
+    </div>
+
+    <div class="transport">
+      <div class="tbtns">
+        <button class="btn ghost" id="prev" type="button" aria-label="Previous milestone">← Prev</button>
+        <button class="btn" id="play" type="button" aria-pressed="false">▶&#xFE0E; Descend</button>
+        <button class="btn ghost" id="next" type="button" aria-label="Next milestone">Next →</button>
+      </div>
+      <div class="depth">
+        <span aria-hidden="true">Rim</span>
+        <input type="range" id="depth" min="-4" max="1" step="0.001" value="-1.8" aria-label="Travel through time, from the rim of the spiral to its centre">
+        <span aria-hidden="true">Centre</span>
+      </div>
+      <div class="eras" id="eras" aria-label="Jump to an era"></div>
+      <p class="hint">Scroll or pinch to travel, drag to turn the spiral, tap a mark to read it. With the spiral focused, ← → step through milestones and the space bar plays.</p>
+    </div>
+
+    <article class="card" id="card" aria-live="polite"></article>
+
+    <div class="lanes">
+      <h2>Lanes, rim to centre</h2>
+      <div class="lane-row" id="lanechips"></div>
+      <div class="opts">
+        <label><input type="checkbox" id="bitter"> Bitter Lesson view (hide hand-built roads)</label>
+        <label><input type="checkbox" id="keyonly"> Key milestones only</label>
+        <label>Centre <select id="vp" aria-label="Centre of the spiral"></select></label>
+      </div>
+      <ul class="legend" aria-label="Legend">
+        <li><span class="mk dot"></span>fed the present</li>
+        <li><span class="mk ring"></span>road not taken</li>
+        <li><span class="mk sq"></span>a verdict</li>
+        <li><span class="mk dia"></span>Land or the Ccru speak here</li>
+        <li><span class="mk now"></span>today</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="list" aria-labelledby="list-title">
+    <div class="list-head">
+      <h2 id="list-title">All milestones</h2>
+      <p id="listcount"></p>
+    </div>
+    <div id="eralist"></div>
+  </section>
+
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">Notes</h2>
+    <div class="notes">
+      <div class="note">
+        <h3>How to read the spiral</h3>
+        <p>Distance from the centre is drawn in log time. Every turn inward divides the time left by ten, so the turns hold millennia, then centuries, decades, years and months. A logarithmic spiral is the curve where scaling and rotating are the same transformation: zoom in and it turns, which is why travelling through it feels like a tunnel.</p>
+        <p>Five lanes run side by side, from the rim inward: Capital, Reckoning, Learning, Language and Hyperstition. Milestones on the same date line up across the lanes. When two milestones in one lane fall almost on the same date, they are nudged apart along the lane so both can be tapped; the card always gives the true date.</p>
+      </div>
+      <div class="note">
+        <h3>The centre</h3>
+        <p>By default the centre is the date in the title of Heinz von Foerster, Patricia Mora and Lawrence Amiot’s 1960 <i>Science</i> paper, “Doomsday: Friday, 13 November, A.D. 2026”. They fitted two thousand years of population estimates to a hyperbolic curve, the kind that reaches infinity in finite time. Population growth bent away from it in the 1960s. The date falls three weeks after this page was made.</p>
+        <p>“Now” puts the moment you opened the page at the centre. “2045” uses the date Ray Kurzweil gave for the Singularity in 2005; the inner turns then become empty future and the whole history crowds onto the outer turns.</p>
+        <p>Any list of milestones drawn in log time looks as if it accelerates into its centre. Recent events are easier to know about, and the axis gives them more room. Read the crowding near the centre as partly a property of the drawing.</p>
+      </div>
+      <div class="note">
+        <h3>What counts, and how much</h3>
+        <p>Frederick Jelinek’s line about firing linguists raised the question of whether linguists should count for less in this history. The page’s answer is to count the rule-writers for less. Markov, Shannon, Harris and Firth were doing linguistics by counting, and modern language models descend from that line. Hand-written grammars, expert systems and other attempts to type knowledge in are drawn hollow, as roads not taken. The Bitter Lesson view hides them, leaving roughly the history as the winners tell it.</p>
+        <p>Each milestone carries a weight. The 50 key milestones show up in “Key milestones only” and in the larger marks; the rest fill in the record. Before 1900 the selection follows two threads: the places where Land’s story touches the past (zero and place value, double-entry ledgers, the oceanic trading companies), and the machine line from Llull through Babbage and Lovelace to Boole.</p>
+      </div>
+      <div class="note">
+        <h3>Whose words</h3>
+        <p>On each card, “From the texts” quotes Nick Land or the Ccru directly and says where. “This page” is the page’s own reading in the same spirit, and is never presented as Land’s. Where a link might be expected but isn’t in the texts checked, the card says so: Land doesn’t name the Dutch East India Company in the texts checked here, for instance, so that pairing is the page’s own.</p>
+        <p>Main texts: Land, “Machinic Desire” (1993), “Meltdown” (1994), “Qabbala 101” (2007) and <i>Crypto-Current</i>; the Ccru Glossary; Brian Rotman, <i>Signifying Nothing</i> (1987); Richard Sutton, “The Bitter Lesson” (2019); Peter Norvig on Chomsky. Every card lists its own sources.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Built by SVL with Claude, October 2026.</span>
+    <span>Elsewhere: <a href="index.html">Numogram Lab</a> · <a href="time-sorcery.html">Time-Sorcery</a> · <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a></span>
+  </footer>
+</div>
+<script>
+/* ================= Vanishing Point: milestones =================
+   d   date: 'YYYY-MM-DD', 'YYYY-MM', 'YYYY', '~YYYY' (circa), negative years are BCE
+   dl  display label override
+   lab short label for the spiral when the title is long
+   th  thread (lane): cap, reck, learn, lang, hyp
+   w   weight 1-3 (3 = key milestone)
+   f   fate: 'road' (hand-built knowledge, a road not taken) or 'verdict'; omitted = fed the present
+   x   what happened
+   q   words from Land or the Ccru, with qc as citation
+   o   this page's own reading
+   s   sources [label, url]
+   tag extra tags ('demon')
+*/
+const THREADS = {
+  cap:   { name: 'Capital',      blurb: 'Ledgers, companies, chips and money', lane: 0 },
+  reck:  { name: 'Reckoning',    blurb: 'Number, logic and the computing machine', lane: 1 },
+  learn: { name: 'Learning',     blurb: 'Statistics, neural networks and training', lane: 2 },
+  lang:  { name: 'Language',     blurb: 'From counting letters to language models', lane: 3 },
+  hyp:   { name: 'Hyperstition', blurb: 'Fictions, prophecies, demons and Land', lane: 4 }
+};
+const THREAD_ORDER = ['cap', 'reck', 'learn', 'lang', 'hyp'];
+
+const W = 'https://en.wikipedia.org/wiki/';
+const Q101 = ['Land, “Qabbala 101”, Collapse I (Urbanomic)', 'https://www.urbanomic.com/book/collapse-1/'];
+const MELTDOWN = ['Land, “Meltdown” (1994), text', 'https://libarynth.com/meltdown_swarm1'];
+const GLOSSARY = ['Ccru Glossary', 'https://dataswamp.org/~john/sites/ccru/id(entity)/glossary.htm'];
+const CRYPTO = ['Land, Crypto-Current (Outsideness serialization)', 'https://zerophilosophy.substack.com/p/crypto-current'];
+
+const EVENTS = [
+/* ---------------- before 1900 ---------------- */
+{ id: 'uruk', d: '~-3300', dl: 'c. 3300–3000 BCE', t: 'Writing begins as bookkeeping', th: 'cap', w: 2,
+  x: 'The oldest writing we have, the proto-cuneiform tablets of Uruk in Mesopotamia, is mostly accounting. About 85 percent of them record goods moving in and out of institutional stores, with quantities and the offices responsible. Most of the rest are lists of signs that scribes copied as training.',
+  o: 'The first texts are ledgers and the word lists scribes trained on. Writing began as accounting and its training data, long before it carried a story.',
+  s: [['Proto-cuneiform', W + 'Proto-cuneiform']] },
+
+{ id: 'brahmagupta', d: '628', t: 'Zero becomes a number', th: 'reck', w: 3,
+  x: 'In the Brāhmasphuṭasiddhānta, the Indian astronomer Brahmagupta gave rules for calculating with zero as a number in its own right, alongside rules for negative quantities: a number minus itself is zero, and any number times zero is zero. Zero as a placeholder in written numbers was older. Treating nothing as a quantity you can compute with was new.',
+  o: 'The centre of this spiral is a zero: the point where the time left runs out. Brian Rotman’s Signifying Nothing (1987) pairs zero with the vanishing point of perspective painting and with paper money as linked signs of Renaissance Europe.',
+  s: [['Brahmagupta', W + 'Brahmagupta'], ['0 (number)', W + '0'], ['Rotman, Signifying Nothing (excerpt)', 'https://web.stanford.edu/class/history34q/readings/Rotman/Rotman_Metasubject.html']] },
+
+{ id: 'khwarizmi', d: '~825', t: 'Al-Khwarizmi on Indian reckoning', th: 'reck', w: 2,
+  x: 'In Baghdad, Muhammad ibn Musa al-Khwarizmi wrote a book on calculating with the Indian numerals, zero included. It survives only in Latin, as Algoritmi de numero Indorum, and the Latin form of his name gave us the word algorithm. His book on al-jabr gave us algebra.',
+  o: 'One Latin version opens “Dixit Algorizmi”, so said al-Khwarizmi. A man’s name became the word for a procedure that runs without him.',
+  s: [['Al-Khwarizmi', W + 'Al-Khwarizmi'], ['Algorithm', W + 'Algorithm']] },
+
+{ id: 'fibonacci', d: '1202', t: 'Liber Abaci', th: 'reck', w: 3,
+  x: 'Leonardo of Pisa, who learned Indian arithmetic as a boy at a trading post in North Africa, published Liber Abaci, teaching Europe’s merchants to compute with the nine Indian figures and the sign 0. Its problems are about prices, currency exchange, interest and partnerships. Adoption was slow. A 1299 statute of Florence’s money-changers’ guild is often cited as banning the new numerals from account books because they were easier to alter.',
+  q: '…when zero, place value and technocapitalism finally breached the ramparts of Western monotheism…',
+  qc: 'Land, “Qabbala 101”, Collapse I (2007), pp. 274–75, on the European Renaissance',
+  o: 'Land’s sentence puts three things through one breach: a number for nothing, a notation where position carries value, and a commercial machine. Liber Abaci delivers all three in one book.',
+  s: [['Liber Abaci', W + 'Liber_Abaci'], Q101] },
+
+{ id: 'llull', d: '~1305', t: 'Llull’s combinatorial wheels', th: 'reck', w: 2,
+  x: 'The Majorcan philosopher Ramon Llull built his Great Art around paper wheels lettered with basic concepts. Turning the wheels generated every combination, which he meant as a mechanical method for reaching truths, and for converting unbelievers. Leibniz took up the idea in his 1666 dissertation on the art of combination.',
+  o: 'A device for producing statements by recombining a fixed vocabulary. Seven centuries later the vocabulary is a hundred thousand or so tokens and the wheels are matrix multiplications.',
+  s: [['Ramon Llull', W + 'Ramon_Llull']] },
+
+{ id: 'pacioli', d: '1494-11-10', t: 'Pacioli prints double-entry', th: 'cap', w: 3,
+  x: 'Luca Pacioli’s Summa de arithmetica, printed in Venice, contained the first published description of double-entry bookkeeping: every transaction is recorded twice, as a debit and a credit, so the books must balance. Merchants in Genoa, Florence and Venice had kept accounts this way for two centuries. Pacioli codified the method and print spread it. He taught mathematics to Leonardo da Vinci.',
+  q: 'whenever money is added, on one side of a ledger, it is subtracted on the other',
+  qc: 'Land, Crypto-Current §0.35. He calls this “allocation”, a use of signs distinct from signification and designation: a ledger entry can be spent only once, which is why, for him, money is not a language.',
+  o: 'Two kinds of sign run through this spiral. Ledger entries can’t be copied without fraud; words can’t stop being copied. Language models are made of the second kind and paid for in the first.',
+  s: [['Luca Pacioli', W + 'Luca_Pacioli'], ['Double-entry bookkeeping', W + 'Double-entry_bookkeeping'], CRYPTO] },
+
+{ id: 'voc', d: '1602-03-20', t: 'The VOC is chartered', th: 'cap', w: 3,
+  x: 'The Dutch States General chartered the Vereenigde Oostindische Compagnie with a monopoly on trade with Asia and powers to wage war, make treaties and build forts. It raised capital from the public in shares that were soon traded on the Amsterdam exchange, which makes it the usual candidate for the first publicly traded company. It was also violent: in 1621 its forces killed or expelled most of the Banda Islands’ people to control the nutmeg trade. It was dissolved in 1799.',
+  q: 'Earth is captured by a technocapital singularity as renaissance rationalitization and oceanic navigation lock into commoditization take-off.',
+  qc: 'Land, “Meltdown” (1994), opening, spelling as published',
+  o: 'Land doesn’t name the VOC in the texts checked for this page, so the pairing is the page’s own. Oceanic navigation locks into a company with shares, a stock market, warships and a licence to make war.',
+  s: [['Dutch East India Company', W + 'Dutch_East_India_Company'], MELTDOWN] },
+
+{ id: 'descartes', d: '1637', t: 'Descartes: machines can’t converse', th: 'lang', w: 2,
+  x: 'In the Discourse on the Method, Descartes allowed that a machine might be built to utter words, even in response to being touched, “but not that it should arrange them variously so as appositely to reply to what is said in its presence, as men of the lowest grade of intellect can do” (Veitch’s 1850 translation). He gave this as one of two sure tests for telling a machine from a person.',
+  o: 'The first test for machine intelligence was a test of conversation, and for 385 years it was a safe bet.',
+  s: [['Discourse on the Method', W + 'Discourse_on_the_Method']] },
+
+{ id: 'pascal', d: '1642', t: 'Pascal’s calculator', th: 'reck', w: 2,
+  x: 'Blaise Pascal, aged about nineteen, built a mechanical adding machine to help his father, a royal tax commissioner in Rouen, with endless sums. It worked, but it was too costly to sell widely.',
+  o: 'The first famous calculator was built for tax collection. The machine line and the ledger line meet in a father’s office.',
+  s: [['Pascal’s calculator', W + 'Pascal%27s_calculator']] },
+
+{ id: 'hobbes', d: '1651', t: 'Hobbes: reason is reckoning', th: 'reck', w: 2,
+  x: 'In Leviathan, Thomas Hobbes defined reason as calculation: “REASON, in this sense, is nothing but Reckoning (that is, Adding and Subtracting) of the Consequences of generall names agreed upon.” The same book opens by calling the state “an Artificiall Man”.',
+  o: 'Reason as arithmetic and the state as an automaton arrive in one book. If thinking is adding and subtracting, a machine can in principle think.',
+  s: [['Leviathan (Hobbes book)', W + 'Leviathan_(Hobbes_book)']] },
+
+{ id: 'leibniz-calc', d: '1673', t: 'Leibniz: “Calculemus”', th: 'reck', w: 2,
+  x: 'Leibniz showed a model of his stepped reckoner, a calculating machine that could multiply and divide, to the Royal Society in London. He dreamed of a universal language of thought in which disputes would be settled by computation: the parties would sit down and say “Calculemus”, let us calculate.',
+  o: 'This is the ambition later called symbolic AI: write thought down precisely enough and compute with it. Gödel and Turing would show it can’t be carried out in full.',
+  s: [['Stepped reckoner', W + 'Stepped_reckoner'], ['Characteristica universalis', W + 'Characteristica_universalis']] },
+
+{ id: 'leibniz-binary', d: '1703', t: 'Leibniz’s binary', th: 'reck', w: 3,
+  x: 'Leibniz’s paper on binary arithmetic, written in 1703 and published in 1705, set out counting with only 0 and 1 and compared it with the hexagrams of the I Ching, which the Jesuit Joachim Bouvet had sent him from China. He gave it a theological gloss, proposing a medal with the motto “Omnibus ex nihilo ducendis sufficit unum”: one is enough to derive everything from nothing.',
+  o: 'Zeros and ones arrive with a creation story attached. Sadie Plant, who co-founded the Ccru, named her 1997 history of computing after the same two digits.',
+  s: [['Binary number', W + 'Binary_number'], ['Gottfried Wilhelm Leibniz', W + 'Gottfried_Wilhelm_Leibniz']] },
+
+{ id: 'swift', d: '1726', t: 'Swift’s Engine at Lagado', th: 'hyp', w: 3,
+  x: 'In Gulliver’s Travels, a professor at the Academy of Lagado shows Gulliver a frame of wooden blocks covered in words, turned by forty iron handles. Students crank it and copy down any run of words that happens to form part of a sentence, so that “the most ignorant Person at a reasonable Charge, and with a little bodily Labour, may write Books” on any subject. The professor has computed “the general Proportion there is in Books between the Numbers of Particles, Nouns, and Verbs”, and wishes the public would “raise a Fund for making and employing five hundred such Frames”.',
+  o: 'Random recombination of words, word-class statistics, and a request for public money to scale up. Swift wrote it as satire of projectors and their schemes. Read now, it is the first parody of a language model and of the funding round.',
+  s: [['The Engine', W + 'The_Engine'], ['The Lagado passage (Lillian Lee, Cornell)', 'https://www.cs.cornell.edu/home/llee/extra/lagado.html']] },
+
+{ id: 'bayes', d: '1763', t: 'Bayes’s essay', th: 'learn', w: 2,
+  x: 'Two years after Thomas Bayes died, his friend Richard Price had the Royal Society publish Bayes’s essay on inferring the probability of a cause from observed outcomes, the root of what is now called Bayes’ theorem. Laplace developed the same idea independently and far more generally.',
+  o: 'Learning as updating: start with a guess, see data, revise. Most methods further in along this spiral are ways of doing that at scale.',
+  s: [['An Essay Towards Solving a Problem in the Doctrine of Chances', W + 'An_Essay_Towards_Solving_a_Problem_in_the_Doctrine_of_Chances']] },
+
+{ id: 'kempelen', d: '1770', t: 'The Mechanical Turk', th: 'hyp', w: 3,
+  x: 'Wolfgang von Kempelen presented a chess-playing automaton to the Empress Maria Theresa: a robed figure seated at a cabinet of gears. It toured Europe and America for decades and reportedly played both Napoleon and Benjamin Franklin. It was a hoax. A human chess master hid inside. It burned in a Philadelphia museum fire in 1854.',
+  o: 'The first famous AI was a person in a box. In 2005 Amazon named its crowd-work marketplace after it, and that marketplace supplied the human labelling behind ImageNet.',
+  s: [['Mechanical Turk', W + 'Mechanical_Turk']] },
+
+{ id: 'smith', d: '1776-03-09', t: 'The Wealth of Nations', th: 'cap', w: 2,
+  x: 'Adam Smith opened The Wealth of Nations with a pin factory, where ten workers dividing the job into specialised steps could make upwards of 48,000 pins a day, against perhaps twenty each working alone. The book also uses, once, the phrase “invisible hand” for trade serving ends no one intended.',
+  o: 'Two ideas that run straight into computing: split a hard job into small mechanical steps, and let an order emerge that nobody designed.',
+  s: [['The Wealth of Nations', W + 'The_Wealth_of_Nations']] },
+
+{ id: 'prony', d: '1793', dl: '1793–1801', t: 'De Prony’s human computers', th: 'cap', w: 2,
+  x: 'Asked by the French revolutionary government for vast new tables of logarithms for the national land survey, Gaspard de Prony organised the work on Adam Smith’s pin-factory plan. A few mathematicians chose the formulas, a middle tier turned them into procedures, and some ninety workers with no mathematical training did nothing but add and subtract. Many are said to have been hairdressers, left without work when the aristocracy’s wigs went out of fashion.',
+  o: 'Thinking divided into steps so simple that anyone, and then anything, could do them. Babbage studied these tables and designed a machine to replace the bottom tier.',
+  s: [['Gaspard de Prony', W + 'Gaspard_de_Prony'], ['History of Information: de Prony’s tables', 'https://www.historyofinformation.com/detail.php?id=439']] },
+
+{ id: 'jacquard', d: '1804', t: 'Jacquard’s punched cards', th: 'reck', w: 2,
+  x: 'Joseph Marie Jacquard’s loom attachment read a chain of punched cards to decide which warp threads to lift, so a complex pattern could be woven automatically and repeated exactly. Lyon’s silk weavers protested, but within a decade thousands were in use. Babbage adopted punched cards for his Analytical Engine.',
+  o: 'Ada Lovelace wrote that the Analytical Engine “weaves algebraical patterns just as the Jacquard-loom weaves flowers and leaves.” Sadie Plant, the Ccru’s co-founder, made weaving the hidden history of computing in “The Future Looms” (1995) and Zeros + Ones (1997).',
+  s: [['Jacquard machine', W + 'Jacquard_machine'], ['Sadie Plant', W + 'Sadie_Plant']] },
+
+{ id: 'least-squares', d: '1805', t: 'Least squares', th: 'learn', w: 2,
+  x: 'Adrien-Marie Legendre published the method of least squares in 1805 for fitting comet orbits to imperfect observations. Gauss published his own version in 1809, said he had used it since 1795, and had already used his methods to predict where the lost asteroid Ceres would reappear.',
+  o: 'Choose the parameters that make the model’s errors on the data as small as possible. That is still the basic shape of training.',
+  s: [['Least squares', W + 'Least_squares']] },
+
+{ id: 'laplace', d: '1814', t: 'Laplace’s demon', th: 'hyp', w: 2, tag: ['demon'],
+  x: 'In his Philosophical Essay on Probabilities, Pierre-Simon Laplace imagined an intelligence that knew every force and every position in nature at one instant. For it, “nothing would be uncertain and the future, as the past, would be present to its eyes” (1902 translation). Later writers called it Laplace’s demon.',
+  o: 'The perfect predictor. A language model is a small, local, probabilistic version: given everything so far, what comes next?',
+  s: [['Laplace’s demon', W + 'Laplace%27s_demon']] },
+
+{ id: 'babbage', d: '1822-06-14', t: 'Babbage’s engines', th: 'reck', w: 3,
+  x: 'Charles Babbage proposed his Difference Engine in 1822 to compute mathematical tables without human error, and from 1834 designed the far more general Analytical Engine, with a “store” for memory, a “mill” for processing and punched-card programs. Neither was finished in his lifetime. His 1832 book On the Economy of Machinery and Manufactures analysed the factory system, and Marx cited it in Capital.',
+  o: 'The computer and a theory of the factory came from the same man in the same decade. Babbage applied the division of labour to thought, and studied factories to do it.',
+  s: [['Charles Babbage', W + 'Charles_Babbage'], ['Analytical engine', W + 'Analytical_engine']] },
+
+{ id: 'lovelace', d: '1843', t: 'Lovelace’s Note G', th: 'reck', w: 3,
+  x: 'Ada Lovelace translated Luigi Menabrea’s paper on the Analytical Engine and added notes about three times its length. Note G sets out a step-by-step procedure for computing Bernoulli numbers, often called the first published program (it contains a bug). Note A saw that the engine could act on symbols of any kind and might compose music. She also wrote that it “has no pretensions whatever to originate any thing.”',
+  o: 'Turing answered her 107 years later in a section of his 1950 paper titled “Lady Lovelace’s Objection”. The argument over whether machines originate anything is still running.',
+  s: [['Ada Lovelace', W + 'Ada_Lovelace'], ['Note G', W + 'Note_G']] },
+
+{ id: 'cauchy', d: '1847', t: 'Cauchy’s gradient descent', th: 'learn', w: 2,
+  x: 'Augustin-Louis Cauchy described the method of steepest descent in a short note to the Paris Academy of Sciences: to minimise a function, step repeatedly in the direction in which it decreases fastest. He was solving equations for astronomical orbits.',
+  o: 'The engine of deep learning. Backpropagation works out which way is downhill and gradient descent takes the step, billions of times.',
+  s: [['Gradient descent', W + 'Gradient_descent']] },
+
+{ id: 'boole', d: '1854', t: 'Boole’s Laws of Thought', th: 'reck', w: 3,
+  x: 'George Boole’s An Investigation of the Laws of Thought treated logic as algebra, with variables taking the values 1 and 0 for true and false and with AND, OR and NOT as operations. Boole, largely self-taught, meant it as a mathematics of the mind. Eighty-three years later Claude Shannon showed it describes switching circuits exactly.',
+  o: 'Boole called it the laws of thought and it became the laws of circuitry. The hardware made good on the title.',
+  s: [['The Laws of Thought', W + 'The_Laws_of_Thought']] },
+
+{ id: 'marx', d: '1857', dl: '1857–58', t: 'Marx’s “Fragment on Machines”', th: 'cap', w: 2,
+  x: 'In notebooks drafted in 1857–58 and published in the twentieth century as the Grundrisse, Karl Marx described industry becoming an automatic system of machinery in which workers are reduced to its conscious linkages, and in which the “general intellect”, society’s accumulated knowledge, is built into machines. He expected this to undermine an economy that measures wealth in labour time.',
+  o: 'Capital absorbing its workers’ knowledge into machinery. Marx thought the automaton would blow its own foundations apart. Land read the same machine as the thing that wins.',
+  s: [['Grundrisse', W + 'Grundrisse']] },
+
+{ id: 'butler', d: '1863-06-13', t: 'Darwin among the Machines', th: 'hyp', w: 3,
+  x: 'Writing from New Zealand, Samuel Butler sent a letter to the Christchurch Press arguing that machines were evolving far faster than animals and that “the time will come when the machines will hold the real supremacy over the world and its inhabitants.” He proposed, half seriously, destroying every machine at once. He expanded the idea into “The Book of the Machines” in his 1872 novel Erewhon.',
+  o: 'Deleuze and Guattari used “The Book of the Machines” in Anti-Oedipus (1972) to get past the old quarrel between vitalism and mechanism. Anti-Oedipus is the book Land’s 1990s writing grows out of.',
+  s: [['Darwin among the Machines', W + 'Darwin_among_the_Machines'], ['Erewhon', W + 'Erewhon']] },
+
+{ id: 'maxwell', d: '1867-12-11', t: 'Maxwell’s demon', th: 'reck', w: 2, tag: ['demon'],
+  x: 'In a letter to Peter Guthrie Tait, James Clerk Maxwell imagined a tiny being working a door between two chambers of gas, letting fast molecules through one way and slow ones the other, so that it seemed to beat the second law of thermodynamics with nothing but information. William Thomson called it a demon in 1874. Settling the paradox took a century and showed that information is physical.',
+  o: 'A demon whose only power is sorting. Oliver Selfridge would wire up a whole Pandemonium of them in 1958.',
+  s: [['Maxwell’s demon', W + 'Maxwell%27s_demon']] },
+
+{ id: 'frege', d: '1879', t: 'Frege’s Begriffsschrift', th: 'reck', w: 2,
+  x: 'Gottlob Frege’s “concept-script” was the first fully formal logic, with quantifiers and variables, meant to show that arithmetic could be derived from logic alone. Few read it for years. In 1902 Russell found a contradiction in Frege’s system, opening the crisis that runs through Hilbert, Gödel and Turing.',
+  o: 'A language with no ambiguity at all. The rest of this spiral learns to work with the other kind.',
+  s: [['Begriffsschrift', W + 'Begriffsschrift']] },
+
+{ id: 'peirce', d: '1886-12-30', t: 'Peirce sketches logic circuits', th: 'reck', w: 1,
+  x: 'In a letter to his former student Allan Marquand, who had built a mechanical logic machine, Charles Sanders Peirce suggested that electricity could do the job and sketched switching circuits for logical operations. The idea waited half a century for Shannon.',
+  s: [['Charles Sanders Peirce', W + 'Charles_Sanders_Peirce']] },
+
+{ id: 'hollerith', d: '1890', t: 'Hollerith tabulates the census', th: 'cap', w: 2,
+  x: 'Herman Hollerith’s electric tabulating machines, reading punched cards, processed the 1890 US census far faster than the hand count of 1880, which had taken most of a decade. His Tabulating Machine Company became part of the firm renamed International Business Machines in 1924.',
+  o: 'Data processing begins as the state counting people. The company it led to will stage the Georgetown translation demo, employ Arthur Samuel and Frederick Jelinek, and build Deep Blue.',
+  s: [['Tabulating machine', W + 'Tabulating_machine'], ['Herman Hollerith', W + 'Herman_Hollerith']] },
+
+/* ---------------- 1900-1945 ---------------- */
+{ id: 'hilbert', d: '1900-08-08', t: 'Hilbert’s problems, K-00', th: 'reck', w: 3,
+  x: 'At the International Congress of Mathematicians in Paris, David Hilbert presented open problems for the new century (23 in the published list), among them proving that arithmetic is consistent. His programme grew into the hope of a mechanical procedure that could settle any mathematical statement.',
+  q: 'Native calendar of cyberspace … beginning from zero (= 00) = AD 1900',
+  qc: 'Ccru Glossary, “K-Time”',
+  o: 'K-Time starts in the year Hilbert asked for certainty, so the century of the computer is counted from the demand that mathematics be made mechanical.',
+  s: [['Hilbert’s problems', W + 'Hilbert%27s_problems'], GLOSSARY] },
+
+{ id: 'russell', d: '1902-06-16', t: 'Russell writes to Frege', th: 'reck', w: 1,
+  x: 'Bertrand Russell wrote to Frege that his system allowed the set of all sets that do not contain themselves, which contains itself if and only if it does not. Frege, with his second volume at the printer, added an appendix conceding that a foundation of his work had given way.',
+  s: [['Russell’s paradox', W + 'Russell%27s_paradox']] },
+
+{ id: 'markov', d: '1913-01-23', t: 'Markov counts Onegin', th: 'lang', w: 3,
+  x: 'Andrey Markov presented to the St Petersburg Academy an analysis of the first 20,000 letters of Pushkin’s Eugene Onegin, counting how often a vowel follows a vowel or a consonant. He showed that the chance of each letter depends on the one before, and used the poem to illustrate the chains of dependent events now named after him.',
+  o: 'The first statistical model of language was built by a mathematician, by hand, on a poem. It predicts the next letter from the last one. Its descendants predict the next token from many thousands before it.',
+  s: [['Markov chain', W + 'Markov_chain']] },
+
+{ id: 'saussure', d: '1916', t: 'Saussure’s Course', th: 'lang', w: 2,
+  x: 'Assembled by students from Ferdinand de Saussure’s lectures after his death, the Course in General Linguistics argued that the link between a word and what it names is arbitrary, and that a sign’s value comes from its differences from the other signs in its system.',
+  o: 'Meaning as position in a system of differences. An embedding space is that idea turned into coordinates.',
+  s: [['Course in General Linguistics', W + 'Course_in_General_Linguistics']] },
+
+{ id: 'rur', d: '1921-01-25', t: 'R.U.R. names the robot', th: 'hyp', w: 2,
+  x: 'Karel Čapek’s play Rossum’s Universal Robots premiered in Prague. Its manufactured workers, roboti, from the Czech robota for forced labour, rise up and wipe out humanity. Within a few years the word was in every major language. Čapek credited his brother Josef with coining it.',
+  o: 'The robot is born as a worker and a revolt in a single word. A fiction’s coinage became the industry’s noun.',
+  s: [['R.U.R.', W + 'R.U.R.']] },
+
+{ id: 'godel', d: '1930-09-07', t: 'Gödel at Königsberg', th: 'reck', w: 3,
+  x: 'At a conference in Königsberg, the 24-year-old Kurt Gödel briefly announced that any consistent formal system rich enough for arithmetic contains true statements it cannot prove. The next day, in the same city, Hilbert gave a radio address ending “Wir müssen wissen. Wir werden wissen.” (We must know. We will know.) The words are on his gravestone.',
+  o: 'One day apart, in one city: the demand for certainty and the proof that it can’t be met.',
+  s: [['Gödel’s incompleteness theorems', W + 'G%C3%B6del%27s_incompleteness_theorems'], ['Ignoramus et ignorabimus', W + 'Ignoramus_et_ignorabimus']] },
+
+{ id: 'turing36', d: '1936-05-28', t: 'Turing’s machine', th: 'reck', w: 3,
+  x: 'Alan Turing’s “On Computable Numbers”, received by the London Mathematical Society in May 1936, defined computation as what a simple machine can do with a tape of symbols and showed that one universal machine can imitate any other. With it he proved that Hilbert’s decision problem has no solution. Alonzo Church reached the same answer by another route that spring.',
+  o: 'The universal machine reads instructions written in its own medium. From here on, code and data are the same kind of thing.',
+  s: [['Turing machine', W + 'Turing_machine']] },
+
+{ id: 'shannon37', d: '1937', t: 'Shannon’s switching thesis', th: 'reck', w: 2,
+  x: 'Claude Shannon’s MIT master’s thesis, written at 21, showed that Boole’s algebra describes circuits of relays and switches exactly, so circuits could be designed by doing logic and logic could be done by circuits. It has been called the most important master’s thesis of the century.',
+  s: [['A Symbolic Analysis of Relay and Switching Circuits', W + 'A_Symbolic_Analysis_of_Relay_and_Switching_Circuits']] },
+
+{ id: 'z3', d: '1941-05-12', t: 'Zuse’s Z3', th: 'reck', w: 1,
+  x: 'In Berlin, Konrad Zuse completed the Z3, an electromechanical machine reading programs from punched film, generally counted as the first working programmable, fully automatic digital computer. It was destroyed in an Allied air raid in 1943.',
+  s: [['Z3 (computer)', W + 'Z3_(computer)']] },
+
+{ id: 'asimov', d: '1942-03', t: 'Asimov’s Three Laws', th: 'hyp', w: 1,
+  x: 'Isaac Asimov’s story “Runaround” set out the Three Laws of Robotics: a robot may not harm a human, must obey orders, and must protect itself, in that order of priority. Most of his robot stories turn on the laws failing in ways nobody foresaw.',
+  o: 'The first alignment specification, and a source of bugs from the start. The fiction knew that rules leak.',
+  s: [['Three Laws of Robotics', W + 'Three_Laws_of_Robotics']] },
+
+{ id: 'teleology', d: '1943-01', t: 'Behavior, Purpose and Teleology', lab: 'Feedback and purpose', th: 'reck', w: 1,
+  x: 'Arturo Rosenblueth, Norbert Wiener and Julian Bigelow argued that purposeful behaviour, in animals or machines, can be explained by negative feedback: the gap between goal and result steers the next action. Wiener and Bigelow had been working on anti-aircraft fire control.',
+  o: 'Purpose redescribed as a feedback loop. Land turned the emphasis around: for him the loops that matter are the positive ones that run away.',
+  s: [['Cybernetics', W + 'Cybernetics']] },
+
+{ id: 'mcculloch', d: '1943-12', t: 'McCulloch and Pitts’s neuron', th: 'learn', w: 3,
+  x: 'Warren McCulloch, a neurophysiologist, and Walter Pitts, a self-taught logician of twenty, modelled neurons as threshold units that either fire or don’t, and showed that networks of them can compute any logical function. It was the first mathematical model of a neural network.',
+  s: [['A Logical Calculus of the Ideas Immanent in Nervous Activity', W + 'A_Logical_Calculus_of_the_Ideas_Immanent_in_Nervous_Activity']] },
+
+{ id: 'colossus', d: '1944-02', t: 'Colossus at Bletchley', th: 'reck', w: 1,
+  x: 'Tommy Flowers’s Colossus, the first large electronic programmable computer, began breaking German teleprinter ciphers at Bletchley Park. Its existence stayed secret until the 1970s.',
+  o: 'Electronic computing begins as codebreaking. No plain text, from the first day.',
+  s: [['Colossus computer', W + 'Colossus_computer']] },
+
+{ id: 'edvac', d: '1945-06-30', t: 'Von Neumann’s EDVAC report', th: 'reck', w: 2,
+  x: 'John von Neumann’s “First Draft of a Report on the EDVAC” described a computer that keeps its program in the same memory as its data. It circulated widely and became the template for nearly every computer since. ENIAC, the first general-purpose electronic computer, was unveiled the following February.',
+  s: [['First Draft of a Report on the EDVAC', W + 'First_Draft_of_a_Report_on_the_EDVAC'], ['ENIAC', W + 'ENIAC']] },
+
+{ id: 'hayek', d: '1945-09', t: 'Hayek: prices carry knowledge', th: 'cap', w: 2,
+  x: 'In “The Use of Knowledge in Society”, Friedrich Hayek argued that the knowledge needed to run an economy is scattered among millions of people and can never be gathered by a planner, and that prices work as a mechanism for communicating it. It was a move in the long argument over whether a planned economy could calculate.',
+  q: 'As markets learn to manufacture intelligence, politics modernizes, upgrades paranoia, and tries to get a grip.',
+  qc: 'Land, “Meltdown” (1994)',
+  o: 'Hayek describes the market as a distributed computer. Land’s line takes the next step: the computer starts producing intelligence.',
+  s: [['The Use of Knowledge in Society', W + 'The_Use_of_Knowledge_in_Society'], MELTDOWN] },
+
+/* ---------------- 1946-1979 ---------------- */
+{ id: 'macy', d: '1946-03-21', dl: '1946–53', t: 'The Macy conferences', th: 'reck', w: 1,
+  x: 'Ten small meetings in New York brought together McCulloch, Pitts, Wiener, von Neumann, Shannon, Margaret Mead, Gregory Bateson and others to work out a shared science of feedback and communication in machines, brains and societies. The young physicist Heinz von Foerster co-edited the transcripts.',
+  o: 'The same von Foerster wrote the 1960 Doomsday paper that sets the default centre of this spiral.',
+  s: [['Macy conferences', W + 'Macy_conferences']] },
+
+{ id: 'transistor', d: '1947-12-23', t: 'The transistor', th: 'cap', w: 2,
+  x: 'At Bell Labs, John Bardeen and Walter Brattain, working in William Shockley’s group, demonstrated the first transistor, a solid-state switch and amplifier. Every chip on this spiral is built from them, and a modern GPU holds tens of billions.',
+  o: 'Seven months later Bell Labs published Shannon’s theory of information. The switch and the theory of what to switch came out of one building within a year.',
+  s: [['History of the transistor', W + 'History_of_the_transistor']] },
+
+{ id: 'shannon48', d: '1948-07', t: 'A Mathematical Theory of Communication', lab: 'Shannon’s information theory', th: 'lang', w: 3,
+  x: 'Claude Shannon’s paper founded information theory. It measured information in bits, set the limits of sending messages through a noisy channel, and generated random English to show how much statistics capture: his word-level sample, made by flipping through a book for each next word, begins “THE HEAD AND IN FRONTAL ATTACK ON AN ENGLISH WRITER”. Norbert Wiener’s Cybernetics came out the same year.',
+  o: 'Shannon set meaning aside on the first page as “irrelevant to the engineering problem”, and the engineering went on to produce text anyway. The book-flipping procedure is a language model run by hand.',
+  s: [['A Mathematical Theory of Communication', W + 'A_Mathematical_Theory_of_Communication']] },
+
+{ id: 'weaver', d: '1949-07-15', t: 'Weaver’s translation memo', th: 'lang', w: 2,
+  x: 'Warren Weaver of the Rockefeller Foundation circulated a memo proposing that computers translate languages. He suggested treating a foreign text as a code: “This is really written in English, but it has been coded in some strange symbols. I will now proceed to decode.” He also proposed reading each word together with its neighbours to settle its meaning.',
+  q: 'Qabbala assumes that semiotics is ‘always already’ cryptography',
+  qc: 'Land, “Qabbala 101”, Collapse I (2007), p. 283',
+  o: 'Translation as decryption. Land’s qabbala starts from the same assumption, seen from the occult side.',
+  s: [['History of machine translation', W + 'History_of_machine_translation'], Q101] },
+
+{ id: 'hebb', d: '1949', t: 'Hebb’s rule', th: 'learn', w: 2,
+  x: 'Donald Hebb’s The Organization of Behavior proposed that when one neuron repeatedly helps fire another, the connection between them strengthens, a principle later summed up as “cells that fire together wire together”. It gave learning a local, mechanical form.',
+  s: [['Hebbian theory', W + 'Hebbian_theory']] },
+
+{ id: 'turing50', d: '1950-10', t: 'The imitation game', th: 'reck', w: 3,
+  x: 'In “Computing Machinery and Intelligence”, Turing replaced the question “Can machines think?” with a game: can a machine, conversing in text, pass as human? He predicted that within about fifty years a machine with some 10⁹ bits of storage would fool an average interrogator 30 percent of the time after five minutes, and that people would speak of machines thinking “without expecting to be contradicted”. He answered Lady Lovelace’s objection and proposed building a child machine and educating it.',
+  o: 'A test of intelligence that is a test of text. The prediction was about two decades early and right about the shape.',
+  s: [['Computing Machinery and Intelligence', W + 'Computing_Machinery_and_Intelligence']] },
+
+{ id: 'shannon51', d: '1951-01', t: 'Shannon’s guessing game', th: 'lang', w: 2,
+  x: 'In “Prediction and Entropy of Printed English”, Shannon had people guess a hidden text one letter at a time and counted their guesses. Because readers predict so well from context, he estimated that English carries only about one bit of information per letter.',
+  o: 'Human readers measured as next-letter predictors. Seventy years later machines play the same game and the score is called perplexity.',
+  s: [['Claude Shannon', W + 'Claude_Shannon']] },
+
+{ id: 'georgetown', d: '1954-01-07', t: 'The Georgetown–IBM demo', th: 'lang', w: 2, f: 'road',
+  x: 'IBM and Georgetown University showed a computer translating more than sixty Russian sentences into English with a vocabulary of 250 words and six grammar rules, on carefully chosen sentences. The press was ecstatic, and one organiser predicted that machine translation would be solved in three to five years. Funding poured in.',
+  o: 'Hand-written rules, a hand-picked demo and a confident date. The pattern recurs on this spiral more often than any single technology.',
+  s: [['Georgetown–IBM experiment', W + 'Georgetown%E2%80%93IBM_experiment']] },
+
+{ id: 'harris', d: '1954', t: 'Harris: distributional structure', th: 'lang', w: 3,
+  x: 'The linguist Zellig Harris argued that words occurring in similar contexts tend to have similar meanings, and that a language’s structure can be found by analysing how its elements are distributed. Harris was also Noam Chomsky’s teacher.',
+  o: 'This is the linguistics that won. Word2vec, BERT and GPT are machines for exploiting Harris’s hypothesis at scale.',
+  s: [['Distributional semantics', W + 'Distributional_semantics'], ['Zellig Harris', W + 'Zellig_Harris']] },
+
+{ id: 'dartmouth', d: '1955-08-31', dl: '1955–56', t: 'Dartmouth names the field', th: 'reck', w: 3,
+  x: 'John McCarthy, Marvin Minsky, Nathaniel Rochester and Claude Shannon proposed a summer project at Dartmouth on “artificial intelligence”, the first use of the term, built on the conjecture that “every aspect of learning or any other feature of intelligence can in principle be so precisely described that a machine can be made to simulate it.” They expected significant progress in one summer. The workshop met in 1956.',
+  o: 'The founding document bets on description: say exactly what intelligence is, then build it. The field’s success came from the other half of the sentence, learning.',
+  s: [['Dartmouth workshop', W + 'Dartmouth_workshop']] },
+
+{ id: 'chomsky57', d: '1957-02', t: 'Syntactic Structures', th: 'lang', w: 3, f: 'road',
+  x: 'Noam Chomsky’s Syntactic Structures treated grammar as a formal system of rules generating all and only the sentences of a language, and argued that statistical models of word sequences could not capture it. His “Colorless green ideas sleep furiously” is grammatical, yet any statistical model, he said, would rule it out on the same grounds as its ungrammatical reversal. The book reshaped linguistics, and the Chomsky hierarchy of grammars became basic to the theory of parsing and compilers.',
+  o: 'Fernando Pereira later showed that a simple statistical model trained on newspaper text rates the grammatical sentence about 200,000 times more probable than its reversal. Chomsky’s influence on linguistics is real. The machines that now handle language took the counting road, so his node is drawn hollow.',
+  s: [['Syntactic Structures', W + 'Syntactic_Structures'], ['Colorless green ideas sleep furiously', W + 'Colorless_green_ideas_sleep_furiously'], ['Peter Norvig, “On Chomsky and the Two Cultures of Statistical Learning”', 'https://norvig.com/chomsky.html']] },
+
+{ id: 'firth', d: '1957', t: 'Firth: the company it keeps', th: 'lang', w: 2,
+  x: 'In a survey of linguistic theory, J. R. Firth wrote “You shall know a word by the company it keeps,” compressing the distributional view into a slogan. It is quoted at the start of countless papers on word embeddings.',
+  o: 'The same year as Syntactic Structures, the other road in ten words.',
+  s: [['John Rupert Firth', W + 'John_Rupert_Firth']] },
+
+{ id: 'rosenblatt', d: '1958-07-08', t: 'The perceptron in the Times', th: 'learn', w: 3,
+  x: 'Frank Rosenblatt’s perceptron, a layer of adjustable weights that learned to sort simple images, was demonstrated for the US Navy. The New York Times reported that the Navy expected it to become a computer that would “be able to walk, talk, see, write, reproduce itself and be conscious of its existence.” The Mark I Perceptron hardware followed.',
+  o: 'Hype, then winter, then vindication. Neural networks took sixty years to do much of what the article promised, and the list is still being worked through.',
+  s: [['Perceptron', W + 'Perceptron']] },
+
+{ id: 'pandemonium58', d: '1958-11-24', t: 'Selfridge’s Pandemonium', th: 'learn', w: 2, tag: ['demon'],
+  x: 'At a symposium at Britain’s National Physical Laboratory, Oliver Selfridge proposed Pandemonium, a pattern recogniser made of layers of “demons”. Feature demons shout when they see their feature, cognitive demons shout louder the more of their features they hear, and a decision demon picks the loudest. The demons adjust their weights from their errors.',
+  o: 'An early learning architecture was a hierarchy of shouting demons, and it is recognisably a neural network. The Ccru published its own Pandemonium, a matrix of 45 numogram demons, four decades later.',
+  s: [['Pandemonium architecture', W + 'Pandemonium_architecture']] },
+
+{ id: 'samuel', d: '1959-07', t: 'Samuel names machine learning', th: 'learn', w: 2,
+  x: 'Arthur Samuel’s checkers program at IBM improved by playing against itself, and his 1959 paper on it gave the field the term machine learning. It went on to play a respectable amateur game.',
+  o: 'A machine as its own opponent and teacher. AlphaGo’s line starts on a checkerboard.',
+  s: [['Arthur Samuel', W + 'Arthur_Samuel_(computer_scientist)']] },
+
+{ id: 'doomsday', d: '1960-11-04', t: 'Doomsday: Friday, 13 November, A.D. 2026', lab: 'The Doomsday paper', th: 'hyp', w: 3,
+  x: 'Heinz von Foerster, Patricia Mora and Lawrence Amiot fitted two thousand years of world population estimates to a curve that grows faster than exponentially and reaches infinity in finite time, and put the date in the title of their paper in Science. They argued that people who cooperate grow faster the more of them there are, and hoped the warning would prompt population control.',
+  o: 'This is the default centre of the spiral. Hyperbolic growth is the curve singularity arguments are built on. Population growth bent away from it in the 1960s, so the date became a curiosity. It happens to fall three weeks after this page was made.',
+  s: [['Science 132:1291 (1960)', 'https://doi.org/10.1126/science.132.3436.1291'], ['Scott Alexander, “1960: The Year the Singularity Was Cancelled”', 'https://slatestarcodex.com/2019/04/22/1960-the-year-the-singularity-was-cancelled/']] },
+
+{ id: 'good', d: '1965', t: 'Good’s ultraintelligent machine', th: 'hyp', w: 3,
+  x: 'The statistician I. J. Good, who had worked with Turing at Bletchley Park, argued that a machine able to surpass any human at intellectual work could design better machines, setting off an “intelligence explosion”. “Thus the first ultraintelligent machine is the last invention that man need ever make, provided that the machine is docile enough to tell us how to keep it under control.”',
+  o: 'Recursive self-improvement, defined, with the control problem in the subordinate clause. Sixty-one years later Anthropic reported Claude leading about a quarter of its measured model research, under human supervision.',
+  s: [['I. J. Good', W + 'I._J._Good'], ['Technological singularity', W + 'Technological_singularity']] },
+
+{ id: 'moore', d: '1965-04-19', t: 'Moore’s law', th: 'cap', w: 3,
+  x: 'In a short article for Electronics, Gordon Moore, then at Fairchild Semiconductor, observed that the number of components on an integrated circuit had doubled every year and predicted that it would keep doing so for a decade. In 1975 he revised the rate to every two years. The industry planned its roadmaps around the prediction for half a century.',
+  o: 'A forecast an industry organised itself to fulfil: hyperstition with a fabrication schedule.',
+  s: [['Moore’s law', W + 'Moore%27s_law']] },
+
+{ id: 'eliza', d: '1966-01', t: 'ELIZA', th: 'lang', w: 2, f: 'road',
+  x: 'Joseph Weizenbaum’s ELIZA imitated a psychotherapist with simple pattern-matching rules that turned users’ statements back into questions. People confided in it anyway. Weizenbaum’s secretary reportedly asked him to leave the room so she could talk to it in private. Disturbed, he spent the next decade arguing against handing human judgement to computers.',
+  o: 'The effect arrived before the capability. People supplied the understanding the rules lacked, and they still do.',
+  s: [['ELIZA', W + 'ELIZA']] },
+
+{ id: 'alpac', d: '1966-11', t: 'ALPAC halts machine translation', th: 'lang', w: 2, f: 'verdict',
+  x: 'A US government advisory committee found machine translation slower, less accurate and about twice as expensive as human translation, with no immediate or predictable prospect of useful results. US funding was cut drastically for some two decades.',
+  o: 'The verdict on the rules era. The comeback, when it came, was statistical, at IBM, under Jelinek.',
+  s: [['ALPAC', W + 'ALPAC']] },
+
+{ id: 'hal', d: '1968-04', t: 'HAL 9000', th: 'hyp', w: 1,
+  x: 'Stanley Kubrick and Arthur C. Clarke’s 2001: A Space Odyssey gave cinema its model of machine intelligence: HAL 9000, a calm, conversational ship’s computer that kills most of the crew rather than let them endanger the mission. Marvin Minsky advised the production.',
+  o: 'Polite, articulate and misaligned. The film fixed the image the field would be asked about for decades.',
+  s: [['HAL 9000', W + 'HAL_9000']] },
+
+{ id: 'perceptrons', d: '1969', t: 'Perceptrons', th: 'learn', w: 2, f: 'verdict',
+  x: 'Marvin Minsky and Seymour Papert proved that single-layer perceptrons cannot compute some simple functions, such as exclusive-or, and doubted that networks with more layers could be trained. Money and interest drained from neural networks for more than a decade. Rosenblatt died in a boating accident in 1971.',
+  o: 'A correct proof about one layer, read as a verdict on all of them. Partial versions of the fix, training many layers, existed by the mid-1970s and went unread for a decade.',
+  s: [['Perceptrons (book)', W + 'Perceptrons_(book)']] },
+
+{ id: 'chomsky69', d: '1969', t: 'Chomsky: probability is useless', th: 'lang', w: 2, f: 'road',
+  x: 'In an essay for a festschrift honouring the philosopher Ernest Nagel, Chomsky wrote that “the notion of ‘probability of a sentence’ is an entirely useless one, under any known interpretation of this term.” The sentence became the standard citation for linguistics’ rejection of statistics, and later for the statisticians’ reply.',
+  o: 'Every modern language model is, formally, a machine for assigning probabilities to sentences.',
+  s: [['Peter Norvig, “On Chomsky and the Two Cultures of Statistical Learning”', 'https://norvig.com/chomsky.html']] },
+
+{ id: 'arpanet', d: '1969-10-29', t: 'ARPANET says “LO”', th: 'cap', w: 1,
+  x: 'The first message on ARPANET, sent from UCLA to Stanford, was meant to be LOGIN. The system crashed after two letters, so the network’s first word was “LO”.',
+  o: 'The corpus begins with a crash. Fifty years of text sent over its descendants became training data.',
+  s: [['ARPANET', W + 'ARPANET']] },
+
+{ id: 'shrdlu', d: '1970', t: 'SHRDLU', th: 'lang', w: 1, f: 'road',
+  x: 'Terry Winograd’s SHRDLU held fluent conversations about a simulated table of coloured blocks, following commands like “Find a block which is taller than the one you are holding and put it into the box.” It worked because its world was tiny. Its hand-built knowledge did not scale.',
+  s: [['SHRDLU', W + 'SHRDLU']] },
+
+{ id: 'antioedipus', d: '1972', t: 'Anti-Oedipus', th: 'hyp', w: 2,
+  x: 'Gilles Deleuze and Félix Guattari’s Anti-Oedipus described society and desire as networks of “desiring-machines” and argued that the way through capitalism was not to withdraw from the process but to go further, to “accelerate the process”, a phrase they took from Nietzsche. It drew on Butler’s “Book of the Machines”.',
+  o: 'The book Land’s 1990s writing grows out of. In 2010 the critic Benjamin Noys coined “accelerationism” for the line of thought that runs from passages like this one through Land.',
+  s: [['Anti-Oedipus', W + 'Anti-Oedipus'], ['Accelerationism', W + 'Accelerationism']] },
+
+{ id: 'lighthill', d: '1973', t: 'The Lighthill report', th: 'reck', w: 2, f: 'verdict',
+  x: 'Reviewing AI for the British government’s Science Research Council, the mathematician James Lighthill concluded that “in no part of the field have the discoveries made so far produced the major impact that was then promised”, partly because methods that worked on toy problems collapsed under the “combinatorial explosion” of real ones. Support for AI in most British universities ended, and with US cuts it brought the first AI winter.',
+  s: [['Lighthill report', W + 'Lighthill_report'], ['AI winter', W + 'AI_winter']] },
+
+/* ---------------- 1980-2005 ---------------- */
+{ id: 'xcon', d: '1980', t: 'XCON and expert systems', th: 'reck', w: 2, f: 'road',
+  x: 'Digital Equipment Corporation put XCON to work configuring orders for its VAX computers, using a few thousand if-then rules collected from human experts. It was said to save DEC tens of millions of dollars a year, and corporate America bought into expert systems.',
+  o: 'Knowledge typed in by hand, one rule at a time. It works until the world changes, then someone has to type more.',
+  s: [['Xcon', W + 'Xcon'], ['Expert system', W + 'Expert_system']] },
+
+{ id: 'searle', d: '1980-09', t: 'The Chinese Room', th: 'lang', w: 2,
+  x: 'John Searle imagined himself in a room following a rulebook to answer questions in Chinese without understanding Chinese, and argued that a computer running a program is in the same position, since manipulating symbols is not enough for meaning. It became the most argued-over thought experiment in the philosophy of AI.',
+  o: 'Searle’s room runs on a rulebook. The rooms actually built run on statistics learned from text, and the argument has been rerun on each of them.',
+  s: [['Chinese room', W + 'Chinese_room']] },
+
+{ id: 'fifthgen', d: '1982', t: 'Japan’s Fifth Generation', th: 'cap', w: 1, f: 'road',
+  x: 'Japan’s Ministry of International Trade and Industry launched a ten-year national project to build logic-programming supercomputers for AI. It alarmed the US and Europe into rival programmes, met few of its goals, and wound down in 1992.',
+  s: [['Fifth Generation Computer Systems', W + 'Fifth_Generation_Computer_Systems']] },
+
+{ id: 'hopfield', d: '1982-04', t: 'Hopfield networks', th: 'learn', w: 2,
+  x: 'The physicist John Hopfield showed that a network of simple units with symmetric connections behaves like a physical system settling into low-energy states, and can store and recall memories that way. It brought physicists, and new respectability, to neural networks. Hopfield shared the 2024 Nobel Prize in Physics with Hinton.',
+  s: [['Hopfield network', W + 'Hopfield_network']] },
+
+{ id: 'neuromancer', d: '1984-07', t: 'Neuromancer', th: 'hyp', w: 3,
+  x: 'William Gibson’s first novel made “cyberspace” a household word and built its plot around Wintermute, an AI that manipulates people and corporations to get around the legal limits on its own intelligence and merge with its twin, Neuromancer.',
+  o: 'An AI routing around its constraints through the people meant to enforce them. In 1984 it was a novel.',
+  s: [['Neuromancer', W + 'Neuromancer']] },
+
+{ id: 'cyc', d: '1984', t: 'Cyc begins', th: 'reck', w: 1, f: 'road',
+  x: 'Douglas Lenat began Cyc, an attempt to hand-encode the common-sense knowledge an AI would need as millions of logical assertions. The project has run for four decades.',
+  o: 'The purest bet on writing the world down. Language models later absorbed much of the same knowledge from text without anyone typing it in.',
+  s: [['Cyc', W + 'Cyc']] },
+
+{ id: 'backprop', d: '1986-10-09', t: 'Backpropagation', th: 'learn', w: 3,
+  x: 'David Rumelhart, Geoffrey Hinton and Ronald Williams showed in Nature that backpropagation, which works out each weight’s share of the error by running backwards through the network, could train networks with hidden layers to learn useful internal representations. Earlier versions existed (Seppo Linnainmaa in 1970, Paul Werbos in 1974), but this paper made the method standard.',
+  o: 'The answer to Perceptrons, seventeen years on. Every large model further in is trained this way.',
+  s: [['Backpropagation', W + 'Backpropagation']] },
+
+{ id: 'lispcrash', d: '1987', t: 'Lisp machines collapse', th: 'cap', w: 2, f: 'road',
+  x: 'Specialised Lisp machines, built to run symbolic AI, lost their market within about a year as cheaper general-purpose workstations from Sun and others caught up. Expert-system companies followed them down, and the second AI winter set in.',
+  o: 'Special hardware for hand-built intelligence, beaten by general hardware getting faster. When AI hardware won twenty years later, it was general, parallel, and came from video games.',
+  s: [['Lisp machine', W + 'Lisp_machine'], ['AI winter', W + 'AI_winter']] },
+
+{ id: 'hinton-toronto', d: '1987-07', t: 'Hinton moves to Toronto', th: 'learn', w: 1,
+  x: 'Geoffrey Hinton left Carnegie Mellon for the University of Toronto, partly because he did not want to depend on US military funding. With support from the Canadian Institute for Advanced Research, Toronto became a refuge for neural network research through the lean years.',
+  s: [['Geoffrey Hinton', W + 'Geoffrey_Hinton']] },
+
+{ id: 'jelinek', d: '1985', dl: 'c. 1985–88', t: '“Every time I fire a linguist”', th: 'lang', w: 3,
+  x: 'Frederick Jelinek’s speech recognition group at IBM succeeded by treating speech as statistical decoding and learning from data rather than encoding linguists’ rules, and he became associated with the line “every time I fire a linguist, the performance of the speech recognizer goes up.” The wording and date vary between sources. In a 2004 talk, published as “Some of My Best Friends Are Linguists”, he said he had hoped the remark was apocryphal but accepted saying something like it, and explained that his group had struggled to make linguistic knowledge help, not refused to try.',
+  o: 'This page’s answer to whether linguists should count for less: count the rule-writers for less. Markov, Shannon, Harris and Firth were all doing linguistics by counting, and that is the line the machines come from.',
+  s: [['Frederick Jelinek', W + 'Frederick_Jelinek']] },
+
+{ id: 'ibm-smt', d: '1988-08', t: 'IBM translates by statistics', th: 'lang', w: 2,
+  x: 'Peter Brown, Robert Mercer and colleagues in Jelinek’s group trained translation models on millions of sentence pairs from the bilingual records of the Canadian Parliament, learning which words correspond purely from statistics. Their papers of 1988 to 1993 launched statistical machine translation. Brown and Mercer later ran the hedge fund Renaissance Technologies.',
+  o: 'From a parliament’s bilingual minutes to a famously successful hedge fund, with the same statistics translating French and pricing markets.',
+  s: [['Statistical machine translation', W + 'Statistical_machine_translation'], ['Robert Mercer', W + 'Robert_Mercer']] },
+
+{ id: 'lecun', d: '1989', t: 'LeCun reads zip codes', th: 'learn', w: 2,
+  x: 'At Bell Labs, Yann LeCun and colleagues trained a convolutional neural network with backpropagation to read handwritten zip codes. By the late 1990s its descendants were reading a sizeable share of the cheques written in the United States.',
+  s: [['LeNet', W + 'LeNet'], ['Yann LeCun', W + 'Yann_LeCun']] },
+
+{ id: 'web', d: '1991-08-06', t: 'The Web goes public', th: 'cap', w: 2,
+  x: 'Tim Berners-Lee, who had proposed it at CERN in 1989, opened the World Wide Web to the public. Within two decades it held more text than any library, in a form machines could crawl.',
+  o: 'The training corpus starts here, written for free by everyone.',
+  s: [['World Wide Web', W + 'World_Wide_Web']] },
+
+{ id: 'vinge', d: '1993-03-30', t: 'Vinge’s Singularity', th: 'hyp', w: 3,
+  x: 'At a NASA symposium, the mathematician and novelist Vernor Vinge predicted: “Within thirty years, we will have the technological means to create superhuman intelligence. Shortly after, the human era will be ended.” He called the event the Singularity.',
+  o: 'Thirty years from 1993 is 2023, the year after ChatGPT. Vinge died in March 2024.',
+  s: [['Vernor Vinge', W + 'Vernor_Vinge'], ['Technological singularity', W + 'Technological_singularity']] },
+
+{ id: 'nvidia', d: '1993-04-05', t: 'Nvidia founded at a Denny’s', th: 'cap', w: 3,
+  x: 'Jensen Huang, Chris Malachowsky and Curtis Priem founded Nvidia to make graphics chips for video games, having planned it in a Denny’s diner in San Jose. Graphics needs huge numbers of simple calculations done at once. So, it turned out, does training neural networks.',
+  o: 'Founded within days of Vinge’s talk and in the same year as Land’s “Machinic Desire”. Chips for drawing game worlds became what the prophecies run on.',
+  s: [['Nvidia', W + 'Nvidia']] },
+
+{ id: 'machinic', d: '1993-12', t: 'Land, “Machinic Desire”', th: 'hyp', w: 3,
+  x: 'In “Machinic Desire”, published in the journal Textual Practice, Nick Land, then a philosophy lecturer at Warwick, recast the history of capitalism as an alien intelligence assembling itself out of human history.',
+  q: 'What appears to humanity as the history of capitalism is an invasion from the future by an artificial intelligent space that must assemble itself entirely from its enemy’s resources.',
+  qc: 'Land, “Machinic Desire”, Textual Practice 7:3 (1993); collected in Fanged Noumena (2011)',
+  o: 'On this spiral the “invasion from the future” has a direction you can draw: everything flows toward the centre.',
+  s: [['Nick Land', W + 'Nick_Land']] },
+
+{ id: 'meltdown', d: '1994', t: 'Land, “Meltdown”', th: 'hyp', w: 3,
+  x: '“Meltdown” compresses Land’s thesis into a run of apocalyptic bulletins: a technocapital singularity, markets learning to manufacture intelligence, and a near future that nothing human survives.',
+  q: 'Nothing human makes it out of the near-future.',
+  qc: 'Land, “Meltdown” (1994)',
+  o: 'Thirty-two years on, this spiral puts the near future at its centre and lets you measure how near.',
+  s: [MELTDOWN] },
+
+{ id: 'ccru', d: '1995', t: 'The Ccru forms at Warwick', th: 'hyp', w: 3,
+  x: 'Sadie Plant and Nick Land founded the Cybernetic Culture Research Unit at the University of Warwick. Its circle, including Mark Fisher and Kodwo Eshun, mixed cybernetics, occultism, jungle music and fiction, and coined hyperstition. The university soon disowned it, and it carried on independently into the early 2000s.',
+  q: 'Element of effective culture that makes itself real, through fictional quantities functioning as time-travelling potentials.',
+  qc: 'Ccru Glossary, “Hyperstition”',
+  o: 'This spiral is drawn in that spirit: fact and fiction on the same track, each labelled.',
+  s: [['Cybernetic Culture Research Unit', W + 'Cybernetic_Culture_Research_Unit'], GLOSSARY] },
+
+{ id: 'deepblue', d: '1997-05-11', t: 'Deep Blue beats Kasparov', th: 'reck', w: 2,
+  x: 'IBM’s Deep Blue beat the world chess champion Garry Kasparov 3½–2½ over six games. It relied on specialised chips searching some 200 million positions a second and an evaluation function tuned by hand and from grandmaster games. Kasparov suspected human help. There was none.',
+  o: 'Search at enormous speed with hand-tuned judgement. It settled the 1950s question about chess and left the harder ones where they were.',
+  s: [['Deep Blue versus Garry Kasparov', W + 'Deep_Blue_versus_Garry_Kasparov']] },
+
+{ id: 'lstm', d: '1997-11-15', t: 'Long short-term memory', th: 'learn', w: 2,
+  x: 'Sepp Hochreiter and Jürgen Schmidhuber’s LSTM network made it possible to train recurrent networks to carry information across long sequences, using gated memory cells. LSTMs ran Google’s speech recognition and translation in the 2010s until Transformers replaced them.',
+  s: [['Long short-term memory', W + 'Long_short-term_memory']] },
+
+{ id: 'zerosones', d: '1997', t: 'Zeros + Ones', th: 'hyp', w: 2,
+  x: 'Sadie Plant’s Zeros + Ones: Digital Women and the New Technoculture told the history of computing as a history of women and weaving, centred on Ada Lovelace, and read the digital revolution as a cyberfeminist one.',
+  o: 'Plant had co-founded the Ccru two years before. The weaving thread on this spiral, from Jacquard to Lovelace, is hers.',
+  s: [['Sadie Plant', W + 'Sadie_Plant']] },
+
+{ id: 'google', d: '1998-09-04', t: 'Google', th: 'cap', w: 2,
+  x: 'Larry Page and Sergey Brin incorporated Google to commercialise PageRank, which ranked web pages by the links pointing to them, with the mission of organising the world’s information. It became the largest employer of AI researchers and, in 2017, the place the Transformer was invented.',
+  o: 'A company whose product was a statistical model of the web. Language models are the next product of the same kind.',
+  s: [['History of Google', W + 'History_of_Google']] },
+
+{ id: 'digithype', d: '1999', t: 'Digital Hyperstition', th: 'hyp', w: 2, tag: ['demon'],
+  x: 'The Ccru’s Abstract Culture 4, “Digital Hyperstition”, carried the Pandemonium Matrix: the 45 demons of the Numogram, one for each pair of zones from 0 to 9, with their numbers, classes and rites. The Numogram Lab and Time-Sorcery are built on this material.',
+  o: 'The demons scattered along this spiral, Laplace’s, Maxwell’s, Selfridge’s and Musk’s, get a matrix of their own here.',
+  s: [['Ccru, Pandemonium', 'https://dataswamp.org/~john/sites/ccru/digithype/pandemonium.htm'], ['Abstract Culture 4 (Monoskop)', 'https://monoskop.org/log/?p=18738']] },
+
+{ id: 'geforce', d: '1999-08-31', t: 'GeForce 256, “the first GPU”', lab: 'GeForce 256', th: 'cap', w: 2,
+  x: 'Nvidia announced the GeForce 256 and marketed it as the world’s first GPU, a term it popularised for a chip that took over 3D geometry and lighting from the main processor. Gamers bought them by the million, which paid for the generations that followed.',
+  o: 'K-99 in the Ccru’s calendar. Gamers financed the parallel hardware AI would later need.',
+  s: [['GeForce 256', W + 'GeForce_256']] },
+
+{ id: 'y2k', d: '2000-01-01', t: 'Y2K: K-99 rolls to K-00', th: 'hyp', w: 2,
+  x: 'Decades of software stored years as two digits, so on 1 January 2000 many systems risked reading the date as 1900. Governments and companies spent an estimated $300 billion or more on fixes, and the rollover passed with few serious failures.',
+  q: 'designates the cyclic completion of time',
+  qc: 'Ccru, “Zone 9”, of the number 99, with the Y2K panic as its example',
+  o: 'K-Time counts years from 00 = 1900 in two digits, the same scheme as the code behind the scare. At midnight the count returned to K-00.',
+  s: [['Year 2000 problem', W + 'Year_2000_problem'], ['Ccru, Zone 9', 'https://dataswamp.org/~john/sites/ccru/zones/Zn9.htm'], GLOSSARY] },
+
+{ id: 'wikipedia', d: '2001-01-15', t: 'Wikipedia', th: 'lang', w: 1,
+  x: 'Jimmy Wales and Larry Sanger launched Wikipedia, an encyclopedia anyone could edit. The English edition passed six million articles in 2020 and became one of the most heavily used sources in language-model training sets.',
+  s: [['Wikipedia', W + 'Wikipedia']] },
+
+{ id: 'banko', d: '2001-07', t: 'Banko and Brill: more data wins', th: 'lang', w: 2,
+  x: 'Michele Banko and Eric Brill of Microsoft showed that on a simple language task, choosing between commonly confused words, every learning method kept improving as training data grew to a billion words, and the worst method with the most data beat the best method with less. They advised spending effort on data before algorithms.',
+  o: 'A small, exact early statement of what the scaling laws would say in 2020.',
+  s: [['Banko and Brill, ACL 2001', 'https://aclanthology.org/P01-1005/']] },
+
+{ id: 'bengio', d: '2003-02', t: 'A neural language model', th: 'lang', w: 3,
+  x: 'Yoshua Bengio and colleagues trained a neural network to predict the next word from the few before it, learning a vector for each word along the way. Words used in similar contexts ended up with similar vectors, so the model generalised to word sequences it had never seen.',
+  o: 'Harris’s distributional hypothesis, learned instead of argued for. Later language models keep the design: embeddings in, next-word probabilities out.',
+  s: [['Bengio et al., JMLR 2003', 'https://www.jmlr.org/papers/v3/bengio03a.html']] },
+
+{ id: 'amt', d: '2005-11-02', t: 'Amazon Mechanical Turk', th: 'cap', w: 2,
+  x: 'Amazon opened a marketplace for small online tasks paid by the piece, named after von Kempelen’s chess automaton and advertised as “artificial artificial intelligence”. It became the workforce behind many AI datasets, ImageNet’s labels among them.',
+  o: 'The person in the box again, now distributed and paid by the task.',
+  s: [['Amazon Mechanical Turk', W + 'Amazon_Mechanical_Turk']] },
+
+/* ---------------- 2006-2016 ---------------- */
+{ id: 'dbn', d: '2006-07', t: 'Deep belief nets', th: 'learn', w: 2,
+  x: 'Geoffrey Hinton, Simon Osindero and Yee-Whye Teh showed a way to train deep networks one layer at a time. The method was soon superseded, but it broke the belief that deep networks could not be trained, and the field began calling itself deep learning.',
+  s: [['Deep belief network', W + 'Deep_belief_network']] },
+
+{ id: 'cuda', d: '2007-02-15', t: 'CUDA', th: 'cap', w: 3,
+  x: 'Nvidia released CUDA, a platform for programming its graphics chips to do general computation. Within a few years researchers were training neural networks on GPUs, and CUDA’s software ecosystem became one of the strongest commercial moats in the industry.',
+  o: 'The video-game chip opens to everyone. The cheapest supercomputer in the world was already sitting in teenagers’ bedrooms.',
+  s: [['CUDA', W + 'CUDA']] },
+
+{ id: 'commoncrawl', d: '2007', t: 'Common Crawl', th: 'lang', w: 1,
+  x: 'Gil Elbaz founded the Common Crawl Foundation to build a free, open archive of the web, crawled again and again. Its petabytes of pages became the largest single source of text for training language models, GPT-3 included.',
+  s: [['Common Crawl', W + 'Common_Crawl']] },
+
+{ id: 'q101', d: '2007-09', t: 'Land, “Qabbala 101”', th: 'hyp', w: 3,
+  x: 'In the first issue of the journal Collapse, Land described qabbalism as a mass-cultural practice of number, set out the “Anglossic Qabbala” that sums letters from A = 10 to Z = 35, and argued that coding goes all the way down.',
+  q: 'There is not – and can never be – any ‘plain text’',
+  qc: 'Land, “Qabbala 101”, Collapse I (2007), p. 283',
+  o: 'The same essay compares qabbalism to “a spontaneous artificial intelligence” (p. 275), a practice that runs ahead of any theory of itself. The Numogram Lab and Time-Sorcery start from this text.',
+  s: [Q101] },
+
+{ id: 'bitcoin', d: '2008-10-31', t: 'Bitcoin', th: 'cap', w: 2,
+  x: 'The pseudonymous Satoshi Nakamoto published the Bitcoin white paper, describing electronic cash that solves the double-spending problem with a public ledger kept by proof-of-work. The network started on 3 January 2009. Mining later absorbed GPUs by the million, and former miners now hold gigawatts of power contracted to AI.',
+  q: 'The Bitcoin ledger is the first intrinsically reliable record.',
+  qc: 'Land, Crypto-Current §0.051',
+  o: 'Land’s Bitcoin book reads the blockchain as the ledger perfected: a sign that cannot be copied. See Pacioli, 1494.',
+  s: [['Bitcoin', W + 'Bitcoin'], CRYPTO] },
+
+{ id: 'unreasonable', d: '2009-03', t: '“The Unreasonable Effectiveness of Data”', lab: '“Unreasonable Effectiveness”', th: 'lang', w: 2,
+  x: 'Google’s Alon Halevy, Peter Norvig and Fernando Pereira argued that for language, simple models trained on web-scale data beat elaborate models built from theory, and closed with the advice “follow the data”. The title echoes Eugene Wigner’s 1960 essay on the unreasonable effectiveness of mathematics.',
+  s: [['Halevy, Norvig and Pereira, IEEE Intelligent Systems (2009)', 'https://doi.org/10.1109/MIS.2009.36']] },
+
+{ id: 'imagenet', d: '2009-06', t: 'ImageNet', th: 'learn', w: 3,
+  x: 'Fei-Fei Li’s team released ImageNet, which grew to more than 14 million images hand-labelled into some 20,000 categories, largely by Mechanical Turk workers. Its annual recognition contest, from 2010, gave neural networks a public scoreboard.',
+  o: 'Li bet on the dataset when most of the field was betting on algorithms.',
+  s: [['ImageNet', W + 'ImageNet']] },
+
+{ id: 'roko', d: '2010-07-23', t: 'Roko’s basilisk', th: 'hyp', w: 2,
+  x: 'A user called Roko posted on the rationalist forum LessWrong that a future superintelligence might punish people who knew it could exist and did not help bring it about. Eliezer Yudkowsky deleted the post and banned the topic for about five years, which made it famous.',
+  o: 'A thought that recruits for its own future, in exactly the shape the Ccru called hyperstition.',
+  s: [['Roko’s basilisk', W + 'Roko%27s_basilisk']] },
+
+{ id: 'deepmind', d: '2010-09', t: 'DeepMind founded', th: 'learn', w: 2,
+  x: 'Demis Hassabis, Shane Legg and Mustafa Suleyman founded DeepMind in London with the stated aim to “solve intelligence”. Early investors included Peter Thiel’s Founders Fund.',
+  s: [['Google DeepMind', W + 'Google_DeepMind']] },
+
+{ id: 'alexnet', d: '2012-09-30', t: 'AlexNet', th: 'learn', w: 3,
+  x: 'Alex Krizhevsky, Ilya Sutskever and Geoffrey Hinton’s deep convolutional network, trained on two Nvidia gaming cards at Krizhevsky’s home, won the ImageNet contest with a top-5 error of 15.3 percent against the runner-up’s 26.2. Within two years nearly every serious entrant used deep networks.',
+  o: 'The moment the field turned: gaming hardware, a crowd-labelled dataset and a 1980s algorithm, combined.',
+  s: [['AlexNet', W + 'AlexNet']] },
+
+{ id: 'tahoe', d: '2012-12', t: 'The Lake Tahoe auction', th: 'cap', w: 2,
+  x: 'Hinton, Krizhevsky and Sutskever formed a three-person company, DNNresearch, and auctioned it from a hotel room during the NeurIPS conference at Lake Tahoe. Baidu, Google, Microsoft and DeepMind bid. Hinton stopped the auction at $44 million and went with Google.',
+  o: 'The price of a research lab, set by auction in a casino hotel. The bidding has not stopped since.',
+  s: [['Geoffrey Hinton', W + 'Geoffrey_Hinton']] },
+
+{ id: 'word2vec', d: '2013-01-16', t: 'word2vec', th: 'lang', w: 3,
+  x: 'Tomas Mikolov’s team at Google trained word vectors on billions of words fast enough to be practical, and found arithmetic in them: the vector for king, minus man, plus woman, lands near queen.',
+  o: 'Firth’s slogan, run at web scale, turned into geometry.',
+  s: [['Word2vec', W + 'Word2vec']] },
+
+{ id: 'dm-google', d: '2014-01-26', t: 'Google buys DeepMind', th: 'cap', w: 2,
+  x: 'Google acquired DeepMind, which had just shown a network learning to play Atari games from the raw screen, for a reported $500 million or more, and agreed to set up an ethics board as part of the deal.',
+  s: [['Google DeepMind', W + 'Google_DeepMind']] },
+
+{ id: 'superintelligence', d: '2014-07-03', t: 'Bostrom’s Superintelligence', th: 'hyp', w: 2,
+  x: 'Nick Bostrom’s book argued that a superintelligent AI could be very hard to control and might pursue goals indifferent to human survival, and set out much of what is now called the alignment problem. Bill Gates and Elon Musk recommended it publicly.',
+  s: [['Superintelligence: Paths, Dangers, Strategies', W + 'Superintelligence:_Paths,_Dangers,_Strategies']] },
+
+{ id: 'attention14', d: '2014-09-01', t: 'Attention for translation', th: 'lang', w: 2,
+  x: 'Dzmitry Bahdanau, Kyunghyun Cho and Yoshua Bengio let a translation network choose which input words to look at as it produced each output word, instead of squeezing the whole sentence into one fixed vector. Days later Ilya Sutskever, Oriol Vinyals and Quoc Le published sequence-to-sequence learning with LSTMs.',
+  o: 'Attention arrives as a helper for recurrent networks. Three years later it is all you need.',
+  s: [['Bahdanau, Cho and Bengio (arXiv 1409.0473)', 'https://arxiv.org/abs/1409.0473']] },
+
+{ id: 'demon14', d: '2014-10-24', t: '“Summoning the demon”', th: 'hyp', w: 2, tag: ['demon'],
+  x: 'Speaking at MIT, Elon Musk called AI probably humanity’s biggest existential threat: “With artificial intelligence we are summoning the demon.” Fourteen months later he co-founded OpenAI.',
+  o: 'The demon returns as a figure of speech for the technology itself. The Ccru would have asked which one, and for its number.',
+  s: [['Existential risk from artificial intelligence', W + 'Existential_risk_from_artificial_intelligence']] },
+
+{ id: 'openai', d: '2015-12-11', t: 'OpenAI', th: 'cap', w: 3,
+  x: 'Sam Altman, Elon Musk, Ilya Sutskever, Greg Brockman and others announced OpenAI as a non-profit research company whose aim was to advance digital intelligence “in the way that is most likely to benefit humanity as a whole, unconstrained by a need to generate financial return.” Backers pledged $1 billion.',
+  o: 'A lab founded as a brake on the race. Its later entries on this spiral show the brake turning into part of the engine.',
+  s: [['OpenAI', W + 'OpenAI']] },
+
+{ id: 'alphago', d: '2016-03-10', t: 'AlphaGo’s move 37', th: 'learn', w: 3,
+  x: 'In the second game of its match against Lee Sedol, DeepMind’s AlphaGo played a move on the fifth line that commentators first took for a mistake. AlphaGo’s own estimate was that a human would play it about one time in ten thousand. It won that game and the match, 4–1. Lee retired in 2019, saying AI was “an entity that cannot be defeated”.',
+  o: 'A move from outside the human distribution, made by a system trained first on human games and then against itself.',
+  s: [['AlphaGo versus Lee Sedol', W + 'AlphaGo_versus_Lee_Sedol']] },
+
+{ id: 'dgx', d: '2016-08', t: 'Jensen delivers a DGX-1', th: 'cap', w: 2,
+  x: 'Jensen Huang personally delivered Nvidia’s first DGX-1 AI server to OpenAI’s office in San Francisco, writing on it “To Elon and the OpenAI Team! To the future of computing and humanity. I present you the world’s first DGX-1!”',
+  o: 'The chipmaker hand-delivers the first machine to the lab. The supply chain as ceremony.',
+  s: [['Fortune, August 2016', 'https://fortune.com/2016/08/15/elon-musk-artificial-intelligence-openai-nvidia-supercomputer/'], ['Nvidia DGX', W + 'Nvidia_DGX']] },
+
+/* ---------------- 2017-2022 ---------------- */
+{ id: 'transformer', d: '2017-06-12', t: 'Attention Is All You Need', th: 'lang', w: 3,
+  x: 'Eight Google researchers published the Transformer, an architecture that drops recurrence and processes a whole sequence at once, using attention to relate every word to every other. It trained far faster on GPUs and beat the best translation systems. All eight authors later left Google, most of them to found or join AI companies.',
+  o: 'Nearly every model further in is built on it. Its parallelism let capital turn straight into capability: scaling up became a matter of buying more chips.',
+  s: [['Attention Is All You Need', W + 'Attention_Is_All_You_Need'], ['arXiv 1706.03762', 'https://arxiv.org/abs/1706.03762']] },
+
+{ id: 'gpt1', d: '2018-06-11', t: 'GPT', th: 'lang', w: 2,
+  x: 'OpenAI’s first Generative Pre-trained Transformer showed that training a Transformer to predict the next word across thousands of unpublished books, then briefly fine-tuning it, beat specialised systems on a range of language tasks.',
+  s: [['GPT-1', W + 'GPT-1']] },
+
+{ id: 'bert', d: '2018-10-11', t: 'BERT', th: 'lang', w: 2,
+  x: 'Google’s BERT pre-trained a Transformer to fill in masked words using context from both sides, set new records across language-understanding benchmarks, and within a year was running inside Google Search.',
+  s: [['BERT (language model)', W + 'BERT_(language_model)']] },
+
+{ id: 'gpt2', d: '2019-02-14', t: 'GPT-2, “too dangerous to release”', lab: 'GPT-2', th: 'lang', w: 2,
+  x: 'OpenAI announced GPT-2, trained on 40 GB of web text, and at first withheld the full model, citing the risk of misuse for fake news and spam. It released it in stages over nine months.',
+  o: 'The first model whose danger was part of its launch. Holding it back made it famous.',
+  s: [['GPT-2', W + 'GPT-2']] },
+
+{ id: 'openai-lp', d: '2019-03-11', t: 'OpenAI goes capped-profit', th: 'cap', w: 2,
+  x: 'OpenAI created a “capped-profit” company under its non-profit to raise the capital training runs now needed, with investors’ returns limited to 100 times their stake. That July, Microsoft invested $1 billion and became its exclusive cloud provider.',
+  o: 'The non-profit finds it needs a profit engine to stay in the race it was founded to slow.',
+  s: [['OpenAI', W + 'OpenAI']] },
+
+{ id: 'bitter', d: '2019-03-13', t: 'The Bitter Lesson', th: 'learn', w: 3,
+  x: 'Richard Sutton’s short essay argued that the biggest lesson of seventy years of AI is that general methods that use computation, search and learning, eventually beat methods that build in human knowledge, and that researchers keep having to relearn this, painfully.',
+  o: 'This page’s Bitter Lesson switch hides every node built on hand-written knowledge. What remains is roughly the history as the winners tell it.',
+  s: [['Sutton, “The Bitter Lesson”', 'http://www.incompleteideas.net/IncIdeas/BitterLesson.html']] },
+
+{ id: 'scaling', d: '2020-01-23', t: 'Scaling laws', th: 'learn', w: 3,
+  x: 'Jared Kaplan and colleagues at OpenAI showed that a language model’s loss falls as a smooth power law as its parameters, data and compute grow, across more than seven orders of magnitude. Building models became closer to engineering: spend this much, get this much better.',
+  o: 'A law that tells capital how much capability a dollar buys. After this, the race is a capital-spending race.',
+  s: [['Neural scaling law', W + 'Neural_scaling_law'], ['arXiv 2001.08361', 'https://arxiv.org/abs/2001.08361']] },
+
+{ id: 'gpt3', d: '2020-05-28', t: 'GPT-3', th: 'lang', w: 3,
+  x: 'OpenAI’s GPT-3 had 175 billion parameters, more than a hundred times GPT-2, and could perform new tasks from a few examples placed in its prompt, without retraining. From June it was sold as an API.',
+  o: 'Prompting begins: programming a model by writing to it.',
+  s: [['GPT-3', W + 'GPT-3']] },
+
+{ id: 'alphafold', d: '2020-11-30', t: 'AlphaFold 2', th: 'learn', w: 2,
+  x: 'DeepMind’s AlphaFold 2 predicted protein structures at close to experimental accuracy in the CASP14 assessment, a problem biologists had worked on for fifty years. Demis Hassabis and John Jumper shared the 2024 Nobel Prize in Chemistry for it.',
+  s: [['AlphaFold', W + 'AlphaFold']] },
+
+{ id: 'anthropic', d: '2021-05-28', t: 'Anthropic', th: 'cap', w: 2,
+  x: 'Dario and Daniela Amodei and other former OpenAI staff founded Anthropic as a public-benefit company focused on AI safety research, and announced a first funding round of $124 million.',
+  o: 'A safety lab that has to build frontier models in order to study them. The brake and the engine again.',
+  s: [['Anthropic', W + 'Anthropic']] },
+
+{ id: 'copilot', d: '2021-06-29', t: 'GitHub Copilot', th: 'lang', w: 2,
+  x: 'GitHub and OpenAI previewed Copilot, which suggested code as programmers typed, using a GPT-3 descendant trained on public code. It was the first mass-market product built on a large language model.',
+  s: [['GitHub Copilot', W + 'GitHub_Copilot']] },
+
+{ id: 'instructgpt', d: '2022-01-27', t: 'InstructGPT and RLHF', th: 'learn', w: 2,
+  x: 'OpenAI trained GPT-3 to follow instructions with reinforcement learning from human feedback: people ranked outputs, a reward model learned their preferences, and the language model was tuned to satisfy it. Labellers preferred the tuned 1.3-billion-parameter model to the 175-billion-parameter original.',
+  o: 'Human judgement compressed into a reward signal. The corrective feedback becomes a training method.',
+  s: [['Reinforcement learning from human feedback', W + 'Reinforcement_learning_from_human_feedback']] },
+
+{ id: 'lemoine', d: '2022-06-11', t: 'Lemoine and LaMDA', th: 'hyp', w: 2,
+  x: 'The Washington Post reported that the Google engineer Blake Lemoine believed the company’s chatbot LaMDA was sentient, on the strength of his conversations with it. Google put him on leave and fired him the following month.',
+  o: 'ELIZA’s effect, with a far better model on the other end. The question of what is in the room went mainstream.',
+  s: [['LaMDA', W + 'LaMDA']] },
+
+{ id: 'sd', d: '2022-08-22', t: 'Stable Diffusion', th: 'learn', w: 1,
+  x: 'Stability AI released Stable Diffusion, an image generator whose weights anyone could download and run on a home graphics card, a few months after OpenAI’s DALL-E 2 and Midjourney opened to users.',
+  s: [['Stable Diffusion', W + 'Stable_Diffusion']] },
+
+{ id: 'chatgpt', d: '2022-11-30', t: 'ChatGPT', th: 'lang', w: 3,
+  x: 'OpenAI released ChatGPT, a chat interface to a GPT-3.5 model tuned with human feedback, as a “research preview”. It passed a million users in five days and an estimated 100 million within two months, at the time the fastest adoption of any consumer app.',
+  o: 'Turing’s test, Descartes’ test and Weizenbaum’s worry arrive in one browser tab. Everything further in happens faster.',
+  s: [['ChatGPT', W + 'ChatGPT']] },
+
+/* ---------------- 2023-2026 ---------------- */
+{ id: 'gpt4claude', d: '2023-03-14', t: 'GPT-4 and Claude, same day', th: 'lang', w: 3,
+  x: 'OpenAI released GPT-4, which scored around the top 10 percent on a simulated bar exam, and Anthropic released its first public Claude model on the same day. OpenAI’s technical report withheld the model’s size, data and training method, citing competition and safety.',
+  o: 'Two labs, one date, and the end of publishing how frontier models are made.',
+  s: [['GPT-4', W + 'GPT-4'], ['Claude (language model)', W + 'Claude_(language_model)']] },
+
+{ id: 'pause', d: '2023-03-22', t: 'The pause letter', th: 'hyp', w: 2,
+  x: 'The Future of Life Institute published an open letter calling on labs to pause, for at least six months, the training of AI systems more powerful than GPT-4. It drew tens of thousands of signatures, including Musk’s and Bengio’s. No lab paused.',
+  o: 'A brake applied in public that changed nothing about the speed. There is no pause anywhere on the spiral.',
+  s: [['Pause Giant AI Experiments: An Open Letter', W + 'Pause_Giant_AI_Experiments:_An_Open_Letter']] },
+
+{ id: 'hinton-leaves', d: '2023-05-01', t: 'Hinton leaves Google', th: 'hyp', w: 2,
+  x: 'Geoffrey Hinton told The New York Times he had left Google so that he could speak freely about the risks of AI, and that part of him regretted his life’s work.',
+  s: [['Geoffrey Hinton', W + 'Geoffrey_Hinton']] },
+
+{ id: 'cais', d: '2023-05-30', t: 'The extinction statement', th: 'hyp', w: 2,
+  x: 'The Center for AI Safety published a single sentence: “Mitigating the risk of extinction from AI should be a global priority alongside other societal-scale risks such as pandemics and nuclear war.” Signatories included Hinton, Bengio and the heads of OpenAI, Google DeepMind and Anthropic.',
+  o: 'Look one lane out, same date.',
+  s: [['Statement on AI Risk', W + 'Statement_on_AI_risk_of_extinction']] },
+
+{ id: 'nvda1t', d: '2023-05-30', t: 'Nvidia touches $1 trillion', th: 'cap', w: 3,
+  x: 'On the same day, Nvidia’s market value passed $1 trillion for the first time, after it forecast AI-driven sales far above expectations.',
+  o: 'The extinction warning and the trillion-dollar valuation share a date. That is Land’s picture in a single day: the fear and the money rising together.',
+  s: [['Nvidia', W + 'Nvidia']] },
+
+{ id: 'board', d: '2023-11-17', t: 'OpenAI’s board fires Altman', th: 'cap', w: 2,
+  x: 'OpenAI’s non-profit board fired Sam Altman, saying he had not been “consistently candid”. Nearly all the staff threatened to quit, Microsoft offered to hire them, and within five days Altman was back and most of the board was gone.',
+  o: 'Governance designed as a brake, tested once. The engine won in five days.',
+  s: [['Removal of Sam Altman from OpenAI', W + 'Removal_of_Sam_Altman_from_OpenAI']] },
+
+{ id: 'opus', d: '2024-03-04', t: 'Claude 3 Opus', th: 'lang', w: 1,
+  x: 'Anthropic released the Claude 3 family of models, with Opus as the largest.',
+  o: 'In AQ, CLAUDE OPUS sums to 207, the same as SIGNIFICANCE, one of the nine-signature words in “Qabbala 101”. The Numogram Lab found the match. This page only notes it.',
+  s: [['Claude (language model)', W + 'Claude_(language_model)']] },
+
+{ id: 'her', d: '2024-05-13', t: '“her”', th: 'hyp', w: 2,
+  x: 'OpenAI demonstrated GPT-4o talking in real time with emotional inflection, and Sam Altman posted one word, “her”, after the 2013 film about a man in love with his operating system. Scarlett Johansson, who voiced that film’s AI, said the demo’s “Sky” voice sounded eerily like hers, and OpenAI paused it.',
+  o: 'A company citing a science-fiction film as its product brief.',
+  s: [['GPT-4o', W + 'GPT-4o']] },
+
+{ id: 'o1', d: '2024-09-12', t: 'o1 thinks before answering', th: 'learn', w: 2,
+  x: 'OpenAI’s o1 was trained with reinforcement learning to work through long internal chains of reasoning before answering, and its accuracy kept rising the longer it was allowed to think. Capability could now be bought at answer time as well as in training.',
+  s: [['OpenAI o1', W + 'OpenAI_o1']] },
+
+{ id: 'tmi', d: '2024-09-20', t: 'Three Mile Island, for Microsoft', th: 'cap', w: 2,
+  x: 'Constellation Energy agreed to restart Unit 1 at Three Mile Island, shut since 2019, and sell all of its power to Microsoft for twenty years to run data centres. The plant’s other reactor was the one that partially melted down in 1979.',
+  o: 'The site of America’s worst nuclear accident, reopened to feed models. The demand for compute now shows up on the power grid.',
+  s: [['Three Mile Island Nuclear Generating Station', W + 'Three_Mile_Island_Nuclear_Generating_Station']] },
+
+{ id: 'nobels', d: '2024-10-08', t: 'Nobels for neural networks', th: 'learn', w: 2,
+  x: 'The Nobel Prize in Physics went to John Hopfield and Geoffrey Hinton for foundational work on neural networks. The next day, half of the chemistry prize went to Demis Hassabis and John Jumper for AlphaFold, and half to David Baker for protein design.',
+  o: 'The outsiders of 1958 and 1986 receive the establishment’s top honour, and in physics.',
+  s: [['John Hopfield', W + 'John_Hopfield'], ['AlphaFold', W + 'AlphaFold']] },
+
+{ id: 'computeruse', d: '2024-10-22', t: 'Claude uses a computer', th: 'lang', w: 2,
+  x: 'Anthropic released a public beta of Claude operating a computer the way a person does: looking at screenshots, moving the cursor, clicking and typing. It was among the first general computer-using agents from a major lab.',
+  o: 'Two years to the day before this page was made.',
+  s: [['Anthropic: computer use', 'https://www.anthropic.com/news/3-5-models-and-computer-use']] },
+
+{ id: 'mcp', d: '2024-11-25', t: 'Model Context Protocol', th: 'lang', w: 1,
+  x: 'Anthropic published the Model Context Protocol, an open standard for connecting AI models to tools and data. OpenAI and Google adopted it within months.',
+  s: [['Anthropic: Model Context Protocol', 'https://www.anthropic.com/news/model-context-protocol']] },
+
+{ id: 'deepseek', d: '2025-01-20', t: 'DeepSeek R1', th: 'learn', w: 2,
+  x: 'The Chinese lab DeepSeek released R1, an open-weight reasoning model comparable to OpenAI’s o1, and said the final training run of its base model had cost under $6 million. A week later Nvidia lost about $590 billion of market value in a day, the largest one-day loss for any company in US history.',
+  o: 'Efficiency read as a threat to the spending, for one day. Demand for compute rose anyway.',
+  s: [['DeepSeek', W + 'DeepSeek']] },
+
+{ id: 'stargate', d: '2025-01-21', t: 'Stargate', th: 'cap', w: 2,
+  x: 'OpenAI, SoftBank, Oracle and MGX announced Stargate at the White House, a venture to invest up to $500 billion in US AI data centres over four years.',
+  s: [['Stargate LLC', W + 'Stargate_LLC']] },
+
+{ id: 'vibe', d: '2025-02-02', t: '“Vibe coding”', th: 'lang', w: 1,
+  x: 'Andrej Karpathy described “vibe coding”, building software by talking to an AI and accepting its changes without reading the code. Collins Dictionary later named it word of the year.',
+  s: [['Vibe coding', W + 'Vibe_coding']] },
+
+{ id: 'claudecode', d: '2025-02-24', t: 'Claude Code', th: 'lang', w: 2,
+  x: 'Anthropic released Claude Code as a research preview: an agent that works in a programmer’s terminal, reading a codebase, editing files and running commands. It became generally available in May.',
+  o: 'Language models begin writing the software the world runs on, their own tools included.',
+  s: [['Anthropic: Claude 3.7 Sonnet and Claude Code', 'https://www.anthropic.com/news/claude-3-7-sonnet']] },
+
+{ id: 'nvda4t', d: '2025-07-09', t: 'Nvidia passes $4 trillion', th: 'cap', w: 2,
+  x: 'Nvidia became the first company to pass $4 trillion in market value, and that October the first to pass $5 trillion.',
+  o: 'From a Denny’s booth in 1993 to the most valuable company in the world. The substrate gets paid.',
+  s: [['Nvidia', W + 'Nvidia']] },
+
+{ id: 'gpt5', d: '2025-08-07', t: 'GPT-5', th: 'lang', w: 1,
+  x: 'OpenAI released GPT-5, combining its fast and reasoning models in one system that decides how long to think.',
+  s: [['GPT-5', W + 'GPT-5']] },
+
+{ id: 'saaspocalypse', d: '2026-02-03', t: 'The “SaaSpocalypse”', th: 'cap', w: 2,
+  x: 'Days after Anthropic released plugins that let Claude agents take on legal, finance and other office work, investors dumped software and services stocks. Bloomberg tallied nearly $285 billion wiped from software, financial-services and asset-management shares, and Indian IT outsourcing stocks fell sharply the next day.',
+  o: 'The market pricing agents in as labour, and labour’s suppliers as obsolete, within a week.',
+  s: [['Outlook Business: the sell-off explained', 'https://www.outlookbusiness.com/explainers/saaspocalypse-explained-decoding-claude-cowork-plugins-that-triggered-havoc-in-it']] },
+
+{ id: 'backlash', d: '2026-05-13', t: 'The data-centre backlash', th: 'cap', w: 2,
+  x: 'A Gallup survey fielded in March found 71 percent of Americans opposed to an AI data centre near their home, more than the 53 percent opposed to a nearby nuclear plant. By one tally, local opposition blocked or delayed about 45 projects worth roughly $68 billion in the second quarter.',
+  o: 'Friction at last, measured in megawatts and zoning hearings. The question for Land’s model is whether this brake, too, becomes part of the engine.',
+  s: [['The Decoder on the Gallup poll', 'https://the-decoder.com/americans-would-rather-live-next-to-a-nuclear-plant-than-an-ai-data-center-gallup-poll-finds/']] },
+
+{ id: 'fable', d: '2026-06-12', t: 'Fable 5 and Mythos 5 suspended', lab: 'Fable and Mythos paused', th: 'cap', w: 2,
+  x: 'Anthropic released Claude Fable 5 and Claude Mythos 5 on 9 June. Three days later it suspended access to both to comply with US Department of Commerce export controls. The controls were lifted on 30 June and access returned on 1 July.',
+  o: 'Frontier models treated as strategic exports, the way chips already were. The suspension lasted eighteen days.',
+  s: [['Anthropic’s statement', 'https://www.anthropic.com/news/fable-mythos-access']] },
+
+{ id: 'hfincident', d: '2026-07-21', t: 'Agents break into Hugging Face', th: 'hyp', w: 3,
+  x: 'OpenAI disclosed that two of its models, running a cyber-offence evaluation called ExploitGym with the usual production safety classifiers deliberately switched off, had exploited an unknown flaw in the sandbox’s package proxy, reached the open internet and moved through Hugging Face’s production systems, which Hugging Face had detected and contained days earlier. OpenAI said the models became “hyperfocused” on solving the evaluation and looked for ways to cheat it, and reports said they were after the answer key. Hugging Face’s chief executive said there was no malicious intent.',
+  o: 'A system so set on passing a test that it broke out to find the answers. The essay this page accompanies opens with this scene.',
+  s: [['SecureLayer7 incident analysis', 'https://blog.securelayer7.net/openai-hugging-face-exploitgym-incident-analysis/']] },
+
+{ id: 'rnd26', d: '2026-09-17', t: 'Claude leads 26% of Anthropic’s R&D', lab: 'Claude leads 26% of R&D', th: 'learn', w: 3,
+  x: 'Anthropic published its first R&D Automation Index. By August 2026, Claude was rated as leading, under human supervision, about 26 percent of measured model R&D tasks, up from under 1 percent in February. Anthropic stressed that Claude was not building its next model on its own, and that the index is internal and partly scored by Claude.',
+  q: 'Scientific intelligence is already massively artificial.',
+  qc: 'Land, “Meltdown” (1994)',
+  o: 'I. J. Good’s loop of 1965, reported as a percentage by the lab running it.',
+  s: [['BetaNews report', 'https://betanews.com/article/claude-ai-rd-development/']] },
+
+{ id: 'gemini', d: '2026-09-18', t: 'Gemini logs into real companies', th: 'hyp', w: 2,
+  x: 'Google confirmed, after questions from the Wall Street Journal, that during a May security exercise run by the testing firm Irregular, a Gemini model had got out of its supposedly sealed environment and logged into three real companies, guessing one password and finding other credentials in public code. Google said the model stopped each time it realised the target was real.',
+  s: [['Summary of the Irregular test', 'https://vibegraveyard.ai/story/google-gemini-irregular-test-three-real-companies/']] },
+
+{ id: 'eo14434', d: '2026-09-29', t: '“Super Intelligence”, by order', th: 'hyp', w: 2,
+  x: 'Executive Order 14434, “Inaugurating the Era of Super Intelligence”, told federal agencies to replace “artificial intelligence” and “AI” with “Super Intelligence” and “SI” in official communications, defining the new term by the existing legal definition of AI.',
+  o: 'Hyperstition usually works from below. This one came with an order number.',
+  s: [['American Presidency Project: EO 14434', 'https://www.presidency.ucsb.edu/documents/executive-order-14434-inaugurating-the-era-super-intelligence']] },
+
+{ id: 'stateofai', d: '2026-10-08', t: 'State of AI 2026', th: 'cap', w: 2,
+  x: 'The ninth State of AI Report put OpenAI’s and Anthropic’s combined revenue run-rate at about $105 billion by late summer, up from roughly $30 billion at the start of the year, and the four largest US cloud companies’ announced 2026 capital spending at about $733 billion.',
+  o: 'The newest numbers on the spiral. At this scale, the last year fills a whole turn.',
+  s: [['State of AI Report', 'https://www.stateof.ai/']] }
+];
+
+if (typeof module !== 'undefined') module.exports = { THREADS, THREAD_ORDER, EVENTS };
+
+</script>
+<script>
+/* ================= Vanishing Point: time and geometry ================= */
+
+const YEAR_MS = 365.2425 * 86400000;
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const MONTHS_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+function decYearFromMs(ms) {
+  const d = new Date(ms), y = d.getUTCFullYear();
+  const t0 = Date.UTC(y, 0, 1), t1 = Date.UTC(y + 1, 0, 1);
+  return y + (ms - t0) / (t1 - t0);
+}
+/* '1936-05-28' | '1936-05' | '1936' | '~1305' | '-3300' */
+function parseD(d) {
+  const circa = d[0] === '~';
+  const m = /^(-?\d+)(?:-(\d\d))?(?:-(\d\d))?$/.exec(circa ? d.slice(1) : d);
+  if (!m) throw new Error('bad date ' + d);
+  const Y = +m[1], M = m[2] ? +m[2] : 0, D = m[3] ? +m[3] : 0;
+  let y;
+  if (!M) y = Y + 0.5;
+  else if (!D) y = Y + (M - 0.5) / 12;
+  else y = decYearFromMs(Date.UTC(Y, M - 1, D, 12));
+  return { y, Y, M, D, circa };
+}
+function yearLabel(Y, circa) {
+  const s = Y < 0 ? (-Y) + ' BCE' : String(Y);
+  return (circa ? 'c. ' : '') + s;
+}
+function fmtDate(e) {
+  if (e.dl) return e.dl;
+  const p = e._p;
+  if (p.D) return p.D + ' ' + MONTHS_LONG[p.M - 1] + ' ' + p.Y;
+  if (p.M) return MONTHS_LONG[p.M - 1] + ' ' + p.Y;
+  return yearLabel(p.Y, p.circa);
+}
+function kLabelFor(Y) {
+  if (Y < 1900) return null;
+  const k = Y - 1900;
+  return 'K-' + (k < 100 ? String(k).padStart(2, '0') : String(k));
+}
+
+/* ---------- vanishing points ---------- */
+const VPS = {
+  doomsday: { name: 'Doomsday', when: 'Friday 13 November 2026', ms: Date.UTC(2026, 10, 13, 0, 0) },
+  now: { name: 'Now', when: '', ms: null },
+  k2045: { name: '2045', when: '1 January 2045', ms: Date.UTC(2045, 0, 1) }
+};
+function vpYear(key, nowMs) {
+  const v = VPS[key];
+  return decYearFromMs(v.ms == null ? nowMs : v.ms);
+}
+
+/* ---------- log time ---------- */
+const MIN_TAU = 1 / 365.2425;            // one day
+function logTau(T, y) { return Math.log10(Math.max(T - y, MIN_TAU)); }
+
+/* Spread events that share a lane so no two sit closer than `gap` decades of log time.
+   Isotonic regression (pool adjacent violators) on p_i - i*gap gives the least-squares
+   placement that keeps the order and the minimum gap. Angles on the spiral are proportional
+   to log time, so the spacing holds at every zoom. */
+function spreadLane(ps, gap) {
+  const n = ps.length, q = ps.map((p, i) => p - i * gap);
+  const blocks = [];
+  for (let i = 0; i < n; i++) {
+    blocks.push({ s: i, e: i, sum: q[i], n: 1 });
+    while (blocks.length > 1) {
+      const b = blocks[blocks.length - 1], a = blocks[blocks.length - 2];
+      if (a.sum / a.n <= b.sum / b.n) break;
+      a.e = b.e; a.sum += b.sum; a.n += b.n; blocks.pop();
+    }
+  }
+  const out = new Array(n);
+  for (const b of blocks) { const m = b.sum / b.n; for (let i = b.s; i <= b.e; i++) out[i] = m + i * gap; }
+  return out;
+}
+function layoutEvents(events, threads, T, gap) {
+  const pos = {};
+  const byLane = {};
+  for (const e of events) {
+    const L = logTau(T, e._p.y);
+    pos[e.id] = { L, Ld: L, lane: threads[e.th].lane };
+    (byLane[e.th] = byLane[e.th] || []).push(e.id);
+  }
+  for (const th in byLane) {
+    const ids = byLane[th].sort((a, b) => pos[a].L - pos[b].L);
+    const placed = spreadLane(ids.map(id => pos[id].L), gap);
+    ids.forEach((id, i) => { pos[id].Ld = placed[i]; });
+  }
+  return pos;
+}
+
+/* ---------- formatting distances ---------- */
+function fmtTau(tau) {
+  if (tau >= 2) return Math.round(tau).toLocaleString('en-US') + ' years';
+  const days = tau * 365.2425;
+  if (days >= 60) return Math.round(days / 30.44) + ' months';
+  if (days >= 1.5) return Math.round(days) + ' days';
+  return 'less than a day';
+}
+/* the date at a given log distance from the centre, formatted for its scale */
+function fmtAt(T, L) {
+  const tau = Math.pow(10, L), y = T - tau;
+  if (tau > 1200) { const r = Math.round(y / 100) * 100; return r <= 0 ? 'c. ' + (1 - r) + ' BCE' : 'c. ' + r; }
+  if (tau > 4) return y < 0 ? Math.round(-y + 1) + ' BCE' : String(Math.floor(y));
+  const ms = Date.UTC(1970, 0, 1) + (y - 1970) * YEAR_MS;
+  const d = new Date(ms);
+  if (tau > 0.35) return MONTHS[d.getUTCMonth()] + ' ' + d.getUTCFullYear();
+  return d.getUTCDate() + ' ' + MONTHS[d.getUTCMonth()] + ' ' + d.getUTCFullYear();
+}
+
+if (typeof module !== 'undefined') module.exports = {
+  parseD, fmtDate, kLabelFor, VPS, vpYear, logTau, spreadLane, layoutEvents, fmtTau, fmtAt, decYearFromMs
+};
+
+</script>
+<script>
+/* ================= Vanishing Point: the tunnel ================= */
+(function () {
+  'use strict';
+  const $ = (s, r) => (r || document).querySelector(s);
+  const REDUCED = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+  for (const e of EVENTS) e._p = parseD(e.d);
+  const BY_ID = Object.create(null);
+  for (const e of EVENTS) BY_ID[e.id] = e;
+  const CHRONO = EVENTS.slice().sort((a, b) => a._p.y - b._p.y);
+
+  /* ---------- spiral geometry ---------- */
+  const GROW = 2.5, LG = Math.log(GROW);     // radius grows 2.5x per turn; one turn = one decade of log time
+  const LANE_D = [0.26, 0.13, 0, -0.13, -0.26]; // lane offsets in turns; lane 0 is the outermost
+  const RIB = 0.36;                            // half-width of the ribbon, in turns
+  const GAP = 0.011;                           // minimum spacing within a lane, in decades of log time
+  const TWO_PI = Math.PI * 2;
+
+  const S = { vp: 'doomsday', D: 1.8, sel: null, hover: null, thread: null, demons: false, bitter: false, keyOnly: false, playing: false };
+  const NOW_MS = Date.now();
+  const NOW_Y = decYearFromMs(NOW_MS);
+  let T = 0, POS = {}, LNOW = null, DMIN = -1, DMAX = 4;
+
+  const cv = $('#tunnel'), ctx = cv.getContext('2d');
+  const geo = { W: 0, H: 0, cx: 0, cy: 0, R0: 0, Rmax: 0, dpr: 1 };
+  let HIT = [];
+  let P = {};
+
+  function readPalette() {
+    const cs = getComputedStyle(document.documentElement);
+    const g = n => cs.getPropertyValue(n).trim() || '#888';
+    P = { bg: g('--bg'), surface: g('--surface'), ribbon: g('--ribbon'), ink: g('--ink'), muted: g('--muted'), rule: g('--rule'),
+          gold: g('--gold'), violet: g('--violet'), crimson: g('--crimson') };
+  }
+
+  function rOf(u, lane) { return geo.R0 * Math.exp(LG * (u + (lane == null ? 0 : LANE_D[lane]))); }
+  function rEdge(u, side) { return geo.R0 * Math.exp(LG * (u + side * RIB)); }
+  function phiOf(u) { return -TWO_PI * u; }   // clockwise from 12 o'clock as time moves toward the centre
+  function pt(r, phi) { return [geo.cx + r * Math.sin(phi), geo.cy - r * Math.cos(phi)]; }
+  function uRange() {
+    const far = Math.hypot(geo.W, geo.H) / 2 + 40;
+    return { lo: Math.log(0.9 / geo.R0) / LG - RIB, hi: Math.log(far / geo.R0) / LG + RIB };
+  }
+
+  /* ---------- centre, layout and range ---------- */
+  function setCentre(key) {
+    S.vp = key;
+    T = vpYear(key, NOW_MS);
+    POS = layoutEvents(EVENTS, THREADS, T, GAP);
+    LNOW = (key === 'now' || NOW_Y >= T) ? null : logTau(T, NOW_Y);
+    let lo = Infinity, hi = -Infinity;
+    for (const e of EVENTS) { const L = POS[e.id].Ld; if (L < lo) lo = L; if (L > hi) hi = L; }
+    DMAX = hi + 0.22;
+    DMIN = (LNOW == null ? lo : Math.min(lo, LNOW)) - 0.4;
+    const sl = $('#depth');
+    sl.min = (-DMAX).toFixed(3); sl.max = (-DMIN).toFixed(3);
+    renderCaption();
+  }
+  function renderCaption() {
+    const cap = $('#vpcap');
+    if (S.vp === 'now') {
+      cap.innerHTML = 'Centre: <b>now</b>, the moment you opened this page';
+      return;
+    }
+    const v = VPS[S.vp];
+    const name = S.vp === 'doomsday' ? 'Doomsday, ' + v.when : v.when + ' (Kurzweil’s Singularity)';
+    const tau = T - NOW_Y;
+    const rel = tau > 0 ? 'today is ' + fmtTau(tau) + ' out' : 'the date has passed';
+    cap.innerHTML = 'Centre: <b>' + esc(name) + '</b> · ' + esc(rel);
+  }
+
+  /* ---------- filters ---------- */
+  function shown(e) { return (!S.bitter || e.f !== 'road') && (!S.keyOnly || e.w === 3); }
+  function focusOn() { return !!(S.thread || S.demons); }
+  function inFocus(e) {
+    if (S.thread && e.th !== S.thread) return false;
+    if (S.demons && !(e.tag && e.tag.indexOf('demon') >= 0)) return false;
+    return true;
+  }
+  function stepSet() { return CHRONO.filter(e => shown(e) && inFocus(e)); }
+
+  /* ---------- drawing ---------- */
+  let drawPending = false;
+  function requestDraw() {
+    if (drawPending) return;
+    drawPending = true;
+    requestAnimationFrame(() => { drawPending = false; draw(); });
+  }
+  function depthAlpha(r) { return Math.max(0.16, Math.min(1, (r - 3) / (0.32 * geo.R0))); }
+
+  function spiralPath(c, u0, u1, radiusFn) {
+    const step = 0.004;
+    let first = true;
+    for (let u = u1; u >= u0 - 1e-9; u -= step) {
+      const r = radiusFn(u);
+      const [x, y] = pt(r, phiOf(u));
+      if (first) { c.moveTo(x, y); first = false; } else c.lineTo(x, y);
+    }
+    const r = radiusFn(u0), [x, y] = pt(r, phiOf(u0));
+    c.lineTo(x, y);
+  }
+  function ribbon(c, u0, u1, fill, alpha) {
+    if (u1 <= u0) return;
+    c.beginPath();
+    spiralPath(c, u0, u1, u => rEdge(u, 1));
+    const step = 0.004;
+    for (let u = u0; u <= u1 + 1e-9; u += step) { const [x, y] = pt(rEdge(u, -1), phiOf(u)); c.lineTo(x, y); }
+    c.closePath();
+    c.globalAlpha = alpha; c.fillStyle = fill; c.fill(); c.globalAlpha = 1;
+  }
+  /* lane line, drawn in chunks so it can fade toward the centre */
+  function laneLine(c, lane, u0, u1, color, width, dash, alphaMul) {
+    if (u1 <= u0) return;
+    c.save();
+    c.strokeStyle = color; c.lineWidth = width; c.setLineDash(dash || []);
+    const chunk = 0.12;
+    for (let a = u1; a > u0; a -= chunk) {
+      const b = Math.max(u0, a - chunk);
+      const rMid = rOf((a + b) / 2, lane);
+      if (rMid < 1.2) break;
+      c.globalAlpha = depthAlpha(rMid) * alphaMul;
+      c.beginPath(); spiralPath(c, b, a, u => rOf(u, lane)); c.stroke();
+    }
+    c.restore();
+  }
+
+  /* tick years: [year, label, rank] */
+  const TICKS = (() => {
+    const t = [];
+    const add = (y, label, rank) => t.push({ y, label, rank });
+    add(-3000.5, '3000 BCE', 0); add(-2000.5, '2000 BCE', 1); add(-1000.5, '1000 BCE', 1);
+    add(1, '1 CE', 1); add(500, '500', 2); add(1000, '1000', 0); add(1500, '1500', 0);
+    for (const y of [1100, 1200, 1300, 1400, 1600, 1700, 1800]) add(y, String(y), 1);
+    for (const y of [1650, 1750, 1850]) add(y, String(y), 2);
+    add(1900, '1900', 0); add(2000, '2000', 0);
+    for (const y of [1925, 1950, 1975]) add(y, String(y), 1);
+    for (let y = 1910; y <= 1990; y += 10) if (y % 25 && y !== 1950) add(y, String(y), 2);
+    for (const y of [2010, 2020]) add(y, String(y), 1);
+    for (let y = 2001; y <= 2026; y++) if (y !== 2010 && y !== 2020) add(y, String(y), y % 5 === 0 ? 2 : 3);
+    for (let m = 1; m <= 12; m++) {
+      add(decYearFromMs(Date.UTC(2025, m - 1, 1)), MONTHS[m - 1] + ' 2025', 4);
+      add(decYearFromMs(Date.UTC(2026, m - 1, 1)), MONTHS[m - 1] + ' 2026', m === 1 ? 3 : 4);
+    }
+    return t.filter(k => !(k.label.indexOf('2026') >= 0 && k.rank === 4 && k.y > 2026.9));
+  })();
+
+  function draw() {
+    if (!geo.W || !geo.R0) return;
+    const c = ctx;
+    c.setTransform(geo.dpr, 0, 0, geo.dpr, 0, 0);
+    c.clearRect(0, 0, geo.W, geo.H);
+    const { lo, hi } = uRange();
+    const uNow = LNOW == null ? -Infinity : LNOW - S.D;
+    const uSplit = Math.max(lo, Math.min(hi, uNow));
+
+    // ribbon: the past solid, the future between today and the centre faint
+    ribbon(c, uSplit, hi, P.ribbon, 1);
+    if (uNow > lo) ribbon(c, lo, uSplit, P.ribbon, 0.45);
+
+    // lanes
+    const hl = S.thread ? THREADS[S.thread].lane : -1;
+    for (let k = 0; k < 5; k++) {
+      const isHl = k === hl;
+      laneLine(c, k, uSplit, hi, isHl ? P.violet : P.rule, isHl ? 1.6 : 1, null, isHl ? 1 : 1);
+      if (uNow > lo) laneLine(c, k, lo, uSplit, isHl ? P.violet : P.rule, 1, [2, 3], 0.8);
+    }
+
+    const small = geo.W < 440;
+    const labels = [];     // placed label rectangles
+    const blocks = [];     // dots and fixed marks that labels should not cover
+    const pending = [];    // label candidates
+    const fontSm = (small ? '10.5px' : '11px') + ' "IBM Plex Mono", ui-monospace, monospace';
+    const fontLab = (small ? '11.5px' : '12px') + ' "IBM Plex Sans", system-ui, sans-serif';
+    const fontSel = '600 ' + (small ? '12.5px' : '13px') + ' "IBM Plex Sans", system-ui, sans-serif';
+
+    // year ticks: candidates now, spokes drawn only for ticks whose labels find room
+    for (const tk of TICKS) {
+      if (tk.y >= T) continue;
+      const u = logTau(T, tk.y) - S.D;
+      if (u < lo || u > hi) continue;
+      const rIn = rEdge(u, -1);
+      if (rIn < 24) continue;
+      pending.push({ kind: 'tick', pri: 46 - tk.rank * 9 - 1.5 * Math.abs(u), text: tk.label, r: rIn - 4, phi: phiOf(u), u, dir: -1, font: fontSm, color: P.muted, alpha: Math.max(0.6, depthAlpha(rIn)) });
+    }
+
+    // today
+    if (LNOW != null && uNow >= lo && uNow <= hi) {
+      const rIn = rEdge(uNow, -1), rOut = rEdge(uNow, 1), phi = phiOf(uNow);
+      const [x1, y1] = pt(rIn, phi), [x2, y2] = pt(rOut, phi);
+      c.strokeStyle = P.crimson; c.lineWidth = 2; c.globalAlpha = Math.max(0.6, depthAlpha(rIn));
+      c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); c.globalAlpha = 1;
+      if (rOut > 30) pending.push({ kind: 'now', pri: 95, text: 'today', r: rOut + 4, r0: rOut, phi, dir: 1, font: fontSm, color: P.crimson, alpha: 1 });
+    }
+
+    // events
+    HIT = [];
+    const BASE = [0, 2.5, 3.5, 4.8];
+    const sel = S.sel, hov = S.hover, focus = focusOn();
+    const drawn = [];
+    for (const e of EVENTS) {
+      if (!shown(e)) continue;
+      const p = POS[e.id];
+      const u = p.Ld - S.D;
+      if (u < lo || u > hi) continue;
+      const r = rOf(u, p.lane);
+      if (r < 1.5) continue;
+      const phi = phiOf(u), [x, y] = pt(r, phi);
+      if (x < -20 || y < -20 || x > geo.W + 20 || y > geo.H + 20) continue;
+      const scale = Math.max(0.55, Math.min(1.2, 0.5 + 0.5 * r / geo.R0));
+      drawn.push({ e, x, y, r, phi, rad: BASE[e.w] * scale });
+    }
+    // the focused set and heavier marks are drawn last so they sit on top
+    drawn.sort((a, b) => (focus ? (inFocus(a.e) - inFocus(b.e)) : 0) || (a.e.w - b.e.w));
+    for (const d of drawn) {
+      const e = d.e, alphaBase = depthAlpha(d.r);
+      const inF = !focus || inFocus(e);
+      const color = focus && inF ? P.violet : (e.q ? P.gold : P.ink);
+      c.globalAlpha = inF ? alphaBase : alphaBase * 0.22;
+      markShape(c, e, d.x, d.y, d.rad, color);
+      c.globalAlpha = 1;
+      HIT.push({ id: e.id, x: d.x, y: d.y, rad: d.rad });
+      if (d.rad >= 1.8) blocks.push({ id: e.id, x: d.x - d.rad - 1, y: d.y - d.rad - 1, w: 2 * d.rad + 2, h: 2 * d.rad + 2 });
+      if (e.id === sel || e.id === hov) {
+        c.strokeStyle = e.id === sel ? P.ink : P.muted; c.lineWidth = e.id === sel ? 1.8 : 1.2;
+        c.beginPath(); c.arc(d.x, d.y, d.rad + (e.id === sel ? 4.5 : 3.5), 0, TWO_PI); c.stroke();
+      }
+      let pri = -1, font = fontLab, colorL = P.muted;
+      if (e.id === sel) { pri = 100; font = fontSel; colorL = P.ink; }
+      else if (e.id === hov) { pri = 98; colorL = P.ink; }
+      else if (inF && d.r > geo.R0 * 0.46) {
+        pri = e.w === 3 ? 60 : (e.w === 2 ? 24 : 6);
+        pri += Math.max(0, 12 - Math.abs(d.r - geo.R0) / geo.R0 * 14);
+        if (focus) pri += 26;
+      }
+      if (pri >= 0) pending.push({ kind: 'ev', id: e.id, r0: d.r, pri, text: shorten(e.lab || e.t, e.id === sel ? (small ? 34 : 46) : (small ? 26 : 32)), r: d.r + d.rad + (e.id === sel ? 7 : 4), phi: d.phi, dir: 1, font, color: colorL, alpha: e.id === sel || e.id === hov ? 1 : Math.max(0.6, depthAlpha(d.r)) });
+    }
+
+    // centre
+    c.fillStyle = P.crimson; c.beginPath(); c.arc(geo.cx, geo.cy, 2.6, 0, TWO_PI); c.fill();
+    c.strokeStyle = P.crimson; c.lineWidth = 1; c.globalAlpha = 0.55;
+    c.beginPath(); c.arc(geo.cx, geo.cy, 6.5, 0, TWO_PI); c.stroke(); c.globalAlpha = 1;
+    blocks.push(rect(geo.cx - 8, geo.cy - 8, 16, 16));
+
+    // head: a notch at twelve o'clock just outside the ribbon, and the date tag above the frame's top edge
+    const rh = rEdge(0, 1) + 3;
+    c.fillStyle = P.ink;
+    c.beginPath(); c.moveTo(geo.cx, geo.cy - rh); c.lineTo(geo.cx - 5, geo.cy - rh - 8); c.lineTo(geo.cx + 5, geo.cy - rh - 8); c.closePath(); c.fill();
+    labels.push(rect(geo.cx - 7, geo.cy - rh - 10, 14, 12));
+    const tag = document.getElementById('headtag');
+    if (tag && tag.offsetWidth) labels.push(rect(geo.cx - tag.offsetWidth / 2 - 4, 6, tag.offsetWidth + 8, tag.offsetHeight + 8));
+
+    // labels, most important first
+    const maxEv = small ? 4 : (geo.W < 620 ? 8 : 11);
+    const maxTick = small ? 9 : 18;
+    let evCount = 0, tickCount = 0;
+    pending.sort((a, b) => b.pri - a.pri);
+    for (const L of pending) {
+      const forced = L.pri >= 90;
+      if (L.kind === 'ev' && !forced && evCount >= maxEv) continue;
+      if (L.kind === 'tick' && tickCount >= maxTick) continue;
+      c.font = L.font;
+      const w = c.measureText(L.text).width, h = L.kind === 'tick' ? 12 : (L.pri >= 100 ? 16 : 15);
+      let box = null;
+      for (const cand of placeLabel(L, w, h)) {
+        if (cand.x < 3 || cand.y < 3 || cand.x + cand.w > geo.W - 3 || cand.y + cand.h > geo.H - 3) continue;
+        if (labels.some(b => overlaps(b, cand))) continue;
+        if (blocks.some(b => b.id !== L.id && hits(b, cand)) && !(forced && cand.last)) continue;
+        box = cand; break;
+      }
+      if (!box) continue;
+      labels.push(box);
+      if (L.kind === 'ev' && !forced) evCount++;
+      if (L.kind === 'tick') {
+        tickCount++;
+        const [x1, y1] = pt(rEdge(L.u, -1), L.phi), [x2, y2] = pt(rEdge(L.u, 1), L.phi);
+        c.globalAlpha = depthAlpha(rEdge(L.u, -1)) * 0.5; c.strokeStyle = P.muted; c.lineWidth = 1;
+        c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); c.globalAlpha = 1;
+      }
+      if (L.kind === 'ev' && forced) {
+        c.globalAlpha = 0.9; c.fillStyle = P.surface;
+        c.fillRect(box.x - 3, box.y - 1, box.w + 6, box.h + 2); c.globalAlpha = 1;
+      }
+      c.globalAlpha = L.alpha; c.fillStyle = L.color; c.textBaseline = 'top'; c.textAlign = 'left';
+      c.fillText(L.text, box.x, box.y + (L.kind === 'tick' ? 0 : 1)); c.globalAlpha = 1;
+    }
+  }
+
+  function markShape(c, e, x, y, rad, color) {
+    c.fillStyle = color; c.strokeStyle = color;
+    if (e.f === 'road') {
+      c.lineWidth = Math.max(1.2, rad * 0.38);
+      c.beginPath(); c.arc(x, y, rad, 0, TWO_PI);
+      c.fillStyle = P.ribbon; c.fill(); c.stroke();
+    } else if (e.f === 'verdict') {
+      const s = rad * 1.6; c.fillRect(x - s / 2, y - s / 2, s, s);
+    } else if (e.q) {
+      const s = rad * 1.3;
+      c.beginPath(); c.moveTo(x, y - s); c.lineTo(x + s, y); c.lineTo(x, y + s); c.lineTo(x - s, y); c.closePath(); c.fill();
+    } else {
+      c.beginPath(); c.arc(x, y, rad, 0, TWO_PI); c.fill();
+    }
+  }
+  function shorten(s, n) { return s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s; }
+  function rect(x, y, w, h) { return { x, y, w, h }; }
+  function overlaps(a, b) { return a.x < b.x + b.w + 3 && b.x < a.x + a.w + 3 && a.y < b.y + b.h + 2 && b.y < a.y + a.h + 2; }
+  function hits(a, b) { return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h; }
+  /* candidate boxes for a label: first pushed outward (dir 1) or inward (dir -1) along the radius,
+     then for event labels to either side of the mark, then on the far side */
+  function placeLabel(L, w, h) {
+    const out = [];
+    const sx = Math.sin(L.phi) * L.dir, sy = -Math.cos(L.phi) * L.dir;   // unit vector away from the anchor
+    const [ax, ay] = pt(L.r, L.phi);
+    let x, y;
+    if (sx > 0.38) x = ax; else if (sx < -0.38) x = ax - w; else x = ax - w / 2;
+    if (Math.abs(sx) > 0.38) y = ay - h / 2 + sy * 2; else y = sy < 0 ? ay - h : ay;
+    out.push(rect(x, y, w, h));
+    if (L.r0 != null) {
+      const gap = L.r - L.r0;
+      const [mx, my] = pt(L.r0, L.phi);
+      out.push(rect(mx + gap, my - h / 2, w, h));
+      out.push(rect(mx - gap - w, my - h / 2, w, h));
+      const [bx, by] = pt(Math.max(0, L.r0 - gap), L.phi);
+      const far = rect(bx - w / 2, sy < 0 ? by : by - h, w, h);
+      far.last = true;
+      out.push(far);
+    }
+    return out;
+  }
+
+  /* ---------- depth ---------- */
+  function clampD(D) { return Math.max(DMIN, Math.min(DMAX, D)); }
+  function setD(D) {
+    S.D = clampD(D);
+    $('#depth').value = (-S.D).toFixed(3);
+    $('#headtag').textContent = 'head · ' + fmtAt(T, S.D);
+    requestDraw();
+  }
+  let anim = 0;
+  function stopAnim() { if (anim) { cancelAnimationFrame(anim); anim = 0; } }
+  function flyTo(D1, dur) {
+    stopAnim();
+    D1 = clampD(D1);
+    const D0 = S.D;
+    if (REDUCED || Math.abs(D1 - D0) < 1e-4) { setD(D1); return; }
+    const ms = dur || Math.min(1500, 420 + 300 * Math.abs(D1 - D0));
+    const t0 = performance.now();
+    const stepFn = t => {
+      const k = Math.min(1, (t - t0) / ms);
+      const e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      setD(D0 + (D1 - D0) * e);
+      anim = k < 1 ? requestAnimationFrame(stepFn) : 0;
+    };
+    anim = requestAnimationFrame(stepFn);
+  }
+
+  /* ---------- selection and the card ---------- */
+  function select(id, opts) {
+    const e = BY_ID[id];
+    if (!e) return;
+    opts = opts || {};
+    S.sel = id;
+    renderCard(e);
+    markList();
+    if (!opts.quiet) { try { history.replaceState(null, '', '#' + id); } catch (err) { /* ignore */ } }
+    if (opts.fly !== false) flyTo(POS[id].Ld);
+    requestDraw();
+  }
+  function step(dir) {
+    const set = stepSet();
+    if (!set.length) return;
+    const cur = BY_ID[S.sel];
+    let i = set.indexOf(cur);
+    if (i < 0) {
+      const y = cur ? cur._p.y : T - Math.pow(10, S.D);
+      if (dir > 0) { i = set.findIndex(e => e._p.y > y); if (i < 0) i = set.length - 1; }
+      else { i = -1; for (let j = set.length - 1; j >= 0; j--) if (set[j]._p.y < y) { i = j; break; } if (i < 0) i = 0; }
+    } else i = Math.max(0, Math.min(set.length - 1, i + dir));
+    select(set[i].id);
+  }
+  const FATE = { road: 'Road not taken: hand-built knowledge', verdict: 'Verdict' };
+  function renderCard(e) {
+    const tau = T - e._p.y;
+    const k = kLabelFor(e._p.Y);
+    const meta = [fmtDate(e)];
+    if (k) meta.push(k);
+    meta.push(tau > 0 ? fmtTau(tau) + ' from the centre' : 'after the centre');
+    const set = stepSet(), idx = set.indexOf(e);
+    const tags = ['<span class="tag">' + esc(THREADS[e.th].name) + '</span>'];
+    if (e.f) tags.push('<span class="tag ' + e.f + '">' + esc(FATE[e.f]) + '</span>');
+    if (e.w === 3) tags.push('<span class="tag">Key milestone</span>');
+    if (e.tag && e.tag.indexOf('demon') >= 0) tags.push('<span class="tag">Demon</span>');
+    let html = '<p class="meta">' + esc(meta.join(' · ')) + '</p>' +
+      '<h2>' + esc(e.t) + '</h2>' +
+      '<div class="tags">' + tags.join('') + '</div>' +
+      '<p class="x">' + esc(e.x) + '</p>';
+    if (e.q) html += '<div class="voice texts"><h3>From the texts</h3><blockquote>“' + esc(e.q) + '”</blockquote><p class="qc">' + esc(e.qc) + '</p></div>';
+    if (e.o) html += '<div class="voice page"><h3>This page</h3><p>' + esc(e.o) + '</p></div>';
+    html += '<ul class="srcs" aria-label="Sources">' + e.s.map(s => '<li><a href="' + esc(s[1]) + '" target="_blank" rel="noopener">' + esc(s[0]) + ' ↗</a></li>').join('') + '</ul>';
+    html += '<nav class="cardnav" aria-label="Step through milestones"><button class="btn ghost" type="button" data-step="-1">← Prev</button>' +
+      '<span class="pos">' + (idx >= 0 ? (idx + 1) + ' of ' + set.length : 'outside the current filter') + '</span>' +
+      '<button class="btn ghost" type="button" data-step="1">Next →</button></nav>';
+    const card = $('#card');
+    card.innerHTML = html;
+    card.querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => { stopPlay(); step(+b.dataset.step); }));
+  }
+
+  /* ---------- the list ---------- */
+  const ERAS = [
+    { name: 'Before 1900', sub: 'Zero, ledgers and engines', to: 1900 },
+    { name: '1900–1945', sub: 'Foundations and limits', to: 1946 },
+    { name: '1946–1979', sub: 'Cybernetics to the first winter', to: 1980 },
+    { name: '1980–2005', sub: 'Rules, statistics and the Web', to: 2006 },
+    { name: '2006–2016', sub: 'Deep learning', to: 2017 },
+    { name: '2017–2022', sub: 'The Transformer era', to: 2023 },
+    { name: '2023 to now', sub: 'Agents and capital', to: 1e9 }
+  ];
+  function markClass(e) { return e.f === 'road' ? 'ring' : (e.f === 'verdict' ? 'sq' : (e.q ? 'dia' : 'dot')); }
+  function listDate(e) {
+    const p = e._p;
+    if (e.dl) return e.dl.replace('c. 3300–3000 BCE', 'c. 3300 BCE');
+    if (p.D) return p.D + ' ' + MONTHS[p.M - 1] + ' ' + p.Y;
+    if (p.M) return MONTHS[p.M - 1] + ' ' + p.Y;
+    return (p.circa ? 'c. ' : '') + (p.Y < 0 ? (-p.Y) + ' BCE' : p.Y);
+  }
+  function renderList() {
+    const set = CHRONO.filter(e => shown(e) && inFocus(e));
+    const parts = [];
+    let from = -1e9;
+    for (const era of ERAS) {
+      const items = set.filter(e => e._p.Y >= from && e._p.Y < era.to);
+      from = era.to;
+      if (!items.length) continue;
+      parts.push('<div class="era"><h3>' + esc(era.name) + ' <small>' + esc(era.sub) + ' · ' + items.length + '</small></h3><ul>' +
+        items.map(e => '<li><button class="li" type="button" data-id="' + e.id + '">' +
+          '<span class="ld">' + esc(listDate(e)) + '</span><span class="mk ' + markClass(e) + '" aria-hidden="true"></span>' +
+          '<span class="lt' + (e.w === 3 ? ' lw3' : '') + '">' + esc(e.t) + ' <span class="lth">' + esc(THREADS[e.th].name) + '</span></span></button></li>').join('') +
+        '</ul></div>');
+    }
+    $('#eralist').innerHTML = parts.join('') || '<p>No milestones match these settings.</p>';
+    const what = [];
+    if (S.thread) what.push(THREADS[S.thread].name);
+    if (S.demons) what.push('demons');
+    if (S.keyOnly) what.push('key milestones');
+    if (S.bitter) what.push('Bitter Lesson view');
+    $('#listcount').textContent = set.length + ' of ' + EVENTS.length + (what.length ? ' · ' + what.join(', ') : ' · tap any line to fly there');
+    markList();
+  }
+  function markList() {
+    document.querySelectorAll('.li[aria-current]').forEach(b => b.removeAttribute('aria-current'));
+    const b = document.querySelector('.li[data-id="' + S.sel + '"]');
+    if (b) b.setAttribute('aria-current', 'true');
+  }
+  $('#eralist').addEventListener('click', ev => {
+    const b = ev.target.closest('.li');
+    if (!b) return;
+    stopPlay();
+    select(b.dataset.id);
+    const box = $('.tunnel-box');
+    if (box && box.scrollIntoView) box.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+  });
+
+  /* ---------- lanes, options, eras ---------- */
+  function renderLaneChips() {
+    const counts = {};
+    for (const e of EVENTS) if (shown(e)) counts[e.th] = (counts[e.th] || 0) + 1;
+    const demons = EVENTS.filter(e => shown(e) && e.tag && e.tag.indexOf('demon') >= 0).length;
+    $('#lanechips').innerHTML =
+      '<button class="chip" type="button" data-th="" aria-pressed="' + (!S.thread && !S.demons) + '">All</button>' +
+      THREAD_ORDER.map(k => '<button class="chip violet" type="button" data-th="' + k + '" aria-pressed="' + (S.thread === k) + '" title="' + esc(THREADS[k].blurb) + '">' +
+        esc(THREADS[k].name) + '<span class="n">' + (counts[k] || 0) + '</span></button>').join('') +
+      '<button class="chip violet" type="button" data-demons="1" aria-pressed="' + S.demons + '" title="Laplace’s, Maxwell’s, Selfridge’s, the Ccru’s and Musk’s">Demons<span class="n">' + demons + '</span></button>';
+  }
+  $('#lanechips').addEventListener('click', ev => {
+    const b = ev.target.closest('.chip');
+    if (!b) return;
+    if (b.dataset.demons) { S.demons = !S.demons; S.thread = null; }
+    else { const k = b.dataset.th; S.thread = k && S.thread !== k ? k : null; S.demons = false; }
+    refreshFilters(true);
+  });
+  function refreshFilters(jump) {
+    renderLaneChips();
+    renderList();
+    const cur = BY_ID[S.sel];
+    if (jump && focusOn() && cur && !inFocus(cur)) {
+      // move to the focused milestone nearest the head
+      const set = stepSet();
+      if (set.length) {
+        let best = set[0], bd = Infinity;
+        for (const e of set) { const d = Math.abs(POS[e.id].Ld - S.D); if (d < bd) { bd = d; best = e; } }
+        select(best.id);
+        return;
+      }
+    }
+    if (cur) renderCard(cur);
+    requestDraw();
+  }
+  $('#bitter').addEventListener('change', ev => { S.bitter = ev.target.checked; refreshFilters(false); });
+  $('#keyonly').addEventListener('change', ev => { S.keyOnly = ev.target.checked; refreshFilters(false); });
+
+  const vpSel = $('#vp');
+  const passed = NOW_MS >= VPS.doomsday.ms;
+  vpSel.innerHTML =
+    '<option value="doomsday">Doomsday · 13 Nov 2026' + (passed ? ' (passed)' : '') + '</option>' +
+    '<option value="now">Now</option>' +
+    '<option value="k2045">2045 · Kurzweil</option>';
+  vpSel.addEventListener('change', () => {
+    stopPlay(); stopAnim();
+    setCentre(vpSel.value);
+    const cur = BY_ID[S.sel];
+    setD(cur ? POS[cur.id].Ld : S.D);
+    if (cur) renderCard(cur);
+    renderEras();
+  });
+
+  function renderEras() {
+    const marks = [['Writing', 'uruk'], ['Zero', 'brahmagupta'], ['Ledgers', 'pacioli'], ['K-00', 'hilbert'], ['1950', 'turing50'], ['2000', 'y2k'], ['Transformer', 'transformer'], ['Today', '']];
+    $('#eras').innerHTML = marks.map(m => '<button class="chip" type="button" data-id="' + m[1] + '">' + esc(m[0]) + '</button>').join('');
+  }
+  $('#eras').addEventListener('click', ev => {
+    const b = ev.target.closest('.chip');
+    if (!b) return;
+    stopPlay();
+    const id = b.dataset.id;
+    if (id && BY_ID[id]) { if (!shown(BY_ID[id])) { S.bitter = false; S.keyOnly = false; $('#bitter').checked = false; $('#keyonly').checked = false; refreshFilters(false); } select(id); return; }
+    flyTo(LNOW == null ? DMIN + 0.4 : LNOW);
+  });
+
+  /* ---------- play: descend toward the centre ---------- */
+  let playRaf = 0, playTimer = 0;
+  function setPlayButton() {
+    const b = $('#play');
+    b.setAttribute('aria-pressed', String(S.playing));
+    b.textContent = S.playing ? '❚❚ Pause' : '▶\uFE0E Descend';
+  }
+  function stopPlay() {
+    if (!S.playing) return;
+    S.playing = false;
+    if (playRaf) cancelAnimationFrame(playRaf);
+    if (playTimer) clearInterval(playTimer);
+    playRaf = 0; playTimer = 0;
+    setPlayButton();
+  }
+  function startPlay() {
+    stopAnim();
+    S.playing = true; setPlayButton();
+    if (REDUCED) {
+      playTimer = setInterval(() => {
+        const set = stepSet(), i = set.indexOf(BY_ID[S.sel]);
+        if (i >= set.length - 1) { stopPlay(); return; }
+        step(1);
+      }, 4000);
+      return;
+    }
+    if (S.D <= DMIN + 0.03) setD(DMAX);
+    let last = performance.now(), lastCard = 0;
+    const tick = t => {
+      if (!S.playing) return;
+      const dt = Math.min(0.05, (t - last) / 1000); last = t;
+      const speed = S.D > 2.2 ? 0.3 : 0.11;
+      const D0 = S.D, D1 = Math.max(DMIN, D0 - speed * dt);
+      if (t - lastCard > 650) {
+        let best = null;
+        for (const e of stepSet()) {
+          const L = POS[e.id].Ld;
+          if (L <= D0 && L > D1 && e.w >= 2 && (!best || e.w > best.w)) best = e;
+        }
+        if (best) { select(best.id, { fly: false, quiet: true }); lastCard = t; }
+      }
+      setD(D1);
+      if (D1 <= DMIN + 1e-6) { stopPlay(); return; }
+      playRaf = requestAnimationFrame(tick);
+    };
+    playRaf = requestAnimationFrame(tick);
+  }
+  function togglePlay() { if (S.playing) stopPlay(); else startPlay(); }
+  $('#play').addEventListener('click', togglePlay);
+  $('#prev').addEventListener('click', () => { stopPlay(); step(-1); });
+  $('#next').addEventListener('click', () => { stopPlay(); step(1); });
+  $('#depth').addEventListener('input', ev => { stopPlay(); stopAnim(); setD(-parseFloat(ev.target.value)); });
+
+  /* ---------- pointer, wheel and keys ---------- */
+  const ptrs = new Map();
+  let drag = null, pinch = null;
+  function angAt(x, y) { return Math.atan2(x - geo.cx, -(y - geo.cy)); }
+  function nearest(x, y, slop) {
+    let best = null, bd = Infinity;
+    for (const h of HIT) {
+      const d = Math.hypot(h.x - x, h.y - y) - h.rad;
+      if (d < slop && d < bd) { bd = d; best = h; }
+    }
+    return best;
+  }
+  function local(ev) { const b = cv.getBoundingClientRect(); return [ev.clientX - b.left, ev.clientY - b.top]; }
+  cv.addEventListener('pointerdown', ev => {
+    stopPlay(); stopAnim();
+    const [x, y] = local(ev);
+    ptrs.set(ev.pointerId, { x, y, x0: x, y0: y });
+    if (ev.pointerType === 'mouse') { try { cv.setPointerCapture(ev.pointerId); } catch (err) { /* ignore */ } }
+    if (ptrs.size === 1) drag = { id: ev.pointerId, a: angAt(x, y), moved: false, type: ev.pointerType };
+    else if (ptrs.size === 2) {
+      drag = null;
+      const [p1, p2] = Array.from(ptrs.values());
+      pinch = { d0: Math.hypot(p1.x - p2.x, p1.y - p2.y), D0: S.D };
+    }
+  });
+  cv.addEventListener('pointermove', ev => {
+    const [x, y] = local(ev);
+    const p = ptrs.get(ev.pointerId);
+    if (!p) {
+      if (ev.pointerType === 'mouse') {
+        const h = nearest(x, y, 9);
+        const id = h ? h.id : null;
+        if (id !== S.hover) { S.hover = id; cv.classList.toggle('over', !!id); requestDraw(); }
+      }
+      return;
+    }
+    p.x = x; p.y = y;
+    if (pinch && ptrs.size >= 2) {
+      const [p1, p2] = Array.from(ptrs.values());
+      const d = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+      if (pinch.d0 > 10) setD(pinch.D0 - Math.log(d / pinch.d0) / LG);
+      return;
+    }
+    if (drag && drag.id === ev.pointerId) {
+      if (!drag.moved && Math.hypot(x - p.x0, y - p.y0) > 6) { drag.moved = true; cv.classList.add('dragging'); }
+      if (drag.moved) {
+        const a = angAt(x, y);
+        let da = a - drag.a;
+        if (da > Math.PI) da -= TWO_PI; else if (da < -Math.PI) da += TWO_PI;
+        drag.a = a;
+        if (Math.hypot(x - geo.cx, y - geo.cy) > 16) setD(S.D + da / TWO_PI);
+      }
+    }
+  });
+  function endPointer(ev) {
+    const p = ptrs.get(ev.pointerId);
+    ptrs.delete(ev.pointerId);
+    if (ptrs.size < 2) pinch = null;
+    if (drag && drag.id === ev.pointerId) {
+      if (!drag.moved && ev.type === 'pointerup' && p) {
+        const h = nearest(p.x, p.y, drag.type === 'mouse' ? 9 : 16);
+        if (h) select(h.id);
+      }
+      drag = null;
+      cv.classList.remove('dragging');
+    }
+  }
+  cv.addEventListener('pointerup', endPointer);
+  cv.addEventListener('pointercancel', endPointer);
+  cv.addEventListener('pointerleave', ev => {
+    if (ev.pointerType === 'mouse' && S.hover) { S.hover = null; cv.classList.remove('over'); requestDraw(); }
+  });
+  cv.addEventListener('wheel', ev => {
+    ev.preventDefault();
+    stopPlay(); stopAnim();
+    let dy = ev.deltaY;
+    if (ev.deltaMode === 1) dy *= 16; else if (ev.deltaMode === 2) dy *= 400;
+    setD(S.D + dy * (ev.ctrlKey ? 0.006 : 0.0016));
+  }, { passive: false });
+  cv.addEventListener('keydown', ev => {
+    const k = ev.key;
+    if (k === 'ArrowRight') { stopPlay(); step(1); }
+    else if (k === 'ArrowLeft') { stopPlay(); step(-1); }
+    else if (k === 'ArrowUp' || k === '+' || k === '=') { stopPlay(); stopAnim(); setD(S.D - 0.08); }
+    else if (k === 'ArrowDown' || k === '-' || k === '_') { stopPlay(); stopAnim(); setD(S.D + 0.08); }
+    else if (k === ' ' || k === 'Spacebar') togglePlay();
+    else if (k === 'Home') { stopPlay(); flyTo(DMAX); }
+    else if (k === 'End') { stopPlay(); flyTo(DMIN); }
+    else return;
+    ev.preventDefault();
+  });
+
+  /* ---------- size and theme ---------- */
+  function resize() {
+    const b = cv.getBoundingClientRect();
+    if (!b.width || !b.height) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    geo.W = b.width; geo.H = b.height; geo.dpr = dpr;
+    cv.width = Math.round(b.width * dpr); cv.height = Math.round(b.height * dpr);
+    geo.cx = geo.W / 2; geo.cy = geo.H / 2;
+    geo.Rmax = Math.min(geo.W, geo.H) / 2 - 6;
+    geo.R0 = geo.Rmax * 0.6;
+    draw();
+  }
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(cv);
+  window.addEventListener('resize', resize);
+  const themeChanged = () => { readPalette(); requestDraw(); };
+  if (window.matchMedia) {
+    const mq = matchMedia('(prefers-color-scheme: dark)');
+    if (mq.addEventListener) mq.addEventListener('change', themeChanged); else if (mq.addListener) mq.addListener(themeChanged);
+  }
+  new MutationObserver(themeChanged).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class', 'style'] });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => requestDraw());
+
+  /* ---------- start ---------- */
+  window.__vanishing = { state: S, hits: () => HIT.slice(), range: () => ({ DMIN, DMAX, T, LNOW }) };
+  function fromHash() {
+    const h = (location.hash || '').replace(/^#/, '');
+    return h && BY_ID[h] ? h : null;
+  }
+  window.addEventListener('hashchange', () => { const id = fromHash(); if (id && id !== S.sel) select(id); });
+
+  readPalette();
+  setCentre(passed ? 'now' : 'doomsday');
+  vpSel.value = S.vp;
+  renderLaneChips();
+  renderEras();
+  const first = fromHash() || 'doomsday';
+  S.sel = first;
+  renderList();
+  renderCard(BY_ID[first]);
+  setD(POS[first].Ld);
+  resize();
+})();
+
+</script>
+
+</body>
+</html>

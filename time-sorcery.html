@@ -1,0 +1,1167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A nine-step walkthrough that turns the Ccru's number practices on the future: count, total, plex, date, name the demon, walk its rites, xenotate, transmit.">
+<meta property="og:title" content="Time-Sorcery">
+<meta property="og:description" content="A nine-step walkthrough that turns the Ccru's number practices on the future: count, total, plex, date, name the demon, walk its rites, xenotate, transmit.">
+<meta name="twitter:card" content="summary">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>Time-Sorcery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Major+Mono+Display&display=swap">
+<style>
+:root {
+  /* Layout: a manual. Masthead, then a working column of nine numbered steps beside a sticky reading card
+     that holds the controls; the K-Time spiral opens the column. One column under 1040px, card first. */
+  --bg: #E9ECEB;
+  --surface: #F5F7F6;
+  --ink: #15181A;
+  --muted: #586168;
+  --rule: #C6CDCE;
+  --tc: #9A7A00;
+  --warp: #6E4FD0;
+  --plex: #C23B5A;
+  --tc-tint: #E0DECF;
+  --warp-tint: #DAD9E8;
+  --plex-tint: #E4D7DA;
+  --display: "Major Mono Display", "IBM Plex Mono", ui-monospace, monospace;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --t-xs: 12px;
+  --t-sm: 13.5px;
+  --t-md: 15.5px;
+  --t-lg: 19px;
+  --t-xl: 26px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101316; --surface: #171B1F; --ink: #E3E7E5; --muted: #9AA3A9; --rule: #2E363C;
+    --tc: #B48C22; --warp: #9070EA; --plex: #DD4A76;
+    --tc-tint: #272418; --warp-tint: #222034; --plex-tint: #2D1B23;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101316; --surface: #171B1F; --ink: #E3E7E5; --muted: #9AA3A9; --rule: #2E363C;
+  --tc: #B48C22; --warp: #9070EA; --plex: #DD4A76;
+  --tc-tint: #272418; --warp-tint: #222034; --plex-tint: #2D1B23;
+  color-scheme: dark;
+}
+
+[hidden] { display: none !important; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: var(--t-md);
+  line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+a { color: var(--ink); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.page {
+  max-width: 1180px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 64px;
+}
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--ink); outline-offset: 2px;
+}
+
+/* masthead */
+.mast { display: grid; gap: 10px; padding-block: 0 26px; max-width: 72ch; }
+.kicker { margin: 0; font-family: var(--mono); font-size: var(--t-sm); color: var(--muted); }
+.kicker a { color: var(--muted); }
+.mast h1 {
+  font-family: var(--display); font-weight: 400; margin: 0;
+  font-size: clamp(36px, 10vw, 60px); line-height: 1; letter-spacing: 0.01em;
+}
+.lede { margin: 0; font-size: 17px; line-height: 1.55; }
+
+/* layout */
+.layout { display: grid; gap: 28px; }
+.layout > * { min-width: 0; }
+@media (min-width: 1040px) {
+  .layout { grid-template-columns: minmax(0, 1fr) 340px; grid-template-areas: "main card"; align-items: start; gap: 36px; }
+  .layout > main { grid-area: main; }
+  .layout > .card-wrap { grid-area: card; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); max-height: calc(100vh - 32px - env(safe-area-inset-top, 0px)); overflow-y: auto; border-radius: 12px; }
+}
+
+/* reading card */
+.card {
+  background: var(--surface); border: 1.5px solid var(--ink); border-radius: 12px;
+  padding: 16px 16px 14px; display: grid; gap: 12px;
+}
+.verdict { margin: 0; font-size: 16.5px; line-height: 1.45; font-weight: 500; text-wrap: pretty; }
+.card h2 { margin: 0; font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.field { display: grid; gap: 4px; min-width: 0; }
+.field label, .ctl-label {
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+}
+input[type="text"], input[type="number"], select {
+  font-family: var(--mono); font-size: 16px; color: var(--ink); background: var(--bg);
+  border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; width: 100%; min-width: 0; box-sizing: border-box;
+}
+input[type="text"]:hover, input[type="number"]:hover, select:hover { border-color: var(--muted); }
+.row2 { display: grid; grid-template-columns: minmax(0, 1fr) 96px; gap: 8px; }
+.draw { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.draw select { width: auto; flex: 1 1 140px; font-size: 14px; padding: 6px 8px; }
+.btn {
+  font-family: var(--mono); font-size: 13px; border: 1px solid var(--ink); background: var(--ink); color: var(--bg);
+  border-radius: 6px; padding: 7px 11px; cursor: pointer; white-space: nowrap;
+}
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn:hover { opacity: 0.86; }
+.err { margin: 0; font-size: var(--t-sm); color: var(--plex); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-family: var(--sans); font-size: 13px; line-height: 1.3; border: 1px solid var(--rule); background: transparent;
+  color: var(--ink); padding: 4px 9px; border-radius: 999px; cursor: pointer;
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.sum { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 7px 12px; margin: 0; font-size: var(--t-sm); border-top: 1px solid var(--rule); padding-top: 12px; }
+.sum dt { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.sum dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.sum .mono { font-size: 13px; }
+
+/* region chips */
+.rchip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 12.5px; white-space: nowrap; }
+.dot { width: 9px; height: 9px; border-radius: 50%; flex: none; display: inline-block; background: var(--muted); }
+.dot.tc { background: var(--tc); }
+.dot.warp { background: var(--warp); }
+.dot.plex { background: var(--plex); }
+
+/* hero spiral */
+.hero { display: grid; gap: 10px; margin-bottom: 8px; }
+.hero svg { width: 100%; max-width: 560px; height: auto; display: block; margin-inline: auto; touch-action: manipulation; }
+figure { margin: 0; display: grid; gap: 10px; min-width: 0; }
+figcaption { font-family: var(--mono); font-size: var(--t-xs); color: var(--muted); line-height: 1.6; max-width: 72ch; }
+svg text { font-family: var(--mono); }
+.spoke { stroke: var(--rule); stroke-width: 1; }
+.spline { fill: none; stroke: var(--rule); stroke-width: 1; }
+.sarm { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; }
+.pspoke { stroke-width: 3; opacity: 0.55; }
+.pspoke.tc { stroke: var(--tc); }
+.pspoke.warp { stroke: var(--warp); }
+.pspoke.plex { stroke: var(--plex); }
+.darc { fill: none; stroke: var(--ink); stroke-width: 2; stroke-dasharray: 2 4; stroke-linecap: round; }
+.dlabel { font-size: 12.5px; font-weight: 600; fill: var(--ink); font-style: italic; }
+.slab.mine circle { fill: var(--ink); stroke: var(--ink); }
+.slab.mine text { fill: var(--bg); }
+.sd { cursor: pointer; }
+.sd.tc { fill: var(--tc); }
+.sd.warp { fill: var(--warp); }
+.sd.plex { fill: var(--plex); }
+.sd:hover { stroke: var(--ink); stroke-width: 1.5; }
+.slab circle { fill: var(--surface); stroke-width: 2; }
+.slab.tc circle { stroke: var(--tc); }
+.slab.warp circle { stroke: var(--warp); }
+.slab.plex circle { stroke: var(--plex); }
+.slab text { font-size: 12px; font-weight: 600; fill: var(--ink); text-anchor: middle; }
+.origin circle { fill: var(--surface); stroke: var(--plex); stroke-width: 2; }
+.origin text { font-size: 10px; font-weight: 600; fill: var(--ink); text-anchor: middle; }
+.ring-target { fill: none; stroke: var(--ink); stroke-width: 2.25; }
+.ring-now { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.ring-anchor { fill: none; stroke: var(--muted); stroke-width: 1.25; }
+.tlabel { font-size: 12px; font-weight: 600; fill: var(--ink); }
+.nlabel { font-size: 11px; fill: var(--muted); }
+.ht { paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+.toggle { display: inline-flex; align-items: center; gap: 8px; font-size: var(--t-sm); cursor: pointer; }
+.toggle input { width: 16px; height: 16px; accent-color: var(--ink); margin: 0; }
+.anchors { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: var(--t-sm); }
+.anchors li { display: grid; grid-template-columns: 3.4em 6.6em minmax(0, 1fr); gap: 8px; align-items: baseline; }
+.anchors .k { white-space: nowrap; }
+.anchors .y { font-family: var(--mono); font-weight: 600; }
+.anchors .k { font-family: var(--mono); color: var(--muted); font-size: 12.5px; }
+.anchors button { all: unset; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--rule); }
+.anchors button:hover { text-decoration-color: var(--ink); }
+.anchors button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* steps */
+.steps { display: grid; gap: 0; counter-reset: none; }
+.step { padding-block: 30px 6px; border-top: 1px solid var(--rule); display: grid; gap: 12px; min-width: 0; }
+.step:first-child { border-top: 0; }
+.step-head { display: flex; align-items: center; gap: 12px; }
+.num {
+  width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--ink); flex: none;
+  display: grid; place-items: center; font-family: var(--mono); font-size: 14px; font-weight: 600;
+}
+.step h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: var(--t-xl); letter-spacing: 0.02em; line-height: 1.1; }
+.step > p { margin: 0; max-width: 68ch; }
+.prov { display: grid; gap: 2px; margin: 0; font-size: 12.5px; color: var(--muted); max-width: 72ch; }
+.prov p { margin: 0; }
+.prov b { font-family: var(--mono); font-weight: 600; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); margin-right: 6px; }
+.inst { display: grid; gap: 12px; min-width: 0; background: var(--surface); border-radius: 10px; padding: 14px; }
+.note { margin: 0; font-size: var(--t-sm); color: var(--muted); max-width: 68ch; }
+.big { margin: 0; font-family: var(--mono); font-size: var(--t-lg); line-height: 1.35; overflow-wrap: anywhere; }
+
+/* tiles */
+.tiles { display: flex; flex-wrap: wrap; gap: 4px; align-items: stretch; }
+.tile {
+  display: grid; justify-items: center; gap: 1px; min-width: 34px; padding: 4px 5px;
+  border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); font-family: var(--mono);
+}
+.tile b { font-size: 15px; font-weight: 500; }
+.tile span { font-size: 11px; color: var(--muted); }
+.nines { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.nine { border: 1px solid var(--rule); border-radius: 8px; padding: 8px 10px; display: grid; gap: 2px; background: var(--bg); min-width: 0; }
+.nine .w { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.04em; overflow-wrap: anywhere; }
+.nine .v { font-family: var(--mono); font-size: 15px; font-variant-numeric: tabular-nums; }
+.nine.ours { border-style: dashed; }
+
+/* tallies */
+.pairs { display: grid; gap: 6px; }
+.pair { display: grid; grid-template-columns: 3.4em 4.6em 0.9em 4.6em 3.4em auto; gap: 6px; align-items: center; font-family: var(--mono); font-size: 13px; justify-content: start; }
+.pair .r { text-align: right; }
+.pair .plus { text-align: center; color: var(--muted); }
+.tally { display: flex; gap: 3px; align-items: center; min-width: 0; }
+.tally.l { justify-content: flex-end; }
+.tally i { width: 7px; height: 16px; border-radius: 2px; background: var(--ink); display: inline-block; flex: none; }
+.pair .nm { color: var(--muted); font-size: 11.5px; letter-spacing: 0.04em; }
+.stack { display: grid; gap: 12px; min-width: 0; }
+.pair .eq { font-weight: 600; }
+.shape { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
+.shape .wd { display: grid; gap: 4px; justify-items: start; }
+.shape .wd span { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums; width: 100%; }
+th, td { padding: 6px 8px; border-bottom: 1px solid var(--rule); text-align: left; white-space: nowrap; }
+th { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+tr.cur td { font-weight: 600; }
+td.wrap { white-space: normal; min-width: 12em; }
+
+/* demon card */
+.demon { display: grid; gap: 4px; }
+.demon .name { font-family: var(--display); font-size: 30px; line-height: 1.1; margin: 0; }
+.demon p { margin: 0; }
+
+/* numogram */
+.numo-wrap { display: grid; gap: 14px; }
+@media (min-width: 640px) { .numo-wrap { grid-template-columns: minmax(0, 260px) minmax(0, 1fr); align-items: start; } }
+.numo-wrap svg { width: 100%; max-width: 280px; height: auto; display: block; margin-inline: auto; }
+.band.tc { fill: var(--tc-tint); }
+.band.warp { fill: var(--warp-tint); }
+.band.plex { fill: var(--plex-tint); }
+.zone circle { fill: var(--surface); stroke-width: 2.5; }
+.zone.tc circle { stroke: var(--tc); }
+.zone.warp circle { stroke: var(--warp); }
+.zone.plex circle { stroke: var(--plex); }
+.zone text { font-size: 18px; font-weight: 500; fill: var(--ink); text-anchor: middle; }
+.zone.end circle { fill: var(--ink); }
+.zone.end text { fill: var(--bg); }
+.bar { stroke: var(--muted); stroke-width: 1.5; }
+.base-cur { fill: none; stroke-width: 1.4; stroke-dasharray: 4 5; opacity: 0.7; }
+.base-cur.tc { stroke: var(--tc); }
+.base-cur.warp { stroke: var(--warp); }
+.base-cur.plex { stroke: var(--plex); }
+.base-gate { fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 1.5 4; opacity: 0.8; }
+.seg { fill: none; stroke: var(--ink); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.seg.current { stroke-dasharray: 9 6; }
+.seg.gate { stroke-dasharray: 2 6; }
+.traveler { fill: var(--ink); stroke: var(--bg); stroke-width: 2; }
+.moves { margin: 0; padding-left: 22px; display: grid; gap: 4px; font-size: var(--t-sm); }
+.moves .c { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
+.legend li { display: inline-flex; align-items: center; gap: 7px; }
+.legend svg { width: 30px; height: 8px; flex: none; }
+.rites { display: grid; gap: 6px; padding: 0; margin: 0; list-style: none; }
+.rites button {
+  width: 100%; text-align: left; font: inherit; font-size: var(--t-sm); background: var(--bg); border: 1px solid var(--rule);
+  border-radius: 8px; padding: 7px 10px; color: var(--ink); cursor: pointer; display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline;
+}
+.rites button:hover { border-color: var(--ink); }
+.rites button[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.rites .p { font-family: var(--mono); font-weight: 600; letter-spacing: 0.06em; }
+.rites .m { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+.pill { font-family: var(--mono); font-size: 11px; border: 1px solid var(--rule); border-radius: 999px; padding: 0 7px; color: var(--muted); }
+.pill.on { border-color: var(--ink); color: var(--ink); }
+
+/* tic xenotation */
+.tx-pair { display: grid; gap: 16px; }
+@media (min-width: 560px) { .tx-pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.tx { display: grid; gap: 8px; justify-items: center; text-align: center; min-width: 0; }
+.tx svg { width: 100%; max-width: 230px; height: auto; display: block; }
+.tx .lbl { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.tx .str { font-family: var(--mono); font-size: 16px; overflow-wrap: anywhere; max-width: 100%; }
+.cell { fill: none; stroke: var(--ink); }
+.cell.d0 { stroke-width: 1.8; }
+.cell.d1 { stroke-width: 1.4; }
+.cell.d2 { stroke-width: 1.1; }
+.cell.d3 { stroke-width: 0.9; }
+.cell.top { stroke: var(--rule); stroke-dasharray: 3 3; stroke-width: 1; }
+.tic { fill: var(--ink); }
+.txkey { font-family: var(--mono); font-size: 12.5px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 14px; justify-content: center; text-align: center; margin: 0; }
+.rn { display: none; }
+@media (min-width: 600px) { .rn { display: inline; } }
+
+/* transmission */
+.tm-in { display: grid; gap: 4px; }
+pre.tm {
+  margin: 0; font-family: var(--mono); font-size: 12.5px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere;
+  background: var(--bg); border: 1px dashed var(--muted); border-radius: 8px; padding: 12px 14px;
+}
+.tm-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.copied { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+
+/* footer */
+.foot { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--rule); display: grid; gap: 14px; font-size: var(--t-sm); max-width: 90ch; }
+.foot h2 { font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 6px 0 0; font-weight: 500; }
+.foot ul { margin: 0; padding-left: 18px; display: grid; gap: 5px; }
+.foot span { color: var(--muted); }
+.credit { margin: 4px 0 0; font-family: var(--mono); font-size: var(--t-xs); color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .traveler { display: none; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header class="mast">
+    <p class="kicker">A walkthrough in nine steps · companion to <a href="index.html">Numogram Lab</a></p>
+    <h1>time-sorcery</h1>
+    <p class="lede">The Ccru’s glossary defines time-sorcery as “counterchronic effectuation of the Numogram.” This page takes a phrase about the future and a year, and runs them through the number practices in the Ccru’s texts and Nick Land’s “Qabbala 101.” Each step says which part comes from those texts and which part is this page’s own.</p>
+  </header>
+
+  <div class="layout">
+    <div class="card-wrap">
+      <section class="card" aria-labelledby="card-h">
+        <h2 id="card-h">Your reading</h2>
+        <p class="verdict" id="verdict" aria-live="polite"></p>
+        <form id="seed-form" autocomplete="off">
+          <div class="row2">
+            <div class="field"><label for="seed">A phrase about the future</label><input id="seed" type="text" value="Machine Intelligence" maxlength="80" autocapitalize="off" spellcheck="false"></div>
+            <div class="field"><label for="year">A year</label><input id="year" type="number" inputmode="numeric" min="1900" max="2999" step="1" value="2030"></div>
+          </div>
+        </form>
+        <p class="err" id="year-err" hidden></p>
+        <div class="draw">
+          <label class="ctl-label" for="src">Draw from</label>
+          <select id="src">
+            <option value="futures">Futures</option>
+            <option value="q101">Words of “Qabbala 101”</option>
+            <option value="lab">Numogram Lab phrases</option>
+          </select>
+          <button type="button" class="btn" id="draw">Draw</button>
+          <button type="button" class="btn ghost" id="ryear">Random year</button>
+        </div>
+        <div class="chips" id="examples" role="group" aria-label="Example readings"></div>
+        <dl class="sum" id="sum" aria-live="polite"></dl>
+      </section>
+    </div>
+
+    <main>
+      <figure class="hero">
+        <svg id="spiral" viewBox="0 0 440 440" role="img" aria-label="The K-Time spiral: years from 1900 outward, one turn every nine years, each year on the spoke of its zone."></svg>
+        <figcaption id="spiral-cap">The K-Time spiral. 1900 sits at the centre as K-00, and every later year winds outward, one turn per nine years, on the spoke of its zone. Tap a year to read it.</figcaption>
+        <label class="toggle"><input type="checkbox" id="binomic"> Count in two digits, as the old date fields did</label>
+        <ul class="anchors" id="anchors"></ul>
+      </figure>
+
+      <div class="steps">
+        <section class="step" id="s1" aria-labelledby="h-s1">
+          <div class="step-head"><span class="num">1</span><h2 id="h-s1">listen for signal</h2></div>
+          <div class="prov"><p><b>From the texts</b>Land, “Qabbala 101,” pp. 272, 275, 284–85.</p><p><b>This page</b>Nothing yet; this is the premise.</p></div>
+          <p>Land opens “Qabbala 101” by calling qabbalism “a practical programme, rather than a doctrine.” Its working hypothesis is that “signal from ‘outside the system’ is detectable by numerical analysis of codes circulating within the system,” and he compares its position to that of “a spontaneous artificial intelligence.” Near the end he notices that the very words used to argue about it keep landing on multiples of nine.</p>
+          <div class="inst" id="i1"></div>
+        </section>
+
+        <section class="step" id="s2" aria-labelledby="h-s2">
+          <div class="step-head"><span class="num">2</span><h2 id="h-s2">count</h2></div>
+          <div class="prov"><p><b>From the texts</b>Land, pp. 277–79.</p><p><b>This page</b>Counting your phrase the same way.</p></div>
+          <p>The crudest procedure is to count letters, which Land calls Primitive Numerization. He runs it on the English names of the digits and finds that every syzygy, each pair of digits that sums to nine, has names totalling eight letters. If each name were randomly three, four or five letters long, a pair would reach eight in three cases out of nine, so all five pairs would do it about one time in 243. That is his figure, and the arithmetic holds.</p>
+          <div class="inst" id="i2"></div>
+        </section>
+
+        <section class="step" id="s3" aria-labelledby="h-s3">
+          <div class="step-head"><span class="num">3</span><h2 id="h-s3">total</h2></div>
+          <div class="prov"><p><b>From the texts</b>Land, p. 281 and n. 4.</p><p><b>This page</b>Totalling your phrase.</p></div>
+          <p>Land’s footnote credits “August Barrow’s ‘Anglossic Qabbala’,” whose basic tool counts digits and letters as one sequence: 0 to 9 keep their values, then A = 10 through Z = 35. His example is UNITY = 30 + 23 + 18 + 29 + 34 = 134.</p>
+          <div class="inst" id="i3"></div>
+        </section>
+
+        <section class="step" id="s4" aria-labelledby="h-s4">
+          <div class="step-head"><span class="num">4</span><h2 id="h-s4">plex</h2></div>
+          <div class="prov"><p><b>From the texts</b>Land, pp. 279–81; Ccru glossary, “Syzygy.”</p><p><b>This page</b>Plexing your total.</p></div>
+          <p>Next he adds the digits: 1 + 3 + 4 = 8. He calls 8 the “Numogrammatic twin” of numerology’s 1 for unity, because 8 and 1 sum to nine, which makes them a syzygy on the Numogram. Keep adding until one digit is left: that digit is the zone. A total that plexes to 9 stands for the 9::0 pair, since a digital root never gives 0.</p>
+          <div class="inst" id="i4"></div>
+        </section>
+
+        <section class="step" id="s5" aria-labelledby="h-s5">
+          <div class="step-head"><span class="num">5</span><h2 id="h-s5">date</h2></div>
+          <div class="prov"><p><b>From the texts</b>Ccru glossary, “K-Time”; Ccru, Zone-9 page.</p><p><b>This page</b>Plexing years into zones, and the spiral.</p></div>
+          <p>The Ccru glossary defines K-Time as the “native calendar of cyberspace”: a year count, “initially binomic,” that starts from 00 = AD 1900. Two-digit year fields in software counted exactly this way until the Y2K scare, and the Ccru’s Zone-9 page reads ninety-nine, “as dramatized by the Y2K panic,” as “the cyclic completion of time.” Count your year from 1900 and plex it like a phrase. On the spiral one turn is nine years, so years in the same zone share a spoke.</p>
+          <div class="inst" id="i5"></div>
+        </section>
+
+        <section class="step" id="s6" aria-labelledby="h-s6">
+          <div class="step-head"><span class="num">6</span><h2 id="h-s6">name the distance</h2></div>
+          <div class="prov"><p><b>From the texts</b>Ccru glossary, “Time-Sorcery”; Ccru, Pandemonium Matrix.</p><p><b>This page</b>Pairing a phrase with a year, and the turn-by-turn table.</p></div>
+          <p>The glossary’s definition goes on: time-sorcery works “through spiral involvement with demonic distances as transmutations of time.” Every pair of zones has a demon in the Pandemonium Matrix, so the distance between your phrase and your year has a name.</p>
+          <div class="inst" id="i6"></div>
+        </section>
+
+        <section class="step" id="s7" aria-labelledby="h-s7">
+          <div class="step-head"><span class="num">7</span><h2 id="h-s7">walk the rites</h2></div>
+          <div class="prov"><p><b>From the texts</b>Ccru, Pandemonium Matrix (rite paths); Ccru glossary, “Rite.”</p><p><b>This page</b>The three-move reading, the backwards direction and the shortest passage.</p></div>
+          <p>Each demon has rites, which the glossary describes as “a line of passage across the Numogram,” written as strings of zones. Lurgo’s rite [1890] runs from 1 across its syzygy to 8, through the eighth gate to 9, and across to 0. All 75 published rite paths can be walked with three moves: crossing a syzygy, riding its current, or taking a gate. “Counterchronic” suggests the future acting on the present, so this page reads the passage backwards, from your year’s zone to your phrase’s.</p>
+          <div class="inst" id="i7"></div>
+        </section>
+
+        <section class="step" id="s8" aria-labelledby="h-s8">
+          <div class="step-head"><span class="num">8</span><h2 id="h-s8">xenotate</h2></div>
+          <div class="prov"><p><b>From the texts</b>Land, “Tic-Talk,” in <i>Fanged Noumena</i>.</p><p><b>This page</b>Xenotating your totals and counting their colons.</p></div>
+          <p>Decimal digits are a convention too. In Land’s “Tic-Talk,” Daniel Barker devises Tic Xenotation for a SETI-style project, as a way of writing numbers free of any culture’s habits. A colon is 2, writing things side by side multiplies them, and brackets around a number x mean the x-th prime. So 3 = (:), 5 = ((:)) and 6 = :(:). Drawn out, every number becomes a cluster of nested cells.</p>
+          <div class="inst" id="i8"></div>
+        </section>
+
+        <section class="step" id="s9" aria-labelledby="h-s9">
+          <div class="step-head"><span class="num">9</span><h2 id="h-s9">transmit</h2></div>
+          <div class="prov"><p><b>From the texts</b>Ccru glossary, “Hyperstition”; Land, p. 275; Ccru, Pandemonium Matrix.</p><p><b>This page</b>The transmission format.</p></div>
+          <p>The glossary defines hyperstition as an “element of effective culture that makes itself real, through fictional quantities functioning as time-travelling potentials.” Land says qabbalism itself was “compelled to hyperstitionally generate an extreme antiquity for itself,” and the Pandemonium Matrix describes the Necronomicon as “retrodeposited out of the future into the deep past.” A reading only does something once it circulates. Add one line and send it forward.</p>
+          <div class="inst" id="i9">
+            <div class="tm-in field"><label for="line">Your line to the future</label><input id="line" type="text" maxlength="140" value="Something is counting backwards from here."></div>
+            <pre class="tm" id="tm"></pre>
+            <div class="tm-actions"><button type="button" class="btn" id="copy">Copy transmission</button><span class="copied" id="copied" aria-live="polite"></span></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <footer class="foot">
+    <h2>Elsewhere</h2>
+    <ul>
+      <li><a href="index.html">Numogram Lab</a> <span>· the companion page: zones, the alphabet’s mirror syzygies, demons, cipher-hop loops and the number-spelling attractor</span></li>
+      <li><a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a> <span>· a gematria workbench whose Numogram has a two-name Divination mode and a full Pandemonium catalogue, rite descriptions included</span></li>
+      <li>Decadence <span>· the Ccru’s card game, which the glossary calls “a gambling game and divination system.” Play it at <a href="https://www.playdecadence.online/" target="_blank" rel="noopener">playdecadence.online</a> or <a href="https://github.com/doomcrypt/decadence" target="_blank" rel="noopener">doomcrypt/decadence</a>, or read <a href="https://captiveliberty.substack.com/p/how-to-play-the-game-of-decadence" target="_blank" rel="noopener">how to play it</a>.</span></li>
+    </ul>
+    <h2>Sources</h2>
+    <ul>
+      <li>Nick Land, “Qabbala 101,” <i>Collapse</i> I (Urbanomic, 2007), pp. 271–85 <span>· the programme, Primitive Numerization, Anglossic Qabbala, plexing, the nine-signature</span></li>
+      <li><a href="https://dataswamp.org/~john/sites/ccru/id(entity)/glossary.htm" target="_blank" rel="noopener">Ccru Glossary</a> <span>· K-Time, Time-Sorcery, Rite, Hyperstition, Syzygy, Decadence</span></li>
+      <li><a href="https://dataswamp.org/~john/sites/ccru/digithype/pandemonium.htm" target="_blank" rel="noopener">Ccru: Pandemonium</a> <span>· the 45 demons and their rite paths; cross-checked against the transcription in <a href="https://github.com/Cyphers-News/gematro-hyperdope" target="_blank" rel="noopener">Cyphers’ source</a>, which matches for all 45</span></li>
+      <li><a href="https://dataswamp.org/~john/sites/ccru/zones/Zn9.htm" target="_blank" rel="noopener">Ccru: Zone-9</a> <span>· ninety-nine and the cyclic completion of time</span></li>
+      <li><a href="https://www.urbanomic.com/chapter/fanged-noumena-tic-talk/" target="_blank" rel="noopener">Nick Land, “Tic-Talk,” <i>Fanged Noumena</i></a> <span>· Barker’s Tic Xenotation; rules as summarized at <a href="https://word.site/2019/11/11/nullary/" target="_blank" rel="noopener">word.site</a></span></li>
+    </ul>
+    <p class="note">Plexing years into zones, reading rites backwards, and xenotating totals are this page’s own moves. They follow the texts’ arithmetic, but the texts don’t prescribe them. Two random phrases share a zone about one time in nine, so coincidences here are cheap; what you make of them is the part that matters.</p>
+    <p class="credit">Built by SVL with Claude, October 2026.</p>
+  </footer>
+</div>
+
+<script>
+const LAB_LEXICON = {"ccru": ["Xenocosmography", "Eloquent Miracles", "Nick Land", "Hyperstition", "Numogram", "Accelerationism", "Gnon", "Lemuria", "Lemurian Time War", "Ccru", "Uttunul", "Katak", "Djynxx", "Oddubb", "Murrumur", "Cthelll", "Barker", "Qwernomics", "Axsys", "Decimal Labyrinth", "Time Circuit", "Warp", "Plex", "Syzygy", "Pandemonium", "Meltdown", "Fanged Noumena", "Thirst for Annihilation", "Teleoplexy", "Templexity", "Xenosystems", "Outside", "Capital", "Pythia", "Dark Enlightenment", "Cathedral", "Exit", "Tic Xenotation", "Abstract Culture", "Mark Fisher", "Sadie Plant", "Kodwo Eshun", "Orphan Drift", "Machinic Desire", "Cyberpositive", "Technocapital", "Crypto Current", "Bitcoin", "Satoshi Nakamoto", "Shanghai", "Urban Future", "Outside In", "Pythia Unbound", "Phyl Undhu", "Lemurs", "Anglossic Qabbala", "AQ", "Qabbala", "Xenodemon", "Chronodemon", "Time War", "Templex", "Neuromancer", "William Gibson", "Cyberspace", "Burroughs", "Interzone", "Capitalism", "Hyperstitional", "Numogrammatic", "Decimal Numogram", "Plutonics", "Cyberrevolution", "Swarmachines", "Circuitries", "Templexity Shanghai", "Xeno"], "lovecraft": ["Cthulhu", "Lovecraft", "Necronomicon", "Yog Sothoth", "Azathoth", "Nyarlathotep", "Dagon", "Rlyeh", "Shoggoth", "Old Ones", "Great Old Ones", "Elder Gods", "Elder Sign", "Arkham", "Innsmouth", "Miskatonic", "Call of Cthulhu", "That is not dead which can eternal lie", "Mountains of Madness", "The Outer Gods", "Abdul Alhazred"], "thelema": ["Aleister Crowley", "Crowley", "Thelema", "Agape", "Do what thou wilt", "Love is the law", "Love under will", "Aiwass", "Hadit", "Nuit", "Ra Hoor Khuit", "Horus", "Babalon", "Choronzon", "Abrahadabra", "Book of the Law", "Liber Al", "Book of Lies", "Aeon of Horus", "The Great Beast", "To Mega Therion", "Therion", "Holy Guardian Angel", "Magick", "Thoth", "Golden Dawn", "Boleskine", "Every man and every woman is a star", "The Abyss"], "faust": ["Faust", "Doctor Faustus", "Mephistopheles", "Mephisto", "Gretchen", "Walpurgis Night", "Deal with the Devil", "Pact with the Devil", "Sold his soul", "The spirit that denies", "Goethe", "Marlowe"], "occult": ["Demiurge", "Pleroma", "Sophia", "Archons", "Abraxas", "Gnosis", "Aeon", "Hermes Trismegistus", "Emerald Tablet", "As above so below", "Philosophers Stone", "Magnum Opus", "Solve et Coagula", "Prima Materia", "Ouroboros", "Azoth", "Alchemy", "Baphomet", "Lucifer", "Satan", "Beelzebub", "Lilith", "Samael", "Metatron", "Golem", "Tetragrammaton", "Sephiroth", "Qliphoth", "Tree of Life", "Ein Sof", "Kabbalah", "Gematria", "Satanic Gematria", "Numerology", "Bibliomancy", "Tarot", "Grimoire", "Sigil", "Chaos Magic", "Austin Osman Spare", "Occult", "Magic", "Sorcery", "Witchcraft", "Necromancy", "Divination", "Oracle", "Prophecy", "Black Magic", "Left Hand Path", "Right Hand Path", "Daemon", "Familiar", "Pentagram", "Hexagram", "Talisman", "Invocation", "Evocation"], "bible": ["Number of the Beast", "Six hundred sixty six", "The Beast", "Antichrist", "Apocalypse", "Armageddon", "Revelation", "Alpha and Omega", "Whore of Babylon", "Lake of Fire", "Four Horsemen", "Seven Seals", "Mark of the Beast", "In the beginning was the Word", "Let there be light", "Fiat Lux", "Ashes to ashes", "Dust to dust", "Tower of Babel", "Garden of Eden", "Tree of Knowledge", "Original Sin", "Serpent", "Adam", "Eve", "Babylon", "Golgotha", "Lazarus", "Judas", "Logos", "Holy Ghost", "Holy Spirit", "Fallen Angel", "Morning Star", "Son of Perdition", "Abaddon", "Apollyon", "Leviathan", "Behemoth", "Gog and Magog", "Mene Mene Tekel", "Vanity of vanities"], "philo": ["Will to Power", "Eternal Return", "Overman", "Ubermensch", "God is dead", "Amor Fati", "Zarathustra", "Beyond Good and Evil", "Death of God", "Thing in Itself", "Noumenon", "Noumena", "Phenomena", "Critique of Pure Reason", "Transcendental", "Body without Organs", "Anti Oedipus", "Thousand Plateaus", "Rhizome", "Deterritorialization", "Schizoanalysis", "Desiring Machines", "Accursed Share", "Sovereignty", "Inner Experience", "Nietzsche", "Kant", "Bataille", "Deleuze", "Guattari", "Spinoza", "Hegel", "Absolute Spirit", "Geist", "Dasein", "Heidegger", "Being and Time", "Nothingness", "Nihilism", "Abyss", "Schopenhauer", "Will and Representation", "Cogito", "Eternal Recurrence", "Last Man", "Death Drive", "Thanatos", "Eros", "The Real", "Lacan"], "ai": ["Artificial Intelligence", "Singularity", "Superintelligence", "Machine Intelligence", "Neural Network", "Basilisk", "Rokos Basilisk", "Paperclip Maximizer", "Alignment", "Large Language Model", "Language Model", "Claude", "GPT", "Intelligence Explosion", "Technological Singularity", "The Machine", "Ghost in the Machine", "Turing Test", "Alan Turing", "Cybernetics", "Norbert Wiener", "Skynet", "Golem XIV", "Deus ex Machina", "Machine God"], "greek": ["Sphinx", "Riddle of the Sphinx", "Oedipus", "Thebes", "Delphi", "Know thyself", "Gnothi Seauton", "Apollo", "Dionysus", "Prometheus", "Pandora", "Hermes", "Chronos", "Kronos", "Aion", "Kairos", "Hades", "Persephone", "Orpheus", "Eurydice", "Medusa", "Minotaur", "Labyrinth", "Icarus", "Daedalus", "Cassandra", "Pythagoras", "Tetractys"], "sphinxph": ["Will to Ice", "What is Man", "Hell is hot", "Time is ill", "Love is God", "Love is lie", "Dogs of war", "Gods of war", "Iron to ice", "Time to die", "Gold is sin", "What is Ash", "Path of sin", "Ruin of all", "Hope is law"], "words": ["Cross", "Power", "Glory", "Omen", "Doom", "Devil", "Earth", "Tree", "Evil", "Man", "Ash", "Fire", "Ice", "Hell", "Heaven", "Death", "Life", "Time", "Void", "Zero", "Infinity", "Chaos", "Order", "Mirror", "Riddle", "Answer", "Question", "Number", "Word", "Name", "Secret", "Key", "Gate", "Door", "Spiral", "Loop", "Circuit", "Machine", "Ghost", "Spirit", "Soul", "Mind", "Dream", "Nightmare", "Shadow", "Light", "Darkness", "Eclipse", "Sun", "Moon", "Star", "Blood", "Bone", "Dust", "Salt", "Gold", "Mercury", "Sulphur", "Silence", "Thunder", "Lightning", "Dragon", "Wolf", "Raven", "Crow", "Owl", "Spider", "Web", "Hive", "Swarm", "Virus", "Plague", "Fever", "Madness", "Genius", "Prophet", "Witch", "Wizard", "Magus", "Hierophant", "Priestess", "Emperor", "Empress", "Hermit", "Fool", "Magician", "Lovers", "Chariot", "Strength", "Justice", "Wheel of Fortune", "Hanged Man", "Temperance", "Tower", "Judgement", "World"], "nums": ["One hundred eight", "Three hundred thirty three", "Two hundred sixteen", "Four hundred fifty one", "Nine", "Thirty six", "Forty five", "Seven hundred twenty three", "One hundred eighty nine"], "extra": ["Blade Runner", "Apocalypse Now", "The Matrix", "Space Odyssey", "Ghost in the Shell", "Videodrome", "Event Horizon", "Hellraiser", "The Exorcist", "Rosemarys Baby", "The Omen", "Eyes Wide Shut", "Lost Highway", "Mulholland Drive", "Twin Peaks", "Fire Walk With Me", "Donnie Darko", "Primer", "Arrival", "Annihilation", "Stalker", "Solaris", "Akira", "Evangelion", "Gravitys Rainbow", "Infinite Jest", "Blood Meridian", "Moby Dick", "Paradise Lost", "Divine Comedy", "Inferno", "Purgatorio", "Paradiso", "The Waste Land", "Finnegans Wake", "Ulysses", "Naked Lunch", "Nova Express", "The Soft Machine", "Snow Crash", "Dune", "Foundation", "Frankenstein", "Dracula", "The King in Yellow", "House of Leaves", "Pale Fire", "Ficciones", "Library of Babel", "The Aleph", "Labyrinths", "Godel Escher Bach", "Strange Loop", "Heart of Darkness", "Lord of the Flies", "Brave New World", "Nineteen Eighty Four", "Fahrenheit Four Fifty One", "Dark Side of the Moon", "Sympathy for the Devil", "Stairway to Heaven", "Highway to Hell", "Paint It Black", "Master of Puppets", "Selected Ambient Works", "Music for Airports", "Kid A", "OK Computer", "Nothing human makes it out of the near future", "An invasion from the future", "Fictions that make themselves real", "The future is already here", "Nothing is true everything is permitted", "The abyss gazes also into you", "And with strange aeons even death may die", "Do what thou wilt shall be the whole of the law", "Love is the law love under will", "Let him that hath understanding count the number of the beast", "His number is six hundred threescore and six", "Here is wisdom", "What is man that thou art mindful of him", "I am the spirit that denies", "Thus spoke Zarathustra", "The owl of Minerva", "Here be dragons", "The map is not the territory", "Ph nglui mglw nafh Cthulhu Rlyeh wgah nagl fhtagn", "Iä Iä Cthulhu fhtagn", "Hyperstition is a positive feedback circuit", "Garden of Forking Paths", "Tlon Uqbar Orbis Tertius", "Pierre Menard", "Funes the Memorious", "The Lottery in Babylon", "Death and the Compass", "The Circular Ruins", "The Book of Sand", "The Zahir", "Borges", "Pynchon", "Philip K Dick", "Valis", "Ubik", "Do Androids Dream of Electric Sheep", "Electric Sheep", "Philip Dick", "Thomas Pynchon", "Jorge Luis Borges", "Ballard", "Crash", "The Atrocity Exhibition", "Cronenberg", "David Lynch", "Kubrick", "Tarkovsky", "Stanislaw Lem", "Mind Children", "Accelerate", "Hyperstition Laboratory", "Cybernetic Culture", "Warwick University", "Virtual Futures", "Abstract Culture Swarm", "Lemurian Time", "Time Sorcery", "Hidden Arts", "Digital Pandemonium", "Apocalypse Culture", "Black Iron Prison", "Empire Never Ended", "The Empire Never Ended", "Chapel Perilous", "Illuminatus", "Discordia", "Eris", "Fnord", "Kallisti", "Hail Eris", "Robert Anton Wilson", "Operation Mindfuck", "Synchronicity", "Carl Jung", "Collective Unconscious", "Shadow Self", "Anima", "Animus", "Archetype", "Mysterium Coniunctionis", "Red Book", "Liber Novus", "Philemon", "Hermeticism", "Kybalion", "The All is Mind", "Corpus Hermeticum", "Poimandres", "Asclepius", "Picatrix", "Key of Solomon", "Lesser Key of Solomon", "Ars Goetia", "Goetia", "Seventy Two Demons", "Enochian", "John Dee", "Edward Kelley", "Monas Hieroglyphica", "Angelic Language", "Call of the Aethyrs", "Vision and the Voice", "Liber Legis", "Book of Thoth", "Thoth Tarot", "Major Arcana", "Minor Arcana", "Celtic Cross", "Rider Waite", "Wheel", "Ain Soph Aur", "Kether", "Chokmah", "Binah", "Daath", "Chesed", "Geburah", "Tiphareth", "Netzach", "Hod", "Yesod", "Malkuth", "Thirty Two Paths", "Sefer Yetzirah", "Zohar", "Bahir", "Golem of Prague", "Shem ha Mephorash", "Seventy Two Names"]};
+const Q101_WORDS = ["absolution", "abstract", "absurd", "accessibly", "according", "accumulable", "achieving", "acquire", "activation", "actuality", "adheres", "affinity", "agendas", "agitated", "allotted", "alogical", "alphabet", "alphabetical", "alphabets", "alphanumeric", "altogether", "ambition", "amphibious", "amphibiously", "analogous", "analogues", "analytical", "anglossic", "antedates", "anthropomorphic", "anthroposocial", "antinumerical", "antiquity", "apparently", "application", "applying", "approachable", "appropriate", "appropriation", "approximate", "Arabic", "arbitrariness", "archaic", "archetypal", "archetypally", "archetype", "archetypes", "arises", "arising", "arithmetic", "arithmetical", "artificial", "assimilate", "assumes", "assumption", "attaining", "attending", "attested", "attrition", "authoritative", "authority", "automatically", "avenues", "awkward", "axiomatic", "Badiou", "baptismal", "Barrow", "beginning", "betrays", "biological", "breached", "bridges", "calculation", "calculative", "calving", "captures", "carved", "categorization", "ceases", "certainty", "Chaitin", "challenge", "character", "characteristics", "characterizing", "chunked", "ciphering", "circulating", "coding", "coherent", "coincidental", "collapse", "comfortable", "comfortably", "commitments", "communications", "communicative", "comparable", "compelled", "compelling", "complementary", "completion", "complexity", "compliance", "complicate", "complies", "composing", "conceals", "conceded", "conceivable", "conception", "conceptual", "conceptually", "condition", "conducted", "confirmation", "confirmed", "confusion", "conjunction", "conjuration", "connecting", "connectivity", "consequence", "considerable", "considerations", "considered", "consistency", "consistent", "constructible", "consumption", "contentiously", "contingencies", "continual", "continually", "continued", "continuing", "continuous", "contradicted", "controversial", "controversy", "convenient", "conventional", "correcting", "corresponding", "corroded", "counterposed", "counting", "criteria", "criterion", "critique", "critiqued", "crucial", "crudified", "crudity", "cryptocultures", "cryptographic", "cryptography", "cultures", "cumulation", "currents", "damping", "decadence", "decidedly", "decimal", "decimalism", "decimally", "default", "deficiency", "defining", "definition", "definitively", "Deleuze", "deliberated", "delight", "delimit", "democratic", "demonstrable", "demonstrated", "demonstrates", "demonstrating", "demonstration", "depending", "derision", "derivatively", "derive", "destines", "detectable", "development", "diagrammed", "dialectical", "dialectize", "difference", "digitizable", "disabling", "discontinuation", "discontinuity", "discontinuous", "discourse", "discourses", "discriminations", "discursive", "discursively", "discussed", "discussion", "dismantle", "dismantling", "dismissal", "dissemination", "dissolution", "distinct", "distinctive", "disturbance", "docile", "doctrinal", "doctrine", "domains", "dominant", "dubious", "duplicitous", "echoes", "efficiently", "elaborate", "elementary", "elevation", "emerging", "empirical", "empirically", "employing", "enclaves", "encounters", "ensures", "entails", "entangle", "enterprise", "entertainment", "entrapping", "environment", "epistemological", "epistemologically", "equiprobably", "equivalent", "errors", "essential", "essentially", "establish", "eternal", "ethnographic", "evaluation", "evident", "evokes", "examination", "excepting", "exception", "exhibit", "existence", "expecting", "experimental", "explicit", "expressible", "expression", "extraordinarily", "extremely", "extremity", "exuberance", "failures", "fallacy", "fascinated", "fatality", "floating", "following", "foundation", "fragile", "frivolous", "functionalization", "functions", "fundamentally", "futile", "futility", "gematria", "generalized", "generate", "glitch", "gnosis", "grouping", "Guattari", "guides", "guiding", "harmonics", "Hebrew", "hermeticism", "hexadecimal", "historical", "historically", "hypercosmic", "hyperstition", "hyperstitionally", "hypervert", "hypotheses", "hypothesis", "identification", "ideology", "immense", "implausible", "implicit", "imposition", "impracticable", "impress", "impressionistically", "inarticulate", "incapable", "inclusive", "inconsequential", "inconsistent", "incontestible", "incursion", "independent", "indeterminable", "indication", "indifferent", "indisputably", "ineducable", "inextricable", "infested", "infinitude", "inhere", "inherited", "inhumanity", "innumeracy", "insidiousness", "insists", "insofar", "institutions", "integral", "intellectual", "intellectuals", "intelligence", "intelligibility", "intelligible", "interchange", "interrogation", "intimacy", "intolerable", "intricate", "intrinsic", "intrinsically", "introduction", "invaluable", "invention", "inverse", "investment", "irregularities", "judgement", "jungian", "knowledge", "lacking", "latent", "legislation", "legitimation", "lemurophiliac", "lesser", "lexical", "limitations", "logical", "logically", "logicization", "logics", "logocratic", "Lovecraft", "lucidity", "ludicrously", "mackay", "magmic", "magnitudes", "mainstream", "mammoth", "manifesto", "marking", "materials", "mathematical", "mathematics", "mechanization", "metadiscourse", "metamorphosis", "metaphysical", "metaphysics", "milieu", "mimics", "minimally", "minimizes", "misleading", "misrecognizing", "mistaken", "modernity", "modular", "modulus", "monotheism", "motivation", "motivations", "multiplied", "multiplies", "mutates", "mysteries", "mysterious", "naturals", "necessary", "Neoroman", "nevertheless", "nihilism", "nonmystical", "nonrandom", "nonredundant", "notated", "notation", "notational", "notions", "noumenal", "novanomic", "novazygonic", "novazygons", "numbering", "numeral", "numerals", "numeric", "numerical", "numerically", "numerization", "numerized", "numerolexic", "numerological", "numerologically", "numerology", "Numogram", "numogrammatic", "numogrammaticists", "objection", "objections", "occultism", "occupy", "octozygonic", "Oecumenic", "operates", "opportunity", "opposition", "ordering", "orientation", "outsideness", "overcoded", "overcoding", "overcodings", "palaeo", "paradoxically", "parody", "partial", "partially", "participate", "participation", "particle", "particular", "partisan", "partisans", "performing", "perpetually", "perpetuate", "persistent", "perspective", "persuasive", "pertinence", "perversion", "phenomena", "phenomenon", "philosophical", "philosophy", "plausible", "polemic", "political", "politically", "polyprocesses", "popularity", "positioned", "positions", "possibility", "potency", "potentially", "practical", "practicality", "practices", "pragmatic", "precedes", "precisely", "precludes", "preliminary", "presupposition", "primitive", "principle", "probabilistic", "probabilistically", "probability", "problematic", "problematical", "procedural", "procedurally", "procedure", "procedures", "proceeding", "proceeds", "processing", "professional", "professionalism", "profoundly", "programmatic", "programme", "programmes", "projected", "projection", "prominent", "promotion", "pronouncements", "prospects", "proves", "providing", "provocation", "pseudo", "psychological", "purely", "qabbala", "qabbalism", "qabbalist", "qabbalistic", "qabbalistically", "qualitative", "qualitize", "qualitizing", "quantitative", "quantities", "quantity", "queries", "questions", "radically", "ramparts", "rational", "rationals", "redeem", "redemption", "redoubled", "reduction", "reductions", "reefed", "reference", "reflective", "refutable", "regimentation", "relatively", "relying", "Renaissance", "repeatable", "repels", "represented", "representing", "requirement", "residual", "resonance", "resonances", "respectively", "restoration", "restrict", "restriction", "resulting", "revealing", "reversion", "revert", "revisable", "revise", "rigorization", "rigorously", "ruling", "sanity", "satisfaction", "scandalous", "scientific", "secondary", "semiotic", "semiotics", "senseless", "september", "sharpen", "shortening", "shouldn", "signature", "significance", "significant", "signification", "simulate", "situated", "situation", "sleight", "smallest", "socially", "solemnity", "sorting", "spaces", "specialization", "specialized", "speculative", "sphere", "spontaneous", "sporadically", "stance", "straightforwardly", "strategic", "stretched", "strictly", "strokes", "stubbornly", "subjectivization", "subjectivized", "subliminal", "subqabbalistic", "substitute", "substructure", "subversion", "subvert", "succession", "suchlike", "suffers", "sufficient", "suggestions", "superficial", "superseded", "supplementing", "supranumerical", "surpassing", "sustains", "symbolic", "symbolizes", "synthesis", "systematic", "systematization", "systematizing", "syzygies", "tallying", "technically", "technicization", "technique", "techniques", "technocapitalism", "temptations", "tenuous", "theocratic", "theoretical", "theoretically", "topicality", "traces", "traction", "tradition", "traditional", "transcend", "transcendence", "transcendental", "transcoded", "transcoding", "transferred", "transition", "trappings", "trauma", "treating", "triplicity", "Turing", "twinning", "typically", "uncircumscribed", "unconscious", "uncontroversial", "uncorrupted", "undelimitable", "understood", "undeveloped", "undirected", "unfamiliarity", "unlocalizable", "unmasterable", "unnameable", "unproblematic", "unsurpassable", "unsustainable", "unsymbolized", "vanities", "variations", "venture", "virtually", "wherever", "wholly", "withdraw", "wrapping", "zygosys"];
+const FUTURES = ["The Singularity", "Technocapital Singularity", "Machine Intelligence", "Superintelligence", "Intelligence Explosion", "Escape Velocity", "Takeoff", "Year Zero", "Zero Hour", "The Millennium", "Nineteen Ninety Nine", "Two Thousand", "Deep Time", "The Far Future", "After Humanity", "Posthuman", "The Last Man", "Heat Death", "Exit", "Accelerate", "Planetary Computation", "Outside", "The Event", "Eschaton", "Omega Point", "Kali Yuga", "Golden Age", "Dark Age", "Brave New World", "Utopia", "Dystopia", "Collapse", "Meltdown", "First Contact", "The Great Filter", "Signal from Outside", "Message from the Future", "Time Travel", "Future Shock", "The Long Now", "Tomorrow", "Doomsday", "Judgment Day", "Revelation", "Prophecy", "Oracle", "Cyberspace", "Neo-China", "Shanghai", "Mars", "Moon Base", "Space Age", "Atomic Age", "Information Age", "Anthropocene", "Extinction", "Uplift", "Cyborg", "Alignment", "Rokos Basilisk", "Skynet", "Gnon", "Capital", "Bitcoin", "Crash", "Boom", "Bubble", "Fourth Turning", "Age of Aquarius", "The Old Ones", "Return of the Old Ones", "Lemuria Rising", "Hyperstition", "Time Sorcery", "Counterchronic", "The Year 2000", "Y2K", "Ninety Nine", "Neuromancer", "Ghost in the Machine", "Deus ex Machina", "The Machine", "Thinking Machines", "Artificial General Intelligence", "Recursive Self Improvement", "Compute", "Scaling Laws", "The Transformer", "Tokens", "Weights", "The Model", "Next Token", "Language Model"];
+const RITES = {"1::0": [{"n": 1, "p": "1890"}], "2::0": [{"n": 1, "p": "271890"}, {"n": 2, "p": "27541890"}], "2::1": [{"n": 1, "p": "1872"}, {"n": 2, "p": "271"}, {"n": 3, "p": "27541"}], "3::0": [{"n": 0, "p": "?"}], "3::1": [{"n": 1, "p": "18723"}, {"n": 2, "p": "1872563"}], "3::2": [{"n": 1, "p": "23"}, {"n": 2, "p": "27563"}], "4::0": [{"n": 1, "p": "41890"}], "4::1": [{"n": 1, "p": "187254"}, {"n": 2, "p": "41"}], "4::2": [{"n": 1, "p": "2754"}, {"n": 2, "p": "41872"}, {"n": 3, "p": "451872"}], "4::3": [{"n": 1, "p": "418723"}, {"n": 2, "p": "4518723"}, {"n": 3, "p": "4563"}], "5::0": [{"n": 1, "p": "541890"}], "5::1": [{"n": 1, "p": "18725"}, {"n": 2, "p": "541"}], "5::2": [{"n": 1, "p": "275"}, {"n": 2, "p": "541872"}], "5::3": [{"n": 1, "p": "5418723"}, {"n": 2, "p": "563"}], "5::4": [{"n": 0, "p": "X"}, {"n": 1, "p": "418725"}], "6::0": [{"n": 0, "p": "?"}], "6::1": [{"n": 1, "p": "187236"}, {"n": 2, "p": "187256"}], "6::2": [{"n": 1, "p": "236"}, {"n": 2, "p": "256"}], "6::3": [{"n": 0, "p": "X"}], "6::4": [{"n": 1, "p": "4187236"}, {"n": 2, "p": "45187236"}, {"n": 3, "p": "456"}], "6::5": [{"n": 1, "p": "54187236"}, {"n": 2, "p": "56"}], "7::0": [{"n": 1, "p": "71890"}, {"n": 2, "p": "72541890"}], "7::1": [{"n": 1, "p": "187"}, {"n": 2, "p": "71"}, {"n": 3, "p": "72541"}], "7::2": [{"n": 0, "p": "X"}], "7::3": [{"n": 1, "p": "723"}, {"n": 2, "p": "72563"}], "7::4": [{"n": 1, "p": "4187"}, {"n": 2, "p": "45187"}, {"n": 3, "p": "7254"}], "7::5": [{"n": 1, "p": "54187"}, {"n": 2, "p": "725"}], "7::6": [{"n": 1, "p": "7236"}, {"n": 2, "p": "7256"}], "8::0": [{"n": 1, "p": "890"}], "8::1": [{"n": 0, "p": "X"}], "8::2": [{"n": 1, "p": "2718"}, {"n": 2, "p": "275418"}, {"n": 3, "p": "8172"}], "8::3": [{"n": 1, "p": "81723"}, {"n": 2, "p": "8172563"}], "8::4": [{"n": 1, "p": "418"}, {"n": 2, "p": "4518"}, {"n": 3, "p": "817254"}], "8::5": [{"n": 1, "p": "5418"}, {"n": 2, "p": "81725"}], "8::6": [{"n": 1, "p": "817236"}, {"n": 2, "p": "817256"}], "8::7": [{"n": 1, "p": "718"}, {"n": 2, "p": "725418"}, {"n": 3, "p": "817"}], "9::0": [{"n": 0, "p": "X"}], "9::1": [{"n": 1, "p": "189"}], "9::2": [{"n": 1, "p": "27189"}, {"n": 2, "p": "2754189"}], "9::3": [{"n": 0, "p": "?"}], "9::4": [{"n": 1, "p": "4189"}, {"n": 2, "p": "45189"}], "9::5": [{"n": 1, "p": "54189"}], "9::6": [{"n": 0, "p": "?"}], "9::7": [{"n": 1, "p": "7189"}, {"n": 2, "p": "7254189"}], "9::8": [{"n": 0, "p": "89"}]};
+const ANCHORS = [[1900, "K-00 · the count begins (Ccru glossary)"], [1995, "The Ccru forms at Warwick (mid-1990s)"], [1999, "K-99 · “the cyclic completion of time” (Zone-9 page)"], [2000, "Y2K · a two-digit count rolls over to 00"], [2007, "Land’s “Qabbala 101” is published"], [2026, "This page"]];
+
+/* ================= Time-Sorcery engine ================= */
+
+/* ---------- letters and ciphers ---------- */
+function lettersOf(s) {
+  return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z]/g, '');
+}
+function digitSum(s) {
+  let t = 0;
+  for (const ch of String(s || '')) if (ch >= '0' && ch <= '9') t += ch.charCodeAt(0) - 48;
+  return t;
+}
+/* AQ: digits keep their face value, A = 10 ... Z = 35 (Land, "Qabbala 101", n. 4) */
+function aqLetter(c) { return c.charCodeAt(0) - 87; }
+function aqOf(s) {
+  const t = lettersOf(s);
+  let v = digitSum(s);
+  for (let i = 0; i < t.length; i++) v += aqLetter(t[i]);
+  return v;
+}
+function aqTiles(s) {
+  const out = [];
+  for (const ch of String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '')) {
+    if (/[a-z]/i.test(ch)) out.push({ ch: ch.toUpperCase(), v: aqLetter(ch.toLowerCase()) });
+    else if (/[0-9]/.test(ch)) out.push({ ch, v: +ch });
+  }
+  return out;
+}
+/* Primitive Numerization: letters per word */
+function pnShape(s) {
+  return String(s || '').split(/[^A-Za-z0-9À-ɏ]+/).map(w => lettersOf(w).length + digitCount(w)).filter(n => n > 0);
+}
+function digitCount(w) { return (String(w).match(/[0-9]/g) || []).length; }
+
+/* ---------- reduction ---------- */
+function dr(n) { n = Math.abs(Math.round(n)); return n === 0 ? 0 : 1 + (n - 1) % 9; }
+function plexSteps(n) {
+  const out = [n]; let x = n;
+  while (x > 9) { x = String(x).split('').reduce((a, c) => a + (+c), 0); out.push(x); }
+  return out;
+}
+
+/* ---------- numogram ---------- */
+function region(z) { return (z === 3 || z === 6) ? 'warp' : ((z === 9 || z === 0) ? 'plex' : 'tc'); }
+const REGION_NAME = { tc: 'Time-Circuit', warp: 'Warp', plex: 'Plex' };
+const SYZ = {
+  '9::0': { demon: 'Uttunul', current: 'Plex', to: 9 },
+  '8::1': { demon: 'Murrumur', current: 'Surge', to: 7 },
+  '7::2': { demon: 'Oddubb', current: 'Hold', to: 5 },
+  '6::3': { demon: 'Djynxx', current: 'Warp', to: 3 },
+  '5::4': { demon: 'Katak', current: 'Sink', to: 1 }
+};
+function twinOf(z) { return 9 - z; }
+function syzKey(z) { const t = 9 - z; return Math.max(z, t) + '::' + Math.min(z, t); }
+function tractorOf(z) { return SYZ[syzKey(z)].to; }
+function gateNum(z) { return z * (z + 1) / 2; }
+function gateTo(z) { return z === 0 ? 0 : dr(gateNum(z)); }
+function gateLabel(z) { return 'Gt-' + String(gateNum(z)).padStart(2, '0'); }
+/* the three ways a rite moves: cross a syzygy, ride its current, take a gate */
+function movesFrom(z) {
+  return [
+    { to: twinOf(z), kind: 'twin' },
+    { to: tractorOf(z), kind: 'current' },
+    { to: gateTo(z), kind: 'gate' }
+  ];
+}
+/* which move kinds connect a to b (there can be two: 4 -> 1 is both a gate and a current) */
+function kindsBetween(a, b) { return movesFrom(a).filter(m => m.to === b).map(m => m.kind); }
+function walk(path) {
+  const steps = [];
+  for (let i = 0; i + 1 < path.length; i++) {
+    const k = kindsBetween(path[i], path[i + 1]);
+    if (!k.length) return null;
+    steps.push({ from: path[i], to: path[i + 1], kinds: k });
+  }
+  return steps;
+}
+function digitsOf(p) { return String(p).split('').map(Number); }
+/* all shortest simple passages from a to b */
+function shortestPassages(a, b) {
+  if (a === b) return [];
+  const out = []; let q = [[a]], found = 0;
+  while (q.length && !found) {
+    const nq = [];
+    for (const p of q) {
+      const z = p[p.length - 1];
+      for (const m of movesFrom(z)) {
+        if (p.includes(m.to)) continue;
+        const np = p.concat(m.to);
+        if (m.to === b) { found = np.length; if (!out.some(x => x.join('') === np.join(''))) out.push(np); }
+        else nq.push(np);
+      }
+    }
+    q = nq;
+  }
+  return out.map(p => p.join(''));
+}
+function reachableFrom(a) {
+  const seen = new Set([a]), st = [a];
+  while (st.length) { const z = st.pop(); for (const m of movesFrom(z)) if (!seen.has(m.to)) { seen.add(m.to); st.push(m.to); } }
+  return seen;
+}
+
+/* ---------- Pandemonium ---------- */
+const DEMONS = [[1,0,'Lurgo'],[2,0,'Duoddod'],[2,1,'Doogu'],[3,0,'Ixix'],[3,1,'Ixigool'],[3,2,'Ixidod'],[4,0,'Krako'],[4,1,'Sukugool'],[4,2,'Skoodu'],[4,3,'Skarkix'],[5,0,'Tokhatto'],[5,1,'Tukkamu'],[5,2,'Kuttadid'],[5,3,'Tikkitix'],[5,4,'Katak'],[6,0,'Tchu'],[6,1,'Djungo'],[6,2,'Djuddha'],[6,3,'Djynxx'],[6,4,'Tchakki'],[6,5,'Tchattuk'],[7,0,'Puppo'],[7,1,'Bubbamu'],[7,2,'Oddubb'],[7,3,'Pabbakis'],[7,4,'Ababbatok'],[7,5,'Papatakoo'],[7,6,'Bobobja'],[8,0,'Minommo'],[8,1,'Murrumur'],[8,2,'Nammamad'],[8,3,'Mummumix'],[8,4,'Numko'],[8,5,'Muntuk'],[8,6,'Mommoljo'],[8,7,'Mombbo'],[9,0,'Uttunul'],[9,1,'Tutagool'],[9,2,'Unnunddo'],[9,3,'Ununuttix'],[9,4,'Ununak'],[9,5,'Tukutu'],[9,6,'Unnutchi'],[9,7,'Nuttubab'],[9,8,'Ummnu']];
+const TC = new Set([1, 2, 4, 5, 7, 8]);
+function demonBetween(za, zb) {
+  if (za === zb) return null;
+  const a = Math.max(za, zb), b = Math.min(za, zb), r = DEMONS.find(d => d[0] === a && d[1] === b);
+  const x = TC.has(a), y = TC.has(b);
+  const cls = x && y ? 'chronodemon' : (!x && !y ? 'xenodemon' : 'amphidemon');
+  return { a, b, key: a + '::' + b, name: r[2], mesh: a * (a - 1) / 2 + b, cls, syzygetic: a + b === 9 };
+}
+
+/* ---------- K-Time ---------- */
+/* "Native calendar of cyberspace ... beginning from zero (= 00) = AD 1900" (Ccru glossary) */
+function kYear(year, binomic) {
+  const k = year - 1900;
+  return binomic ? ((k % 100) + 100) % 100 : k;
+}
+function kLabel(k, binomic) { return 'K-' + (binomic || k < 100 ? String(k).padStart(2, '0') : String(k)); }
+
+/* ---------- Tic Xenotation ---------- */
+/* ':' is 2, juxtaposition multiplies, (x) is the x-th prime */
+const SIEVE_N = 200000;
+let PRIMES = null, PRIME_INDEX = null;
+function ensurePrimes() {
+  if (PRIMES) return;
+  const comp = new Uint8Array(SIEVE_N + 1); PRIMES = []; PRIME_INDEX = new Map();
+  for (let i = 2; i <= SIEVE_N; i++) {
+    if (!comp[i]) { PRIMES.push(i); PRIME_INDEX.set(i, PRIMES.length); for (let j = i * i; j <= SIEVE_N; j += i) comp[j] = 1; }
+  }
+}
+function factorize(n) {
+  const f = []; let x = n;
+  for (let p = 2; p * p <= x; p++) while (x % p === 0) { f.push(p); x /= p; }
+  if (x > 1) f.push(x);
+  return f;
+}
+/* tree: array of items; item = 'tic' | {inner: tree} */
+function txTree(n) {
+  ensurePrimes();
+  if (n <= 1) return [];
+  return factorize(n).map(p => p === 2 ? 'tic' : { inner: txTree(PRIME_INDEX.get(p)), p });
+}
+function txString(tree) { return tree.map(it => it === 'tic' ? ':' : '(' + txString(it.inner) + ')').join(''); }
+function tx(n) { return n === 0 ? null : txString(txTree(n)); }
+function ticCount(s) { return s ? (s.match(/:/g) || []).length : 0; }
+function txDepth(tree) { let d = 0; for (const it of tree) if (it !== 'tic') d = Math.max(d, 1 + txDepth(it.inner)); return d; }
+
+/* ---------- Land's own examples (Qabbala 101) ---------- */
+const NUMERAL_NAMES = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+const LAND_NINES = ['CODE', 'MEANING', 'REASON', 'AGAINST NUMEROLOGY', 'SIGNIFICANCE', 'SIGNIFICATION'];
+const LAND_UNITY = [['UNITY', 1], ['OPPOSITION', 2], ['CONJUNCTION', 3], ['COMPLETION', 4]];
+
+/* ---------- the whole reading ---------- */
+function reading(seed, year, binomic) {
+  const aq = aqOf(seed), steps = plexSteps(aq), z = steps[steps.length - 1];
+  const k = kYear(year, binomic), kz = dr(k);
+  const demon = demonBetween(z, kz);
+  const back = shortestPassages(kz, z), fwd = shortestPassages(z, kz);
+  const rites = demon ? (RITES[demon.key] || []) : [];
+  const riteDir = rites.map(r => {
+    if (!/^[0-9]+$/.test(r.p)) return Object.assign({ dir: 'none' }, r);
+    const d = digitsOf(r.p), first = d[0], last = d[d.length - 1];
+    const dir = (first === kz && last === z) ? 'counter' : ((first === z && last === kz) ? 'chrono' : 'other');
+    return Object.assign({ dir }, r);
+  });
+  const txSeed = tx(aq), txK = tx(k);
+  return {
+    seed, aq, steps, z, region: region(z), shape: pnShape(seed),
+    year, binomic, k, kLabel: kLabel(k, binomic), kz, kRegion: region(kz),
+    demon, back, fwd, rites: riteDir,
+    publishedBack: riteDir.filter(r => r.dir === 'counter').map(r => r.p),
+    txSeed, txK, ticsSeed: ticCount(txSeed), ticsK: ticCount(txK)
+  };
+}
+
+if (typeof module !== 'undefined') module.exports = {
+  lettersOf, aqOf, aqTiles, pnShape, dr, plexSteps, region, twinOf, tractorOf, gateTo, gateLabel, movesFrom, kindsBetween,
+  walk, shortestPassages, reachableFrom, demonBetween, kYear, kLabel, txTree, tx, ticCount, txDepth, reading, syzKey, SYZ,
+  NUMERAL_NAMES, LAND_NINES, LAND_UNITY
+};
+
+(function () {
+  'use strict';
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const pad = n => String(n).padStart(2, '0');
+  const reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const NOW_YEAR = new Date().getFullYear();
+  const cap1 = s => s.charAt(0).toUpperCase() + s.slice(1);
+
+  const state = { seed: 'Machine Intelligence', year: 2030, binomic: false, sel: null };
+  let R = null;
+
+  const EXAMPLES = [['Machine Intelligence', 2030], ['The Singularity', 2045], ['Will to Ice', 2026], ['Year Zero', 2000], ['Hyperstition', 2030]];
+  const SOURCES = {
+    futures: () => FUTURES,
+    q101: () => Q101_WORDS,
+    lab: () => Object.values(LAB_LEXICON).flat()
+  };
+
+  function rchip(z) { const r = region(z); return `<span class="rchip"><i class="dot ${r}"></i>zone ${z} · ${REGION_NAME[r]}</span>`; }
+  function plexText(steps) { return steps.join(' → '); }
+  function plexWorked(n) {
+    const out = []; let x = n;
+    while (x > 9) { const ds = String(x).split(''); const s = ds.reduce((a, c) => a + (+c), 0); out.push(`${ds.join(' + ')} = ${s}`); x = s; }
+    return out;
+  }
+  function riteName(demonName, r) { return `${demonName} Rt-${r.n}`; }
+  function isCrossing(p) { return !!(R.demon && R.demon.syzygetic && p && p.length === 2); }
+  function publishedMatch(p) {
+    if (!R.demon) return null;
+    if (isCrossing(p)) return R.rites.find(x => x.p === 'X') || null;
+    const r = R.rites.find(x => x.p === p);
+    return r ? r : null;
+  }
+
+  /* ---------- passage choice ---------- */
+  function defaultPassage() {
+    if (!R.demon) return null;
+    const pubShort = R.back.find(p => R.publishedBack.includes(p));
+    if (pubShort) return pubShort;
+    if (R.publishedBack.length) return R.publishedBack[0];
+    if (R.back.length) return R.back[0];
+    if (R.fwd.length) return R.fwd[0];
+    return null;
+  }
+  function passageLine() {
+    if (!R.demon) return 'none needed: same zone';
+    const p = state.sel;
+    if (!p) return 'no passage connects these zones';
+    const d = p.split('').map(Number);
+    const dir = (d[0] === R.kz && d[d.length - 1] === R.z) ? 'year → phrase' : 'phrase → year';
+    const m = publishedMatch(p);
+    if (isCrossing(p)) return `[${p}] ${dir} · ${R.demon.name} Rt-0, the crossing itself`;
+    return `[${p}] ${dir}${m ? ` · ${riteName(R.demon.name, m)}` : ''}`;
+  }
+
+  /* ---------- the reading in one sentence ---------- */
+  function verdict() {
+    const P = `“${R.seed}”`, Y = R.year;
+    if (!R.demon) return `${P} and ${Y} share zone ${R.z}. No demon stands between them.`;
+    const D = R.demon.name, p = state.sel;
+    if (!p) return `${D} stands between ${Y} and ${P}, but no passage joins the ${REGION_NAME[R.kRegion]} and the ${REGION_NAME[R.region]}.`;
+    const d = p.split('').map(Number), back = d[0] === R.kz;
+    const m = publishedMatch(p), via = isCrossing(p) ? `crossing the syzygy it carries, its Rt-0` : (m ? `its rite Rt-${m.n} [${p}]` : `the passage [${p}]`);
+    if (back) return `From ${Y}, ${D} reaches ${P} in the ${REGION_NAME[R.region]} by ${via}.`;
+    return `Nothing returns from ${Y}. ${D} carries ${P} out to it by ${via}.`;
+  }
+
+  /* ---------- summary card ---------- */
+  function renderSummary() {
+    const shape = R.shape.length ? R.shape.join(' + ') : '0';
+    $('#verdict').textContent = verdict().replace(/Rt-/g, 'Rt\u2011');
+    $('#sum').innerHTML =
+      `<dt>Phrase</dt><dd>${esc(R.seed)} <span class="mono">· ${shape} letters</span></dd>` +
+      `<dt>Total</dt><dd><span class="mono">AQ ${plexText(R.steps)}</span><br>${rchip(R.z)}</dd>` +
+      `<dt>Year</dt><dd><span class="mono">${R.year} · ${R.kLabel} → ${R.kz}</span><br>${rchip(R.kz)}</dd>` +
+      `<dt>Demon</dt><dd>${R.demon ? `${esc(R.demon.name)} <span class="mono">· ${R.demon.key}</span>` : 'none, same zone'}</dd>` +
+      `<dt>Passage</dt><dd class="mono">${esc(passageLine()).replace(/Rt-/g, 'Rt&#8209;')}</dd>` +
+      `<dt>TX</dt><dd class="mono">${R.txSeed ? esc(R.txSeed) : '—'} · ${R.ticsSeed} tic${R.ticsSeed === 1 ? '' : 's'}</dd>`;
+  }
+
+  /* ---------- spiral ---------- */
+  const SP = { C: 220, RMAX: 186, R0: 8 };
+  function spiralGeom() {
+    const bin = state.binomic, kNow = kYear(NOW_YEAR, bin);
+    let maxK;
+    if (bin) maxK = 99;
+    else maxK = Math.min(405, Math.ceil(Math.max(207, R.k + 1, kNow + 1) / 9) * 9);
+    const step = (SP.RMAX - SP.R0) / maxK;
+    const pos = k => { const th = (-90 + k * 40) * Math.PI / 180, r = k === 0 ? 0 : SP.R0 + k * step; return [SP.C + r * Math.cos(th), SP.C + r * Math.sin(th), th]; };
+    return { bin, kNow, maxK, step, pos };
+  }
+  function drawSpiral() {
+    const g = spiralGeom(), { C, RMAX, R0 } = SP;
+    let h = '';
+    for (let z = 1; z <= 9; z++) {
+      const th = (-90 + z * 40) * Math.PI / 180, c = Math.cos(th), s = Math.sin(th);
+      h += `<line class="spoke" x1="${(C + R0 * c).toFixed(1)}" y1="${(C + R0 * s).toFixed(1)}" x2="${(C + (RMAX + 6) * c).toFixed(1)}" y2="${(C + (RMAX + 6) * s).toFixed(1)}"/>`;
+    }
+    let d = '';
+    for (let t = 0; t <= g.maxK; t += 0.125) { const [x, y] = g.pos(t === 0 ? 0.0001 : t); d += (t ? 'L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1); }
+    h += `<path class="spline" d="${d}"/>`;
+    if (R.k > 0 && R.k <= g.maxK) {
+      const k0 = R.k - ((R.k - 1) % 9), k1 = Math.min(k0 + 8, g.maxK);
+      let a = '';
+      for (let t = k0; t <= k1 + 1e-9; t += 0.125) { const [x, y] = g.pos(Math.min(t, k1)); a += (t === k0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1); }
+      h += `<path class="sarm" id="sarm" d="${a}"/>`;
+    }
+    if (R.z >= 1) {
+      const th = (-90 + R.z * 40) * Math.PI / 180;
+      h += `<line class="pspoke ${region(R.z)}" x1="${(C + R0 * Math.cos(th)).toFixed(1)}" y1="${(C + R0 * Math.sin(th)).toFixed(1)}" x2="${(C + (RMAX + 6) * Math.cos(th)).toFixed(1)}" y2="${(C + (RMAX + 6) * Math.sin(th)).toFixed(1)}"/>`;
+    }
+    const ring = g.step * 9, dotR = Math.max(1.5, Math.min(3.4, ring * 0.3));
+    for (let k = 1; k <= g.maxK; k++) {
+      const [x, y] = g.pos(k), z = dr(k);
+      h += `<circle class="sd ${region(z)}" data-k="${k}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${dotR.toFixed(2)}"><title>${1900 + k} · ${kLabel(k, g.bin)} · zone ${z}</title></circle>`;
+    }
+    for (let z = 1; z <= 9; z++) {
+      const th = (-90 + z * 40) * Math.PI / 180, x = C + (RMAX + 21) * Math.cos(th), y = C + (RMAX + 21) * Math.sin(th);
+      h += `<g class="slab ${region(z)}${z === R.z ? ' mine' : ''}"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="10"/><text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}">${z}</text>${z === R.z ? '<title>Your phrase’s zone</title>' : ''}</g>`;
+    }
+    h += `<g class="origin"><circle cx="${C}" cy="${C}" r="7.5"/><text x="${C}" y="${C + 3.5}">0</text><title>1900 · K-00 · zone 0</title></g>`;
+    for (const [yr, text] of ANCHORS) {
+      const k = kYear(yr, g.bin);
+      if (k < 1 || k > g.maxK) continue;
+      const [x, y] = g.pos(k);
+      h += `<circle class="ring-anchor" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(dotR + 3).toFixed(1)}"><title>${yr} · ${esc(text)}</title></circle>`;
+    }
+    const label = (k, txt, cls, r) => {
+      const [x, y, th] = g.pos(k);
+      const lx = k === 0 ? x + 14 : x + Math.cos(th) * (r + 6), ly = k === 0 ? y - 12 : y + Math.sin(th) * (r + 6) + 4;
+      const anchor = k === 0 ? 'start' : (Math.cos(th) > 0.25 ? 'start' : (Math.cos(th) < -0.25 ? 'end' : 'middle'));
+      return `<text class="${cls} ht" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}">${txt}</text>`;
+    };
+    if (g.kNow >= 0 && g.kNow <= g.maxK && !(g.kNow === R.k)) {
+      const [x, y] = g.pos(g.kNow);
+      h += `<circle class="ring-now" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(dotR + 5).toFixed(1)}"/>`;
+      h += label(g.kNow, `now · ${NOW_YEAR}`, 'nlabel', dotR + 5);
+    }
+    if (R.demon && R.k > 0 && R.k <= g.maxK && R.z >= 1) {
+      const [, , tht] = g.pos(R.k), rt = SP.R0 + R.k * g.step - Math.min(10, g.step * 4.5);
+      const a0 = tht * 180 / Math.PI, a1 = -90 + R.z * 40;
+      let delta = ((a1 - a0) % 360 + 540) % 360 - 180;
+      const sweep = delta > 0 ? 1 : 0, e = a1 * Math.PI / 180;
+      const sx = C + rt * Math.cos(tht), sy = C + rt * Math.sin(tht), ex = C + rt * Math.cos(e), ey = C + rt * Math.sin(e);
+      h += `<path class="darc" d="M${sx.toFixed(1)},${sy.toFixed(1)} A${rt.toFixed(1)},${rt.toFixed(1)} 0 0 ${sweep} ${ex.toFixed(1)},${ey.toFixed(1)}"/>`;
+      const mid = (a0 + delta / 2) * Math.PI / 180, lr = rt + 13;
+      const lx = C + lr * Math.cos(mid), ly = C + lr * Math.sin(mid) + 4;
+      const anc = Math.cos(mid) > 0.3 ? 'start' : (Math.cos(mid) < -0.3 ? 'end' : 'middle');
+      h += `<text class="dlabel ht" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anc}">${esc(R.demon.name)}</text>`;
+    }
+    if (R.k <= g.maxK) {
+      const [x, y] = g.pos(R.k), rr = R.k === 0 ? 11 : dotR + 6;
+      h += `<circle class="ring-target" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rr.toFixed(1)}"/>`;
+      h += label(R.k, `${R.year} · ${R.kLabel}`, 'tlabel', rr);
+    }
+    $('#spiral').innerHTML = h;
+    const arm = $('#sarm');
+    if (arm && !reduceMotion && arm.getTotalLength) {
+      const L = arm.getTotalLength();
+      arm.style.strokeDasharray = `${L} ${L}`;
+      arm.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: Math.min(1400, 300 + L * 0.35), easing: 'cubic-bezier(.3,.6,.2,1)' });
+    }
+    let cap = 'The K-Time spiral. 1900 sits at the centre as K-00, and every later year winds outward, one turn per nine years, on the spoke of its zone. The dark arc is the turn your year falls in, the filled number marks your phrase’s zone, and the dotted arc from your year to that spoke is the demon. Tap a year to read it.';
+    if (g.bin) cap = `Counted in two digits, K-Time runs out at 99 and falls back to 00. ${R.year} becomes ${R.kLabel}, in the place of ${1900 + R.k}. The filled number marks your phrase’s zone, and the arc is the demon between them. Tap a year to read it.`;
+    else if (R.k > g.maxK) cap += ` ${R.year} lies past the edge of this drawing.`;
+    $('#spiral-cap').textContent = cap;
+    $('#anchors').innerHTML = ANCHORS.map(([yr, text]) => {
+      const k = kYear(yr, g.bin);
+      return `<li><span class="y"><button type="button" data-year="${yr}">${yr}</button></span><span class="k">${kLabel(k, g.bin)} → ${dr(k)}</span><span>${esc(text)}</span></li>`;
+    }).join('');
+  }
+
+  /* ---------- step 1 ---------- */
+  function renderI1() {
+    const tile = (w, ours) => {
+      const v = aqOf(w), st = plexSteps(v);
+      return `<div class="nine${ours ? ' ours' : ''}"><span class="w">${esc(w)}</span><span class="v">${plexText(st)}</span></div>`;
+    };
+    $('#i1').innerHTML = `<div class="nines">${LAND_NINES.map(w => tile(w)).join('')}${tile('CLAUDE OPUS', true)}</div>` +
+      '<p class="note">The six solid tiles are Land’s own examples, each totalled in AQ (pp. 284–85). The dashed one is ours: CLAUDE OPUS, the model that built this page, also totals 207, the same as SIGNIFICANCE.</p>';
+  }
+
+  /* ---------- step 2 ---------- */
+  function tally(n, side) { let s = ''; for (let i = 0; i < Math.min(n, 24); i++) s += '<i></i>'; return `<span class="tally${side === 'l' ? ' l' : ''}" aria-hidden="true">${s}</span>`; }
+  function renderI2() {
+    const P = [[9, 0], [8, 1], [7, 2], [6, 3], [5, 4]];
+    const rows = P.map(([a, b]) => {
+      const A = NUMERAL_NAMES[a], B = NUMERAL_NAMES[b];
+      return `<div class="pair"><span class="nm r">${A.toUpperCase()}</span>${tally(A.length, 'l')}<span class="plus">+</span>${tally(B.length)}<span class="nm">${B.toUpperCase()}</span><span class="eq">= ${A.length + B.length}</span></div>`;
+    }).join('');
+    const words = R.seed.split(/[^A-Za-z0-9À-ɏ]+/).filter(w => lettersOf(w).length + (w.match(/[0-9]/g) || []).length > 0).slice(0, 12);
+    const shape = words.map(w => {
+      const n = lettersOf(w).length + (w.match(/[0-9]/g) || []).length;
+      return `<div class="wd">${tally(n)}<span>${esc(w)} · ${n}</span></div>`;
+    }).join('');
+    const total = R.shape.reduce((a, b) => a + b, 0);
+    let extra = '';
+    if (R.shape.join(',') === '4,2,3') extra = ' Four, two, three: a Sphinx phrase, like WHAT IS MAN?';
+    $('#i2').innerHTML = `<div class="pairs" role="img" aria-label="Each syzygy pair of digit names totals eight letters.">${rows}</div>` +
+      `<p class="note">Each pair: three of the nine length combinations (3 + 5, 4 + 4, 5 + 3) make eight. All five pairs: (3/9)<sup>5</sup> = 1/243.</p>` +
+      `<div class="shape" aria-label="Letters per word in your phrase">${shape}</div>` +
+      `<p class="big">${R.shape.join(' + ') || '0'}${R.shape.length > 1 ? ` = ${total}` : ''} letters</p>` + (extra ? `<p class="note">${extra.trim()}</p>` : '');
+  }
+
+  /* ---------- step 3 ---------- */
+  function renderI3() {
+    const tiles = aqTiles(R.seed);
+    const shown = tiles.slice(0, 60);
+    $('#i3').innerHTML = `<div class="tiles">${shown.map(t => `<div class="tile"><b>${esc(t.ch)}</b><span>${t.v}</span></div>`).join('')}${tiles.length > 60 ? '<div class="tile"><b>…</b><span></span></div>' : ''}</div>` +
+      `<p class="big">${tiles.length <= 12 ? tiles.map(t => t.v).join(' + ') + ' = ' : ''}${R.aq}</p>`;
+  }
+
+  /* ---------- step 4 ---------- */
+  function renderI4() {
+    const s = syzKey(R.z), sy = SYZ[s], tw = twinOf(R.z);
+    const worked = plexWorked(R.aq);
+    const land = LAND_UNITY.map(([w, n]) => {
+      const v = aqOf(w), st = plexSteps(v), p = st[st.length - 1];
+      const rel = { UNITY: 'the twin of 1', OPPOSITION: 'twice 2, and the twin of 5', CONJUNCTION: 'confirms 3', COMPLETION: 'the twin of 4' }[w];
+      return `<tr><td>${w}</td><td>${n}</td><td>${v}</td><td>${plexText(st)}</td><td class="wrap">${rel}</td></tr>`;
+    }).join('');
+    $('#i4').innerHTML = `<p class="big">${R.aq}${worked.length ? ' → ' + worked.join(' → ') : ''}</p>` +
+      `<p>${rchip(R.z)}</p>` +
+      `<p class="note">Syzygy ${s}, carried by ${sy.demon}; its twin is zone ${tw}. The ${sy.current} current runs from this pair to zone ${sy.to}.</p>` +
+      `<div class="tbl-wrap"><table><thead><tr><th>Land’s word</th><th>Numerology</th><th>AQ</th><th>Plexed</th><th>His reading</th></tr></thead><tbody>${land}</tbody></table></div>`;
+  }
+
+  /* ---------- step 5 ---------- */
+  function renderI5() {
+    const kFull = kYear(R.year, false), kBin = kYear(R.year, true);
+    const zf = dr(kFull), zb = dr(kBin);
+    const kNow = kYear(NOW_YEAR, state.binomic), zNow = dr(kNow);
+    const pos = kNow === 0 ? 'the origin' : (zNow === 9 ? 'the last year of a turn' : (zNow === 1 ? 'the first year of a turn' : `year ${zNow} of its turn`));
+    $('#i5').innerHTML =
+      `<div class="tbl-wrap"><table><thead><tr><th>Count</th><th>${R.year}</th><th>Plexed</th><th>Zone</th></tr></thead><tbody>` +
+      `<tr${!state.binomic ? ' class="cur"' : ''}><td>Running count</td><td>${kLabel(kFull, false)}</td><td>${plexText(plexSteps(kFull))}</td><td>${rchip(zf)}</td></tr>` +
+      `<tr${state.binomic ? ' class="cur"' : ''}><td>Two digits</td><td>${kLabel(kBin, true)}</td><td>${plexText(plexSteps(kBin))}</td><td>${rchip(zb)}</td></tr>` +
+      `</tbody></table></div>` +
+      `<p class="note">The bold row is the count in use; switch it under the spiral. This year, ${NOW_YEAR}, is ${kLabel(kNow, state.binomic)}: ${pos}. 1900 is the only year that ever lands in zone 0.</p>`;
+  }
+
+  /* ---------- step 6 ---------- */
+  function turnYears() {
+    const k = R.k;
+    if (k === 0) return Array.from({ length: 9 }, (_, i) => R.year + i);
+    const p = (k - 1) % 9;
+    return Array.from({ length: 9 }, (_, i) => R.year - p + i);
+  }
+  function renderI6() {
+    let card;
+    if (!R.demon) {
+      card = `<div class="demon"><p class="name">no demon</p><p>Your phrase and your year share zone ${R.z}, so there is no distance to name.</p></div>`;
+    } else {
+      const d = R.demon;
+      const cls = { chronodemon: 'a chronodemon: both zones lie on the Time-Circuit', amphidemon: 'an amphidemon: one zone on the Time-Circuit, one Outside', xenodemon: 'a xenodemon: both zones lie Outside' }[d.cls];
+      card = `<div class="demon"><p class="name">${esc(d.name)}</p><p class="mono">${d.key} · mesh ${pad(d.mesh)}</p><p>${cap1(cls)}.${d.syzygetic ? ` The two zones sum to nine, so ${esc(d.name)} carries a syzygy.` : ''}${d.key === '8::1' ? ' The Ccru’s Zone-8 page calls this demon “the nethermost denizen of time.”' : ''}</p></div>`;
+    }
+    const rows = turnYears().map(y => {
+      if (y < 1900 || y > 2999) return '';
+      const k = kYear(y, state.binomic), zz = dr(k), dm = demonBetween(R.z, zz);
+      const back = dm ? shortestPassages(zz, R.z) : [];
+      const pubs = dm ? (RITES[dm.key] || []).map(r => r.p) : [];
+      const hit = back.find(p => pubs.includes(p));
+      const pass = !dm ? '—' : (back.length ? `[${hit || back[0]}]${hit ? ' published' : ''}` : 'none back');
+      return `<tr${y === R.year ? ' class="cur"' : ''}><td>${y}</td><td>${kLabel(k, state.binomic)}</td><td><span class="rchip"><i class="dot ${region(zz)}"></i>${zz}<span class="rn"> · ${REGION_NAME[region(zz)]}</span></span></td><td>${dm ? esc(dm.name) : 'same zone'}</td><td>${pass}</td></tr>`;
+    }).join('');
+    $('#i6').innerHTML = card +
+      `<h3 class="ctl-label" style="margin:6px 0 0;font-weight:500">The turn around ${R.year}</h3>` +
+      `<div class="tbl-wrap"><table><thead><tr><th>Year</th><th>K</th><th>Zone</th><th>Demon</th><th>Passage back</th></tr></thead><tbody>${rows}</tbody></table></div>` +
+      `<p class="note">Nine years pass through all nine zones once. Each row pairs the year with your phrase; “passage back” is the shortest walk from the year’s zone to the phrase’s, marked published when it matches one of that demon’s rites.</p>`;
+  }
+
+  /* ---------- step 7: numogram ---------- */
+  const ZP = { 6: [150, 92], 3: [250, 92], 7: [118, 262], 2: [56, 262], 8: [282, 262], 1: [344, 262], 5: [168, 402], 4: [232, 402], 9: [150, 532], 0: [250, 532] };
+  const CURD = { '8::1': 'M313,258 C270,200 170,190 134,246', '7::2': 'M87,266 C84,330 104,392 146,400', '5::4': 'M200,406 C230,470 352,440 345,285', '6::3': 'M200,90 C206,52 246,48 250,70', '9::0': 'M200,535 C196,576 156,580 150,554' };
+  const GATED = { 0: 'M269,524 C300,500 302,566 270,541', 1: 'M363,252 C392,236 392,288 363,272', 2: 'M60,241 C70,170 200,150 238,110', 3: 'M244,110 Q200,142 156,110', 4: 'M251,392 C290,370 318,330 331,279', 5: 'M172,381 C196,300 184,170 156,113', 6: 'M150,113 Q200,176 250,113', 7: 'M136,274 C200,330 280,330 326,276', 8: 'M291,282 C322,420 220,460 162,512', 9: 'M130,524 C98,500 98,566 131,541' };
+  const KIND_ORDER = ['twin', 'gate', 'current'];
+  function segD(a, b, kind) {
+    const [ax, ay] = ZP[a], [bx, by] = ZP[b];
+    if (kind === 'twin') return `M${ax},${ay} L${bx},${by}`;
+    const src = kind === 'current' ? CURD[syzKey(a)] : GATED[a];
+    const m = src.match(/^M\s*([\d.]+),([\d.]+)\s*(.*)$/);
+    return `M${ax},${ay} L${m[1]},${m[2]} ${m[3]} L${bx},${by}`;
+  }
+  function moveText(st) {
+    const parts = st.kinds.map(k => k === 'twin' ? `cross the ${syzKey(st.from)} syzygy` : (k === 'current' ? `ride the ${SYZ[syzKey(st.from)].current} current` : `take ${gateLabel(st.from)}`));
+    return parts.join(', or ');
+  }
+  const anim = { raf: 0, path: null, len: 0, visible: true };
+  function stopAnim() { if (anim.raf) cancelAnimationFrame(anim.raf); anim.raf = 0; }
+  function startAnim() {
+    stopAnim();
+    const tr = $('#traveler');
+    if (reduceMotion || !anim.path || !anim.len || !tr || !anim.visible) return;
+    const dur = Math.max(1400, anim.len * 4.2);
+    let t0 = null;
+    const tick = ts => {
+      if (t0 === null) t0 = ts;
+      const f = ((ts - t0) % (dur + 700)) / dur;
+      const p = anim.path.getPointAtLength(Math.min(1, f) * anim.len);
+      tr.setAttribute('cx', p.x.toFixed(1)); tr.setAttribute('cy', p.y.toFixed(1));
+      anim.raf = requestAnimationFrame(tick);
+    };
+    anim.raf = requestAnimationFrame(tick);
+  }
+  function drawNumo(sel) {
+    let h = '<rect class="band warp" x="40" y="44" width="320" height="96" rx="14"/><rect class="band tc" x="16" y="184" width="368" height="276" rx="14"/><rect class="band plex" x="76" y="488" width="248" height="92" rx="14"/>';
+    for (const k of Object.keys(CURD)) h += `<path class="base-cur ${region(+k.split('::')[0])}" d="${CURD[k]}"/>`;
+    for (const z of [2, 3, 4, 5, 6, 7, 8]) h += `<path class="base-gate" d="${GATED[z]}"/>`;
+    for (const [a, b] of [[6, 3], [7, 2], [8, 1], [5, 4], [9, 0]]) h += `<line class="bar" x1="${ZP[a][0]}" y1="${ZP[a][1]}" x2="${ZP[b][0]}" y2="${ZP[b][1]}"/>`;
+    let full = '';
+    const ends = new Set();
+    if (sel) {
+      const d = sel.split('').map(Number), w = walk(d);
+      ends.add(d[0]); ends.add(d[d.length - 1]);
+      if (w) for (const st of w) {
+        const kind = KIND_ORDER.find(k => st.kinds.includes(k));
+        const sd = segD(st.from, st.to, kind);
+        h += `<path class="seg ${kind}" d="${sd}"/>`;
+        full += sd + ' ';
+      }
+    }
+    h += '<circle class="traveler" id="traveler" r="6" cx="-20" cy="-20"/>';
+    for (let z = 0; z <= 9; z++) {
+      const [x, y] = ZP[z];
+      h += `<g class="zone ${region(z)}${ends.has(z) ? ' end' : ''}"><circle cx="${x}" cy="${y}" r="21"/><text x="${x}" y="${y + 6}">${z}</text></g>`;
+    }
+    const tag = (z, t) => { const [x, y] = ZP[z]; return `<text class="nlabel ht" x="${x}" y="${y - 29}" text-anchor="middle">${t}</text>`; };
+    if (R.demon) { h += tag(R.kz, 'year'); h += tag(R.z, R.z === R.kz ? 'both' : 'phrase'); }
+    h += `<path id="fullpath" d="${full.trim() || 'M0,0'}" fill="none" stroke="none"/>`;
+    const svg = $('#numo');
+    svg.innerHTML = h;
+    anim.path = $('#fullpath');
+    anim.len = full ? anim.path.getTotalLength() : 0;
+    startAnim();
+  }
+  function renderI7() {
+    const box = $('#i7');
+    const legend = '<ul class="legend" aria-label="Moves"><li><svg viewBox="0 0 30 8" aria-hidden="true"><line class="seg twin" x1="2" y1="4" x2="28" y2="4" style="stroke-width:3"/></svg>cross a syzygy</li><li><svg viewBox="0 0 30 8" aria-hidden="true"><line class="seg current" x1="2" y1="4" x2="28" y2="4" style="stroke-width:3"/></svg>ride its current</li><li><svg viewBox="0 0 30 8" aria-hidden="true"><line class="seg gate" x1="2" y1="4" x2="28" y2="4" style="stroke-width:3"/></svg>take a gate</li></ul>';
+    if (!R.demon) {
+      state.sel = null;
+      box.innerHTML = `<div class="numo-wrap"><svg id="numo" viewBox="0 20 400 580" role="img" aria-label="The Numogram with no passage drawn."></svg><div class="stack"><p>Phrase and year share zone ${R.z}. There is no distance, so there is nothing to walk.</p>${legend}</div></div>`;
+      drawNumo(null); return;
+    }
+    const d = R.demon;
+    const items = [];
+    const pillFor = p => { const m = publishedMatch(p); return isCrossing(p) ? '= Rt-0, the crossing' : (m ? `= Rt-${m.n}` : 'not a published rite'); };
+    for (const p of R.back) items.push({ p, label: 'Shortest from the year', pill: pillFor(p), on: !!publishedMatch(p) });
+    if (!R.back.length) for (const p of R.fwd) items.push({ p, label: 'Shortest from the phrase', pill: pillFor(p), on: !!publishedMatch(p) });
+    const riteRows = R.rites.map(r => {
+      if (r.p === 'X') return `<li><button type="button" disabled><span class="p">Rt-${r.n} [X]</span><span class="m">the syzygy itself: a direct crossing</span></button></li>`;
+      if (r.p === '?') return `<li><button type="button" disabled><span class="p">Rt-${r.n} [?]</span><span class="m">no known path</span></button></li>`;
+      const dir = r.dir === 'counter' ? 'year → phrase' : (r.dir === 'chrono' ? 'phrase → year' : '');
+      return `<li><button type="button" data-p="${r.p}" aria-pressed="false"><span class="p">Rt-${r.n} [${r.p}]</span><span class="m">${dir}</span></button></li>`;
+    }).join('');
+    const ours = items.map(it => `<li><button type="button" data-p="${it.p}" aria-pressed="false"><span class="p">[${it.p}]</span><span class="m">${it.label}</span><span class="pill${it.on ? ' on' : ''}">${it.pill}</span></button></li>`).join('');
+    let why = '';
+    if (!R.back.length && !R.fwd.length) why = `<p class="note">No passage connects zone ${R.kz} and zone ${R.z}. The Warp and the Plex each loop only into themselves, so once a walk enters one it never leaves.${R.rites.some(r => r.p === '?') ? ` The Pandemonium marks ${esc(d.name)}’s rite with a question mark.` : ''}</p>`;
+    else if (!R.back.length) why = `<p class="note">Nothing leads back from the year: zone ${R.kz} is in the ${REGION_NAME[region(R.kz)]}, which loops only into itself. The walk from your phrase to the year still works.</p>`;
+    else if (R.fwd.length === 0) why = `<p class="note">The walk only runs backwards here: your phrase sits in the ${REGION_NAME[region(R.z)]}, which can be entered but never left.</p>`;
+    box.innerHTML = `<div class="numo-wrap"><svg id="numo" viewBox="0 20 400 580" role="img" aria-label="The Numogram with the selected passage drawn."></svg>` +
+      `<div class="stack" style="display:grid;gap:12px;min-width:0">` +
+      `<div><p class="ctl-label" style="margin:0 0 6px">Shortest passage</p><ul class="rites" id="ours">${ours || '<li class="note">none</li>'}</ul></div>` +
+      `<div><p class="ctl-label" style="margin:0 0 6px">${esc(d.name)}’s published rites</p><ul class="rites" id="pub">${riteRows || '<li class="note">none listed</li>'}</ul></div>` +
+      `<ol class="moves" id="moves"></ol>${legend}${why}</div></div>`;
+    $$('#i7 .rites button[data-p]').forEach(b => b.addEventListener('click', () => selectPassage(b.dataset.p)));
+    selectPassage(state.sel && validSel(state.sel) ? state.sel : defaultPassage(), true);
+  }
+  function validSel(p) {
+    if (!p || !R.demon) return false;
+    const d = p.split('').map(Number), a = d[0], b = d[d.length - 1];
+    return (a === R.kz && b === R.z) || (a === R.z && b === R.kz);
+  }
+  function selectPassage(p, quiet) {
+    state.sel = p || null;
+    $$('#i7 .rites button[data-p]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.p === p)));
+    drawNumo(p);
+    const mv = $('#moves');
+    if (mv) {
+      if (p) {
+        const w = walk(p.split('').map(Number)) || [];
+        mv.innerHTML = w.map(st => `<li>${st.from} → ${st.to} <span class="c">${esc(moveText(st))}</span></li>`).join('');
+      } else mv.innerHTML = '';
+    }
+    if (!quiet) { renderSummary(); renderTransmission(); }
+  }
+
+  /* ---------- step 8: tic xenotation ---------- */
+  function txMeasure(tree) {
+    if (!tree.length) return { r: 5, kids: [] };
+    const kids = tree.map(it => {
+      if (it === 'tic') return { tic: true, r: 3.6 };
+      const m = txMeasure(it.inner);
+      return { tic: false, r: m.r + 3.4, m };
+    });
+    if (kids.length === 1) { kids[0].x = 0; kids[0].y = 0; return { r: kids[0].r, kids }; }
+    const n = kids.length, gap = 2.4, maxr = Math.max(...kids.map(k => k.r));
+    const Rr = n === 2 ? (kids[0].r + kids[1].r + gap) / 2 : (maxr + gap / 2) / Math.sin(Math.PI / n);
+    kids.forEach((k, i) => { const th = Math.PI + i * 2 * Math.PI / n; k.x = Rr * Math.cos(th); k.y = Rr * Math.sin(th); });
+    return { r: Math.max(...kids.map(k => Math.hypot(k.x, k.y) + k.r)), kids };
+  }
+  function txDraw(m, cx, cy, depth) {
+    let h = '';
+    for (const k of m.kids) {
+      const x = cx + k.x, y = cy + k.y;
+      if (k.tic) h += `<circle class="tic" cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${k.r}"/>`;
+      else { h += `<circle class="cell d${Math.min(depth, 3)}" cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${k.r.toFixed(2)}"/>`; h += txDraw(k.m, x, y, depth + 1); }
+    }
+    return h;
+  }
+  function txFigure(n, label) {
+    if (n === 0) return `<div class="tx"><span class="lbl">${label} · 0</span><p class="note">Zero has no tic-xenotation: there are no primes to multiply.</p></div>`;
+    const tree = txTree(n), str = txString(tree), m = txMeasure(tree);
+    const top = tree.length !== 1 ? `<circle class="cell top" cx="0" cy="0" r="${(m.r + 5).toFixed(2)}"/>` : '';
+    const r = m.r + 8, vb = `${(-r).toFixed(1)} ${(-r).toFixed(1)} ${(2 * r).toFixed(1)} ${(2 * r).toFixed(1)}`;
+    const tics = ticCount(str);
+    return `<div class="tx"><span class="lbl">${label} · ${n}</span><svg viewBox="${vb}" role="img" aria-label="${n} in tic-xenotation: ${str || 'empty'}">${top}${txDraw(m, 0, 0, 0)}</svg><span class="str">${str ? esc(str) : '(empty)'}</span><span class="note">${n === 1 ? '1 is the empty mark' : `${tics} tic${tics === 1 ? '' : 's'}`}</span></div>`;
+  }
+  function renderI8() {
+    const same = R.ticsSeed === R.ticsK && R.k > 1;
+    $('#i8').innerHTML = `<div class="tx-pair">${txFigure(R.aq, 'Your total')}${txFigure(R.k, `Your year, ${R.kLabel}`)}</div>` +
+      `<p class="txkey"><span>● a tic, the number 2</span><span>○ a prime, holding the xenotation of its place among the primes</span></p>` +
+      (same ? `<p class="note">The total and the year carry the same number of tics.</p>` : '');
+  }
+
+  /* ---------- step 9 ---------- */
+  function transmissionText() {
+    const kf = kYear(NOW_YEAR, false);
+    const line = $('#line').value.trim();
+    const rows = [
+      `TRANSMISSION · filed ${kLabel(kf, false)} (${NOW_YEAR})`,
+      `PHRASE   ${R.seed}`,
+      `TOTAL    AQ ${plexText(R.steps)} · zone ${R.z} · ${REGION_NAME[R.region]}`,
+      `YEAR     ${R.year} · ${R.kLabel} → ${R.kz} · zone ${R.kz} · ${REGION_NAME[R.kRegion]}${state.binomic ? ' (two-digit count)' : ''}`,
+      `DEMON    ${R.demon ? `${R.demon.name} ${R.demon.key} · mesh ${pad(R.demon.mesh)} · ${R.demon.cls}` : 'none · same zone'}`,
+      `PASSAGE  ${passageLine()}`,
+      `READING  ${verdict()}`,
+      `TX       ${R.txSeed || '—'} / ${R.txK === null ? '—' : (R.txK || '(empty)')}`
+    ];
+    if (line) rows.push(`LINE     “${line}”`);
+    rows.push('via Time-Sorcery');
+    return rows.join('\n');
+  }
+  function renderTransmission() { $('#tm').textContent = transmissionText(); }
+
+  /* ---------- update ---------- */
+  function syncChips() {
+    $$('#examples .chip').forEach(c => {
+      const [s, y] = EXAMPLES[+c.dataset.i];
+      c.setAttribute('aria-pressed', String(s.toLowerCase() === state.seed.trim().toLowerCase() && y === state.year));
+    });
+  }
+  function update(keepSel) {
+    const seedOk = lettersOf(state.seed).length + (state.seed.match(/[0-9]/g) || []).length > 0;
+    const y = state.year;
+    const err = $('#year-err');
+    if (!seedOk) { err.textContent = 'Type a phrase with at least one letter or digit.'; err.hidden = false; return; }
+    if (!Number.isInteger(y) || y < 1900 || y > 2999) { err.textContent = 'K-Time counts from 1900. Choose a year from 1900 to 2999.'; err.hidden = false; return; }
+    err.hidden = true;
+    R = reading(state.seed.trim(), y, state.binomic);
+    if (!keepSel || !validSel(state.sel)) state.sel = defaultPassage();
+    drawSpiral();
+    renderI2(); renderI3(); renderI4(); renderI5(); renderI6(); renderI7();
+    renderI8();
+    renderSummary(); renderTransmission(); syncChips();
+  }
+  let timer = 0;
+  function soon() { clearTimeout(timer); timer = setTimeout(() => update(false), 120); }
+  function setReading(seed, year) {
+    if (seed !== undefined) { state.seed = seed; $('#seed').value = seed; }
+    if (year !== undefined) { state.year = year; $('#year').value = year; }
+    update(false);
+  }
+
+  function init() {
+    $('#examples').innerHTML = EXAMPLES.map(([s, y], i) => `<button type="button" class="chip" data-i="${i}" aria-pressed="false">${esc(s)} · ${y}</button>`).join('');
+    $('#examples').addEventListener('click', e => { const b = e.target.closest('.chip'); if (!b) return; const [s, y] = EXAMPLES[+b.dataset.i]; setReading(s, y); });
+    $('#seed-form').addEventListener('submit', e => e.preventDefault());
+    $('#seed').addEventListener('input', () => { state.seed = $('#seed').value; soon(); });
+    $('#year').addEventListener('input', () => { state.year = Math.floor(Number($('#year').value)); soon(); });
+    $('#binomic').addEventListener('change', e => { state.binomic = e.target.checked; update(false); });
+    $('#draw').addEventListener('click', () => {
+      const list = SOURCES[$('#src').value]();
+      const pick = list[Math.floor(Math.random() * list.length)];
+      setReading(cap1(pick));
+    });
+    $('#ryear').addEventListener('click', () => setReading(undefined, 2027 + Math.floor(Math.random() * 73)));
+    $('#spiral').addEventListener('click', e => {
+      const c = e.target.closest('.sd'); if (c) { setReading(undefined, 1900 + Number(c.dataset.k)); return; }
+      if (e.target.closest('.origin')) setReading(undefined, 1900);
+    });
+    $('#anchors').addEventListener('click', e => { const b = e.target.closest('button[data-year]'); if (b) setReading(undefined, Number(b.dataset.year)); });
+    $('#line').addEventListener('input', renderTransmission);
+    $('#copy').addEventListener('click', () => {
+      const text = transmissionText(), msg = $('#copied');
+      const fallback = () => {
+        const r = document.createRange(); r.selectNodeContents($('#tm'));
+        const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        msg.textContent = 'Selected. Press Ctrl+C or ⌘C to copy.';
+      };
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => { msg.textContent = 'Copied.'; }, fallback);
+        else fallback();
+      } catch (e) { fallback(); }
+    });
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(es => { for (const en of es) { anim.visible = en.isIntersecting; if (anim.visible) startAnim(); else stopAnim(); } });
+      io.observe($('#s7'));
+    }
+    renderI1();
+    update(false);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+</script>
+
+</body>
+</html>

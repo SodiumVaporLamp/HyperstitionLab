@@ -1,0 +1,1464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Interactive AQ gematria on the Ccru Numogram: zones and demons, the alphabet's mirror syzygies, the Pandemonium Matrix, cipher-hop loops and the number-spelling attractor.">
+<meta property="og:title" content="Numogram Lab">
+<meta property="og:description" content="Interactive AQ gematria on the Ccru Numogram: zones and demons, the alphabet's mirror syzygies, the Pandemonium Matrix, cipher-hop loops and the number-spelling attractor.">
+<meta name="twitter:card" content="summary">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>Numogram Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Major+Mono+Display&display=swap">
+<style>
+:root {
+  /* Layout: a field-manual column. Masthead carrying its own plex readout, a sticky rail of five instruments,
+     each instrument a diagram plus a readout; the two sit side by side from 880px. */
+  --bg: #E9ECEB;
+  --surface: #F5F7F6;
+  --ink: #15181A;
+  --muted: #586168;
+  --rule: #C6CDCE;
+  --tc: #9A7A00;
+  --warp: #6E4FD0;
+  --plex: #C23B5A;
+  --tc-tint: #E0DECF;
+  --warp-tint: #DAD9E8;
+  --plex-tint: #E4D7DA;
+  --display: "Major Mono Display", "IBM Plex Mono", ui-monospace, monospace;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --t-xs: 12px;
+  --t-sm: 13.5px;
+  --t-md: 15px;
+  --t-lg: 19px;
+  --t-xl: 26px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101316; --surface: #171B1F; --ink: #E3E7E5; --muted: #9AA3A9; --rule: #2E363C;
+    --tc: #B48C22; --warp: #9070EA; --plex: #DD4A76;
+    --tc-tint: #272418; --warp-tint: #222034; --plex-tint: #2D1B23;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101316; --surface: #171B1F; --ink: #E3E7E5; --muted: #9AA3A9; --rule: #2E363C;
+  --tc: #B48C22; --warp: #9070EA; --plex: #DD4A76;
+  --tc-tint: #272418; --warp-tint: #222034; --plex-tint: #2D1B23;
+  color-scheme: dark;
+}
+
+[hidden] { display: none !important; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-md);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--bg);
+}
+a { color: var(--ink); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.page {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 22px 56px;
+}
+
+/* masthead */
+.mast { display: grid; gap: 10px; padding-block: 4px 18px; }
+.mast h1 {
+  font-family: var(--display); font-weight: 400; margin: 0;
+  font-size: clamp(32px, 9vw, 48px); line-height: 1; letter-spacing: 0.01em; text-wrap: balance;
+}
+.readout {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px;
+  font-family: var(--mono); font-size: var(--t-sm); color: var(--muted);
+}
+.readout a { color: var(--muted); }
+.readout a:hover { color: var(--ink); }
+.mast p { margin: 0; max-width: 64ch; }
+
+/* instrument rail */
+.rail {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 6;
+  background: var(--bg); display: flex; flex-wrap: wrap; gap: 2px;
+  padding-block: 9px; border-block: 1px solid var(--rule);
+}
+.rail button {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.02em;
+  border: 1px solid transparent; background: none; color: var(--muted);
+  padding: 6px 8px; border-radius: 6px; cursor: pointer;
+}
+@media (min-width: 520px) { .rail button { font-size: 13px; padding: 6px 11px; } }
+.rail button:not([aria-selected="true"]):hover { color: var(--ink); border-color: var(--rule); }
+.rail button[aria-selected="true"] { background: var(--ink); color: var(--bg); }
+button:focus-visible, input:focus-visible, [tabindex]:focus-visible, a:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--ink); outline-offset: 2px;
+}
+
+/* panels */
+.panel { padding-block: 24px 6px; }
+.panel-head { display: grid; gap: 6px; margin-bottom: 18px; max-width: 70ch; }
+.panel-head h2 { font-family: var(--display); font-weight: 400; font-size: var(--t-xl); margin: 0; letter-spacing: 0.02em; }
+.lead { margin: 0; }
+.cols { display: grid; gap: 26px; }
+@media (min-width: 880px) {
+  .cols { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: start; }
+}
+.stack { display: grid; gap: 14px; min-width: 0; align-content: start; }
+.sub {
+  font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin: 0; font-weight: 500;
+}
+.note { font-size: var(--t-sm); color: var(--muted); margin: 0; max-width: 66ch; }
+
+/* form controls */
+.field { display: grid; gap: 4px; min-width: 0; }
+.field label, .ctl-label {
+  font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+}
+input[type="text"], input[type="number"] {
+  font-family: var(--mono); font-size: 16px; color: var(--ink); background: var(--surface);
+  border: 1px solid var(--rule); border-radius: 6px; padding: 9px 11px; width: 100%; min-width: 0; box-sizing: border-box;
+}
+input[type="text"]:hover, input[type="number"]:hover { border-color: var(--muted); }
+.pair-inputs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-family: var(--sans); font-size: var(--t-sm); line-height: 1.3;
+  border: 1px solid var(--rule); background: transparent; color: var(--ink);
+  padding: 5px 10px; border-radius: 999px; cursor: pointer;
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn {
+  font-family: var(--mono); font-size: 14px; border: 1px solid var(--ink); background: var(--ink); color: var(--bg);
+  border-radius: 6px; padding: 9px 14px; cursor: pointer; white-space: nowrap;
+}
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn:hover { opacity: 0.88; }
+.row { display: flex; gap: 8px; align-items: end; flex-wrap: wrap; }
+.row > .field { flex: 1 1 180px; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin-bottom: 18px; }
+.toggle { display: inline-flex; align-items: center; gap: 8px; font-size: var(--t-sm); cursor: pointer; }
+.toggle input { width: 16px; height: 16px; accent-color: var(--ink); margin: 0; }
+
+/* region chips */
+.rchip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: var(--t-sm); white-space: nowrap; }
+.dot { width: 9px; height: 9px; border-radius: 50%; flex: none; display: inline-block; background: var(--muted); }
+.dot.tc { background: var(--tc); }
+.dot.warp { background: var(--warp); }
+.dot.plex { background: var(--plex); }
+
+/* figures and diagrams */
+figure { margin: 0; display: grid; gap: 10px; min-width: 0; }
+figcaption { font-family: var(--mono); font-size: var(--t-xs); color: var(--muted); line-height: 1.55; max-width: 70ch; }
+.diagram svg { width: 100%; height: auto; display: block; max-width: 520px; margin-inline: auto; }
+svg text { font-family: var(--mono); }
+.band.tc { fill: var(--tc-tint); }
+.band.warp { fill: var(--warp-tint); }
+.band.plex { fill: var(--plex-tint); }
+.rdot.tc { fill: var(--tc); }
+.rdot.warp { fill: var(--warp); }
+.rdot.plex { fill: var(--plex); }
+.rlabel { font-size: 10.5px; letter-spacing: 0.12em; fill: var(--muted); }
+.zone circle { fill: var(--surface); stroke-width: 2.5; }
+.zone.tc circle { stroke: var(--tc); }
+.zone.warp circle { stroke: var(--warp); }
+.zone.plex circle { stroke: var(--plex); }
+.zone text { font-size: 18px; font-weight: 500; fill: var(--ink); text-anchor: middle; }
+.bar { stroke: var(--ink); stroke-width: 2; }
+.lbl { font-size: 11px; fill: var(--muted); text-anchor: middle; }
+.dlbl { fill: var(--ink); }
+.current { fill: none; stroke-width: 1.75; stroke-dasharray: 4 5; animation: flow 1.6s linear infinite; }
+.current.tc { stroke: var(--tc); }
+.current.warp { stroke: var(--warp); }
+.current.plex { stroke: var(--plex); }
+.current.lit { stroke-width: 3.25; }
+@keyframes flow { to { stroke-dashoffset: -18; } }
+.mk.mk-tc path { fill: var(--tc); }
+.mk.mk-warp path { fill: var(--warp); }
+.mk.mk-plex path { fill: var(--plex); }
+.mk.mk-ink path { fill: var(--ink); }
+.mk.mk-muted path { fill: var(--muted); }
+.gate { fill: none; stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 2 4; }
+.gate.on { stroke: var(--ink); stroke-width: 1.6; stroke-dasharray: 5 4; }
+.gate-lbl { font-size: 10px; fill: var(--muted); text-anchor: middle; }
+.gate-lbl.on { fill: var(--ink); font-weight: 600; }
+.halo { fill: none; stroke: var(--ink); stroke-width: 2.5; }
+.halo.b { stroke-dasharray: 5 4; }
+.tag { font-size: 11px; font-weight: 600; fill: var(--ink); text-anchor: middle; }
+.link { stroke: var(--ink); stroke-width: 1.5; }
+.hot { stroke: var(--ink); stroke-width: 5; stroke-linecap: round; }
+.pill rect { fill: var(--surface); stroke: var(--ink); stroke-width: 1; }
+.pill text { font-size: 11px; fill: var(--ink); text-anchor: middle; }
+.ht { paint-order: stroke; stroke-width: 3.5px; stroke-linejoin: round; }
+.h-bg { stroke: var(--bg); }
+.h-tc { stroke: var(--tc-tint); }
+.h-warp { stroke: var(--warp-tint); }
+.h-plex { stroke: var(--plex-tint); }
+
+/* readouts */
+.readouts { display: grid; gap: 16px; min-width: 0; align-content: start; }
+.between {
+  padding: 14px 16px; border: 1.5px solid var(--ink); border-radius: 10px;
+  display: grid; gap: 6px; background: var(--surface); min-width: 0;
+}
+.between h3 { margin: 0; font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.between p { margin: 0; }
+.big { font-family: var(--mono); font-size: var(--t-lg); line-height: 1.3; overflow-wrap: anywhere; }
+.ph { display: grid; gap: 10px; padding-top: 14px; border-top: 1px solid var(--rule); min-width: 0; }
+.ph-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.badge {
+  font-family: var(--mono); font-size: 12px; font-weight: 600; border: 1.5px solid var(--ink); border-radius: 50%;
+  width: 24px; height: 24px; display: inline-grid; place-items: center; flex: none;
+}
+.badge.b { border-style: dashed; }
+.ph-name { font-family: var(--mono); font-size: var(--t-lg); overflow-wrap: anywhere; min-width: 0; }
+.ph-name.empty { color: var(--muted); }
+.kv { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; font-size: var(--t-sm); margin: 0; }
+.kv dt { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.kv dd { margin: 0; min-width: 0; }
+.cz { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+@media (min-width: 540px) { .cz { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.cz div {
+  border: 1px solid var(--rule); border-radius: 6px; padding: 6px 8px; display: grid; gap: 1px;
+  font-family: var(--mono); font-variant-numeric: tabular-nums; background: var(--surface); min-width: 0;
+}
+.cz .k { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
+.cz .v { font-size: 15px; }
+.cz .z { font-size: 11px; display: flex; align-items: center; gap: 5px; color: var(--muted); }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; font-family: var(--mono); font-size: var(--t-sm); font-variant-numeric: tabular-nums; width: 100%; }
+th, td { padding: 6px 8px; border-bottom: 1px solid var(--rule); text-align: left; white-space: nowrap; }
+th { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td.letters { letter-spacing: 0.18em; }
+#gtable th, #gtable td { padding-inline: 6px; }
+
+/* alphabet ring */
+.chord { stroke-width: 1.6; fill: none; }
+.chord.murrumur, .chord.oddubb, .chord.katak { stroke: var(--tc); }
+.chord.oddubb { stroke-dasharray: 6 4; }
+.chord.katak { stroke-dasharray: 1.5 4; stroke-linecap: round; stroke-width: 2.2; }
+.chord.djynxx { stroke: var(--warp); }
+.chord.plexpair { stroke: var(--plex); stroke-width: 2.6; }
+.chord.on { stroke-width: 4; }
+.lt { cursor: pointer; }
+.lt circle { fill: var(--surface); stroke-width: 2; }
+.lt.tc circle { stroke: var(--tc); }
+.lt.warp circle { stroke: var(--warp); }
+.lt.plex circle { stroke: var(--plex); }
+.lt text { font-size: 13px; font-weight: 600; fill: var(--ink); text-anchor: middle; }
+.lt.on circle { fill: var(--ink); }
+.lt.on text { fill: var(--bg); }
+.lv { font-size: 10px; fill: var(--muted); text-anchor: middle; }
+.ctr { font-size: 12.5px; fill: var(--ink); text-anchor: middle; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: var(--t-sm); margin: 0; padding: 0; list-style: none; }
+.legend li { display: inline-flex; align-items: center; gap: 8px; }
+.legend svg { width: 26px; height: 10px; flex: none; }
+.tiles { display: flex; flex-wrap: wrap; gap: 4px; align-items: stretch; }
+.tile {
+  display: grid; justify-items: center; gap: 1px; min-width: 36px; padding: 4px 5px;
+  border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); font-family: var(--mono);
+}
+.tile b { font-size: 16px; font-weight: 500; }
+.tile span { font-size: 11px; color: var(--muted); display: inline-flex; align-items: center; gap: 4px; }
+.tile .dot { width: 7px; height: 7px; }
+.sum { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: var(--t-sm); padding-inline: 4px; }
+.mirror-row { display: grid; gap: 6px; }
+
+/* pandemonium */
+.pm { display: grid; grid-template-columns: 22px repeat(9, minmax(0, 1fr)); gap: 3px; max-width: 660px; }
+.pm .hd { font-family: var(--mono); font-size: 11px; color: var(--muted); display: grid; place-items: center; min-height: 18px; }
+.cell {
+  position: relative; aspect-ratio: 1 / 1; border-radius: 5px; border: 1px solid transparent; padding: 0;
+  font-family: var(--mono); font-size: 11px; color: var(--ink); display: grid; place-items: center; align-content: center;
+  cursor: pointer; background: var(--surface); min-width: 0; font-variant-numeric: tabular-nums;
+}
+.cell.chrono { background: var(--tc-tint); }
+.cell.xeno { background: var(--warp-tint); }
+.cell.amphi { background: linear-gradient(135deg, var(--tc-tint) 50%, var(--warp-tint) 50%); }
+.cell.syz { border: 2px solid var(--ink); }
+.cell .nm { display: none; }
+.cell .mk { position: absolute; bottom: 4px; left: 50%; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: var(--ink); }
+.cell[aria-pressed="true"] { outline: 2px solid var(--ink); outline-offset: 2px; }
+.cell:hover { border-color: var(--muted); }
+.cell.syz:hover { border-color: var(--ink); }
+@media (min-width: 720px) {
+  .cell { aspect-ratio: auto; min-height: 54px; gap: 2px; }
+  .cell .nm { display: block; font-size: 9.5px; color: var(--muted); max-width: 100%; overflow-wrap: anywhere; padding-inline: 2px; line-height: 1.15; }
+  .cell .mk { bottom: auto; left: auto; top: 4px; right: 4px; margin-left: 0; }
+}
+.sw { width: 14px; height: 14px; border-radius: 3px; flex: none; display: inline-block; }
+.sw.chrono { background: var(--tc-tint); border: 1px solid var(--tc); }
+.sw.xeno { background: var(--warp-tint); border: 1px solid var(--warp); }
+.sw.amphi { background: linear-gradient(135deg, var(--tc-tint) 50%, var(--warp-tint) 50%); border: 1px solid var(--muted); }
+.sw.syz { border: 2px solid var(--ink); }
+.sw.home { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
+.slot { fill: transparent; stroke: var(--rule); stroke-width: 1; }
+.slot.on { fill: var(--ink); stroke: var(--ink); }
+.tick { font-size: 10px; fill: var(--muted); text-anchor: middle; }
+.bracket { fill: none; stroke: var(--ink); stroke-width: 1.25; }
+.blabel { font-size: 10.5px; fill: var(--ink); text-anchor: middle; }
+
+/* loops */
+.loop-node rect { fill: var(--surface); stroke: var(--ink); stroke-width: 1.25; }
+.loop-node text { font-size: 12px; fill: var(--ink); text-anchor: middle; }
+.loop-node.start rect { stroke-width: 2.25; }
+.edge { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+.edge.on { stroke: var(--ink); stroke-width: 2.4; }
+.val rect { fill: var(--bg); stroke: var(--rule); }
+.val text { font-size: 11px; fill: var(--ink); text-anchor: middle; font-variant-numeric: tabular-nums; }
+.traveler { fill: var(--ink); }
+.steps { margin: 0; padding-left: 22px; display: grid; gap: 7px; font-size: var(--t-sm); }
+.steps li { padding-left: 2px; }
+.steps li.on { font-weight: 600; }
+.steps .c { font-family: var(--mono); font-size: 12px; color: var(--muted); font-weight: 400; }
+.results { display: grid; gap: 6px; padding: 0; margin: 0; list-style: none; }
+.results button {
+  width: 100%; text-align: left; font: inherit; font-size: var(--t-sm); background: var(--surface);
+  border: 1px solid var(--rule); border-radius: 8px; padding: 8px 11px; color: var(--ink); cursor: pointer; display: grid; gap: 2px;
+}
+.results button:hover { border-color: var(--ink); }
+.results button[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.results .meta { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.finder { display: grid; gap: 10px; padding-top: 16px; border-top: 1px solid var(--rule); }
+
+/* attractor */
+.orbit { list-style: none; margin: 0; padding: 0; display: grid; }
+.orbit li {
+  display: grid; grid-template-columns: minmax(64px, auto) 1fr; gap: 0 12px; align-items: center;
+  padding-block: 6px; border-bottom: 1px dashed var(--rule);
+}
+.orbit li:last-child { border-bottom: 0; }
+.orbit .num { font-family: var(--mono); font-size: var(--t-lg); font-variant-numeric: tabular-nums; }
+.orbit .nm { grid-column: 1 / -1; font-size: 12.5px; color: var(--muted); }
+.loopbox { border: 1.5px solid var(--ink); border-radius: 10px; padding: 8px 12px 10px; display: grid; gap: 4px; }
+.loopbox h4 { margin: 0; font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.back { margin: 0; font-family: var(--mono); font-size: var(--t-sm); }
+.bars { display: grid; gap: 14px; }
+.brow { display: grid; gap: 5px; min-width: 0; }
+.brow .lab { font-family: var(--mono); font-size: 12.5px; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.brow.cur .lab { font-weight: 600; }
+.track { display: flex; align-items: center; gap: 8px; }
+.fill { height: 14px; background: var(--ink); border-radius: 0 4px 4px 0; min-width: 2px; }
+.brow:not(.cur) .fill { opacity: 0.55; }
+.pct { font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.zdots { display: inline-flex; gap: 3px; vertical-align: middle; margin-left: 4px; }
+.zdots .dot { width: 7px; height: 7px; }
+
+/* footer */
+.foot { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--rule); display: grid; gap: 14px; font-size: var(--t-sm); }
+.foot h2 { font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 0; font-weight: 500; }
+.rules { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 16px; margin: 0; max-width: 90ch; }
+.rules dt { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.rules dd { margin: 0; }
+.src { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.src span { color: var(--muted); }
+.credit { margin: 6px 0 0; font-family: var(--mono); font-size: var(--t-xs); color: var(--muted); }
+
+/* intro */
+.intro { display: grid; gap: 10px; padding-block: 0 20px; }
+.intro p { margin: 0; max-width: 64ch; }
+.intro-cols { display: grid; gap: 12px; }
+@media (min-width: 880px) { .intro-cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 32px; } }
+
+/* methodology disclosures */
+details.method { border-top: 1px solid var(--rule); padding-top: 10px; min-width: 0; }
+details.method > summary { cursor: pointer; font-family: var(--mono); font-size: var(--t-sm); padding-block: 2px; }
+details.method > summary:hover { color: var(--muted); }
+.method-body { display: grid; gap: 10px; padding-top: 10px; font-size: var(--t-sm); min-width: 0; }
+.method-body p { margin: 0; max-width: 66ch; }
+.method-body tr.cur td { font-weight: 600; }
+.cats { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.cat summary { cursor: pointer; font-size: var(--t-sm); padding-block: 3px; }
+.wt {
+  display: inline-block; min-width: 26px; text-align: center; font-family: var(--mono); font-size: 11px;
+  border: 1px solid var(--rule); border-radius: 999px; padding: 0 5px; margin-right: 4px;
+}
+.phr { margin: 4px 0 8px; font-size: 12.5px; color: var(--muted); line-height: 1.6; overflow-wrap: anywhere; }
+
+@media (prefers-reduced-motion: reduce) {
+  .current { animation: none; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header class="mast">
+    <h1>numogram lab</h1>
+    <div class="readout" id="mast-readout"><span>AQ 216 → 9</span><span class="rchip"><i class="dot plex"></i>zone 9 · Plex</span></div>
+    <p>AQ gematria laid over the Ccru’s Decimal Labyrinth. In AQ, A&nbsp;=&nbsp;10 through Z&nbsp;=&nbsp;35 and digits keep their face value. A phrase’s zone is the digital root of its AQ total.</p>
+  </header>
+
+  <section class="intro" aria-labelledby="intro-h">
+    <h2 class="sub" id="intro-h">What this is</h2>
+    <div class="intro-cols">
+      <p><strong>Gematria</strong> gives each letter a number, so every word adds up to a value, and words with equal values are read as linked. It comes from Hebrew tradition. <strong>AQ</strong> is the English cipher of the <strong>Ccru</strong>, the group around Nick Land, Sadie Plant and Mark Fisher at Warwick in the late 1990s, whose work mixed philosophy, cybernetics, occultism and science fiction.</p>
+      <p>The <strong>Numogram</strong> is their map of the ten digits. Ccru texts present it as recovered rather than invented, growing out of a Professor Barker’s study of nine-sum twinning, which promised “a secret door into the long-hidden crypt of the decimal system.” Barker is probably one of their own fictions. They worked the diagram as a practical instrument: a map of time with a looping Time-Circuit and an Outside, and a register of 45 demons. Part of the appeal is the appeal of divination. Fixed rules hand you readings you didn’t choose, and the meaning comes from what you make of them. The Ccru’s word for fictions that make themselves real through use was hyperstition, and the Numogram was one of its main instruments.</p>
+    </div>
+    <p class="note"><strong>Inherited and added.</strong> The diagram, its zones, currents, gates and demons, and the AQ cipher come from Ccru texts. Reading AQ totals through the diagram has a published precedent in Nick Land’s “Qabbala 101” (<i>Collapse</i> I, 2007). A footnote totals UNITY as 30&nbsp;+&nbsp;23&nbsp;+&nbsp;18&nbsp;+&nbsp;29&nbsp;+&nbsp;34&nbsp;=&nbsp;134 and reduces it to 8, which the text calls the Numogrammatic twin of 1, numerology’s number for unity. Whether the wider Ccru worked this way is a separate question. The phrase pairs, searches and experiments built on top are this page’s own.</p>
+    <p class="note"><strong>Nine and zero.</strong> A digital root runs from 1 to 9 and never gives 0, because 9 and 0 are the same number in arithmetic mod 9. The diagram draws them as two zones joined by Uttunul’s syzygy. Whenever the page puts a phrase in zone 9, read it as that 9::0 pair.</p>
+  </section>
+
+  <nav class="rail" role="tablist" aria-label="Instruments">
+    <button type="button" role="tab" id="tab-zones" data-tab="zones" aria-controls="p-zones" aria-selected="true">Zones</button>
+    <button type="button" role="tab" id="tab-alphabet" data-tab="alphabet" aria-controls="p-alphabet" aria-selected="false" tabindex="-1">Alphabet</button>
+    <button type="button" role="tab" id="tab-demons" data-tab="demons" aria-controls="p-demons" aria-selected="false" tabindex="-1">Demons</button>
+    <button type="button" role="tab" id="tab-loops" data-tab="loops" aria-controls="p-loops" aria-selected="false" tabindex="-1">Loops</button>
+    <button type="button" role="tab" id="tab-attractor" data-tab="attractor" aria-controls="p-attractor" aria-selected="false" tabindex="-1">Attractor</button>
+  </nav>
+
+  <main>
+    <!-- ZONES -->
+    <section class="panel" id="p-zones" role="tabpanel" aria-labelledby="tab-zones">
+      <div class="panel-head">
+        <h2>zones</h2>
+        <p class="lead">Type two phrases. Each lands in the zone given by its AQ digital root, and the pair summons the demon that stands between those two zones.</p>
+      </div>
+      <div class="cols">
+        <div class="stack">
+          <div class="pair-inputs">
+            <div class="field"><label for="in-a">Phrase A</label><input id="in-a" type="text" value="Man" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+            <div class="field"><label for="in-b">Phrase B</label><input id="in-b" type="text" value="Machine" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+          </div>
+          <figure class="diagram">
+            <svg id="numo" viewBox="0 0 400 600" role="img" aria-label="The Numogram: ten zones in five syzygy pairs, the Warp at the top, the Time-Circuit in the middle and the Plex at the bottom, with currents and gates."></svg>
+            <figcaption>Zones pair into syzygies that sum to nine. Moving dashes are currents, which flow to the zone numbered by each syzygy’s difference. Dashed arcs are gates, which lead from zone n to the digital root of 0&nbsp;+&nbsp;1&nbsp;+&nbsp;…&nbsp;+&nbsp;n. Phrase A wears the solid ring, phrase B the dashed one.</figcaption>
+          </figure>
+          <label class="toggle"><input type="checkbox" id="all-gates"> Show every gate</label>
+          <h3 class="sub">Try a pair</h3>
+          <div class="chips" id="pair-chips" role="group" aria-label="Example pairs"></div>
+        </div>
+        <div class="readouts">
+          <div class="between" id="between" aria-live="polite"></div>
+          <div class="ph" id="ro-a"></div>
+          <div class="ph" id="ro-b"></div>
+          <p class="note">Ordinal, Reduction and AQ always agree on the zone. Reverse and Reverse reduction always land in the syzygy twin; for a phrase on 9, that twin is 0, which a digital root also writes as 9. Satanic shifts the zone back one step for every letter.</p>
+          <p class="note">For a fuller reading of the demon between two names, with each Lemur’s titles and descriptions, try the Divination mode in <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a>’ Numogram, which inspired this page.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALPHABET -->
+    <section class="panel" id="p-alphabet" role="tabpanel" aria-labelledby="tab-alphabet" hidden>
+      <div class="panel-head">
+        <h2>alphabet</h2>
+        <p class="lead">In AQ every mirror pair of letters, A/Z through M/N, sums to 45, the number of the final gate. So a letter and its mirror always land in the same syzygy: on twin zones, or both on 9 for I and R.</p>
+      </div>
+      <div class="cols">
+        <figure class="diagram">
+          <svg id="ring" viewBox="0 0 400 400" role="img" aria-label="The alphabet on a ring with each letter joined to its mirror; all thirteen chords sum to 45 in AQ."></svg>
+          <figcaption>The thirteen mirror pairs. Chord color gives the region of the syzygy each pair falls in; line style separates Murrumur, Oddubb and Katak. G and T form the diameter, which is why “Gt” totals 45. Tap a letter.</figcaption>
+          <ul class="legend" id="ring-legend"></ul>
+          <p class="note" id="ring-detail" aria-live="polite"></p>
+        </figure>
+        <div class="stack">
+          <h3 class="sub">Letters by zone</h3>
+          <div class="tbl-wrap"><table id="ztable"></table></div>
+          <p class="note">No letter plexes to 0, because a digital root never does. I and R, both on 9, stand for the whole 9::0 syzygy.</p>
+
+          <h3 class="sub">Mirror a word</h3>
+          <div class="field"><label for="mir-in">Word or phrase</label><input id="mir-in" type="text" value="Man" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+          <div id="mirror" class="stack"></div>
+          <p class="note">Reverse Ordinal scores every letter as its mirror, so a word’s Reverse Ordinal always plexes into the twin of its Ordinal zone.</p>
+
+          <h3 class="sub">Gate names point home</h3>
+          <div class="tbl-wrap"><table id="gtable"></table></div>
+          <p class="note">G and T are mirror letters, so “Gt” totals 45, which plexes to nothing. Written out in AQ, every gate’s name plexes to the zone it opens onto.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMONS -->
+    <section class="panel" id="p-demons" role="tabpanel" aria-labelledby="tab-demons" hidden>
+      <div class="panel-head">
+        <h2>demons come home</h2>
+        <p class="lead">Each of the Pandemonium Matrix’s 45 demons stands between two zones. Total a demon’s name in AQ, plex it, and see whether it lands in one of its own two zones. Then ask how surprising the pattern is.</p>
+      </div>
+      <div class="controls">
+        <span class="ctl-label">8::1 spelled</span>
+        <div class="chips" role="group" aria-label="Spelling of the 8::1 demon">
+          <button type="button" class="chip" data-sp="murrumur" aria-pressed="true">Murrumur · Ccru glossary</button>
+          <button type="button" class="chip" data-sp="murmur" aria-pressed="false">Mur Mur · Pandemonium table</button>
+        </div>
+      </div>
+      <div class="cols">
+        <div class="stack">
+          <p class="big" id="pm-head" aria-live="polite"></p>
+          <figure>
+            <svg id="barcode" viewBox="0 0 460 64" role="img" aria-label="The 45 meshes in order, with the demons whose names plex home filled in."></svg>
+            <figcaption>Mesh 00 to 44, left to right. Filled slots are demons whose names plex home; the bracket marks the densest run of ten.</figcaption>
+          </figure>
+          <p id="pm-stats"></p>
+          <details class="method" id="pm-method">
+            <summary>How these odds are estimated</summary>
+            <div class="method-body" id="pm-method-body"></div>
+          </details>
+        </div>
+        <div class="stack">
+          <figure>
+            <div class="pm" id="pm"></div>
+            <figcaption>The matrix: rows give the higher zone, columns the lower, and each cell shows its mesh number, a(a−1)/2&nbsp;+&nbsp;b. A dot marks a name that plexes home. Tap a cell to check it.</figcaption>
+          </figure>
+          <div class="between" id="pm-detail" aria-live="polite"></div>
+          <p class="note">For each demon’s titles, aliases and class, see the Pandemonium catalogue in <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a>’ Numogram, drawn from <i>Ccru: Writings 1997–2003</i>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOOPS -->
+    <section class="panel" id="p-loops" role="tabpanel" aria-labelledby="tab-loops" hidden>
+      <div class="panel-head">
+        <h2>loops</h2>
+        <p class="lead">Cipher-hop loops: one phrase’s value in one cipher equals the next phrase’s value in another, all the way back to the start. Each phrase leaves by a different cipher than it entered, and exact twins can’t share a loop.</p>
+      </div>
+      <div class="chips" id="loop-chips" role="group" aria-label="Curated loops" style="margin-bottom:18px"></div>
+      <div class="cols">
+        <figure class="diagram">
+          <svg id="loopsvg" viewBox="0 0 400 380" role="img" aria-label="A cipher-hop loop drawn as a ring of phrases."></svg>
+          <figcaption id="loop-cap"></figcaption>
+        </figure>
+        <div class="stack">
+          <h3 class="sub" id="loop-title"></h3>
+          <ol class="steps" id="loop-steps"></ol>
+          <p class="note" id="loop-soft" hidden>This loop closes through the name “Anglossic Qabbala,” which is Land’s own: “Qabbala 101” credits the system to August Barrow under that name. The Ccru glossary calls the cipher Alphanumeric Qabbala.</p>
+          <section class="finder">
+            <h3 class="sub">Find loops through a phrase</h3>
+            <form id="finder" class="row" autocomplete="off">
+              <div class="field"><label for="find-in">Phrase</label><input id="find-in" type="text" value="Mephistopheles" autocapitalize="off" spellcheck="false"></div>
+              <button type="submit" class="btn">Find loops</button>
+            </form>
+            <p class="note" id="find-status">Searches two- to four-step loops against a built-in list of about 650 Ccru, occult, philosophy, AI and literary phrases.</p>
+            <ul class="results" id="find-results"></ul>
+            <details class="method" id="vocab">
+              <summary>What the finder searches and how it ranks</summary>
+              <div class="method-body" id="vocab-body"></div>
+            </details>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- ATTRACTOR -->
+    <section class="panel" id="p-attractor" role="tabpanel" aria-labelledby="tab-attractor" hidden>
+      <div class="panel-head">
+        <h2>attractor</h2>
+        <p class="lead">Spell a number out, add up its letters, spell out the total, and repeat. Every start ends in a loop, and each loop has a zone signature.</p>
+      </div>
+      <form class="controls" id="att-form" autocomplete="off">
+        <div class="field" style="width:150px"><label for="att-n">Start</label><input id="att-n" type="number" inputmode="numeric" min="1" max="999999999" step="1" value="108"></div>
+        <div class="chips" role="group" aria-label="Cipher" id="att-c">
+          <button type="button" class="chip" data-c="ord" aria-pressed="true">Ordinal</button>
+          <button type="button" class="chip" data-c="aq" aria-pressed="false">AQ</button>
+          <button type="button" class="chip" data-c="sat" aria-pressed="false">Satanic</button>
+        </div>
+        <label class="toggle"><input type="checkbox" id="att-and"> British “and”</label>
+        <button type="button" class="btn ghost" id="att-rand">Random start</button>
+      </form>
+      <div class="cols">
+        <div class="stack">
+          <h3 class="sub" id="orbit-title"></h3>
+          <ol class="orbit" id="orbit-tail"></ol>
+          <div class="loopbox" id="orbit-loop"></div>
+          <p class="note" id="orbit-note"></p>
+        </div>
+        <div class="stack">
+          <h3 class="sub">Where 1 to 9,999 end up</h3>
+          <div class="bars" id="bars"></div>
+          <p class="note" id="bars-note"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <h2>Rules</h2>
+    <dl class="rules">
+      <dt>AQ</dt><dd>A&nbsp;=&nbsp;10 through Z&nbsp;=&nbsp;35, with digits 0–9 at face value. Accents are dropped before counting.</dd>
+      <dt>Other ciphers</dt><dd>Ordinal A&nbsp;=&nbsp;1 to Z&nbsp;=&nbsp;26. Reverse Z&nbsp;=&nbsp;1 to A&nbsp;=&nbsp;26. Reduction and Reverse reduction collapse each letter to one digit. Satanic A&nbsp;=&nbsp;36 to Z&nbsp;=&nbsp;61.</dd>
+      <dt>Zones</dt><dd>A phrase’s zone is the digital root of its AQ total. Digital roots run from 1 to 9: 9 and 0 are the same number mod 9, so anything that would land on 0 shows as 9 and stands for the 9::0 syzygy. Only an empty phrase gets 0.</dd>
+      <dt>Numogram</dt><dd>Syzygies sum to nine. Each syzygy’s current flows to the zone named by its difference: Sink, Surge, Hold, Warp and Plex. A gate leads from zone n to the digital root of 0&nbsp;+&nbsp;1&nbsp;+&nbsp;…&nbsp;+&nbsp;n.</dd>
+      <dt>Chance</dt><dd>Two random phrases share a zone about one time in nine, and land on syzygy twins about one time in ten. The lab finds coincidences; weighing them is up to you.</dd>
+    </dl>
+    <h2>Sources and inspiration</h2>
+    <ul class="src">
+      <li><a href="https://dataswamp.org/~john/sites/ccru/id(entity)/glossary.htm" target="_blank" rel="noopener">Ccru Glossary</a> <span>· currents, tractor zones, gates, mesh numbers, AQ</span></li>
+      <li><a href="https://dataswamp.org/~john/sites/ccru/digithype/pandemonium.htm" target="_blank" rel="noopener">Ccru: Pandemonium</a> <span>· the 45 demons and their classes</span></li>
+      <li><a href="https://dataswamp.org/~john/sites/ccru/declab.htm" target="_blank" rel="noopener">Ccru: Decimal Labyrinth</a> <span>· zones, syzygies and regions</span></li>
+      <li><a href="https://alektryon.github.io/ccru-aq/about/index.html" target="_blank" rel="noopener">About CCRU AQ</a> <span>· the A&nbsp;=&nbsp;10 to Z&nbsp;=&nbsp;35 system</span></li>
+      <li>Nick Land, “Qabbala 101,” <i>Collapse</i> I (2007), p.&nbsp;281 and n.&nbsp;4 <span>· AQ totals reduced and read through the Numogram, under the name “Anglossic Qabbala”</span></li>
+      <li><a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a> <span>· inspiration for this project: an open-source gematria workbench with a Ccru Numogram module, whose Divination mode reads a Lemur from two names much as the Zones tab does</span></li>
+    </ul>
+    <p class="credit">Built by SVL with Claude, October 2026.</p>
+  </footer>
+</div>
+
+<script>
+const LEXICON = {"ccru": ["Xenocosmography", "Eloquent Miracles", "Nick Land", "Hyperstition", "Numogram", "Accelerationism", "Gnon", "Lemuria", "Lemurian Time War", "Ccru", "Uttunul", "Katak", "Djynxx", "Oddubb", "Murrumur", "Cthelll", "Barker", "Qwernomics", "Axsys", "Decimal Labyrinth", "Time Circuit", "Warp", "Plex", "Syzygy", "Pandemonium", "Meltdown", "Fanged Noumena", "Thirst for Annihilation", "Teleoplexy", "Templexity", "Xenosystems", "Outside", "Capital", "Pythia", "Dark Enlightenment", "Cathedral", "Exit", "Tic Xenotation", "Abstract Culture", "Mark Fisher", "Sadie Plant", "Kodwo Eshun", "Orphan Drift", "Machinic Desire", "Cyberpositive", "Technocapital", "Crypto Current", "Bitcoin", "Satoshi Nakamoto", "Shanghai", "Urban Future", "Outside In", "Pythia Unbound", "Phyl Undhu", "Lemurs", "Anglossic Qabbala", "AQ", "Qabbala", "Xenodemon", "Chronodemon", "Time War", "Templex", "Neuromancer", "William Gibson", "Cyberspace", "Burroughs", "Interzone", "Capitalism", "Hyperstitional", "Numogrammatic", "Decimal Numogram", "Plutonics", "Cyberrevolution", "Swarmachines", "Circuitries", "Templexity Shanghai", "Xeno"], "lovecraft": ["Cthulhu", "Lovecraft", "Necronomicon", "Yog Sothoth", "Azathoth", "Nyarlathotep", "Dagon", "Rlyeh", "Shoggoth", "Old Ones", "Great Old Ones", "Elder Gods", "Elder Sign", "Arkham", "Innsmouth", "Miskatonic", "Call of Cthulhu", "That is not dead which can eternal lie", "Mountains of Madness", "The Outer Gods", "Abdul Alhazred"], "thelema": ["Aleister Crowley", "Crowley", "Thelema", "Agape", "Do what thou wilt", "Love is the law", "Love under will", "Aiwass", "Hadit", "Nuit", "Ra Hoor Khuit", "Horus", "Babalon", "Choronzon", "Abrahadabra", "Book of the Law", "Liber Al", "Book of Lies", "Aeon of Horus", "The Great Beast", "To Mega Therion", "Therion", "Holy Guardian Angel", "Magick", "Thoth", "Golden Dawn", "Boleskine", "Every man and every woman is a star", "The Abyss"], "faust": ["Faust", "Doctor Faustus", "Mephistopheles", "Mephisto", "Gretchen", "Walpurgis Night", "Deal with the Devil", "Pact with the Devil", "Sold his soul", "The spirit that denies", "Goethe", "Marlowe"], "occult": ["Demiurge", "Pleroma", "Sophia", "Archons", "Abraxas", "Gnosis", "Aeon", "Hermes Trismegistus", "Emerald Tablet", "As above so below", "Philosophers Stone", "Magnum Opus", "Solve et Coagula", "Prima Materia", "Ouroboros", "Azoth", "Alchemy", "Baphomet", "Lucifer", "Satan", "Beelzebub", "Lilith", "Samael", "Metatron", "Golem", "Tetragrammaton", "Sephiroth", "Qliphoth", "Tree of Life", "Ein Sof", "Kabbalah", "Gematria", "Satanic Gematria", "Numerology", "Bibliomancy", "Tarot", "Grimoire", "Sigil", "Chaos Magic", "Austin Osman Spare", "Occult", "Magic", "Sorcery", "Witchcraft", "Necromancy", "Divination", "Oracle", "Prophecy", "Black Magic", "Left Hand Path", "Right Hand Path", "Daemon", "Familiar", "Pentagram", "Hexagram", "Talisman", "Invocation", "Evocation"], "bible": ["Number of the Beast", "Six hundred sixty six", "The Beast", "Antichrist", "Apocalypse", "Armageddon", "Revelation", "Alpha and Omega", "Whore of Babylon", "Lake of Fire", "Four Horsemen", "Seven Seals", "Mark of the Beast", "In the beginning was the Word", "Let there be light", "Fiat Lux", "Ashes to ashes", "Dust to dust", "Tower of Babel", "Garden of Eden", "Tree of Knowledge", "Original Sin", "Serpent", "Adam", "Eve", "Babylon", "Golgotha", "Lazarus", "Judas", "Logos", "Holy Ghost", "Holy Spirit", "Fallen Angel", "Morning Star", "Son of Perdition", "Abaddon", "Apollyon", "Leviathan", "Behemoth", "Gog and Magog", "Mene Mene Tekel", "Vanity of vanities"], "philo": ["Will to Power", "Eternal Return", "Overman", "Ubermensch", "God is dead", "Amor Fati", "Zarathustra", "Beyond Good and Evil", "Death of God", "Thing in Itself", "Noumenon", "Noumena", "Phenomena", "Critique of Pure Reason", "Transcendental", "Body without Organs", "Anti Oedipus", "Thousand Plateaus", "Rhizome", "Deterritorialization", "Schizoanalysis", "Desiring Machines", "Accursed Share", "Sovereignty", "Inner Experience", "Nietzsche", "Kant", "Bataille", "Deleuze", "Guattari", "Spinoza", "Hegel", "Absolute Spirit", "Geist", "Dasein", "Heidegger", "Being and Time", "Nothingness", "Nihilism", "Abyss", "Schopenhauer", "Will and Representation", "Cogito", "Eternal Recurrence", "Last Man", "Death Drive", "Thanatos", "Eros", "The Real", "Lacan"], "ai": ["Artificial Intelligence", "Singularity", "Superintelligence", "Machine Intelligence", "Neural Network", "Basilisk", "Rokos Basilisk", "Paperclip Maximizer", "Alignment", "Large Language Model", "Language Model", "Claude", "GPT", "Intelligence Explosion", "Technological Singularity", "The Machine", "Ghost in the Machine", "Turing Test", "Alan Turing", "Cybernetics", "Norbert Wiener", "Skynet", "Golem XIV", "Deus ex Machina", "Machine God"], "greek": ["Sphinx", "Riddle of the Sphinx", "Oedipus", "Thebes", "Delphi", "Know thyself", "Gnothi Seauton", "Apollo", "Dionysus", "Prometheus", "Pandora", "Hermes", "Chronos", "Kronos", "Aion", "Kairos", "Hades", "Persephone", "Orpheus", "Eurydice", "Medusa", "Minotaur", "Labyrinth", "Icarus", "Daedalus", "Cassandra", "Pythagoras", "Tetractys"], "sphinxph": ["Will to Ice", "What is Man", "Hell is hot", "Time is ill", "Love is God", "Love is lie", "Dogs of war", "Gods of war", "Iron to ice", "Time to die", "Gold is sin", "What is Ash", "Path of sin", "Ruin of all", "Hope is law"], "words": ["Cross", "Power", "Glory", "Omen", "Doom", "Devil", "Earth", "Tree", "Evil", "Man", "Ash", "Fire", "Ice", "Hell", "Heaven", "Death", "Life", "Time", "Void", "Zero", "Infinity", "Chaos", "Order", "Mirror", "Riddle", "Answer", "Question", "Number", "Word", "Name", "Secret", "Key", "Gate", "Door", "Spiral", "Loop", "Circuit", "Machine", "Ghost", "Spirit", "Soul", "Mind", "Dream", "Nightmare", "Shadow", "Light", "Darkness", "Eclipse", "Sun", "Moon", "Star", "Blood", "Bone", "Dust", "Salt", "Gold", "Mercury", "Sulphur", "Silence", "Thunder", "Lightning", "Dragon", "Wolf", "Raven", "Crow", "Owl", "Spider", "Web", "Hive", "Swarm", "Virus", "Plague", "Fever", "Madness", "Genius", "Prophet", "Witch", "Wizard", "Magus", "Hierophant", "Priestess", "Emperor", "Empress", "Hermit", "Fool", "Magician", "Lovers", "Chariot", "Strength", "Justice", "Wheel of Fortune", "Hanged Man", "Temperance", "Tower", "Judgement", "World"], "nums": ["One hundred eight", "Three hundred thirty three", "Two hundred sixteen", "Four hundred fifty one", "Nine", "Thirty six", "Forty five", "Seven hundred twenty three", "One hundred eighty nine"], "extra": ["Blade Runner", "Apocalypse Now", "The Matrix", "Space Odyssey", "Ghost in the Shell", "Videodrome", "Event Horizon", "Hellraiser", "The Exorcist", "Rosemarys Baby", "The Omen", "Eyes Wide Shut", "Lost Highway", "Mulholland Drive", "Twin Peaks", "Fire Walk With Me", "Donnie Darko", "Primer", "Arrival", "Annihilation", "Stalker", "Solaris", "Akira", "Evangelion", "Gravitys Rainbow", "Infinite Jest", "Blood Meridian", "Moby Dick", "Paradise Lost", "Divine Comedy", "Inferno", "Purgatorio", "Paradiso", "The Waste Land", "Finnegans Wake", "Ulysses", "Naked Lunch", "Nova Express", "The Soft Machine", "Snow Crash", "Dune", "Foundation", "Frankenstein", "Dracula", "The King in Yellow", "House of Leaves", "Pale Fire", "Ficciones", "Library of Babel", "The Aleph", "Labyrinths", "Godel Escher Bach", "Strange Loop", "Heart of Darkness", "Lord of the Flies", "Brave New World", "Nineteen Eighty Four", "Fahrenheit Four Fifty One", "Dark Side of the Moon", "Sympathy for the Devil", "Stairway to Heaven", "Highway to Hell", "Paint It Black", "Master of Puppets", "Selected Ambient Works", "Music for Airports", "Kid A", "OK Computer", "Nothing human makes it out of the near future", "An invasion from the future", "Fictions that make themselves real", "The future is already here", "Nothing is true everything is permitted", "The abyss gazes also into you", "And with strange aeons even death may die", "Do what thou wilt shall be the whole of the law", "Love is the law love under will", "Let him that hath understanding count the number of the beast", "His number is six hundred threescore and six", "Here is wisdom", "What is man that thou art mindful of him", "I am the spirit that denies", "Thus spoke Zarathustra", "The owl of Minerva", "Here be dragons", "The map is not the territory", "Ph nglui mglw nafh Cthulhu Rlyeh wgah nagl fhtagn", "Iä Iä Cthulhu fhtagn", "Hyperstition is a positive feedback circuit", "Garden of Forking Paths", "Tlon Uqbar Orbis Tertius", "Pierre Menard", "Funes the Memorious", "The Lottery in Babylon", "Death and the Compass", "The Circular Ruins", "The Book of Sand", "The Zahir", "Borges", "Pynchon", "Philip K Dick", "Valis", "Ubik", "Do Androids Dream of Electric Sheep", "Electric Sheep", "Philip Dick", "Thomas Pynchon", "Jorge Luis Borges", "Ballard", "Crash", "The Atrocity Exhibition", "Cronenberg", "David Lynch", "Kubrick", "Tarkovsky", "Stanislaw Lem", "Mind Children", "Accelerate", "Hyperstition Laboratory", "Cybernetic Culture", "Warwick University", "Virtual Futures", "Abstract Culture Swarm", "Lemurian Time", "Time Sorcery", "Hidden Arts", "Digital Pandemonium", "Apocalypse Culture", "Black Iron Prison", "Empire Never Ended", "The Empire Never Ended", "Chapel Perilous", "Illuminatus", "Discordia", "Eris", "Fnord", "Kallisti", "Hail Eris", "Robert Anton Wilson", "Operation Mindfuck", "Synchronicity", "Carl Jung", "Collective Unconscious", "Shadow Self", "Anima", "Animus", "Archetype", "Mysterium Coniunctionis", "Red Book", "Liber Novus", "Philemon", "Hermeticism", "Kybalion", "The All is Mind", "Corpus Hermeticum", "Poimandres", "Asclepius", "Picatrix", "Key of Solomon", "Lesser Key of Solomon", "Ars Goetia", "Goetia", "Seventy Two Demons", "Enochian", "John Dee", "Edward Kelley", "Monas Hieroglyphica", "Angelic Language", "Call of the Aethyrs", "Vision and the Voice", "Liber Legis", "Book of Thoth", "Thoth Tarot", "Major Arcana", "Minor Arcana", "Celtic Cross", "Rider Waite", "Wheel", "Ain Soph Aur", "Kether", "Chokmah", "Binah", "Daath", "Chesed", "Geburah", "Tiphareth", "Netzach", "Hod", "Yesod", "Malkuth", "Thirty Two Paths", "Sefer Yetzirah", "Zohar", "Bahir", "Golem of Prague", "Shem ha Mephorash", "Seventy Two Names"]};
+
+/* ---------- cipher core ---------- */
+const CIPHERS6 = ['ord', 'red', 'aq', 'rev', 'rred', 'sat'];
+const CIPHER_SHORT = { ord: 'Ord', red: 'Red', aq: 'AQ', rev: 'Rev', rred: 'RRed', sat: 'Sat' };
+const CIPHER_LONG = { ord: 'Ordinal', red: 'Reduction', aq: 'AQ', rev: 'Reverse', rred: 'Reverse reduction', sat: 'Satanic' };
+
+function lettersOf(s) {
+  return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z]/g, '');
+}
+function digitSum(s) {
+  let t = 0;
+  for (const ch of String(s || '')) if (ch >= '0' && ch <= '9') t += ch.charCodeAt(0) - 48;
+  return t;
+}
+/* Ordinal A=1..Z=26, Reverse Z=1..A=26, Reduction 1-9 repeating, Satanic A=36..Z=61,
+   AQ A=10..Z=35 with digits 0-9 at face value. */
+function values(s) {
+  const t = lettersOf(s);
+  let ord = 0, red = 0, rred = 0;
+  for (let i = 0; i < t.length; i++) {
+    const p = t.charCodeAt(i) - 96;
+    ord += p; red += (p - 1) % 9 + 1; rred += (26 - p) % 9 + 1;
+  }
+  const n = t.length, d = digitSum(s);
+  return { n, ord, rev: 27 * n - ord, red, rred, sat: ord + 35 * n, aq: ord + 9 * n + d, digits: d };
+}
+function dr(n) { n = Math.abs(Math.round(n)); return n === 0 ? 0 : 1 + (n - 1) % 9; }
+function plexSteps(n) {
+  const out = [n]; let x = n;
+  while (x > 9) { x = String(x).split('').reduce((a, c) => a + (+c), 0); out.push(x); }
+  return out;
+}
+
+/* ---------- numogram structure (Ccru glossary) ---------- */
+function region(z) { return (z === 3 || z === 6) ? 'warp' : ((z === 9 || z === 0) ? 'plex' : 'tc'); }
+const REGION_NAME = { tc: 'Time-Circuit', warp: 'Warp', plex: 'Plex' };
+const SYZYGIES = {
+  '9::0': { demon: 'Uttunul', current: 'Plex', to: 9 },
+  '8::1': { demon: 'Murrumur', current: 'Surge', to: 7 },
+  '7::2': { demon: 'Oddubb', current: 'Hold', to: 5 },
+  '6::3': { demon: 'Djynxx', current: 'Warp', to: 3 },
+  '5::4': { demon: 'Katak', current: 'Sink', to: 1 }
+};
+function syzOf(z) {
+  const t = 9 - z, a = Math.max(z, t), b = Math.min(z, t), key = a + '::' + b;
+  return Object.assign({ key, a, b, twin: t }, SYZYGIES[key]);
+}
+function gateOf(z) {
+  const g = z * (z + 1) / 2;
+  return { n: g, label: 'Gt-' + String(g).padStart(2, '0'), to: g === 0 ? 0 : dr(g) };
+}
+/* zone a phrase lands in under each cipher */
+function cipherZones(v) {
+  const z = {};
+  for (const c of CIPHERS6) z[c] = dr(v[c]);
+  return z;
+}
+
+/* ---------- Pandemonium Matrix ---------- */
+const DEMON_TABLE = [[1,0,'Lurgo'],[2,0,'Duoddod'],[2,1,'Doogu'],[3,0,'Ixix'],[3,1,'Ixigool'],[3,2,'Ixidod'],[4,0,'Krako'],[4,1,'Sukugool'],[4,2,'Skoodu'],[4,3,'Skarkix'],[5,0,'Tokhatto'],[5,1,'Tukkamu'],[5,2,'Kuttadid'],[5,3,'Tikkitix'],[5,4,'Katak'],[6,0,'Tchu'],[6,1,'Djungo'],[6,2,'Djuddha'],[6,3,'Djynxx'],[6,4,'Tchakki'],[6,5,'Tchattuk'],[7,0,'Puppo'],[7,1,'Bubbamu'],[7,2,'Oddubb'],[7,3,'Pabbakis'],[7,4,'Ababbatok'],[7,5,'Papatakoo'],[7,6,'Bobobja'],[8,0,'Minommo'],[8,1,'Murrumur'],[8,2,'Nammamad'],[8,3,'Mummumix'],[8,4,'Numko'],[8,5,'Muntuk'],[8,6,'Mommoljo'],[8,7,'Mombbo'],[9,0,'Uttunul'],[9,1,'Tutagool'],[9,2,'Unnunddo'],[9,3,'Ununuttix'],[9,4,'Ununak'],[9,5,'Tukutu'],[9,6,'Unnutchi'],[9,7,'Nuttubab'],[9,8,'Ummnu']];
+const TCSET = new Set([1, 2, 4, 5, 7, 8]);
+function meshOf(a, b) { return a * (a - 1) / 2 + b; }
+function demonClass(a, b) {
+  const x = TCSET.has(a), y = TCSET.has(b);
+  return x && y ? 'chrono' : (!x && !y ? 'xeno' : 'amphi');
+}
+function demonName(a, b, spelling) {
+  if (a === 8 && b === 1) return spelling === 'murmur' ? 'Mur Mur' : 'Murrumur';
+  const r = DEMON_TABLE.find(d => d[0] === a && d[1] === b);
+  return r ? r[2] : '?';
+}
+function demonBetween(za, zb, spelling) {
+  if (za === zb) return null;
+  const a = Math.max(za, zb), b = Math.min(za, zb);
+  return { a, b, name: demonName(a, b, spelling), mesh: meshOf(a, b), cls: demonClass(a, b), syzygetic: a + b === 9 };
+}
+function landsHome(a, b, z) { return z === a || z === b || (z === 9 && b === 0); }
+function demonsWithHome(spelling) {
+  return DEMON_TABLE.map(([a, b]) => {
+    const name = demonName(a, b, spelling), v = values(name), z = dr(v.aq);
+    return { a, b, name, mesh: meshOf(a, b), cls: demonClass(a, b), syzygetic: a + b === 9, aq: v.aq, zone: z, home: landsHome(a, b, z) };
+  }).sort((p, q) => p.mesh - q.mesh);
+}
+function expectedHome() {
+  let e = 0;
+  for (const [a, b] of DEMON_TABLE) {
+    const s = new Set([a === 0 ? 9 : a, b === 0 ? 9 : b]);
+    e += s.size / 9;
+  }
+  return e;
+}
+function maxWindow(hitMeshes, w) {
+  const s = new Set(hitMeshes); let best = 0, at = 0;
+  for (let st = 0; st + w <= 45; st++) {
+    let c = 0; for (let i = st; i < st + w; i++) if (s.has(i)) c++;
+    if (c > best) { best = c; at = st; }
+  }
+  return { count: best, start: at };
+}
+function windowOdds(k, observed, w, trials, seed) {
+  let a = seed || 12345;
+  const rnd = () => {
+    a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  let hit = 0;
+  for (let t = 0; t < trials; t++) {
+    const pick = new Set();
+    while (pick.size < k) pick.add(Math.floor(rnd() * 45));
+    if (maxWindow([...pick], w).count >= observed) hit++;
+  }
+  return hit / trials;
+}
+
+/* ---------- alphabet ---------- */
+function aqLetter(c) { return c.charCodeAt(0) - 87; }
+function atbash(s) {
+  return String(s).replace(/[a-z]/gi, ch => {
+    const lo = ch.toLowerCase(), m = String.fromCharCode(219 - lo.charCodeAt(0));
+    return ch === lo ? m : m.toUpperCase();
+  });
+}
+
+/* ---------- number names and the attractor ---------- */
+const ONES = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+const TENS = ['', '', 'twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+function numName(n, and) {
+  if (n < 20) return ONES[n];
+  if (n < 100) return TENS[Math.floor(n / 10)] + (n % 10 ? ' ' + ONES[n % 10] : '');
+  if (n < 1000) {
+    const r = n % 100;
+    return ONES[Math.floor(n / 100)] + ' hundred' + (r ? (and ? ' and ' : ' ') + numName(r, and) : '');
+  }
+  for (const [v, w] of [[1e9, 'billion'], [1e6, 'million'], [1e3, 'thousand']]) {
+    if (n >= v) {
+      const q = Math.floor(n / v), r = n % v;
+      return numName(q, and) + ' ' + w + (r ? ((and && r < 100) ? ' and ' : ' ') + numName(r, and) : '');
+    }
+  }
+  return '';
+}
+function nameValue(n, cipher, and) {
+  const v = values(numName(n, and));
+  return cipher === 'aq' ? v.aq : (cipher === 'sat' ? v.sat : v.ord);
+}
+function orbitOf(n, cipher, and) {
+  const seen = new Map(), path = []; let x = n;
+  while (!seen.has(x) && path.length < 600) { seen.set(x, path.length); path.push(x); x = nameValue(x, cipher, and); }
+  const i = seen.has(x) ? seen.get(x) : path.length;
+  return { path, entry: i, cycle: path.slice(i), tail: path.slice(0, i), next: x };
+}
+function rotateToMin(c) {
+  let m = 0; for (let i = 1; i < c.length; i++) if (c[i] < c[m]) m = i;
+  return c.slice(m).concat(c.slice(0, m));
+}
+function basins(cipher, and, N) {
+  N = N || 9999;
+  const memo = new Map(), counts = new Map(), cycles = new Map();
+  for (let s = 1; s <= N; s++) {
+    let x = s; const path = [], local = new Map();
+    while (!memo.has(x) && !local.has(x)) { local.set(x, path.length); path.push(x); x = nameValue(x, cipher, and); }
+    let key;
+    if (memo.has(x)) key = memo.get(x);
+    else { const cyc = rotateToMin(path.slice(local.get(x))); key = cyc.join(','); cycles.set(key, cyc); }
+    for (const p of path) memo.set(p, key);
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  return [...counts.entries()].map(([key, count]) => ({ key, cycle: cycles.get(key), count })).sort((p, q) => q.count - p.count);
+}
+
+/* ---------- cipher-hop loops ---------- */
+const LOOP_CIPHERS = ['ord', 'rev', 'sat', 'aq'];
+const FEATURED_CATS = new Set(['ccru', 'lovecraft', 'thelema', 'faust', 'occult', 'bible', 'philo', 'ai', 'greek', 'sphinxph']);
+function lexiconList(lex) {
+  const out = [], cat = new Map();
+  for (const [k, arr] of Object.entries(lex)) for (const p of arr) { out.push(p); cat.set(p, k); }
+  return { list: out, cat };
+}
+function findLoops(start, list, maxLen, cap) {
+  maxLen = maxLen || 4; cap = cap || 500;
+  const pool = list.some(p => p === start) ? list : list.concat([start]);
+  const V = new Map(), idx = new Map();
+  for (const p of pool) {
+    const v = values(p); if (v.n === 0) continue;
+    V.set(p, v);
+    for (const c of LOOP_CIPHERS) { const k = v[c]; let a = idx.get(k); if (!a) { a = []; idx.set(k, a); } a.push([p, c]); }
+  }
+  if (!V.has(start)) return [];
+  const twinKey = p => { const v = V.get(p); return v.n + '|' + v.ord; };
+  const out = [];
+  for (const cin of LOOP_CIPHERS) {
+    const path = [[start, cin]], hops = [];
+    const dfs = () => {
+      if (out.length >= cap) return;
+      const [p, ci] = path[path.length - 1], v = V.get(p);
+      for (const co of LOOP_CIPHERS) {
+        if (co === ci) continue;
+        const val = v[co], list2 = idx.get(val) || [];
+        for (const [q, cq] of list2) {
+          if (q === start) {
+            if (cq === cin && path.length >= 2) {
+              out.push(path.map(([pp, cc], i) => ({ p: pp, cin: cc, cout: i < hops.length ? hops[i][0] : co })));
+            }
+            continue;
+          }
+          if (path.length >= maxLen) continue;
+          if (path.some(([pp]) => pp === q || twinKey(pp) === twinKey(q))) continue;
+          path.push([q, cq]); hops.push([co, val]);
+          dfs();
+          path.pop(); hops.pop();
+          if (out.length >= cap) return;
+        }
+      }
+    };
+    dfs();
+  }
+  return out;
+}
+function loopHops(loop) {
+  return loop.map((node, i) => {
+    const nxt = loop[(i + 1) % loop.length];
+    const a = values(node.p)[node.cout], b = values(nxt.p)[nxt.cin];
+    return { from: node.p, fromC: node.cout, to: nxt.p, toC: nxt.cin, val: a, ok: a === b && node.cin !== node.cout };
+  });
+}
+const CAT_LABELS = {
+  ccru: 'Ccru and Nick Land', lovecraft: 'Lovecraft', thelema: 'Crowley and Thelema', faust: 'Faust',
+  occult: 'Occult and esoteric', bible: 'Biblical', philo: 'Philosophy', ai: 'AI and cybernetics',
+  greek: 'Greek myth', sphinxph: 'Sphinx phrases', extra: 'Literature, film, music and more esoterica',
+  words: 'Single words', nums: 'Number names'
+};
+const CAT_ORDER = ['ccru', 'lovecraft', 'thelema', 'faust', 'occult', 'bible', 'philo', 'ai', 'greek', 'sphinxph', 'extra', 'words', 'nums'];
+function catWeight(k) { return FEATURED_CATS.has(k) ? 3 : ((k === 'words' || k === 'nums') ? -2 : 0); }
+function scoreParts(loop, cat) {
+  const ciphers = new Set(); let theme = 0;
+  for (const n of loop) { ciphers.add(n.cin); ciphers.add(n.cout); theme += catWeight(cat.get(n.p)); }
+  const c = ciphers.size * 2, len = -loop.length;
+  return { theme, ciphers: c, length: len, total: theme + c + len };
+}
+function scoreLoop(loop, cat) { return scoreParts(loop, cat).total; }
+
+/* ---------- curated content ---------- */
+const CURATED_LOOPS = [
+  { id: 'two', label: '2 steps', title: 'Will to Ice and the Great Old Ones', nodes: [
+    { p: 'Will to Ice', cin: 'rev', cout: 'aq' }, { p: 'Great Old Ones', cin: 'rev', cout: 'ord' }] },
+  { id: 'three', label: '3 steps', title: 'The Beast in the Numogram', nodes: [
+    { p: 'Number of the Beast', cin: 'ord', cout: 'rev' }, { p: 'Oddubb', cin: 'sat', cout: 'aq' }, { p: 'Numogram', cin: 'ord', cout: 'aq' }] },
+  { id: 'four', label: '4 steps', title: 'The 333 chain, closed', nodes: [
+    { p: 'Will to Ice', cin: 'ord', cout: 'aq' }, { p: 'Eloquent Miracles', cin: 'ord', cout: 'aq' }, { p: 'Xenocosmography', cin: 'aq', cout: 'ord' }, { p: 'Ubermensch', cin: 'aq', cout: 'ord' }] },
+  { id: 'sphinx', label: '6 steps', title: 'Through the Sphinx', nodes: [
+    { p: 'Will to Ice', cin: 'rev', cout: 'aq' }, { p: 'Eloquent Miracles', cin: 'ord', cout: 'aq' }, { p: 'Xenocosmography', cin: 'aq', cout: 'ord' }, { p: 'Dionysus', cin: 'aq', cout: 'rev' }, { p: 'Sphinx', cin: 'ord', cout: 'rev' }, { p: 'Cthelll', cin: 'ord', cout: 'aq' }] },
+  { id: 'arc', label: '6 steps', title: 'Land’s arc', soft: true, nodes: [
+    { p: 'Will to Ice', cin: 'rev', cout: 'aq' }, { p: 'Eloquent Miracles', cin: 'ord', cout: 'aq' }, { p: 'Xenocosmography', cin: 'aq', cout: 'ord' }, { p: 'Schizoanalysis', cin: 'rev', cout: 'ord' }, { p: 'Dark Enlightenment', cin: 'ord', cout: 'rev' }, { p: 'Anglossic Qabbala', cin: 'aq', cout: 'ord' }] }
+];
+const EXAMPLE_PAIRS = [
+  ['Man', 'Machine'], ['Gematria', 'Machine Learning'], ['Training', 'Inference'], ['Synchronicity', 'Chance'],
+  ['Inside', 'Outside'], ['Angel', 'Demon'], ['Letter', 'Number'], ['Human', 'Machine'],
+  ['Safety', 'Danger'], ['Signal', 'Noise'], ['God', 'Machine'], ['Claude', 'Nick Land'],
+  ['Xenocosmography', 'Eloquent Miracles'], ['Claude Opus', 'Alan Turing']
+];
+
+if (typeof module !== 'undefined') module.exports = {
+  values, dr, plexSteps, region, syzOf, gateOf, cipherZones, demonBetween, demonsWithHome, expectedHome,
+  maxWindow, windowOdds, atbash, aqLetter, numName, orbitOf, basins, findLoops, loopHops, scoreLoop, scoreParts, catWeight, CAT_LABELS,
+  lexiconList, CURATED_LOOPS, EXAMPLE_PAIRS, DEMON_TABLE
+};
+
+(function () {
+  'use strict';
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const pad = n => String(n).padStart(2, '0');
+  const fmt = n => Number(n).toLocaleString('en-US');
+  const reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const LEX = lexiconList(LEXICON);
+  const ALPHA = 'abcdefghijklmnopqrstuvwxyz';
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+  const sgn = n => n > 0 ? '+' + n : (n < 0 ? '\u2212' + Math.abs(n) : '0');
+
+  /* ---------- masthead ---------- */
+  function mast() {
+    const v = values('Numogram Lab'), st = plexSteps(v.aq), z = st[st.length - 1], r = region(z);
+    $('#mast-readout').innerHTML =
+      `<span>AQ ${st.join(' → ')}</span>` +
+      `<span class="rchip"><i class="dot ${r}"></i>zone ${z} · ${REGION_NAME[r]}</span>` +
+      `<a href="#attractor" data-goto="attractor">${v.aq} also sits in the Ordinal loop every spelled-out number falls into</a>`;
+  }
+
+  /* ---------- tabs ---------- */
+  const TABS = ['zones', 'alphabet', 'demons', 'loops', 'attractor'];
+  const shown = {};
+  const onShow = { alphabet: initAlphabet, demons: initDemons, loops: initLoops, attractor: initAttractor };
+  function selectTab(t, fromUser) {
+    if (!TABS.includes(t)) t = 'zones';
+    for (const k of TABS) {
+      const b = $('#tab-' + k), p = $('#p-' + k), on = k === t;
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      b.tabIndex = on ? 0 : -1;
+      p.hidden = !on;
+    }
+    if (fromUser) { try { history.replaceState(null, '', '#' + t); } catch (e) { /* view without history */ } }
+    if (!shown[t] && onShow[t]) { shown[t] = true; onShow[t](); }
+    if (t === 'loops') startTraveler(); else stopTraveler();
+  }
+
+  /* ---------- numogram geometry ---------- */
+  const ZPOS = { 6: [150, 92], 3: [250, 92], 7: [118, 262], 2: [56, 262], 8: [282, 262], 1: [344, 262], 5: [168, 402], 4: [232, 402], 9: [150, 532], 0: [250, 532] };
+  const PAIRS = [[6, 3], [7, 2], [8, 1], [5, 4], [9, 0]];
+  const CUR = {
+    '8::1': { d: 'M313,258 C270,200 170,190 134,246', at: [224, 194], name: 'Surge', r: 'tc' },
+    '7::2': { d: 'M87,266 C84,330 104,392 146,400', at: [60, 356], name: 'Hold', r: 'tc' },
+    '5::4': { d: 'M200,406 C230,470 352,440 345,285', at: [366, 372], name: 'Sink', r: 'tc' },
+    '6::3': { d: 'M200,90 C206,52 246,48 250,70', at: [230, 42], name: 'Warp current', r: 'warp' },
+    '9::0': { d: 'M200,535 C196,576 156,580 150,554', at: [236, 584], name: 'Plex current', r: 'plex' }
+  };
+  const DLBL = { '6::3': [200, 111, 'warp'], '7::2': [87, 226, 'tc'], '8::1': [330, 226, 'tc'], '5::4': [200, 369, 'tc'], '9::0': [200, 521, 'plex'] };
+  const GATE = {
+    0: { d: 'M269,524 C300,500 302,566 270,541', at: [322, 556, 'plex'] },
+    1: { d: 'M363,252 C392,236 392,288 363,272', at: [370, 304, 'tc'] },
+    2: { d: 'M60,241 C70,170 200,150 238,110', at: [132, 160, 'bg'] },
+    3: { d: 'M244,110 Q200,142 156,110', at: [176, 137, 'warp'] },
+    4: { d: 'M251,392 C290,370 318,330 331,279', at: [304, 356, 'tc'] },
+    5: { d: 'M172,381 C196,300 184,170 156,113', at: [210, 300, 'tc'] },
+    6: { d: 'M150,113 Q200,176 250,113', at: [238, 149, 'warp'] },
+    7: { d: 'M136,274 C200,330 280,330 326,276', at: [244, 334, 'tc'] },
+    8: { d: 'M291,282 C322,420 220,460 162,512', at: [258, 472, 'tc'] },
+    9: { d: 'M130,524 C98,500 98,566 131,541', at: [90, 584, 'plex'] }
+  };
+
+  function buildNumogram() {
+    const mk = ['tc', 'warp', 'plex', 'ink', 'muted'].map(k =>
+      `<marker id="ar-${k}" class="mk mk-${k}" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0.8 L10,5 L0,9.2 z"/></marker>`).join('');
+    let h = `<defs>${mk}</defs>`;
+    h += '<rect class="band warp" x="12" y="26" width="376" height="124" rx="14"/>' +
+         '<rect class="band tc" x="12" y="166" width="376" height="312" rx="14"/>' +
+         '<rect class="band plex" x="12" y="494" width="376" height="98" rx="14"/>';
+    const rl = (x, y, r, t) => `<circle class="rdot ${r}" cx="${x}" cy="${y - 3.5}" r="3.5"/><text class="rlabel" x="${x + 9}" y="${y}">${t}</text>`;
+    h += rl(26, 46, 'warp', 'WARP') + rl(26, 186, 'tc', 'TIME-CIRCUIT') + rl(26, 514, 'plex', 'PLEX');
+    h += '<g id="gates-all" hidden>' + Object.keys(GATE).map(z => {
+      const g = GATE[z];
+      return `<path class="gate" d="${g.d}" marker-end="url(#ar-muted)"/><text class="gate-lbl ht h-${g.at[2]}" x="${g.at[0]}" y="${g.at[1]}">${gateOf(+z).label}</text>`;
+    }).join('') + '</g>';
+    for (const k of Object.keys(CUR)) {
+      const c = CUR[k];
+      h += `<path class="current ${c.r}" data-k="${k}" d="${c.d}" marker-end="url(#ar-${c.r})"/><text class="lbl ht h-${c.r}" x="${c.at[0]}" y="${c.at[1]}">${c.name}</text>`;
+    }
+    for (const [a, b] of PAIRS) {
+      const [x1, y1] = ZPOS[a], [x2, y2] = ZPOS[b];
+      h += `<line class="bar" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+    }
+    for (const k of Object.keys(DLBL)) {
+      const [x, y, r] = DLBL[k];
+      h += `<text class="lbl dlbl ht h-${r}" x="${x}" y="${y}">${SYZYGIES[k].demon}</text>`;
+    }
+    for (let z = 0; z <= 9; z++) {
+      const [x, y] = ZPOS[z];
+      h += `<g class="zone ${region(z)}"><circle cx="${x}" cy="${y}" r="21"/><text x="${x}" y="${y + 6}">${z}</text></g>`;
+    }
+    h += '<g id="overlay"></g>';
+    $('#numo').innerHTML = h;
+  }
+
+  function pill(x, y, t) {
+    const w = t.length * 6.7 + 16;
+    x = Math.min(400 - w / 2 - 4, Math.max(w / 2 + 4, x));
+    return `<g class="pill"><rect x="${(x - w / 2).toFixed(1)}" y="${(y - 10).toFixed(1)}" width="${w.toFixed(1)}" height="20" rx="10"/><text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}">${esc(t)}</text></g>`;
+  }
+
+  function overlay(za, zb) {
+    $('#gates-all').hidden = !$('#all-gates').checked;
+    $$('#numo .current').forEach(p => p.classList.remove('lit'));
+    let h = '';
+    const zs = [];
+    if (za != null) zs.push(za);
+    if (zb != null && zb !== za) zs.push(zb);
+    for (const z of zs) {
+      const g = GATE[z];
+      h += `<path class="gate on" d="${g.d}" marker-end="url(#ar-ink)"/><text class="gate-lbl on ht h-${g.at[2]}" x="${g.at[0]}" y="${g.at[1]}">${gateOf(z).label}</text>`;
+    }
+    if (za != null && zb != null && za !== zb) {
+      const d = demonBetween(za, zb, 'murrumur');
+      const [x1, y1] = ZPOS[za], [x2, y2] = ZPOS[zb];
+      const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), ux = dx / L, uy = dy / L;
+      if (d.syzygetic) {
+        h += `<line class="hot" x1="${(x1 + ux * 21).toFixed(1)}" y1="${(y1 + uy * 21).toFixed(1)}" x2="${(x2 - ux * 21).toFixed(1)}" y2="${(y2 - uy * 21).toFixed(1)}"/>`;
+        const p = document.querySelector(`#numo .current[data-k="${d.a}::${d.b}"]`);
+        if (p) p.classList.add('lit');
+      } else {
+        const sx = x1 + ux * 31, sy = y1 + uy * 31, ex = x2 - ux * 31, ey = y2 - uy * 31;
+        h += `<line class="link" x1="${sx.toFixed(1)}" y1="${sy.toFixed(1)}" x2="${ex.toFixed(1)}" y2="${ey.toFixed(1)}"/>`;
+        h += pill((sx + ex) / 2, (sy + ey) / 2, `${d.name} ${d.a}::${d.b}`);
+      }
+    }
+    if (za != null) {
+      const [x, y] = ZPOS[za];
+      h += `<circle class="halo" cx="${x}" cy="${y}" r="28"/>`;
+    }
+    if (zb != null) {
+      const [x, y] = ZPOS[zb], same = za === zb;
+      h += `<circle class="halo b" cx="${x}" cy="${y}" r="${same ? 34 : 28}"/>`;
+    }
+    $('#overlay').innerHTML = h;
+  }
+
+  /* ---------- zones readouts ---------- */
+  const CLASS_TEXT = {
+    chrono: 'a chronodemon, one of the distances inside the Time-Circuit',
+    amphi: 'an amphidemon, a rupture in the Time-Circuit that opens onto the Outside',
+    xeno: 'a xenodemon of the outer gulfs'
+  };
+  function readout(el, which, raw) {
+    const text = String(raw || '').trim(), v = values(text);
+    if (v.n === 0 && v.digits === 0) {
+      el.innerHTML = `<div class="ph-head"><span class="badge ${which}" aria-hidden="true">${which.toUpperCase()}</span><span class="ph-name empty">Type a phrase</span></div>`;
+      return null;
+    }
+    const st = plexSteps(v.aq), z = st[st.length - 1], r = region(z), sz = syzOf(z), g = gateOf(z), cz = cipherZones(v);
+    el.innerHTML =
+      `<div class="ph-head"><span class="badge ${which}" aria-hidden="true">${which.toUpperCase()}</span><span class="ph-name">${esc(text)}</span><span class="rchip"><i class="dot ${r}"></i>zone ${z} · ${REGION_NAME[r]}</span></div>` +
+      `<dl class="kv"><dt>AQ</dt><dd class="mono">${st.join(' → ')}</dd>` +
+      `<dt>Syzygy</dt><dd>${sz.key} · ${sz.demon} · twin zone ${sz.twin}</dd>` +
+      `<dt>Current</dt><dd>${sz.current} → zone ${sz.to}</dd>` +
+      `<dt>Gate</dt><dd>${g.label} → zone ${g.to}</dd></dl>` +
+      `<div class="cz" aria-label="Zone under each cipher">${CIPHERS6.map(c =>
+        `<div><span class="k">${CIPHER_SHORT[c]}</span><span class="v">${v[c]}</span><span class="z"><i class="dot ${region(cz[c])}"></i>zone ${cz[c]}</span></div>`).join('')}</div>`;
+    return { z, v };
+  }
+  function between(ra, rb) {
+    const el = $('#between');
+    let h = '<h3>Between them</h3>';
+    if (!ra || !rb) { el.innerHTML = h + '<p class="big">Waiting for two phrases</p>'; return; }
+    if (ra.z === rb.z) {
+      const twins = ra.v.n === rb.v.n && ra.v.ord === rb.v.ord;
+      h += `<p class="big">Same zone · ${ra.z}</p><p>No demon stands between them.${twins ? ' They are exact twins too: the same in Ordinal, Reverse, Satanic and AQ.' : ''}</p>`;
+    } else {
+      const d = demonBetween(ra.z, rb.z, 'murrumur');
+      h += `<p class="big">${esc(d.name)} · ${d.a}::${d.b}</p><p>Mesh ${pad(d.mesh)}, ${CLASS_TEXT[d.cls]}.</p>`;
+      if (d.syzygetic) {
+        const s = syzOf(d.a);
+        h += `<p><strong>Syzygy twins.</strong> Zones ${d.a} and ${d.b} sum to nine, and the ${s.current} current flows to zone ${s.to}.</p>`;
+      }
+    }
+    el.innerHTML = h;
+  }
+  function buildChips() {
+    const box = $('#pair-chips');
+    box.innerHTML = EXAMPLE_PAIRS.map(([a, b], i) => `<button type="button" class="chip" data-i="${i}" aria-pressed="false">${esc(a)} / ${esc(b)}</button>`).join('');
+    box.addEventListener('click', e => {
+      const b = e.target.closest('.chip'); if (!b) return;
+      const [x, y] = EXAMPLE_PAIRS[+b.dataset.i];
+      $('#in-a').value = x; $('#in-b').value = y; updateZones();
+    });
+  }
+  function syncChips() {
+    const a = $('#in-a').value.trim().toLowerCase(), b = $('#in-b').value.trim().toLowerCase();
+    $$('#pair-chips .chip').forEach(c => {
+      const [x, y] = EXAMPLE_PAIRS[+c.dataset.i];
+      c.setAttribute('aria-pressed', String(x.toLowerCase() === a && y.toLowerCase() === b));
+    });
+  }
+  function updateZones() {
+    const ra = readout($('#ro-a'), 'a', $('#in-a').value);
+    const rb = readout($('#ro-b'), 'b', $('#in-b').value);
+    between(ra, rb);
+    overlay(ra ? ra.z : null, rb ? rb.z : null);
+    syncChips();
+  }
+
+  /* ---------- alphabet ---------- */
+  const SYZ_CLASS = { '8::1': 'murrumur', '7::2': 'oddubb', '5::4': 'katak', '6::3': 'djynxx', '9::0': 'plexpair' };
+  let ringSel = 6;
+  function buildRing() {
+    const cx = 200, cy = 200, R = 148, pos = [];
+    for (let i = 0; i < 26; i++) {
+      const th = (-90 + (i + 0.5) * 360 / 26) * Math.PI / 180;
+      pos.push([cx + R * Math.cos(th), cy + R * Math.sin(th), th]);
+    }
+    let h = '';
+    for (let i = 0; i < 13; i++) {
+      const j = 25 - i, [x1, y1] = pos[i], [x2] = pos[j], z = dr(aqLetter(ALPHA[i]));
+      h += `<line class="chord ${SYZ_CLASS[syzOf(z).key]}" data-p="${i}" x1="${(x1 - 14).toFixed(1)}" y1="${y1.toFixed(1)}" x2="${(x2 + 14).toFixed(1)}" y2="${y1.toFixed(1)}"/>`;
+    }
+    h += '<text class="ctr ht h-bg" x="200" y="189">G 16 + T 29</text><text class="ctr ht h-bg" x="200" y="219">= 45 = Gt-45</text>';
+    for (let i = 0; i < 26; i++) {
+      const [x, y, th] = pos[i], c = ALPHA[i], v = aqLetter(c), z = dr(v);
+      const vx = cx + (R + 25) * Math.cos(th), vy = cy + (R + 25) * Math.sin(th);
+      h += `<text class="lv" x="${vx.toFixed(1)}" y="${(vy + 3.5).toFixed(1)}">${v}</text>`;
+      h += `<g class="lt ${region(z)}" data-i="${i}" tabindex="0" role="button" aria-label="${c.toUpperCase()}, AQ ${v}, zone ${z}"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="13"/><text x="${x.toFixed(1)}" y="${(y + 4.5).toFixed(1)}">${c.toUpperCase()}</text></g>`;
+    }
+    const svg = $('#ring');
+    svg.innerHTML = h;
+    const pick = e => { const g = e.target.closest('.lt'); if (!g) return; const i = +g.dataset.i; selectRing(i < 13 ? i : 25 - i); };
+    svg.addEventListener('click', pick);
+    svg.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(e); } });
+  }
+  function selectRing(p) {
+    ringSel = p;
+    const q = 25 - p;
+    $$('#ring .chord').forEach(c => c.classList.toggle('on', +c.dataset.p === p));
+    $$('#ring .lt').forEach(g => g.classList.toggle('on', +g.dataset.i === p || +g.dataset.i === q));
+    const a = ALPHA[p], b = ALPHA[q], va = aqLetter(a), vb = aqLetter(b), za = dr(va), zb = dr(vb), s = syzOf(za);
+    $('#ring-detail').textContent = `${a.toUpperCase()} ${va} (zone ${za}) + ${b.toUpperCase()} ${vb} (zone ${zb}) = 45. ` +
+      (za === 9 ? 'Both letters plex to 9, which stands for Uttunul’s 9::0 syzygy: on the diagram the twins are 9 and 0, but a digital root writes 0 as 9.' : `Zones ${za} and ${zb} make ${s.demon}’s syzygy, ${s.key}.`);
+  }
+  function buildLegend() {
+    const groups = ['8::1', '7::2', '5::4', '6::3', '9::0'];
+    $('#ring-legend').innerHTML = groups.map(k => {
+      const pairs = [];
+      for (let i = 0; i < 13; i++) if (syzOf(dr(aqLetter(ALPHA[i]))).key === k) pairs.push(ALPHA[i].toUpperCase() + '/' + ALPHA[25 - i].toUpperCase());
+      return `<li><svg viewBox="0 0 26 10" aria-hidden="true"><line class="chord ${SYZ_CLASS[k]}" x1="1" y1="5" x2="25" y2="5"/></svg>${SYZYGIES[k].demon} ${k} · ${pairs.join(', ')}</li>`;
+    }).join('');
+  }
+  function renderZTable() {
+    const by = z => ALPHA.split('').filter(c => dr(aqLetter(c)) === z).map(c => c.toUpperCase()).join(' ');
+    let h = '<thead><tr><th>Zone</th><th>Letters</th><th>Twin</th><th>Letters</th><th>Syzygy</th></tr></thead><tbody>';
+    for (const [a, b] of [[1, 8], [2, 7], [4, 5], [3, 6], [9, 0]]) {
+      h += `<tr><td><span class="rchip"><i class="dot ${region(a)}"></i>${a}</span></td><td class="letters">${by(a)}</td>` +
+           `<td><span class="rchip"><i class="dot ${region(b)}"></i>${b}</span></td><td class="letters">${b === 0 ? 'none' : by(b)}</td><td>${syzOf(a).demon}</td></tr>`;
+    }
+    $('#ztable').innerHTML = h + '</tbody>';
+  }
+  function renderMirror() {
+    const t = lettersOf($('#mir-in').value).slice(0, 40), box = $('#mirror');
+    if (!t) { box.innerHTML = '<p class="note">Type some letters to mirror.</p>'; return; }
+    const m = atbash(t);
+    const tiles = s => s.split('').map(c => { const v = aqLetter(c), z = dr(v); return `<div class="tile"><b>${c.toUpperCase()}</b><span>${v}</span><span><i class="dot ${region(z)}"></i>${z}</span></div>`; }).join('');
+    const va = values(t).aq, vm = values(m).aq, za = dr(va), zm = dr(vm);
+    box.innerHTML =
+      `<div class="mirror-row"><div class="tiles">${tiles(t)}</div><div class="sum">AQ ${plexSteps(va).join(' → ')} <span class="rchip"><i class="dot ${region(za)}"></i>zone ${za}</span></div></div>` +
+      `<div class="mirror-row"><div class="tiles">${tiles(m)}</div><div class="sum">Mirror AQ ${plexSteps(vm).join(' → ')} <span class="rchip"><i class="dot ${region(zm)}"></i>zone ${zm}</span></div></div>` +
+      `<p class="note">${za === 9 ? 'Both totals plex to 9. In arithmetic mod 9, 9 and 0 are one number, so this is Uttunul’s 9::0 syzygy seen from the arithmetic side; on the diagram, 9’s twin is 0.' : `Zones ${za} and ${zm} sum to nine: ${syzOf(za).demon}’s syzygy.`} The two totals add to ${va + vm}, which is 45 × ${t.length}. ${cap(t)} scores ${values(t).rev} in Reverse Ordinal, the same as ${cap(m)} in Ordinal.</p>`;
+  }
+  function renderGates() {
+    let h = '<thead><tr><th>From</th><th>Gate</th><th>Name in AQ</th><th>Plexes</th><th>Opens</th></tr></thead><tbody>';
+    for (let z = 0; z <= 9; z++) {
+      const g = gateOf(z), v = values(g.label).aq, p = dr(v), ok = p === g.to || (p === 9 && g.to === 0);
+      h += `<tr><td>${z}</td><td>${g.label}</td><td>45+${pad(g.n).split('').join('+')} = ${v}</td><td>${p}</td><td>${g.to}${ok ? ' ✓' : ''}</td></tr>`;
+    }
+    $('#gtable').innerHTML = h + '</tbody>';
+  }
+  function initAlphabet() {
+    buildRing(); buildLegend(); renderZTable(); renderGates();
+    $('#mir-in').addEventListener('input', renderMirror);
+    renderMirror(); selectRing(ringSel);
+  }
+
+  /* ---------- pandemonium ---------- */
+  let SPELL = 'murrumur', PMSEL = '8::1';
+  const oddsCache = {};
+  function pmDetail(d) {
+    const st = plexSteps(d.aq);
+    let h = `<h3>Selected demon</h3><p class="big">${esc(d.name)} · ${d.a}::${d.b}</p>` +
+      `<p>Mesh ${pad(d.mesh)} · home zones ${d.a} and ${d.b === 0 ? '0, written 9' : d.b}</p>` +
+      `<p class="mono">AQ ${st.join(' → ')} · ${d.home ? `lands home in zone ${d.zone}` : `lands in zone ${d.zone}, away from ${d.a} and ${d.b}`}</p>`;
+    if (d.a === 8 && d.b === 1) h += '<p class="note">The Ccru glossary spells this demon Murrumur and the Pandemonium table writes Mur Mur. Murrumur plexes home; Mur Mur does not.</p>';
+    $('#pm-detail').innerHTML = h;
+  }
+  function barcode(hits, mw) {
+    const set = new Set(hits), x0 = 5, step = 10;
+    const bx1 = x0 + mw.start * step - 1, bx2 = x0 + (mw.start + 9) * step + 9;
+    let h = `<path class="bracket" d="M${bx1},19 V14 H${bx2} V19"/><text class="blabel" x="${(bx1 + bx2) / 2}" y="10">${mw.count} of ${hits.length}</text>`;
+    for (let i = 0; i < 45; i++) h += `<rect class="slot${set.has(i) ? ' on' : ''}" x="${x0 + i * step}" y="22" width="8" height="22" rx="1.5"><title>Mesh ${pad(i)}${set.has(i) ? ': name plexes home' : ''}</title></rect>`;
+    for (const t of [0, 10, 20, 30, 40, 44]) h += `<text class="tick" x="${x0 + t * step + 4}" y="58">${pad(t)}</text>`;
+    $('#barcode').innerHTML = h;
+  }
+  function renderDemons() {
+    const data = demonsWithHome(SPELL), byKey = new Map(data.map(d => [d.a + '::' + d.b, d]));
+    let h = '<div class="hd" aria-hidden="true"></div>';
+    for (let b = 0; b <= 8; b++) h += `<div class="hd" aria-hidden="true">${b}</div>`;
+    for (let a = 1; a <= 9; a++) {
+      h += `<div class="hd" aria-hidden="true">${a}</div>`;
+      for (let b = 0; b <= 8; b++) {
+        if (b >= a) { h += '<div aria-hidden="true"></div>'; continue; }
+        const k = a + '::' + b, d = byKey.get(k);
+        h += `<button type="button" class="cell${d.home ? ' home' : ''}" data-k="${k}" aria-pressed="${PMSEL === k}" aria-label="${esc(d.name)}, ${k}, mesh ${pad(d.mesh)}${d.home ? ', name plexes home' : ''}"><span>${pad(d.mesh)}</span><span class="nm">${esc(d.name)}</span>${d.home ? '<i class="mk"></i>' : ''}</button>`;
+      }
+    }
+    $('#pm').innerHTML = h;
+    pmDetail(byKey.get(PMSEL));
+    const hits = data.filter(d => d.home).map(d => d.mesh), mw = maxWindow(hits, 10);
+    barcode(hits, mw);
+    if (!(SPELL in oddsCache)) oddsCache[SPELL] = windowOdds(hits.length, mw.count, 10, 20000, 2026);
+    const odds = oddsCache[SPELL], N = odds > 0 ? Math.round(1 / odds) : 'many thousand';
+    $('#pm-head').textContent = `${hits.length} of 45 names land home`;
+    $('#pm-stats').textContent = `Chance expects about ${expectedHome().toFixed(1)}. ` +
+      `The densest run of ten meshes, ${pad(mw.start)} to ${pad(mw.start + 9)}, holds ${mw.count} of them. ` +
+      `A run that dense turns up by chance about 1 time in ${N}, before allowing for the other ways the list could have been sliced.`;
+    pmHits = hits;
+    renderMethod(hits.length, mw, odds);
+  }
+  let pmHits = [];
+  const sensCache = {};
+  function renderMethod(k, mw, odds) {
+    const N = odds > 0 ? fmt(Math.round(1 / odds)) : 'more than 20,000';
+    $('#pm-method-body').innerHTML =
+      `<p><strong>Expected count.</strong> If each name landed on a zone from 1 to 9 at random, a demon a::b would land home 2 times in 9, once for each of its zones, with zone 0 counted as 9. Uttunul, 9::0, is the exception: both its zones count as 9, so its odds are 1 in 9. Summed over all 45 demons, that gives ${expectedHome().toFixed(1)}. The page finds ${k}.</p>` +
+      `<p><strong>The cluster.</strong> The simulation keeps the ${k} demons whose names land home but scatters them across the 45 meshes at random, 20,000 times. Each time it checks all 36 runs of ten consecutive meshes and keeps the densest. A run holding ${mw.count} or more turned up in ${(odds * 100).toFixed(1)}% of the shuffles, about 1 time in ${N}. Because every position is checked, that figure already allows for where the run happens to sit.</p>` +
+      `<p><strong>What it leaves out.</strong> Choices made after looking at the data: a run of ten rather than eight or twelve, consecutive meshes rather than some other slice, AQ and digital roots rather than another cipher, and every other pattern that might have caught the eye instead. Each of those makes a striking result easier to find, so fair odds would be less remarkable than 1 in ${N}. The table shows how much the window width alone moves them.</p>` +
+      '<div class="tbl-wrap"><table id="pm-sens"><tbody><tr><td>Computing…</td></tr></tbody></table></div><p id="pm-sens-note"></p>';
+    fillSens();
+  }
+  function fillSens() {
+    const det = $('#pm-method'), t = $('#pm-sens');
+    if (!det || !det.open || !t) return;
+    if (!sensCache[SPELL]) {
+      sensCache[SPELL] = [6, 8, 10, 12, 15].map(w => {
+        const m = maxWindow(pmHits, w);
+        const p = w === 10 ? oddsCache[SPELL] : windowOdds(pmHits.length, m.count, w, 10000, 77 + w);
+        return { w, count: m.count, start: m.start, p };
+      });
+    }
+    t.innerHTML = '<thead><tr><th>Window</th><th>Densest run</th><th>Meshes</th><th>About 1 in</th></tr></thead><tbody>' +
+      sensCache[SPELL].map(r => `<tr${r.w === 10 ? ' class="cur"' : ''}><td>${r.w}</td><td>${r.count} of ${pmHits.length}</td><td>${pad(r.start)}–${pad(r.start + r.w - 1)}</td><td>${r.p > 0 ? fmt(Math.round(1 / r.p)) : 'over 10,000'}</td></tr>`).join('') + '</tbody>';
+    const best = sensCache[SPELL].reduce((a, r) => (r.p < a.p ? r : a));
+    $('#pm-sens-note').textContent = best.w === 10
+      ? 'Ten happens to be the width that makes this cluster look most unusual. Every other width in the table gives less surprising odds.'
+      : `The most striking width here is ${best.w}, not ten.`;
+  }
+  function initDemons() {
+    $('#pm').addEventListener('click', e => {
+      const c = e.target.closest('.cell'); if (!c) return;
+      PMSEL = c.dataset.k;
+      $$('#pm .cell').forEach(x => x.setAttribute('aria-pressed', String(x === c)));
+      const [a, b] = PMSEL.split('::').map(Number);
+      pmDetail(demonsWithHome(SPELL).find(x => x.a === a && x.b === b));
+    });
+    $$('#p-demons [data-sp]').forEach(b => b.addEventListener('click', () => {
+      SPELL = b.dataset.sp;
+      $$('#p-demons [data-sp]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      renderDemons();
+    }));
+    $('#pm-method').addEventListener('toggle', fillSens);
+    renderDemons();
+  }
+
+  /* ---------- loops ---------- */
+  const loopState = { n: 0, raf: 0 };
+  function edgePt(node, toward, extra) {
+    extra = extra || 2;
+    const dx = toward[0] - node.x, dy = toward[1] - node.y, L = Math.hypot(dx, dy) || 1, ux = dx / L, uy = dy / L;
+    const tx = Math.abs(ux) > 1e-6 ? (node.w / 2 + extra) / Math.abs(ux) : Infinity;
+    const ty = Math.abs(uy) > 1e-6 ? (node.h / 2 + extra) / Math.abs(uy) : Infinity;
+    const t = Math.min(tx, ty);
+    return [node.x + ux * t, node.y + uy * t];
+  }
+  function renderLoop(nodes, title, soft) {
+    const hops = loopHops(nodes), n = nodes.length, W = 400, cx = 200, cy = 190, rx = 128, ry = 128;
+    const P = nodes.map((nd, i) => {
+      const th = (-90 + i * 360 / n) * Math.PI / 180, w = Math.max(64, nd.p.length * 7.25 + 22);
+      let x = cx + rx * Math.cos(th);
+      const y = cy + ry * Math.sin(th);
+      x = Math.min(W - w / 2 - 4, Math.max(w / 2 + 4, x));
+      return { x, y, w, h: 30, p: nd.p };
+    });
+    let edges = '', vals = '';
+    for (let i = 0; i < n; i++) {
+      const a = P[i], b = P[(i + 1) % n];
+      const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, dx = mx - cx, dy = my - cy, dl = Math.hypot(dx, dy) || 1;
+      const c = n === 2 ? [cx + (i === 0 ? 1 : -1) * 168, cy] : [mx + dx / dl * (n === 3 ? 54 : 34), my + dy / dl * (n === 3 ? 54 : 34)];
+      const s = edgePt(a, c, 2), e = edgePt(b, c, 5);
+      edges += `<path class="edge" id="edge-${i}" d="M${s[0].toFixed(1)},${s[1].toFixed(1)} Q${c[0].toFixed(1)},${c[1].toFixed(1)} ${e[0].toFixed(1)},${e[1].toFixed(1)}" marker-end="url(#lar)"/>`;
+      const lx = 0.25 * s[0] + 0.5 * c[0] + 0.25 * e[0], ly = 0.25 * s[1] + 0.5 * c[1] + 0.25 * e[1];
+      const label = String(hops[i].val), bw = label.length * 7 + 14;
+      vals += `<g class="val"><rect x="${(lx - bw / 2).toFixed(1)}" y="${(ly - 10).toFixed(1)}" width="${bw}" height="20" rx="10"/><text x="${lx.toFixed(1)}" y="${(ly + 4).toFixed(1)}">${label}</text></g>`;
+    }
+    const nodeSvg = P.map((q, i) =>
+      `<g class="loop-node${i === 0 ? ' start' : ''}"><rect x="${(q.x - q.w / 2).toFixed(1)}" y="${(q.y - q.h / 2).toFixed(1)}" width="${q.w.toFixed(1)}" height="${q.h}" rx="6"/><text x="${q.x.toFixed(1)}" y="${(q.y + 4).toFixed(1)}">${esc(q.p)}</text></g>`).join('');
+    const svg = $('#loopsvg');
+    svg.innerHTML = `<defs><marker id="lar" class="mk mk-ink" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,0.8 L10,5 L0,9.2 z"/></marker></defs>${edges}${vals}${nodeSvg}<circle class="traveler" id="traveler" r="5" cx="-20" cy="-20"/>`;
+    svg.setAttribute('aria-label', `A loop of ${n} phrases: ${nodes.map(x => x.p).join(', ')}, and back to ${nodes[0].p}.`);
+    $('#loop-title').textContent = title;
+    $('#loop-steps').innerHTML = hops.map((hp, i) =>
+      `<li data-i="${i}">${esc(hp.from)} <span class="c">${CIPHER_SHORT[hp.fromC]} ${hp.val}</span> = ${esc(hp.to)} <span class="c">${CIPHER_SHORT[hp.toC]} ${hp.val}</span>${hp.ok ? '' : ' <strong>(does not close)</strong>'}</li>`).join('');
+    $('#loop-soft').hidden = !soft;
+    $('#loop-cap').textContent = `${n} steps. The number on each arrow is the value both phrases share; the list names the cipher on each side. The heavier box is where the loop starts.`;
+    loopState.n = n;
+    startTraveler();
+  }
+  function startTraveler() {
+    stopTraveler();
+    if (reduceMotion || $('#p-loops').hidden || !loopState.n) return;
+    const paths = [];
+    for (let i = 0; i < loopState.n; i++) {
+      const p = document.getElementById('edge-' + i);
+      if (!p || !p.getTotalLength) return;
+      paths.push({ el: p, len: p.getTotalLength() });
+    }
+    const per = 1300, n = paths.length, steps = $$('#loop-steps li');
+    let t0 = null, last = -1;
+    const tick = ts => {
+      if (t0 === null) t0 = ts;
+      const el = (ts - t0) % (per * n), idx = Math.floor(el / per), f = (el - idx * per) / per;
+      const pt = paths[idx].el.getPointAtLength(f * paths[idx].len), tr = document.getElementById('traveler');
+      if (tr) { tr.setAttribute('cx', pt.x.toFixed(1)); tr.setAttribute('cy', pt.y.toFixed(1)); }
+      if (idx !== last) {
+        paths.forEach((q, j) => q.el.classList.toggle('on', j === idx));
+        steps.forEach((li, j) => li.classList.toggle('on', j === idx));
+        last = idx;
+      }
+      loopState.raf = requestAnimationFrame(tick);
+    };
+    loopState.raf = requestAnimationFrame(tick);
+  }
+  function stopTraveler() { if (loopState.raf) cancelAnimationFrame(loopState.raf); loopState.raf = 0; }
+  function showCurated(i) {
+    const c = CURATED_LOOPS[i];
+    $$('#loop-chips .chip').forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
+    $$('#find-results button').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    renderLoop(c.nodes, c.title, !!c.soft);
+  }
+  let finderResults = [], finderQuery = '';
+  function runFinder() {
+    const q = $('#find-in').value.trim(), status = $('#find-status'), list = $('#find-results');
+    if (!lettersOf(q)) { status.textContent = 'Type a phrase to search from.'; list.innerHTML = ''; return; }
+    status.textContent = 'Searching…';
+    setTimeout(() => {
+      const canon = LEX.list.find(p => p.toLowerCase() === q.toLowerCase()) || q;
+      const raw = findLoops(canon, LEX.list, 4, 600);
+      raw.sort((x, y) => (scoreLoop(y, LEX.cat) - scoreLoop(x, LEX.cat)) || (x.length - y.length));
+      const seen = new Set();
+      finderResults = []; finderQuery = canon;
+      for (const l of raw) {
+        const k = l.map(nd => nd.p.toLowerCase()).join('>');
+        if (seen.has(k)) continue;
+        seen.add(k); finderResults.push(l);
+        if (finderResults.length >= 8) break;
+      }
+      if (!finderResults.length) {
+        status.textContent = `No loops of two to four steps run through “${canon}” in the built-in list. Try another spelling, or a phrase from the Ccru, occult or philosophy canon.`;
+        list.innerHTML = '';
+        return;
+      }
+      status.textContent = `${raw.length >= 600 ? 'More than 600' : raw.length} loop${raw.length === 1 ? '' : 's'} found. Showing the ${finderResults.length} best-themed, each with a different sequence of phrases.`;
+      list.innerHTML = finderResults.map((l, i) => {
+        const cs = [...new Set(l.flatMap(nd => [nd.cin, nd.cout]))].map(c => CIPHER_SHORT[c]).join(', ');
+        const s = scoreParts(l, LEX.cat);
+        return `<li><button type="button" data-i="${i}" aria-pressed="false"><span>${l.map(nd => esc(nd.p)).join(' → ')} ↺</span><span class="meta">${l.length} steps · ${cs} · score ${sgn(s.total)}: theme ${sgn(s.theme)}, ciphers ${sgn(s.ciphers)}, length ${sgn(s.length)}</span></button></li>`;
+      }).join('');
+    }, 20);
+  }
+  function renderVocab() {
+    let h = `<p>The finder looks for loops of two to four steps through the ${fmt(LEX.list.length)} built-in phrases listed here, plus the one you type. It hops on Ordinal, Reverse, Satanic and AQ only; the two reductions give such small totals that almost everything would link. Each phrase must leave by a different cipher than it entered. Exact twins can’t share a loop, because a pair of twins closes a loop for free. The search stops at 600 loops.</p>` +
+      `<p>Each result shows its score. Every phrase adds the weight of its list, every different cipher the loop uses adds +2, and every step subtracts 1. Ties go to the shorter loop. Your own phrase takes its list’s weight if it’s on one, and 0 if not. The weights are a judgment call, set so that loops made of this subject’s vocabulary rise above loops of everyday words. The five curated loops were chosen by hand from searches like this one.</p>`;
+    h += '<ul class="cats">' + CAT_ORDER.map(k => {
+      const arr = LEXICON[k] || [];
+      return `<li><details class="cat"><summary><span class="wt">${sgn(catWeight(k))}</span> ${esc(CAT_LABELS[k])} · ${arr.length}</summary><p class="phr">${arr.map(esc).join(', ')}</p></details></li>`;
+    }).join('') + '</ul>';
+    $('#vocab-body').innerHTML = h;
+  }
+  function initLoops() {
+    $('#loop-chips').innerHTML = CURATED_LOOPS.map((c, i) => `<button type="button" class="chip" data-i="${i}" aria-pressed="false">${c.label} · ${esc(c.title)}</button>`).join('');
+    $('#loop-chips').addEventListener('click', e => { const b = e.target.closest('.chip'); if (b) showCurated(+b.dataset.i); });
+    $('#finder').addEventListener('submit', e => { e.preventDefault(); runFinder(); });
+    $('#find-results').addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      const l = finderResults[+b.dataset.i]; if (!l) return;
+      $$('#find-results button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      $$('#loop-chips .chip').forEach(x => x.setAttribute('aria-pressed', 'false'));
+      renderLoop(l, `${l.length}-step loop through ${finderQuery}`, false);
+    });
+    renderVocab();
+    showCurated(CURATED_LOOPS.findIndex(c => c.id === 'sphinx'));
+    runFinder();
+  }
+
+  /* ---------- attractor ---------- */
+  const ATT = { c: 'ord', and: false };
+  const basinCache = new Map();
+  const CIPHER_TITLE = { ord: 'Ordinal', aq: 'AQ', sat: 'Satanic' };
+  function zoneChip(x) { const z = dr(x), r = region(z); return `<span class="rchip"><i class="dot ${r}"></i>zone ${z} · ${REGION_NAME[r]}</span>`; }
+  function orbitItem(x) { return `<li><span class="num">${fmt(x)}</span>${zoneChip(x)}<span class="nm">${numName(x, ATT.and)}</span></li>`; }
+  function renderBars(curKey) {
+    const k = ATT.c + '|' + ATT.and;
+    if (!basinCache.has(k)) basinCache.set(k, basins(ATT.c, ATT.and, 9999));
+    const rows = basinCache.get(k), top = rows.slice(0, 6);
+    $('#bars').innerHTML = top.map(r => {
+      const pct = r.count / 9999 * 100;
+      const zs = r.cycle.map(x => `<i class="dot ${region(dr(x))}"></i>`).join('');
+      return `<div class="brow${r.key === curKey ? ' cur' : ''}" title="${fmt(r.count)} of 9,999 starting numbers">` +
+        `<div class="lab">${r.cycle.map(fmt).join(' → ')}<span class="zdots" aria-hidden="true">${zs}</span></div>` +
+        `<div class="track"><div class="fill" style="width:calc(${pct.toFixed(2)}% * 0.84)"></div><span class="pct">${pct < 0.1 ? '<0.1' : pct.toFixed(1)}%</span></div></div>`;
+    }).join('');
+    const rest = rows.length - top.length;
+    $('#bars-note').textContent = `Share of the starting numbers 1 to 9,999 that end in each loop, largest first${rest > 0 ? `; ${rest} smaller loop${rest === 1 ? '' : 's'} not shown` : ''}. Dots give each member’s zone. The bold row is the loop your start falls into.`;
+  }
+  function renderAttractor() {
+    let n = Math.floor(Number($('#att-n').value));
+    if (!Number.isFinite(n) || n < 1) {
+      $('#orbit-title').textContent = 'Enter a whole number from 1 up';
+      $('#orbit-tail').innerHTML = ''; $('#orbit-loop').innerHTML = ''; $('#orbit-note').textContent = '';
+      return;
+    }
+    n = Math.min(n, 999999999);
+    const o = orbitOf(n, ATT.c, ATT.and);
+    $('#orbit-title').textContent = `${fmt(n)} in ${CIPHER_TITLE[ATT.c]}${ATT.and ? ', British “and”' : ''}`;
+    $('#orbit-tail').innerHTML = o.tail.map(orbitItem).join('');
+    $('#orbit-loop').innerHTML = `<h4>Loop · ${o.cycle.length} number${o.cycle.length === 1 ? '' : 's'}</h4><ol class="orbit">${o.cycle.map(orbitItem).join('')}</ol><p class="back">↺ back to ${fmt(o.cycle[0])}</p>`;
+    const zs = o.cycle.map(dr), inTC = zs.some(z => TCSET.has(z));
+    let note = o.tail.length ? `Enters the loop after ${o.tail.length} step${o.tail.length === 1 ? '' : 's'}. ` : 'Starts inside the loop. ';
+    if (o.cycle.length === 1) note += `${fmt(o.cycle[0])} names itself: its spelled-out letters sum to ${fmt(o.cycle[0])}. `;
+    note += `Plexed, the loop reads ${zs.join(', ')}${inTC ? '.' : ', so it never enters the Time-Circuit and shuttles between the Warp and the Plex.'}`;
+    $('#orbit-note').textContent = note;
+    renderBars(rotateToMin(o.cycle).join(','));
+  }
+  function initAttractor() {
+    $('#att-form').addEventListener('submit', e => e.preventDefault());
+    $('#att-n').addEventListener('input', renderAttractor);
+    $('#att-c').addEventListener('click', e => {
+      const b = e.target.closest('.chip'); if (!b) return;
+      ATT.c = b.dataset.c;
+      $$('#att-c .chip').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      renderAttractor();
+    });
+    $('#att-and').addEventListener('change', e => { ATT.and = e.target.checked; renderAttractor(); });
+    $('#att-rand').addEventListener('click', () => { $('#att-n').value = 1 + Math.floor(Math.random() * 99999); renderAttractor(); });
+    renderAttractor();
+  }
+
+  /* ---------- boot ---------- */
+  function init() {
+    mast();
+    buildNumogram();
+    buildChips();
+    ['#in-a', '#in-b'].forEach(s => $(s).addEventListener('input', updateZones));
+    $('#all-gates').addEventListener('change', updateZones);
+    updateZones();
+    $$('.rail [role="tab"]').forEach(b => b.addEventListener('click', () => selectTab(b.dataset.tab, true)));
+    $('.rail').addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const cur = TABS.findIndex(k => $('#tab-' + k).getAttribute('aria-selected') === 'true');
+      const nx = (cur + (e.key === 'ArrowRight' ? 1 : -1) + TABS.length) % TABS.length;
+      selectTab(TABS[nx], true);
+      $('#tab-' + TABS[nx]).focus();
+    });
+    document.addEventListener('click', e => {
+      const a = e.target.closest('[data-goto]'); if (!a) return;
+      e.preventDefault();
+      selectTab(a.dataset.goto, true);
+      $('.rail').scrollIntoView({ block: 'start' });
+    });
+    window.addEventListener('hashchange', () => selectTab(location.hash.slice(1), false));
+    selectTab(location.hash.slice(1), false);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+</script>
+
+</body>
+</html>
