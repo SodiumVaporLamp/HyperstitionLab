@@ -2,7 +2,7 @@
 
 An interactive page for playing with AQ gematria on the Ccru's Numogram (the Decimal Labyrinth).
 
-**LIVE: https://sodiumvaporlamp.github.io/Numogram/
+**LIVE:(https://sodiumvaporlamp.github.io/HyperstitionLab/)
 
 ## What is this?
 
@@ -32,13 +32,13 @@ Each tab has its own link: add `#zones`, `#alphabet`, `#demons`, `#loops` or `#a
 
 ## Companion: Time-Sorcery
 
-`time-sorcery.html` (live at https://YOUR-USERNAME.github.io/numogram-lab/time-sorcery.html) is a nine-step walkthrough that turns the same practices on the future. Give it a phrase and a year. It counts the phrase the way Land's "Primitive Numerization" does, totals and plexes it, and dates the year in the Ccru's K-Time, a year count that starts from 00 = AD 1900, the same scheme as the two-digit dates behind Y2K. Then it names the demon between the two zones, walks that demon's published rites backwards from the year to the phrase, writes both numbers in Barker's Tic Xenotation, and files the result as a transmission you can copy. Each step marks which part comes from the Ccru's texts or "Qabbala 101" and which part is the page's own.
+`time-sorcery.html` (live at (https://sodiumvaporlamp.github.io/HyperstitionLab/#attractor/time-sorcery.html) is a nine-step walkthrough that turns the same practices on the future. Give it a phrase and a year. It counts the phrase the way Land's "Primitive Numerization" does, totals and plexes it, and dates the year in the Ccru's K-Time, a year count that starts from 00 = AD 1900, the same scheme as the two-digit dates behind Y2K. Then it names the demon between the two zones, walks that demon's published rites backwards from the year to the phrase, writes both numbers in Barker's Tic Xenotation, and files the result as a transmission you can copy. Each step marks which part comes from the Ccru's texts or "Qabbala 101" and which part is the page's own.
 
 One finding from building it: all 75 rite paths published in the Pandemonium Matrix can be walked with three moves, crossing a syzygy, riding its current, or taking a gate. The rite paths were transcribed from the Ccru's Pandemonium page and match the independent transcription in [Cyphers' source](https://github.com/Cyphers-News/gematro-hyperdope) for all 45 demons.
 
 ## Companion: Vanishing Point
 
-`vanishing-point.html` (live at ) puts 162 milestones in the history of AI, and of the numbers, ledgers and machines behind it, on a zoomable logarithmic spiral. Each turn holds a tenth of the time of the turn outside it: millennia on the rim, then centuries, decades, years and months toward the centre. On a logarithmic spiral, zooming in and turning are the same motion, so travelling through it feels like a tunnel.
+`vanishing-point.html` (live at https://sodiumvaporlamp.github.io/HyperstitionLab/#attractor/vanishing-point.html ) puts 162 milestones in the history of AI, and of the numbers, ledgers and machines behind it, on a zoomable logarithmic spiral. Each turn holds a tenth of the time of the turn outside it: millennia on the rim, then centuries, decades, years and months toward the centre. On a logarithmic spiral, zooming in and turning are the same motion, so travelling through it feels like a tunnel.
 
 The centre is the date in the title of Heinz von Foerster, Patricia Mora and Lawrence Amiot's 1960 *Science* paper, "Doomsday: Friday, 13 November, A.D. 2026", which fitted world population to a curve that reaches infinity in finite time. You can move the centre to now, or to Ray Kurzweil's 2045.
 
