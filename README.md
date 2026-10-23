@@ -12,7 +12,7 @@ The **Numogram** is the Ccru's map of the numbers 0 to 9, credited in their text
 
 What was it *for*? Ccru texts present the Numogram as recovered rather than invented, and treat it as a working instrument rather than a theory: a map of time with a looping Time-Circuit and an Outside, and a register of demons. Part of the appeal is the appeal of divination. Fixed rules hand you readings you didn't choose, and the meaning comes from what you make of them. The Ccru's word for fictions that make themselves real through use was hyperstition, and the Numogram was one of its main instruments.
 
-**Inherited and added.** The diagram, its zones, currents, gates and demons, and the AQ cipher come from Ccru texts. Reading AQ totals through the diagram has a published precedent in Nick Land's "Qabbala 101" (*Collapse* I, 2007). A footnote totals UNITY as 30 + 23 + 18 + 29 + 34 = 134 and reduces it to 8, which the text calls the Numogrammatic twin of 1, numerology's number for unity. The same passage reduces OPPOSITION (238 → 13 → 4), COMPLETION (212 → 5) and CONJUNCTION (237 → 12 → 3). Whether the wider Ccru worked this way is a separate question. The phrase pairs, searches and experiments built on top are this project's own.
+**Inherited and added.** The diagram, its zones, currents, gates and demons, and the AQ cipher come from Ccru texts. Reading AQ totals through the diagram has a published precedent in Nick Land's "Qabbala 101" (*Collapse* I, 2006). A footnote totals UNITY as 30 + 23 + 18 + 29 + 34 = 134 and reduces it to 8, which the text calls the Numogrammatic twin of 1, numerology's number for unity. The same passage reduces OPPOSITION (238 → 13 → 4), COMPLETION (212 → 5) and CONJUNCTION (237 → 12 → 3). Whether the wider Ccru worked this way is a separate question. The phrase pairs, searches and experiments built on top are this project's own.
 
 ## How this project started
 
@@ -75,7 +75,7 @@ It's a single self-contained `index.html` with no build step and no dependencies
 - [Ccru: Pandemonium](https://dataswamp.org/~john/sites/ccru/digithype/pandemonium.htm): the 45 demons and their classes
 - [Ccru: Decimal Labyrinth](https://dataswamp.org/~john/sites/ccru/declab.htm): zones, syzygies and regions
 - [About CCRU AQ](https://alektryon.github.io/ccru-aq/about/index.html): the A = 10 to Z = 35 system
-- Nick Land, "Qabbala 101," *Collapse* I (2007), p. 281 and n. 4: AQ totals reduced and read through the Numogram, under the name "Anglossic Qabbala" (credited to August Barrow)
+- Nick Land, "Qabbala 101," *Collapse* I (Urbanomic, 2006), p. 281 and n. 4: AQ totals reduced and read through the Numogram, under the name "Anglossic Qabbala" (credited to August Barrow)
 - [Cyphers](https://cyphers.news) ([source](https://github.com/Cyphers-News/gematro-hyperdope)): inspiration for this project. An open-source gematria workbench with dozens of ciphers, a phrase database and a Ccru Numogram module, whose Divination mode reads a Lemur from two names much as the Zones tab does.
 
 The Ccru glossary spells the 8::1 demon "Murrumur" and the Pandemonium table writes "Mur Mur." The Demons tab lets you switch between them.

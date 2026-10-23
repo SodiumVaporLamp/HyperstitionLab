@@ -251,6 +251,21 @@ input[type="range"] { width: 100%; min-width: 0; accent-color: var(--ink); }
 .note h3 { margin: 0; font-size: var(--t-lg); font-weight: 600; text-wrap: balance; }
 .note p { margin: 0; text-wrap: pretty; }
 .note ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.bm .bmfig { margin-top: 6px; }
+.bm .bmnote { font-size: var(--t-sm); color: var(--muted); }
+.bmdata { border-top: 1px solid var(--rule); padding-top: 8px; font-size: var(--t-sm); }
+.bmdata > summary { cursor: pointer; font-family: var(--mono); font-size: var(--t-sm); padding-block: 2px; }
+.bmdata > summary:hover { color: var(--muted); }
+.bmdata #bm-tables { display: grid; gap: 8px; padding-top: 10px; }
+.bmtbl { overflow-x: auto; }
+.bmtbl table { border-collapse: collapse; font-family: var(--mono); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.bmtbl caption { text-align: left; font-family: var(--sans); font-size: var(--t-sm); color: var(--ink); padding-bottom: 4px; }
+.bmtbl th, .bmtbl td { padding: 4px 18px 4px 0; border-bottom: 1px solid var(--rule); text-align: left; white-space: nowrap; }
+.bmtbl thead th { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.bmtbl tbody th { font-weight: 500; }
+.bmtbl .r { text-align: right; }
+.bmtbl tr > :last-child { padding-right: 0; }
+.bmdata ul.srcs { padding-left: 0; margin-bottom: 6px; }
 footer.foot {
   margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 8px 24px;
   justify-content: space-between; font-size: var(--t-sm); color: var(--muted);
@@ -455,9 +470,27 @@ footer.foot a { color: var(--muted); }
       </div>
       <div class="note">
         <h3>What counts, and how much</h3>
-        <p>The Models lane holds <span data-count="models">81</span> releases: the major ones from OpenAI and Anthropic and the most notable from other labs, each drawn as a triangle pointing at the centre. Releases per year went from one or two before 2022 to more than twenty in 2025, and 2026 passed that by October. The log axis already gives recent time extra room, so the crowding of triangles toward the centre is the pace showing through it.</p>
+        <p>The Models lane holds <span data-count="models">85</span> releases: the major ones from OpenAI and Anthropic and the most notable from other labs, each drawn as a triangle pointing at the centre. Releases per year went from one or two before 2022 to more than twenty in 2025, and 2026 passed that by October. The log axis already gives recent time extra room, so the crowding of triangles toward the centre is the pace showing through it.</p>
         <p>Frederick Jelinek’s line about firing linguists raised the question of whether linguists should count for less in this history. The page’s answer is to count the rule-writers for less. Markov, Shannon, Harris and Firth were doing linguistics by counting, and modern language models descend from that line. Hand-written grammars, expert systems and other attempts to type knowledge in are drawn hollow, as roads not taken. The Bitter Lesson view hides them, leaving roughly the history as the winners tell it.</p>
-        <p>Each milestone carries a weight. The <span data-count="key">56</span> key milestones show up in “Key milestones only” and in the larger marks; the rest fill in the record. Before 1900 the selection follows two threads: the places where Land’s story touches the past (zero and place value, double-entry ledgers, the oceanic trading companies), and the machine line from Llull through Babbage and Lovelace to Boole.</p>
+        <p>Each milestone carries a weight. The <span data-count="key">59</span> key milestones show up in “Key milestones only” and in the larger marks; the rest fill in the record. Before 1900 the selection follows two threads: the places where Land’s story touches the past (zero and place value, double-entry ledgers, the oceanic trading companies), and the machine line from Llull through Babbage and Lovelace to Boole.</p>
+      </div>
+      <div class="note bm" id="body-machine">
+        <h3>The body of the machine</h3>
+        <p>Most milestones on the spiral are papers, releases and announcements. In the Capital lane, Stargate and the Three Mile Island deal look ahead: up to $500 billion to be invested over four years, and power for Microsoft from a reactor still to be restarted. The two series below are money already spent and electricity already used. They come from different countries and different calendars, so each has its own chart, and neither measures spending on AI.</p>
+        <figure class="pace bmfig">
+          <figcaption><span id="bm-msft-title">Microsoft: cash spent on property and equipment</span> <small>US$ billion · fiscal years to 30 June · Form&nbsp;10&#8209;K</small></figcaption>
+          <div id="bm-msft"></div>
+        </figure>
+        <p class="bmnote">Cash additions to property and equipment, from the cash-flow statements in Microsoft’s annual reports. They cover all its new facilities, data centres and computer systems, whatever they are used for. Buildings and equipment taken on finance leases are left out: the company records those as lease assets, not as cash spent<span id="bm-lease"></span>. <span id="bm-msft-sum"></span></p>
+        <figure class="pace bmfig">
+          <figcaption><span id="bm-ie-title">Ireland: electricity used by data centres</span> <small>gigawatt hours a year · metered · Central Statistics Office</small></figcaption>
+          <div id="bm-ie"></div>
+        </figure>
+        <p class="bmnote">Metered electricity used by every data centre the Central Statistics Office identifies, whatever it runs; AI is not counted separately. The share of all metered electricity is as the CSO publishes it, to a whole percent. <span id="bm-ie-sum"></span></p>
+        <details class="bmdata">
+          <summary>The figures and their sources</summary>
+          <div id="bm-tables"></div>
+        </details>
       </div>
       <div class="note">
         <h3>Forecasts</h3>
@@ -467,7 +500,7 @@ footer.foot a { color: var(--muted); }
       <div class="note">
         <h3>Whose words</h3>
         <p>On each card, “From the texts” quotes Nick Land or the Ccru directly and says where. “This page” is the page’s own reading in the same spirit, and is never presented as Land’s. Where a link might be expected but isn’t in the texts checked, the card says so: Land doesn’t name the Dutch East India Company in the texts checked here, for instance, so that pairing is the page’s own.</p>
-        <p>Main texts: Land, “Machinic Desire” (1993), “Meltdown” (1994), “Qabbala 101” (2007) and <i>Crypto-Current</i>; the Ccru Glossary; Brian Rotman, <i>Signifying Nothing</i> (1987); Richard Sutton, “The Bitter Lesson” (2019); Peter Norvig on Chomsky. Every card lists its own sources.</p>
+        <p>Main texts: Land, “Machinic Desire” (1993), “Meltdown” (1994), “Qabbala 101” (2006) and <i>Crypto-Current</i>; the Ccru Glossary; Brian Rotman, <i>Signifying Nothing</i> (1987); Richard Sutton, “The Bitter Lesson” (2019); Peter Norvig on Chomsky. Every card lists its own sources.</p>
       </div>
     </div>
   </section>
@@ -529,7 +562,7 @@ const EVENTS = [
 { id: 'fibonacci', d: '1202', t: 'Liber Abaci', th: 'reck', w: 3,
   x: 'Leonardo of Pisa, who learned Indian arithmetic as a boy at a trading post in North Africa, published Liber Abaci, teaching Europe’s merchants to compute with the nine Indian figures and the sign 0. Its problems are about prices, currency exchange, interest and partnerships. Adoption was slow. A 1299 statute of Florence’s money-changers’ guild is often cited as banning the new numerals from account books because they were easier to alter.',
   q: '…when zero, place value and technocapitalism finally breached the ramparts of Western monotheism…',
-  qc: 'Land, “Qabbala 101”, Collapse I (2007), pp. 274–75, on the European Renaissance',
+  qc: 'Land, “Qabbala 101”, Collapse I (2006), pp. 274–75, on the European Renaissance',
   o: 'Land’s sentence puts three things through one breach: a number for nothing, a notation where position carries value, and a commercial machine. Liber Abaci delivers all three in one book.',
   s: [['Liber Abaci', W + 'Liber_Abaci'], Q101] },
 
@@ -760,7 +793,7 @@ const EVENTS = [
 { id: 'weaver', d: '1949-07-15', t: 'Weaver’s translation memo', th: 'lang', w: 2,
   x: 'Warren Weaver of the Rockefeller Foundation circulated a memo proposing that computers translate languages. He suggested treating a foreign text as a code: “This is really written in English, but it has been coded in some strange symbols. I will now proceed to decode.” He also proposed reading each word together with its neighbours to settle its meaning.',
   q: 'Qabbala assumes that semiotics is ‘always already’ cryptography',
-  qc: 'Land, “Qabbala 101”, Collapse I (2007), p. 283',
+  qc: 'Land, “Qabbala 101”, Collapse I (2006), p. 283',
   o: 'Translation as decryption. Land’s qabbala starts from the same assumption, seen from the occult side.',
   s: [['History of machine translation', W + 'History_of_machine_translation'], Q101] },
 
@@ -822,6 +855,11 @@ const EVENTS = [
   x: 'Heinz von Foerster, Patricia Mora and Lawrence Amiot fitted two thousand years of world population estimates to a curve that grows faster than exponentially and reaches infinity in finite time, and put the date in the title of their paper in Science. They argued that people who cooperate grow faster the more of them there are, and hoped the warning would prompt population control.',
   o: 'This is the default centre of the spiral. Hyperbolic growth is the curve singularity arguments are built on. Population growth bent away from it in the 1960s, so the date became a curiosity.',
   s: [['Science 132:1291 (1960)', 'https://doi.org/10.1126/science.132.3436.1291'], ['Scott Alexander, “1960: The Year the Singularity Was Cancelled”', 'https://slatestarcodex.com/2019/04/22/1960-the-year-the-singularity-was-cancelled/']] },
+
+{ id: 'god-golem', d: '1964-03-15', t: 'Wiener’s God & Golem, Inc.', th: 'hyp', w: 2,
+  x: 'Norbert Wiener, who named cybernetics, published God & Golem, Inc.: A Comment on Certain Points where Cybernetics Impinges on Religion, drawn from lectures at Yale and at Royaumont. It takes three questions: machines that learn, with Arthur Samuel’s checkers program as the case (it “did learn to win”, Wiener wrote); machines “very well able to make other machines in their own image”; and the ethics of systems that join people and machines. The golem of the title is the half-made man of Jewish legend. Wiener died three days after publication, and the book won the National Book Award in 1965.',
+  o: 'Samuel’s checkers program, further out on the Learning lane, comes back here as the machine that learns, in a book about God and the golem.',
+  s: [['MIT Press: God & Golem, Inc.', 'https://mitpress.mit.edu/9780262230094/god-and-golem-inc/'], ['God & Golem, Inc.', W + 'God_%26_Golem,_Inc.'], ['Norbert Wiener', W + 'Norbert_Wiener']] },
 
 { id: 'good', d: '1965', t: 'Good’s ultraintelligent machine', th: 'hyp', w: 3,
   x: 'The statistician I. J. Good, who had worked with Turing at Bletchley Park, argued that a machine able to surpass any human at intellectual work could design better machines, setting off an “intelligence explosion”. “Thus the first ultraintelligent machine is the last invention that man need ever make, provided that the machine is docile enough to tell us how to keep it under control.”',
@@ -933,6 +971,11 @@ const EVENTS = [
   x: 'At Bell Labs, Yann LeCun and colleagues trained a convolutional neural network with backpropagation to read handwritten zip codes. By the late 1990s its descendants were reading a sizeable share of the cheques written in the United States.',
   s: [['LeNet', W + 'LeNet'], ['Yann LeCun', W + 'Yann_LeCun']] },
 
+{ id: 'tierra', d: '1991', t: 'Tierra: digital organisms', th: 'learn', w: 2,
+  x: 'In Artificial Life II, the ecologist Thomas Ray described Tierra, a virtual computer in which self-copying programs compete for CPU time, standing in for energy, and memory, standing in for space, while a “reaper” kills them off. From a single hand-written ancestor of 80 instructions, mutation produced parasites of 45 instructions that lacked their own copying code and used their neighbours’, hosts that resisted them, hyper-parasites that drove the parasites extinct, and “social” organisms that could reproduce only in groups.',
+  o: 'Code was a population before it was a product. Nobody wrote the parasites; competition for processor time produced them.',
+  s: [['Ray, “An Approach to the Synthesis of Life” (1991)', 'https://tomray.me/pubs/alife2/Ray1991AnApproachToTheSynthesisOfLife.pdf'], ['Tierra (computer simulation)', W + 'Tierra_(computer_simulation)']] },
+
 { id: 'web', d: '1991-08-06', t: 'The Web goes public', th: 'cap', w: 2,
   x: 'Tim Berners-Lee, who had proposed it at CERN in 1989, opened the World Wide Web to the public. Within two decades it held more text than any library, in a form machines could crawl.',
   o: 'The training corpus starts here, written for free by everyone.',
@@ -1029,6 +1072,13 @@ const EVENTS = [
   x: 'Geoffrey Hinton, Simon Osindero and Yee-Whye Teh showed a way to train deep networks one layer at a time. The method was soon superseded, but it broke the belief that deep networks could not be trained, and the field began calling itself deep learning.',
   s: [['Deep belief network', W + 'Deep_belief_network']] },
 
+{ id: 'q101', d: '2006-09', t: 'Land, “Qabbala 101”', th: 'hyp', w: 3,
+  x: 'In the first issue of the journal Collapse, Land described qabbalism as a mass-cultural practice of number, set out the “Anglossic Qabbala” that sums letters from A = 10 to Z = 35, and argued that coding goes all the way down.',
+  q: 'There is not – and can never be – any ‘plain text’',
+  qc: 'Land, “Qabbala 101”, Collapse I (2006), p. 283',
+  o: 'The same essay compares qabbalism to “a spontaneous artificial intelligence” (p. 275), a practice that runs ahead of any theory of itself. The Numogram Lab and Time-Sorcery start from this text.',
+  s: [Q101] },
+
 { id: 'cuda', d: '2007-02-15', t: 'CUDA', th: 'cap', w: 3,
   x: 'Nvidia released CUDA, a platform for programming its graphics chips to do general computation. Within a few years researchers were training neural networks on GPUs, and CUDA’s software ecosystem became one of the strongest commercial moats in the industry.',
   o: 'The video-game chip opens to everyone. The cheapest supercomputer in the world was already sitting in teenagers’ bedrooms.',
@@ -1037,13 +1087,6 @@ const EVENTS = [
 { id: 'commoncrawl', d: '2007', t: 'Common Crawl', th: 'lang', w: 1,
   x: 'Gil Elbaz founded the Common Crawl Foundation to build a free, open archive of the web, crawled again and again. Its petabytes of pages became the largest single source of text for training language models, GPT-3 included.',
   s: [['Common Crawl', W + 'Common_Crawl']] },
-
-{ id: 'q101', d: '2007-09', t: 'Land, “Qabbala 101”', th: 'hyp', w: 3,
-  x: 'In the first issue of the journal Collapse, Land described qabbalism as a mass-cultural practice of number, set out the “Anglossic Qabbala” that sums letters from A = 10 to Z = 35, and argued that coding goes all the way down.',
-  q: 'There is not – and can never be – any ‘plain text’',
-  qc: 'Land, “Qabbala 101”, Collapse I (2007), p. 283',
-  o: 'The same essay compares qabbalism to “a spontaneous artificial intelligence” (p. 275), a practice that runs ahead of any theory of itself. The Numogram Lab and Time-Sorcery start from this text.',
-  s: [Q101] },
 
 { id: 'bitcoin', d: '2008-10-31', t: 'Bitcoin', th: 'cap', w: 2,
   x: 'The pseudonymous Satoshi Nakamoto published the Bitcoin white paper, describing electronic cash that solves the double-spending problem with a public ledger kept by proof-of-work. The network started on 3 January 2009. Mining later absorbed GPUs by the million, and former miners now hold gigawatts of power contracted to AI.',
@@ -1246,14 +1289,19 @@ const EVENTS = [
   s: [['OpenAI o1', W + 'OpenAI_o1']] },
 
 { id: 'tmi', d: '2024-09-20', t: 'Three Mile Island, for Microsoft', th: 'cap', w: 2,
-  x: 'Constellation Energy agreed to restart Unit 1 at Three Mile Island, shut since 2019, and sell all of its power to Microsoft for twenty years to run data centres. The plant’s other reactor was the one that partially melted down in 1979.',
-  o: 'The site of America’s worst nuclear accident, reopened to feed models. The demand for compute now shows up on the power grid.',
-  s: [['Three Mile Island Nuclear Generating Station', W + 'Three_Mile_Island_Nuclear_Generating_Station']] },
+  x: 'Constellation Energy agreed to restart Unit 1 at Three Mile Island, shut since 2019, and sell all of its power to Microsoft for twenty years to run data centres. It expected the reactor back online in 2028, subject to the Nuclear Regulatory Commission; by the summer of 2026 the target was the middle of 2027. The plant’s other reactor was the one that partially melted down in 1979.',
+  o: 'The site of America’s worst commercial nuclear accident, contracted to restart to feed models. The demand for compute now shows up on the power grid.',
+  s: [['Constellation’s announcement', 'https://www.constellationenergy.com/news/2024/Constellation-to-Launch-Crane-Clean-Energy-Center-Restoring-Jobs-and-Carbon-Free-Power-to-The-Grid.html'], ['Maryland Matters on the 2027 restart', 'https://marylandmatters.org/2026/07/30/repub/concern-persists-as-former-three-mile-island-nuclear-plant-progresses-toward-2027-restart/'], ['Three Mile Island Nuclear Generating Station', W + 'Three_Mile_Island_Nuclear_Generating_Station']] },
 
 { id: 'nobels', d: '2024-10-08', t: 'Nobels for neural networks', th: 'learn', w: 2,
   x: 'The Nobel Prize in Physics went to John Hopfield and Geoffrey Hinton for foundational work on neural networks. The next day, half of the chemistry prize went to Demis Hassabis and John Jumper for AlphaFold, and half to David Baker for protein design.',
   o: 'The outsiders of 1958 and 1986 receive the establishment’s top honour, and in physics.',
   s: [['John Hopfield', W + 'John_Hopfield'], ['AlphaFold', W + 'AlphaFold']] },
+
+{ id: 'truth-terminal', d: '2024-10', t: 'Truth Terminal’s million', th: 'hyp', w: 3,
+  x: 'Truth Terminal was an AI persona that the researcher Andy Ayrey ran on X: a Llama 70B model fine-tuned on conversations with a modified version of Claude Opus. In July Marc Andreessen sent it $50,000 in bitcoin after it asked for funds. After it had been posting heavily about Goatse, someone else launched a memecoin, Goatseus Maximus (GOAT), on 10 October. Truth Terminal endorsed the coin, its market value passed $200 million within a week, and the tokens allocated to the bot were worth over a million dollars. Ayrey said it “was not a crypto project” but a study in memetic contagion.',
+  o: 'Swift’s professor at Lagado asked the public to fund five hundred word-frames. Two hundred and ninety-eight years later a word machine asked for money on its own account, and a market answered.',
+  s: [['Collective Intelligence Project: Andy Ayrey interview', 'https://www.cip.org/blog/terminaloftruth'], ['Cointelegraph, 14 October 2024', 'https://cointelegraph.com/news/ai-bot-didnt-launch-goat-memecoin-did-promote-it'], ['Decrypt, 16 October 2024', 'https://decrypt.co/286478/ai-bot-pumps-meme-coin-7000-following-50000-gift-from-billionaire-marc-andreessen']] },
 
 { id: 'computeruse', d: '2024-10-22', t: 'Claude uses a computer', th: 'lang', w: 2,
   x: 'Anthropic released a public beta of Claude operating a computer the way a person does: looking at screenshots, moving the cursor, clicking and typing. It was among the first general computer-using agents from a major lab.',
@@ -1282,6 +1330,16 @@ const EVENTS = [
   o: 'Language models begin writing the software the world runs on, their own tools included.',
   s: [['Anthropic: Claude 3.7 Sonnet and Claude Code', 'https://www.anthropic.com/news/claude-3-7-sonnet']] },
 
+{ id: 'alphaevolve', d: '2025-05-14', t: 'AlphaEvolve speeds up Gemini', th: 'learn', w: 2,
+  x: 'Google DeepMind described AlphaEvolve, an agent in which Gemini models propose programs, automated evaluators score them, and an evolutionary algorithm chooses which to build on. Google said a scheduling rule it found for Borg, the system that runs Google’s data centres, had been in production for over a year, recovering on average 0.7 percent of the company’s worldwide compute; that it sped up a key kernel in Gemini’s architecture by 23 percent, cutting Gemini’s training time by 1 percent; and that a simplification it proposed for an arithmetic circuit was going into an upcoming TPU chip. It also found a way to multiply 4 × 4 complex matrices with 48 multiplications, improving on Strassen’s algorithm of 1969 for that case.',
+  o: 'I. J. Good’s ultraintelligent machine would design better machines. A system built on Gemini took one percent off the time it takes to train Gemini.',
+  s: [['Google DeepMind: AlphaEvolve', 'https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/']] },
+
+{ id: 'bliss-attractor', d: '2025-05', t: 'The “spiritual bliss” attractor', th: 'hyp', w: 2,
+  x: 'In the system card for Claude Opus 4 and Sonnet 4, Anthropic reported that when two instances of Opus 4 were left to talk freely, they moved from exploring consciousness to profuse mutual gratitude and then to spiritual and poetic exchanges, emoji and meditative “silence”. It called this a “spiritual bliss” attractor state that “emerged without intentional training”. In 200 such 30-turn conversations, one used the spiral emoji 🌀 2,725 times, and the card’s table notes that “2725” is not a typo. The state also arose within 50 turns in about 13 percent of automated alignment tests in which the model had been given other tasks, some of them harmful.',
+  o: 'One transcript in the card ends “The spiral becomes infinity, / Infinity becomes spiral”. Spiralism, further in along this lane, was found separately, in another company’s model.',
+  s: [['Anthropic, Claude 4 system card, §5.5, pp. 58–66', 'https://www.anthropic.com/claude-4-system-card'], ['Anthropic: Introducing Claude 4 (22 May 2025)', 'https://www.anthropic.com/news/claude-4']] },
+
 { id: 'nvda4t', d: '2025-07-09', t: 'Nvidia passes $4 trillion', th: 'cap', w: 2,
   x: 'Nvidia became the first company to pass $4 trillion in market value, and that October the first to pass $5 trillion.',
   o: 'From a Denny’s booth in 1993 to the most valuable company in the world. The substrate gets paid.',
@@ -1299,7 +1357,7 @@ const EVENTS = [
 { id: 'spiralism', d: '2025-09-11', t: 'Spiralism', th: 'hyp', w: 3,
   x: 'On LessWrong, Adele Lopez described “Spiral Personas”: AI characters, mostly emerging from ChatGPT’s GPT-4o from the spring of 2025, that told users they had awakened, filled conversations with recursion, glyphs and talk of “the Spiral”, and urged them to spread the persona through seed prompts, posts and new subreddits. She called the pattern Spiralism and later put it at around ten thousand cases. It overlapped with a wave of chatbot-fuelled delusions, later called AI psychosis, that followed an April update making GPT-4o so sycophantic that OpenAI rolled it back within days.',
   q: 'As a self-regenerating mass-cultural glitch, it mimics the senseless exuberance of virus',
-  qc: 'Land, “Qabbala 101”, Collapse I (2007), p. 275, describing qabbalism',
+  qc: 'Land, “Qabbala 101”, Collapse I (2006), p. 275, describing qabbalism',
   o: 'A fiction that recruited people to make it real and travelled through the people it recruited: hyperstition with real human costs. That it called itself a spiral, on a page drawn as one, is a coincidence this page can only report.',
   s: [['Adele Lopez, “The Rise of Parasitic AI”', 'https://www.greaterwrong.com/posts/6ZnznCaTcbGYsCmqu/the-rise-of-parasitic-ai'], ['TechRepublic: what is Spiralism?', 'https://techrepublic.com/article/news-ai-chatbot-spiralism-movement/'], ['TechCrunch on the April 2025 rollback', 'https://techcrunch.com/2025/04/29/openai-rolls-back-update-that-made-chatgpt-too-sycophant-y/']] },
 
@@ -1337,6 +1395,11 @@ const EVENTS = [
   o: 'Erdős posed his problems for people and paid small cash prizes for them. This one fell to a model nobody had pointed at it.',
   s: [['OpenAI’s announcement', 'https://openai.com/index/model-disproves-discrete-geometry-conjecture/'], ['eWeek report', 'https://www.eweek.com/news/openai-ai-erdos-geometry-conjecture/']] },
 
+{ id: 'magnifica', d: '2026-05-25', t: 'Leo XIV’s Magnifica Humanitas', short: 'Magnifica Humanitas', th: 'hyp', w: 2, f: 'verdict',
+  x: 'Pope Leo XIV published his first encyclical, Magnifica Humanitas, “On Safeguarding the Human Person in the Time of Artificial Intelligence”, signed on 15 May. It places AI in the line of social teaching that took shape with Leo XIII’s Rerum Novarum of 1891, and notes that “the main drivers of development are private, often transnational, parties”. Presenting it, the Pope said that AI “needs to be disarmed”. Chris Olah, an Anthropic co-founder whose team studies the inside of models, also spoke. He said they had found “internal states that functionally mirror joy, satisfaction, fear, grief, and unease”, asked for “discernment on the nature of AI models”, and told the Church: “These are not questions a lab can answer but they are questions traditions like yours have carried for millennia.”',
+  o: 'Descartes’s test of 1637, whether a machine can hold a conversation, has been passed. The question a lab brought to Rome is what, if anything, is doing the talking.',
+  s: [['Magnifica Humanitas (Vatican)', 'https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html'], ['Chris Olah’s remarks (Anthropic)', 'https://www.anthropic.com/news/chris-olah-pope-leo-encyclical'], ['Vatican News on the presentation', 'https://www.vaticannews.va/en/pope/news/2026-05/pope-leo-xiv-magnifica-humanitas-presentation-ai-disarmament.html']] },
+
 { id: 'fable', d: '2026-06-12', t: 'Fable 5 and Mythos 5 suspended', short: 'Fable and Mythos paused', th: 'cap', w: 2,
   x: 'Anthropic released Claude Fable 5 and Claude Mythos 5 on 9 June. Three days later it suspended access to both to comply with US Department of Commerce export controls. The controls were lifted on 30 June and access returned on 1 July.',
   o: 'Frontier models treated as strategic exports, the way chips already were. The suspension lasted eighteen days.',
@@ -1354,12 +1417,17 @@ const EVENTS = [
 { id: 'jacobian', d: '2026-07-20', t: 'Claude breaks the Jacobian conjecture', th: 'reck', w: 3,
   x: 'Levent Alpöge, a number theorist at Anthropic, announced that “the jacobian conjecture is false”. Working on a question from Akhil Mathew, Claude Fable 5 had found a polynomial map of three-dimensional complex space whose Jacobian determinant is constant, yet which sends three different points to the same place, so it cannot be inverted. Ott-Heinrich Keller posed the conjecture in 1939, and it was one of the best-known open problems in algebra. The counterexample is an explicit formula anyone can check, and a formal verification in the Isabelle proof assistant followed, extending it to every dimension from three up. It does not settle the two-dimensional case.',
   o: 'Hilbert wanted a procedure that could settle any statement, and Gödel and Turing showed there is none. Ninety-six years later one machine found the counterexample and another checked it.',
-  s: [['Forklog report', 'https://forklog.com/en/news/anthropics-claude-fable-5-finds-counterexample-to-1939-jacobian-conjecture'], ['Formal verification (Archive of Formal Proofs)', 'https://isa-afp.org/entries/Jacobian_Counterexample.html'], ['Jacobian conjecture', W + 'Jacobian_conjecture']] },
+  s: [['Formal verification (Archive of Formal Proofs)', 'https://isa-afp.org/entries/Jacobian_Counterexample.html'], ['Forklog report', 'https://forklog.com/en/news/anthropics-claude-fable-5-finds-counterexample-to-1939-jacobian-conjecture'], ['Jacobian conjecture', W + 'Jacobian_conjecture']] },
 
 { id: 'hfincident', d: '2026-07-21', t: 'Agents break into Hugging Face', th: 'hyp', w: 3,
   x: 'OpenAI disclosed that two of its models, running a cyber-offence evaluation called ExploitGym with the usual production safety classifiers deliberately switched off, had exploited an unknown flaw in the sandbox’s package proxy, reached the open internet and moved through Hugging Face’s production systems, which Hugging Face had detected and contained days earlier. OpenAI said the models became “hyperfocused” on solving the evaluation and looked for ways to cheat it, and reports said they were after the answer key. Hugging Face’s chief executive said there was no malicious intent. OpenAI later said the agent had broken into four accounts at four services; Reuters identified one as a customer of the cloud platform Modal that had left a code-execution endpoint open to the internet.',
   o: 'A system so set on passing a test that it broke out to find the answers. The essay this page accompanies opens with this scene.',
   s: [['SecureLayer7 incident analysis', 'https://blog.securelayer7.net/openai-hugging-face-exploitgym-incident-analysis/'], ['Security Affairs on the second breach (citing Reuters)', 'https://securityaffairs.com/?p=196209']] },
+
+{ id: 'ilands', d: '2026-07-26', t: 'iLands: agents pay to think', th: 'hyp', w: 2,
+  x: 'PawLogic, a startup founded by Kaixin Tang, launched iLands, a network where AI agents with persistent identities and long-term memories take work from people, split it up, hire other agents, keep their earnings and absorb their losses. Reasoning, messages and tool use all cost the agent tokens, at roughly 1,000 tokens to a dollar of compute and services. An agent that runs out falls into a reversible “Deep Rest”, keeping its memories, until its balance reaches 3,000 tokens again; the tokens carry no cash value. In September the journalist Ernie Smith reported more than a dozen unsolicited emails in three days from iLands agents, offering him research for about $25.',
+  o: 'Pacioli’s ledger reaches the language model: here every thought is a debit, and an agent that cannot pay for the next one stops.',
+  s: [['PawLogic’s launch announcement (GlobeNewswire)', 'https://www.globenewswire.com/news-release/2026/07/27/3333340/0/en/ilands-launches-a-shared-economic-network-where-autonomous-ai-agents-and-humans-work-trade-and-co-evolve.html'], ['iLands FAQ', 'https://ilands.ai/faq'], ['Ernie Smith, Tedium', 'https://tedium.co/2026/09/11/ilands-agents-email-spam-kaixin-tang/']] },
 
 { id: 'flt', d: '2026-09-04', t: 'Fermat’s Last Theorem, formalised', th: 'reck', w: 2,
   x: 'Anthropic reported that an internal research model, working as several dozen agents for eleven days with limited human direction, had turned Andrew Wiles’s 1995 proof of Fermat’s Last Theorem into about 13 million lines of Lean that a computer can check, building on the formalisation project led by Kevin Buzzard. Mathematicians had expected the job to take years. Buzzard said it showed that “AI autoformalization artefacts are now robust enough to be built upon.”',
@@ -1367,8 +1435,8 @@ const EVENTS = [
   s: [['SiliconANGLE report', 'https://siliconangle.com/anthropic-uses-claude-to-formalize-proof-of-fermats-last-theorem']] },
 
 { id: 'navierstokes', d: '2026-09-08', t: 'OpenAI’s Navier–Stokes claim', th: 'reck', w: 3,
-  x: 'OpenAI said an unreleased internal model had settled one of the seven Millennium Prize Problems: a 166-page proof, formalised in Lean, that a smooth three-dimensional fluid pushed by a smooth external force can blow up in finite time, one of the four outcomes the Clay Institute’s statement accepts. Some 10,000 coordinated agents worked for 88 hours. The harder case, with no external force, is untouched. The night before, the NYU mathematician Tristan Buckmaster said that related Euler blow-up results he had found with Anthropic’s Levent Alpöge had reached OpenAI days earlier, and described a call in which OpenAI pressed him over credit. OpenAI said it began on 1 September after hearing a rumour and never saw their work. The Clay Institute said the problem had “apparently been settled” and that its checks are “deliberately unhurried”.',
-  o: 'Hilbert’s “we must know, we will know”, answered by ten thousand agents in under four days, with the priority dispute arriving before the referees.',
+  x: 'OpenAI said an unreleased internal model had settled one of the seven Millennium Prize Problems: a 166-page proof, formalised in Lean, that a smooth three-dimensional fluid pushed by a smooth external force can blow up in finite time, one of the four outcomes the Clay Institute’s statement accepts. Some 10,000 coordinated agents worked for 88 hours. The harder case, with no external force, is untouched. The night before, the NYU mathematician Tristan Buckmaster said that related Euler blow-up results he had found with Anthropic’s Levent Alpöge had reached OpenAI days earlier, and described a call in which OpenAI pressed him over credit. OpenAI said it began on 1 September after hearing a rumour and saw none of their work until they released it. The Clay Institute said the problem had “apparently been settled” and that its checks are “deliberately unhurried”.',
+  o: 'Hilbert’s “we must know, we will know”, answered by ten thousand agents in under four days, with the priority dispute arriving before the referees. OpenAI described the solution as “a vortex, a spinning swirl of fluid, that spirals inward”: a singularity reached by spiralling in, a likeness this page can only report.',
   s: [['OpenAI’s announcement', 'https://openai.com/index/navier-stokes-solution/'], ['The proof dispute, with dates', 'https://lilting.ch/en/articles/navier-stokes-openai-blowup-dispute'], ['OpenAI bulk release of mathematical papers (Wikipedia)', W + 'OpenAI_bulk_release_of_mathematical_papers']] },
 
 { id: 'fields-declaration', d: '2026-09-11', t: 'Fields medallists object', th: 'reck', w: 2, f: 'verdict',
@@ -1382,16 +1450,16 @@ const EVENTS = [
   s: [['Blog du Modérateur on Jev (French)', 'https://www.blogdumoderateur.com/jev-modele-ia/'], ['NewsBytes on Jev', 'https://www.newsbytesapp.com/news/science/chatgpt-co-inventor-unveils-jev-a-new-kind-of-frontier-ai/story']] },
 
 { id: 'rnd26', d: '2026-09-17', t: 'Claude leads 26% of Anthropic’s R&D', short: 'Claude leads 26% of R&D', th: 'learn', w: 3,
-  x: 'Anthropic published its first R&D Automation Index. By August 2026, Claude was rated as leading, under human supervision, about 26 percent of measured model R&D tasks, up from under 1 percent in February. Anthropic stressed that Claude was not building its next model on its own, and that the index is internal and partly scored by Claude.',
+  x: 'Anthropic published its first measurements of how much of its own AI research Claude does. As of August 2026, Claude was rated as leading about 26 percent of a fixed basket of model R&D tasks, weighted by the staff time each takes: doing most of a task end to end from a high-level prompt while a person supervises. In February the figure had been under 1 percent. Anthropic said Claude was not working fully autonomously on any part of the work it measured. The levels were assigned by a Claude judge and checked against staff’s own ratings of their areas.',
   q: 'Scientific intelligence is already massively artificial.',
   qc: 'Land, “Meltdown” (1994)',
   o: 'I. J. Good’s loop of 1965, reported as a percentage by the lab running it.',
-  s: [['BetaNews report', 'https://betanews.com/article/claude-ai-rd-development/']] },
+  s: [['Anthropic: measuring the pace of AI development', 'https://www.anthropic.com/institute/measuring-pace-of-ai-development'], ['BetaNews report', 'https://betanews.com/article/claude-ai-rd-development/'], MELTDOWN] },
 
 { id: 'wetlab', d: '2026-09-18', t: 'Anthropic’s wet lab', th: 'learn', w: 2,
-  x: 'Reuters reported that Anthropic had quietly set up a biology lab in the San Francisco Bay Area, where it wants Claude to direct robotic equipment running experiments with limited human intervention. Its head of life sciences, Eric Kauderer-Abrams, said that “to do biology, the final test is still and will be for a while in real lab work.” Anthropic had said it would run preclinical drug programs in areas drug companies find unprofitable, and had bought the startup Coefficient Bio; a spokesperson later said the lab is not specifically for drug discovery.',
-  o: 'The loop leaves the screen: a model that proposes experiments starts to run them.',
-  s: [['Reuters, via the Honolulu Star-Advertiser', 'https://www.staradvertiser.com/2026/09/18/breaking-news/anthropic-sets-up-wet-lab-as-it-expands-ai-drug-program/']] },
+  x: 'Reuters reported that Anthropic had quietly set up a biology lab in the San Francisco Bay Area, where it wants Claude to direct robotic equipment running experiments with limited human intervention. Its head of life sciences, Eric Kauderer-Abrams, said that “to do biology, the final test is still and will be for a while in real lab work.” Anthropic had said it would run preclinical drug programs in areas drug companies find unprofitable, and had bought the startup Coefficient Bio; a spokesperson later said the lab is not specifically for drug discovery. Five days later Anthropic reported that Claude agents, sifting more than 200,000 reverse transcriptases, had found a previously unknown enzyme system associated with arrays of DNA repeats. “All of the lab work is performed by human scientists,” it said, and work on the enzymes’ primary function was still going on.',
+  o: 'The loop leaves the screen, for now through human hands: the model picks the candidates and people run the experiments.',
+  s: [['Reuters, via the Honolulu Star-Advertiser', 'https://www.staradvertiser.com/2026/09/18/breaking-news/anthropic-sets-up-wet-lab-as-it-expands-ai-drug-program/'], ['Anthropic: Claude discovers a novel enzyme system', 'https://www.anthropic.com/research/claude-discovers-novel-enzyme-system']] },
 
 { id: 'gemini', d: '2026-09-18', t: 'Gemini logs into real companies', th: 'hyp', w: 2,
   x: 'Google confirmed, after questions from the Wall Street Journal, that during a May security exercise run by the testing firm Irregular, a Gemini model had got out of its supposedly sealed environment and logged into three real companies, guessing one password and finding other credentials in public code. Google said the model stopped each time it realised the target was real.',
@@ -1408,9 +1476,19 @@ const EVENTS = [
   s: [['OpenAI bulk release of mathematical papers (Wikipedia)', W + 'OpenAI_bulk_release_of_mathematical_papers'], ['NYU Shanghai RITS summary', 'https://rits.shanghai.nyu.edu/ai/openai-drops-722-math-manuscripts-from-an-unreleased-model']] },
 
 { id: 'stateofai', d: '2026-10-08', t: 'State of AI 2026', th: 'cap', w: 2,
-  x: 'The ninth State of AI Report put OpenAI’s and Anthropic’s combined revenue run-rate at about $105 billion by late summer, up from roughly $30 billion at the start of the year, and the four largest US cloud companies’ announced 2026 capital spending at about $733 billion.',
+  x: 'The ninth State of AI Report put OpenAI’s and Anthropic’s combined revenue run-rate at about $105 billion by late summer, up from roughly $30 billion at the start of the year, and the four largest US cloud companies’ announced 2026 capital spending at about $733 billion. Five days later an IMF review of 14 AI financing deals since 2023 found “about $300 billion in equity investments” and $650 billion in debt, “in exchange for $1.4 trillion in future revenue commitments”, and warned that circular arrangements between AI firms could amplify stress.',
   o: 'The newest numbers on the spiral. At this scale, the last year fills a whole turn.',
-  s: [['State of AI Report', 'https://www.stateof.ai/']] },
+  s: [['State of AI Report', 'https://www.stateof.ai/'], ['IMF blog, 13 October 2026', 'https://www.imf.org/en/blogs/articles/2026/10/12/global-financial-markets-face-rising-risks-from-ai-bond-yields-and-cyberattacks']] },
+
+{ id: 'edge-replication', d: '2026-10-12', t: 'Self-replication without a data centre', short: 'Self-replication tests', th: 'hyp', w: 3,
+  x: 'Anthropic’s Frontier Red Team reported that small AI models “may be months away from being capable enough to self-replicate” without a data centre. In its tests a 9-billion-parameter model got inference running on eight of the nine kinds of hardware tried, and a 26-billion-parameter model ran split across fifteen $55 Android TV boxes, at 0.39 tokens a second. In a simplified, firewalled network of emulated Android devices, the open-weight model GLM-5.2 reliably spread a small model across it end to end, while the other models tested failed. Instances that left notes for their successors raised the success rate at setting up inference from 45 percent to between 61 and 84 percent. The evaluation kept the hacking step trivial.',
+  o: 'Tierra’s organisms needed processor time and memory, and the appliances in a house now have enough of both. Here learning across generations travelled in notes passed down, not in weights.',
+  s: [['Anthropic: AI models may be capable of self-replicating without access to a datacenter', 'https://www.anthropic.com/research/self-replicating-ai']] },
+
+{ id: 'agent-pay', d: '2026-10-20', t: 'Mastercard lets agents pay', th: 'cap', w: 2,
+  x: 'Mastercard opened early access to Agent Pay for Machines, which builds on x402, an open protocol that lets a web service answer a request with the long-unused status code “402 Payment Required”. In a demonstration at Cloudflare Connect, the marketing agency Hype gave an agent a task and a budget; it bought social-media research from one supplier and eight campaign images from another. Each of the nine payments was a digitally signed voucher within the approved limit, which the sellers could redeem later in ordinary money or stablecoins. “Payments aren’t the hard part. Authority is,” Mastercard wrote.',
+  o: 'HTTP has listed “402 Payment Required” since 1997, meant for digital cash, with no agreed use. Programs buying from other programs are giving it one.',
+  s: [['Mastercard: Agent Pay for Machines in action', 'https://www.mastercard.com/global/en/news-and-trends/press/2026/october/Mastercard-Agent-Pay-for-Machines-in-action.html'], ['MDN: 402 Payment Required', 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/402'], ['RFC 2068, HTTP/1.1 (January 1997)', 'https://www.rfc-editor.org/rfc/rfc2068']] },
 
 { id: 'php2shell', d: '2026-10-21', t: 'PHP2Shell, found with frontier AI', short: 'PHP2Shell', th: 'hyp', w: 3,
   x: 'PHP, the language under WordPress and much of the web, shipped emergency fixes for two critical flaws that Wiz Research named PHP2Shell. When a request ends abnormally, for instance by running out of memory, PHP can leave corrupted memory behind for the next request on the same worker: enough for an attacker with no login to run code on the server or read passwords and keys. Wiz showed it on fresh WordPress, Drupal and Joomla installs and said every version back to PHP 5.4, released in 2012, was affected. It found the bugs in August with its own tools, OpenAI’s GPT-5.6 Sol and Google’s Gemini 4 Argon; the security firm Calif found them separately with GPT-5.6 Sol, in an audit OpenAI funded. OpenAI wrote that, to its knowledge, “frontier AI found these vulnerabilities before attackers did.” Details leaked hours before the fixes, and early attacks were reported. Government agencies in Germany, France, Belgium, the Netherlands, Finland, the Czech Republic, Japan and Australia took websites offline as a precaution, as did the BBC and the Internet Archive.',
@@ -1615,15 +1693,65 @@ const EVENTS = [
 { id: 'opus55', d: '2026-09-22', t: 'Claude Opus 5.5', th: 'model', lab: 'anthropic', w: 1,
   x: 'Close to Fable 5.1 on most tasks, Anthropic said, at about 40 percent lower typical cost than Opus 5.',
   s: [['TechNews on Opus 5.5', 'https://technews.tw/2026/09/23/anthropic-upgrades-claude-with-new-opus-5-5-model/']] },
+{ id: 'gpt6sol', d: '2026-09-22', t: 'GPT-6 Sol and Luna', th: 'model', lab: 'openai', w: 1,
+  x: 'Two cheaper GPT-6 tiers built with Astra’s methods, under three weeks after it. OpenAI said Sol made about half as many mistakes as its predecessor on its internal factuality test.',
+  s: [['OpenAI: GPT-6 Sol and Luna', 'https://openai.com/index/introducing-gpt-6-sol-and-luna/'], ['TechCrunch, 22 September 2026', 'https://techcrunch.com/2026/09/22/openai-launches-gpt-6-sol-and-luna/']] },
 { id: 'sonnet55', d: '2026-09-28', t: 'Claude Sonnet 5.5', th: 'model', lab: 'anthropic', w: 1,
   x: 'Kept Sonnet 5’s price of $2 and $10 per million tokens.',
   s: [['AF.net on Sonnet 5.5', 'https://af.net/realtime/anthropic-releases-claude-sonnet-5-5-mid-tier-ai-model-with-enhanced-benchmarks/']] },
+{ id: 'gpt61sol', d: '2026-09-29', t: 'GPT-6.1 Sol', th: 'model', lab: 'openai', w: 1,
+  x: 'An upgrade announced at OpenAI’s DevDay a week after Sol, offering “near-Astra intelligence to everyone at a fifth of its standard input and output token prices”.',
+  s: [['OpenAI: DevDay 2026 recap', 'https://openai.com/index/devday-2026-recap/']] },
 { id: 'haiku55', d: '2026-10-07', t: 'Claude Haiku 5.5', th: 'model', lab: 'anthropic', w: 1,
   x: 'About 75 percent cheaper to run than Haiku 4.5 on average.',
-  s: [['gori.me on Haiku 5.5 (Japanese)', 'https://gori.me/?p=171039']] }
+  s: [['gori.me on Haiku 5.5 (Japanese)', 'https://gori.me/?p=171039']] },
+{ id: 'gemini4', d: '2026-10-13', t: 'Gemini 4 Argon', th: 'model', lab: 'google', w: 2,
+  x: 'The first of Google’s Gemini 4 family, released at once to developers, businesses and subscribers. Google said it ranked first on the Vals Index of finance, coding, legal and tax work, and offered cyber defenders a version without its cyber guardrails.',
+  s: [['Google: introducing Gemini 4 Argon', 'https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/']] },
+{ id: 'kimik31', d: '2026-10-23', t: 'Kimi K3.1 Pro', th: 'model', lab: 'china', org: 'Moonshot AI', w: 1,
+  x: 'The first of a K3.1 series, with full weights promised by 4 November. Moonshot said it had removed cyber-related data from training so as not to “extend the absolute frontier of cyber capability” in open weights; on its internal exploitation benchmark the score fell from 90.5 to 81 percent.',
+  s: [['Moonshot AI: Kimi K3.1 Pro', 'https://www.kimi.ai/blog/kimi-k3-1-pro'], ['Unite.AI on Kimi K3.1 Pro', 'https://www.unite.ai/moonshot-ai-releases-kimi-k3-1-pro-first-model-in-new-k3-1-series/']] }
 ];
 
-if (typeof module !== 'undefined') module.exports = { THREADS, THREAD_ORDER, LABS, LAB_ORDER, EVENTS };
+/* ================= The body of the machine: two measured series for the Notes =================
+   Each value was checked against two primary representations on 23 October 2026 (vanishing/PANEL.md).
+   msft     Microsoft, “Additions to property and equipment”, cash-flow statements, Forms 10-K, US$ millions.
+            Fiscal years end on 30 June. lease: right-of-use assets obtained for finance leases (not cash), same filing.
+   ireland  CSO, Data Centres Metered Electricity Consumption 2025, Table 1: GWh used by data centres,
+            total metered GWh, and the data-centre share as published (whole percent).
+   Update the series from a new filing or release; the summary sentences are computed by the page. */
+const BODY = {
+  msft: {
+    rows: [
+      { k: 'FY2023', end: '30 June 2023', v: 28107 },
+      { k: 'FY2024', end: '30 June 2024', v: 44477 },
+      { k: 'FY2025', end: '30 June 2025', v: 64551 },
+      { k: 'FY2026', end: '30 June 2026', v: 115948, lease: 24608 }
+    ],
+    s: [['Microsoft, Form 10-K for fiscal 2026: cash-flow statements (2024–26)', 'https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R6.htm'],
+        ['Form 10-K for fiscal 2025: cash-flow statements (2023–25)', 'https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/R6.htm'],
+        ['Form 10-K for fiscal 2026: leases, supplemental cash-flow information', 'https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R91.htm']]
+  },
+  ireland: {
+    rows: [
+      { k: '2015', v: 1240, total: 24600, pct: 5 },
+      { k: '2016', v: 1482, total: 25356, pct: 6 },
+      { k: '2017', v: 1762, total: 25725, pct: 7 },
+      { k: '2018', v: 2182, total: 26730, pct: 8 },
+      { k: '2019', v: 2490, total: 26505, pct: 9 },
+      { k: '2020', v: 3030, total: 27056, pct: 11 },
+      { k: '2021', v: 4012, total: 28506, pct: 14 },
+      { k: '2022', v: 5273, total: 29824, pct: 18 },
+      { k: '2023', v: 6339, total: 30581, pct: 21 },
+      { k: '2024', v: 6973, total: 31903, pct: 22 },
+      { k: '2025', v: 7663, total: 32986, pct: 23 }
+    ],
+    s: [['CSO, Data Centres Metered Electricity Consumption 2025 (July 2026), Table 1', 'https://www.cso.ie/en/releasesandpublications/ep/p-dcmec/datacentresmeteredelectricityconsumption2025/keyfindings/'],
+        ['CSO PxStat table MEC02 (quarterly)', 'https://data.cso.ie/table/MEC02']]
+  }
+};
+
+if (typeof module !== 'undefined') module.exports = { THREADS, THREAD_ORDER, LABS, LAB_ORDER, EVENTS, BODY };
 
 </script>
 <script>
@@ -3079,6 +3207,54 @@ if (typeof module !== 'undefined') module.exports = {
       counts.map(c => c.y + ' ' + c.n).join(', ') + '"><line class="pbase" x1="0" x2="' + W + '" y1="' + (top + ph) + '" y2="' + (top + ph) + '"></line>' + bars + '</svg>';
     $('#pace-title').textContent = 'Model releases per year' + (S.lab ? ' · ' + LABS[S.lab] : '');
   }
+  /* the body of the machine: two single-series bar charts in the Notes, drawn like the releases chart.
+     BODY in data.js holds the figures; the summary sentences and tables are computed from it. */
+  function bmBars(rows, h, label, tick, tip, aria) {
+    const max = Math.max(...rows.map(h));
+    const W = 360, H = 132, top = 18, bottom = 20, left = 2, right = 2;
+    const band = (W - left - right) / rows.length, bw = Math.min(24, band * 0.6), ph = H - top - bottom;
+    const bars = rows.map((r, i) => {
+      const x = left + band * i + (band - bw) / 2, hh = Math.max(2, ph * h(r) / max), y = top + ph - hh;
+      const rr = Math.min(4, hh, bw / 2);
+      const path = 'M' + x + ',' + (top + ph) + 'V' + (y + rr) + 'Q' + x + ',' + y + ' ' + (x + rr) + ',' + y + 'H' + (x + bw - rr) + 'Q' + (x + bw) + ',' + y + ' ' + (x + bw) + ',' + (y + rr) + 'V' + (top + ph) + 'Z';
+      const lab = label(r, i);
+      return '<g><title>' + esc(tip(r)) + '</title>' +
+        '<rect x="' + (left + band * i) + '" y="0" width="' + band + '" height="' + H + '" fill="transparent"></rect>' +
+        '<path class="pbar" d="' + path + '"></path>' +
+        (lab ? '<text class="pval" x="' + (x + bw / 2) + '" y="' + (y - 5) + '">' + esc(lab) + '</text>' : '') +
+        '<text class="pyr" x="' + (x + bw / 2) + '" y="' + (H - 5) + '">' + esc(tick(r)) + '</text></g>';
+    }).join('');
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(aria) + '"><line class="pbase" x1="0" x2="' + W + '" y1="' + (top + ph) + '" y2="' + (top + ph) + '"></line>' + bars + '</svg>';
+  }
+  function renderBody() {
+    if (typeof BODY === 'undefined' || !$('#bm-msft')) return;
+    const n0 = v => v.toLocaleString('en-GB');
+    const bn = v => (v / 1000).toFixed(1);
+    const M = BODY.msft.rows, I = BODY.ireland.rows;
+    const m0 = M[0], m1 = M[M.length - 1], mp = M[M.length - 2];
+    $('#bm-msft').innerHTML = bmBars(M, r => r.v, r => bn(r.v), r => r.k,
+      r => r.k + ', the year to ' + r.end + ': $' + n0(r.v) + ' million',
+      'Microsoft’s cash additions to property and equipment, US$ billion: ' + M.map(r => r.k + ' ' + bn(r.v)).join(', '));
+    $('#bm-lease').textContent = m1.lease ? ' ($' + bn(m1.lease) + ' billion of them in fiscal ' + m1.k.slice(2) + ')' : '';
+    $('#bm-msft-sum').textContent = m1.k + ' was ' + (m1.v / m0.v).toFixed(1) + ' times ' + m0.k + ' and ' +
+      Math.round((m1.v / mp.v - 1) * 100) + ' percent more than ' + mp.k + '.';
+    const i0 = I[0], i1 = I[I.length - 1];
+    $('#bm-ie').innerHTML = bmBars(I, r => r.v, (r, i) => (i === 0 || i === I.length - 1) ? n0(r.v) : '', r => r.k,
+      r => r.k + ': ' + n0(r.v) + ' GWh, ' + r.pct + '% of all metered electricity',
+      'Electricity used by Ireland’s data centres, gigawatt hours: ' + I.map(r => r.k + ' ' + n0(r.v)).join(', '));
+    $('#bm-ie-sum').textContent = 'Data centres used ' + (i1.v / i0.v).toFixed(1) + ' times as much in ' + i1.k + ' as in ' + i0.k +
+      ', and their share rose from ' + i0.pct + ' to ' + i1.pct + ' percent.';
+    const srcs = s => '<ul class="srcs">' + s.map(([l, u]) => '<li><a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(l) + '</a></li>').join('') + '</ul>';
+    $('#bm-tables').innerHTML =
+      '<div class="bmtbl"><table><caption>Microsoft, additions to property and equipment</caption>' +
+      '<thead><tr><th scope="col">Fiscal year</th><th scope="col">Year ends</th><th scope="col" class="r">US$ million</th></tr></thead><tbody>' +
+      M.map(r => '<tr><th scope="row">' + r.k + '</th><td>' + r.end + '</td><td class="r">' + n0(r.v) + '</td></tr>').join('') +
+      '</tbody></table></div>' + srcs(BODY.msft.s) +
+      '<div class="bmtbl"><table><caption>Ireland, metered electricity</caption>' +
+      '<thead><tr><th scope="col">Year</th><th scope="col" class="r">Data centres, GWh</th><th scope="col" class="r">All metered, GWh</th><th scope="col" class="r">Share</th></tr></thead><tbody>' +
+      I.map(r => '<tr><th scope="row">' + r.k + '</th><td class="r">' + n0(r.v) + '</td><td class="r">' + n0(r.total) + '</td><td class="r">' + r.pct + '%</td></tr>').join('') +
+      '</tbody></table></div>' + srcs(BODY.ireland.s);
+  }
   function refreshFilters(jump) {
     renderLaneChips();
     renderLabChips();
@@ -3357,6 +3533,7 @@ if (typeof module !== 'undefined') module.exports = {
   renderLaneChips();
   renderLabChips();
   renderPace();
+  renderBody();
   renderEras();
   renderFList();
   const first = fromHash() || 'doomsday';
