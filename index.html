@@ -402,7 +402,6 @@ td.letters { letter-spacing: 0.18em; }
 .rules dd { margin: 0; }
 .src { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
 .src span { color: var(--muted); }
-.credit { margin: 6px 0 0; font-family: var(--mono); font-size: var(--t-xs); color: var(--muted); }
 
 /* intro */
 .intro { display: grid; gap: 10px; padding-block: 0 20px; }
@@ -429,12 +428,26 @@ details.method > summary:hover { color: var(--muted); }
   .current { animation: none; }
 }
 
+/* ---------- shared by all three pages: build.py appends this to each page's stylesheet ----------
+   The header and footer markup comes from nav() and foot() in build.py. Every page defines
+   --mono, --sans, --ink, --muted, --t-sm, which this relies on. */
+.svl-nav { margin: 0; font-family: var(--mono); font-size: var(--t-sm); line-height: 1.6; color: var(--muted); }
+.svl-nav a, .svl-foot a { color: var(--muted); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.svl-nav a:hover, .svl-foot a:hover { color: var(--ink); }
+.svl-nav [aria-current="page"] { color: var(--ink); }
+.svl-nav a, .svl-nav [aria-current="page"], .svl-foot a { white-space: nowrap; }
+.svl-foot {
+  display: flex; flex-wrap: wrap; gap: 6px 24px; justify-content: space-between; width: 100%;
+  margin: 4px 0 0; font-family: var(--sans); font-size: var(--t-sm); line-height: 1.6; color: var(--muted);
+}
+
 </style>
 </head>
 <body>
 
 <div class="page">
   <header class="mast">
+    <nav class="svl-nav" aria-label="SVL’s pages"><span aria-current="page">Numogram Lab</span> <span class="sep" aria-hidden="true">·</span> <a href="time-sorcery.html">Time-Sorcery</a> <span class="sep" aria-hidden="true">·</span> <a href="vanishing-point.html">Vanishing Point</a></nav>
     <h1>numogram lab</h1>
     <div class="readout" id="mast-readout"><span>AQ 216 → 9</span><span class="rchip"><i class="dot plex"></i>zone 9 · Plex</span></div>
     <p>AQ gematria laid over the Ccru’s Decimal Labyrinth. In AQ, A&nbsp;=&nbsp;10 through Z&nbsp;=&nbsp;35 and digits keep their face value. A phrase’s zone is the digital root of its AQ total.</p>
@@ -643,7 +656,7 @@ details.method > summary:hover { color: var(--muted); }
       <li>Nick Land, “Qabbala 101,” <i>Collapse</i> I (2007), p.&nbsp;281 and n.&nbsp;4 <span>· AQ totals reduced and read through the Numogram, under the name “Anglossic Qabbala”</span></li>
       <li><a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a> <span>· inspiration for this project: an open-source gematria workbench with a Ccru Numogram module, whose Divination mode reads a Lemur from two names much as the Zones tab does</span></li>
     </ul>
-    <p class="credit">Built by SVL with Claude, October 2026.</p>
+    <div class="svl-foot"><span>Built by SVL with Claude, October 2026.</span><span>Elsewhere: <a href="time-sorcery.html">Time-Sorcery</a> <span class="sep" aria-hidden="true">·</span> <a href="vanishing-point.html">Vanishing Point</a> <span class="sep" aria-hidden="true">·</span> <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a></span></div>
   </footer>
 </div>
 

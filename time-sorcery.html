@@ -70,8 +70,6 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 
 /* masthead */
 .mast { display: grid; gap: 10px; padding-block: 0 26px; max-width: 72ch; }
-.kicker { margin: 0; font-family: var(--mono); font-size: var(--t-sm); color: var(--muted); }
-.kicker a { color: var(--muted); }
 .mast h1 {
   font-family: var(--display); font-weight: 400; margin: 0;
   font-size: clamp(36px, 10vw, 60px); line-height: 1; letter-spacing: 0.01em;
@@ -311,10 +309,22 @@ pre.tm {
 .foot h2 { font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 6px 0 0; font-weight: 500; }
 .foot ul { margin: 0; padding-left: 18px; display: grid; gap: 5px; }
 .foot span { color: var(--muted); }
-.credit { margin: 4px 0 0; font-family: var(--mono); font-size: var(--t-xs); color: var(--muted); }
 
 @media (prefers-reduced-motion: reduce) {
   .traveler { display: none; }
+}
+
+/* ---------- shared by all three pages: build.py appends this to each page's stylesheet ----------
+   The header and footer markup comes from nav() and foot() in build.py. Every page defines
+   --mono, --sans, --ink, --muted, --t-sm, which this relies on. */
+.svl-nav { margin: 0; font-family: var(--mono); font-size: var(--t-sm); line-height: 1.6; color: var(--muted); }
+.svl-nav a, .svl-foot a { color: var(--muted); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.svl-nav a:hover, .svl-foot a:hover { color: var(--ink); }
+.svl-nav [aria-current="page"] { color: var(--ink); }
+.svl-nav a, .svl-nav [aria-current="page"], .svl-foot a { white-space: nowrap; }
+.svl-foot {
+  display: flex; flex-wrap: wrap; gap: 6px 24px; justify-content: space-between; width: 100%;
+  margin: 4px 0 0; font-family: var(--sans); font-size: var(--t-sm); line-height: 1.6; color: var(--muted);
 }
 
 </style>
@@ -323,7 +333,7 @@ pre.tm {
 
 <div class="page">
   <header class="mast">
-    <p class="kicker">A walkthrough in nine steps · companion to <a href="index.html">Numogram Lab</a></p>
+    <nav class="svl-nav" aria-label="SVL’s pages"><a href="index.html">Numogram Lab</a> <span class="sep" aria-hidden="true">·</span> <span aria-current="page">Time-Sorcery</span> <span class="sep" aria-hidden="true">·</span> <a href="vanishing-point.html">Vanishing Point</a></nav>
     <h1>time-sorcery</h1>
     <p class="lede">The Ccru’s glossary defines time-sorcery as “counterchronic effectuation of the Numogram.” This page takes a phrase about the future and a year, and runs them through the number practices in the Ccru’s texts and Nick Land’s “Qabbala 101.” Each step says which part comes from those texts and which part is this page’s own.</p>
   </header>
@@ -450,7 +460,7 @@ pre.tm {
       <li><a href="https://www.urbanomic.com/chapter/fanged-noumena-tic-talk/" target="_blank" rel="noopener">Nick Land, “Tic-Talk,” <i>Fanged Noumena</i></a> <span>· Barker’s Tic Xenotation; rules as summarized at <a href="https://word.site/2019/11/11/nullary/" target="_blank" rel="noopener">word.site</a></span></li>
     </ul>
     <p class="note">Plexing years into zones, reading rites backwards, and xenotating totals are this page’s own moves. They follow the texts’ arithmetic, but the texts don’t prescribe them. Two random phrases share a zone about one time in nine, so coincidences here are cheap; what you make of them is the part that matters.</p>
-    <p class="credit">Built by SVL with Claude, October 2026.</p>
+    <div class="svl-foot"><span>Built by SVL with Claude, October 2026.</span><span>Elsewhere: <a href="index.html">Numogram Lab</a> <span class="sep" aria-hidden="true">·</span> <a href="vanishing-point.html">Vanishing Point</a> <span class="sep" aria-hidden="true">·</span> <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a></span></div>
   </footer>
 </div>
 
