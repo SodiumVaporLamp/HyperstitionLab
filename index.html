@@ -428,6 +428,9 @@ details.method > summary:hover { color: var(--muted); }
   .current { animation: none; }
 }
 
+/* the demon's description in the pair card's verdict (from shared/demons.js) */
+.pc-verdict .pc-lore { font-size: var(--t-sm); line-height: 1.45; text-wrap: pretty; }
+
 /* ---------- shared by all three pages: build.py appends this to each page's stylesheet ----------
    The header and footer markup comes from nav() and foot() in build.py. Every page defines
    --mono, --sans, --ink, --muted, --t-sm, which this relies on. */
@@ -500,8 +503,8 @@ details.method > summary:hover { color: var(--muted); }
           <label class="toggle"><input type="checkbox" id="all-gates"> Show every gate</label>
         </div>
         <div class="z-notes">
-          <p class="note">Ordinal, Reduction and AQ always agree on the zone. Reverse and Reverse reduction always land in the syzygy twin; for a phrase on 9, that twin is 0, which a digital root also writes as 9. Satanic shifts the zone back one step for every letter. Values the two phrases share are shaded in the card.</p>
-          <p class="note">For a fuller reading of the demon between two names, with each Lemur’s titles and descriptions, try the Divination mode in <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a>’ Numogram, which inspired this page.</p>
+          <p class="note" id="cipher-note">For a phrase of letters alone, Ordinal, Reduction and AQ always agree on the zone. Reverse and Reverse reduction land in its syzygy twin; for a phrase on 9, that twin is 0, which a digital root also writes as 9. Satanic shifts the zone back one step for every letter. Digits break the pattern: AQ counts them at face value and the other ciphers skip them. Values the two phrases share are shaded in the card.</p>
+          <p class="note">The line under the demon’s name is this page’s paraphrase of its entry in the Ccru’s <a href="https://dataswamp.org/~john/sites/ccru/digithype/pandemonium.htm" target="_blank" rel="noopener">Pandemonium Matrix</a>; the Demons tab adds its rites. For a fuller reading of the demon between two names, with each Lemur’s titles and descriptions, try the Divination mode in <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a>’ Numogram, which inspired this page.</p>
         </div>
       </div>
     </section>
@@ -515,7 +518,7 @@ details.method > summary:hover { color: var(--muted); }
       <div class="cols">
         <figure class="diagram">
           <svg id="ring" viewBox="0 0 400 400" role="img" aria-label="The alphabet on a ring with each letter joined to its mirror; all thirteen chords sum to 45 in AQ."></svg>
-          <figcaption>The thirteen mirror pairs. Chord color gives the region of the syzygy each pair falls in; line style separates Murrumur, Oddubb and Katak. G and T form the diameter, which is why “Gt” totals 45. Tap a letter.</figcaption>
+          <figcaption>The thirteen mirror pairs. Chord colour gives the region of the syzygy each pair falls in; line style separates Murrumur, Oddubb and Katak. G and T form the diameter, which is why “Gt” totals 45. Tap a letter.</figcaption>
           <ul class="legend" id="ring-legend"></ul>
           <p class="note" id="ring-detail" aria-live="polite"></p>
         </figure>
@@ -642,7 +645,7 @@ details.method > summary:hover { color: var(--muted); }
     <h2>Rules</h2>
     <dl class="rules">
       <dt>AQ</dt><dd>A&nbsp;=&nbsp;10 through Z&nbsp;=&nbsp;35, with digits 0–9 at face value. Accents are dropped before counting.</dd>
-      <dt>Other ciphers</dt><dd>Ordinal A&nbsp;=&nbsp;1 to Z&nbsp;=&nbsp;26. Reverse Z&nbsp;=&nbsp;1 to A&nbsp;=&nbsp;26. Reduction and Reverse reduction collapse each letter to one digit. Satanic A&nbsp;=&nbsp;36 to Z&nbsp;=&nbsp;61.</dd>
+      <dt>Other ciphers</dt><dd>Ordinal A&nbsp;=&nbsp;1 to Z&nbsp;=&nbsp;26. Reverse Z&nbsp;=&nbsp;1 to A&nbsp;=&nbsp;26. Reduction and Reverse reduction collapse each letter to one digit. Satanic A&nbsp;=&nbsp;36 to Z&nbsp;=&nbsp;61. These five count letters only and skip digits.</dd>
       <dt>Zones</dt><dd>A phrase’s zone is the digital root of its AQ total. Digital roots run from 1 to 9: 9 and 0 are the same number mod 9, so anything that would land on 0 shows as 9 and stands for the 9::0 syzygy. Only an empty phrase gets 0.</dd>
       <dt>Numogram</dt><dd>Syzygies sum to nine. Each syzygy’s current flows to the zone named by its difference: Sink, Surge, Hold, Warp and Plex. A gate leads from zone n to the digital root of 0&nbsp;+&nbsp;1&nbsp;+&nbsp;…&nbsp;+&nbsp;n.</dd>
       <dt>Chance</dt><dd>Two random phrases share a zone about one time in nine, and land on syzygy twins about one time in ten. The lab finds coincidences; weighing them is up to you.</dd>
@@ -662,6 +665,163 @@ details.method > summary:hover { color: var(--muted); }
 
 <script>
 const LEXICON = {"ccru": ["Xenocosmography", "Eloquent Miracles", "Nick Land", "Hyperstition", "Numogram", "Accelerationism", "Gnon", "Lemuria", "Lemurian Time War", "Ccru", "Uttunul", "Katak", "Djynxx", "Oddubb", "Murrumur", "Cthelll", "Barker", "Qwernomics", "Axsys", "Decimal Labyrinth", "Time Circuit", "Warp", "Plex", "Syzygy", "Pandemonium", "Meltdown", "Fanged Noumena", "Thirst for Annihilation", "Teleoplexy", "Templexity", "Xenosystems", "Outside", "Capital", "Pythia", "Dark Enlightenment", "Cathedral", "Exit", "Tic Xenotation", "Abstract Culture", "Mark Fisher", "Sadie Plant", "Kodwo Eshun", "Orphan Drift", "Machinic Desire", "Cyberpositive", "Technocapital", "Crypto Current", "Bitcoin", "Satoshi Nakamoto", "Shanghai", "Urban Future", "Outside In", "Pythia Unbound", "Phyl Undhu", "Lemurs", "Anglossic Qabbala", "AQ", "Qabbala", "Xenodemon", "Chronodemon", "Time War", "Templex", "Neuromancer", "William Gibson", "Cyberspace", "Burroughs", "Interzone", "Capitalism", "Hyperstitional", "Numogrammatic", "Decimal Numogram", "Plutonics", "Cyberrevolution", "Swarmachines", "Circuitries", "Templexity Shanghai", "Xeno"], "lovecraft": ["Cthulhu", "Lovecraft", "Necronomicon", "Yog Sothoth", "Azathoth", "Nyarlathotep", "Dagon", "Rlyeh", "Shoggoth", "Old Ones", "Great Old Ones", "Elder Gods", "Elder Sign", "Arkham", "Innsmouth", "Miskatonic", "Call of Cthulhu", "That is not dead which can eternal lie", "Mountains of Madness", "The Outer Gods", "Abdul Alhazred"], "thelema": ["Aleister Crowley", "Crowley", "Thelema", "Agape", "Do what thou wilt", "Love is the law", "Love under will", "Aiwass", "Hadit", "Nuit", "Ra Hoor Khuit", "Horus", "Babalon", "Choronzon", "Abrahadabra", "Book of the Law", "Liber Al", "Book of Lies", "Aeon of Horus", "The Great Beast", "To Mega Therion", "Therion", "Holy Guardian Angel", "Magick", "Thoth", "Golden Dawn", "Boleskine", "Every man and every woman is a star", "The Abyss"], "faust": ["Faust", "Doctor Faustus", "Mephistopheles", "Mephisto", "Gretchen", "Walpurgis Night", "Deal with the Devil", "Pact with the Devil", "Sold his soul", "The spirit that denies", "Goethe", "Marlowe"], "occult": ["Demiurge", "Pleroma", "Sophia", "Archons", "Abraxas", "Gnosis", "Aeon", "Hermes Trismegistus", "Emerald Tablet", "As above so below", "Philosophers Stone", "Magnum Opus", "Solve et Coagula", "Prima Materia", "Ouroboros", "Azoth", "Alchemy", "Baphomet", "Lucifer", "Satan", "Beelzebub", "Lilith", "Samael", "Metatron", "Golem", "Tetragrammaton", "Sephiroth", "Qliphoth", "Tree of Life", "Ein Sof", "Kabbalah", "Gematria", "Satanic Gematria", "Numerology", "Bibliomancy", "Tarot", "Grimoire", "Sigil", "Chaos Magic", "Austin Osman Spare", "Occult", "Magic", "Sorcery", "Witchcraft", "Necromancy", "Divination", "Oracle", "Prophecy", "Black Magic", "Left Hand Path", "Right Hand Path", "Daemon", "Familiar", "Pentagram", "Hexagram", "Talisman", "Invocation", "Evocation"], "bible": ["Number of the Beast", "Six hundred sixty six", "The Beast", "Antichrist", "Apocalypse", "Armageddon", "Revelation", "Alpha and Omega", "Whore of Babylon", "Lake of Fire", "Four Horsemen", "Seven Seals", "Mark of the Beast", "In the beginning was the Word", "Let there be light", "Fiat Lux", "Ashes to ashes", "Dust to dust", "Tower of Babel", "Garden of Eden", "Tree of Knowledge", "Original Sin", "Serpent", "Adam", "Eve", "Babylon", "Golgotha", "Lazarus", "Judas", "Logos", "Holy Ghost", "Holy Spirit", "Fallen Angel", "Morning Star", "Son of Perdition", "Abaddon", "Apollyon", "Leviathan", "Behemoth", "Gog and Magog", "Mene Mene Tekel", "Vanity of vanities"], "philo": ["Will to Power", "Eternal Return", "Overman", "Ubermensch", "God is dead", "Amor Fati", "Zarathustra", "Beyond Good and Evil", "Death of God", "Thing in Itself", "Noumenon", "Noumena", "Phenomena", "Critique of Pure Reason", "Transcendental", "Body without Organs", "Anti Oedipus", "Thousand Plateaus", "Rhizome", "Deterritorialization", "Schizoanalysis", "Desiring Machines", "Accursed Share", "Sovereignty", "Inner Experience", "Nietzsche", "Kant", "Bataille", "Deleuze", "Guattari", "Spinoza", "Hegel", "Absolute Spirit", "Geist", "Dasein", "Heidegger", "Being and Time", "Nothingness", "Nihilism", "Abyss", "Schopenhauer", "Will and Representation", "Cogito", "Eternal Recurrence", "Last Man", "Death Drive", "Thanatos", "Eros", "The Real", "Lacan"], "ai": ["Artificial Intelligence", "Singularity", "Superintelligence", "Machine Intelligence", "Neural Network", "Basilisk", "Rokos Basilisk", "Paperclip Maximizer", "Alignment", "Large Language Model", "Language Model", "Claude", "GPT", "Intelligence Explosion", "Technological Singularity", "The Machine", "Ghost in the Machine", "Turing Test", "Alan Turing", "Cybernetics", "Norbert Wiener", "Skynet", "Golem XIV", "Deus ex Machina", "Machine God"], "greek": ["Sphinx", "Riddle of the Sphinx", "Oedipus", "Thebes", "Delphi", "Know thyself", "Gnothi Seauton", "Apollo", "Dionysus", "Prometheus", "Pandora", "Hermes", "Chronos", "Kronos", "Aion", "Kairos", "Hades", "Persephone", "Orpheus", "Eurydice", "Medusa", "Minotaur", "Labyrinth", "Icarus", "Daedalus", "Cassandra", "Pythagoras", "Tetractys"], "sphinxph": ["Will to Ice", "What is Man", "Hell is hot", "Time is ill", "Love is God", "Love is lie", "Dogs of war", "Gods of war", "Iron to ice", "Time to die", "Gold is sin", "What is Ash", "Path of sin", "Ruin of all", "Hope is law"], "words": ["Cross", "Power", "Glory", "Omen", "Doom", "Devil", "Earth", "Tree", "Evil", "Man", "Ash", "Fire", "Ice", "Hell", "Heaven", "Death", "Life", "Time", "Void", "Zero", "Infinity", "Chaos", "Order", "Mirror", "Riddle", "Answer", "Question", "Number", "Word", "Name", "Secret", "Key", "Gate", "Door", "Spiral", "Loop", "Circuit", "Machine", "Ghost", "Spirit", "Soul", "Mind", "Dream", "Nightmare", "Shadow", "Light", "Darkness", "Eclipse", "Sun", "Moon", "Star", "Blood", "Bone", "Dust", "Salt", "Gold", "Mercury", "Sulphur", "Silence", "Thunder", "Lightning", "Dragon", "Wolf", "Raven", "Crow", "Owl", "Spider", "Web", "Hive", "Swarm", "Virus", "Plague", "Fever", "Madness", "Genius", "Prophet", "Witch", "Wizard", "Magus", "Hierophant", "Priestess", "Emperor", "Empress", "Hermit", "Fool", "Magician", "Lovers", "Chariot", "Strength", "Justice", "Wheel of Fortune", "Hanged Man", "Temperance", "Tower", "Judgement", "World"], "nums": ["One hundred eight", "Three hundred thirty three", "Two hundred sixteen", "Four hundred fifty one", "Nine", "Thirty six", "Forty five", "Seven hundred twenty three", "One hundred eighty nine"], "extra": ["Blade Runner", "Apocalypse Now", "The Matrix", "Space Odyssey", "Ghost in the Shell", "Videodrome", "Event Horizon", "Hellraiser", "The Exorcist", "Rosemarys Baby", "The Omen", "Eyes Wide Shut", "Lost Highway", "Mulholland Drive", "Twin Peaks", "Fire Walk With Me", "Donnie Darko", "Primer", "Arrival", "Annihilation", "Stalker", "Solaris", "Akira", "Evangelion", "Gravitys Rainbow", "Infinite Jest", "Blood Meridian", "Moby Dick", "Paradise Lost", "Divine Comedy", "Inferno", "Purgatorio", "Paradiso", "The Waste Land", "Finnegans Wake", "Ulysses", "Naked Lunch", "Nova Express", "The Soft Machine", "Snow Crash", "Dune", "Foundation", "Frankenstein", "Dracula", "The King in Yellow", "House of Leaves", "Pale Fire", "Ficciones", "Library of Babel", "The Aleph", "Labyrinths", "Godel Escher Bach", "Strange Loop", "Heart of Darkness", "Lord of the Flies", "Brave New World", "Nineteen Eighty Four", "Fahrenheit Four Fifty One", "Dark Side of the Moon", "Sympathy for the Devil", "Stairway to Heaven", "Highway to Hell", "Paint It Black", "Master of Puppets", "Selected Ambient Works", "Music for Airports", "Kid A", "OK Computer", "Nothing human makes it out of the near future", "An invasion from the future", "Fictions that make themselves real", "The future is already here", "Nothing is true everything is permitted", "The abyss gazes also into you", "And with strange aeons even death may die", "Do what thou wilt shall be the whole of the law", "Love is the law love under will", "Let him that hath understanding count the number of the beast", "His number is six hundred threescore and six", "Here is wisdom", "What is man that thou art mindful of him", "I am the spirit that denies", "Thus spoke Zarathustra", "The owl of Minerva", "Here be dragons", "The map is not the territory", "Ph nglui mglw nafh Cthulhu Rlyeh wgah nagl fhtagn", "Iä Iä Cthulhu fhtagn", "Hyperstition is a positive feedback circuit", "Garden of Forking Paths", "Tlon Uqbar Orbis Tertius", "Pierre Menard", "Funes the Memorious", "The Lottery in Babylon", "Death and the Compass", "The Circular Ruins", "The Book of Sand", "The Zahir", "Borges", "Pynchon", "Philip K Dick", "Valis", "Ubik", "Do Androids Dream of Electric Sheep", "Electric Sheep", "Philip Dick", "Thomas Pynchon", "Jorge Luis Borges", "Ballard", "Crash", "The Atrocity Exhibition", "Cronenberg", "David Lynch", "Kubrick", "Tarkovsky", "Stanislaw Lem", "Mind Children", "Accelerate", "Hyperstition Laboratory", "Cybernetic Culture", "Warwick University", "Virtual Futures", "Abstract Culture Swarm", "Lemurian Time", "Time Sorcery", "Hidden Arts", "Digital Pandemonium", "Apocalypse Culture", "Black Iron Prison", "Empire Never Ended", "The Empire Never Ended", "Chapel Perilous", "Illuminatus", "Discordia", "Eris", "Fnord", "Kallisti", "Hail Eris", "Robert Anton Wilson", "Operation Mindfuck", "Synchronicity", "Carl Jung", "Collective Unconscious", "Shadow Self", "Anima", "Animus", "Archetype", "Mysterium Coniunctionis", "Red Book", "Liber Novus", "Philemon", "Hermeticism", "Kybalion", "The All is Mind", "Corpus Hermeticum", "Poimandres", "Asclepius", "Picatrix", "Key of Solomon", "Lesser Key of Solomon", "Ars Goetia", "Goetia", "Seventy Two Demons", "Enochian", "John Dee", "Edward Kelley", "Monas Hieroglyphica", "Angelic Language", "Call of the Aethyrs", "Vision and the Voice", "Liber Legis", "Book of Thoth", "Thoth Tarot", "Major Arcana", "Minor Arcana", "Celtic Cross", "Rider Waite", "Wheel", "Ain Soph Aur", "Kether", "Chokmah", "Binah", "Daath", "Chesed", "Geburah", "Tiphareth", "Netzach", "Hod", "Yesod", "Malkuth", "Thirty Two Paths", "Sefer Yetzirah", "Zohar", "Bahir", "Golem of Prague", "Shem ha Mephorash", "Seventy Two Names"]};
+
+/* ---------- demon descriptions: shared by Numogram Lab and Time-Sorcery ----------
+   build.py puts this file in front of both pages' scripts.
+   One entry per demon, keyed by mesh number, a(a − 1)/2 + b, with its net-span k.
+   Each entry is this page's paraphrase of the demon's entry in the Ccru's Pandemonium Matrix
+   (PANDEMONIUM_URL), never a quotation:
+     t    what the demon is: its title and its kind, in one sentence (the Lab's pair card shows only this)
+     r    what its rites do, in one sentence
+     nm   the name the Matrix heads the entry with
+     aka  the other names the Matrix gives in brackets
+   Display only. Nothing here feeds a name, a number or a route: the arithmetic keeps its own
+   name tables (DEMON_TABLE in the Lab, DEMONS in Time-Sorcery), so the Murrumur / Mur Mur
+   spelling experiment is untouched, and the descriptions never name the demon they describe.
+   CLAUDE.md has the rules for editing these, and DEMONS.md the ledger of what each one draws on. */
+const PANDEMONIUM_URL = 'https://dataswamp.org/~john/sites/ccru/digithype/pandemonium.htm';
+const DEMON_LORE = [
+  { m: 0, k: '1::0', nm: 'Lurgo', aka: ['Legba'],
+    t: 'The initiator: a demon of openings, stationed at the first door.',
+    r: 'Its one rite is the spinal voyage, glossed as a fate line, and programming.' },
+  { m: 1, k: '2::0', nm: 'Duoddod', aka: [],
+    t: 'A duplicitous redoubler, demon of abstract addiction, at the second door.',
+    r: 'Its rites regress through the pineal gland to look backward, and comb data with exactness down to the second.' },
+  { m: 2, k: '2::1', nm: 'Doogu', aka: ['The Blob'],
+    t: 'The original schism, a demon of waters splitting apart.',
+    r: 'Its rites run from primordial breath, through baited traps and plot twists, to a slow pull into stillness and protection from drowning.' },
+  { m: 3, k: '3::0', nm: 'Ixix', aka: ['Yix'],
+    t: 'The abductor, a demon of cosmic indifference, at the third door.',
+    r: 'The Matrix marks its rite with a question mark in place of a route; its concern is the hidden history of the Earth.' },
+  { m: 4, k: '3::1', nm: 'Ixigool', aka: ['Djinn of the Magi'],
+    t: 'An over-ghoul of threefold identity and sphinx-time.',
+    r: 'Its rites climb unhindered toward prophecy and follow implications to their end: as above, so below.' },
+  { m: 5, k: '3::2', nm: 'Ixidod', aka: ['King Sid'],
+    t: 'The zombie-maker, a demon of escape velocity.',
+    r: 'Its rites bring crises through excess and the illusion of progress: out of the frying pan, into the fire.' },
+  { m: 6, k: '4::0', nm: 'Krako', aka: ['Kru', 'Karak-oa'],
+    t: 'The croaking curse, a demon of burning hail, at the fourth door.',
+    r: 'Its one rite is subsidence, the heaviness of fate.' },
+  { m: 7, k: '4::1', nm: 'Sukugool', aka: ['Old Skug'],
+    t: 'The sucking ghoul, a demon of flood and implosion.',
+    r: 'Its rites turn the cycle of creation and destruction, and submerge: a gravedigger’s work.' },
+  { m: 8, k: '4::2', nm: 'Skoodu', aka: ['Li’l Scud'],
+    t: 'The fashioner, a demon of switching crazes.',
+    r: 'Its rites cover historical time and its end, a passage through the deep, and a cycle remade and steadied.' },
+  { m: 9, k: '4::3', nm: 'Skarkix', aka: ['Sharky', 'Scar-head'],
+    t: 'The buzz-cutter, a demon of anti-evolution in the eddies of the Delta.',
+    r: 'Its rites tell the history of the magicians in hermetic shorthand, seal time in threes, and end in jagged apocalyptic rapture.' },
+  { m: 10, k: '5::0', nm: 'Tokhatto', aka: ['Old Toker', 'Top Cat'],
+    t: 'Decimal camouflage: a demon of talisman mania at the fifth door, and the angel of the cards.',
+    r: 'Its one rite makes number into destiny.' },
+  { m: 11, k: '5::1', nm: 'Tukkamu', aka: [],
+    t: 'Occulturation: a demon of the origins of disease.',
+    r: 'Its rites go two ways, toward optimal maturation and medicine as diffuse healing, or toward rapid decay and putrefaction.' },
+  { m: 12, k: '5::2', nm: 'Kuttadid', aka: ['Kitty'],
+    t: 'Ticking machines, a demon of precarious states.',
+    r: 'Its rites maintain balance by keeping to the calendar, or keep watch without rest.' },
+  { m: 13, k: '5::3', nm: 'Tikkitix', aka: ['Tickler'],
+    t: 'Clicking menaces, a demon of whirling delirium.',
+    r: 'Its rites draw swirl patterns, tornadoes and voices in the wind, and carry things off without trace.' },
+  { m: 14, k: '5::4', nm: 'Katak', aka: [],
+    t: 'The desolator, a demon of cataclysmic convergence.',
+    r: 'Its rites are tail-chasing and rabid animals, nature at its most savage, and panic, from horror pulp to religious frenzy.' },
+  { m: 15, k: '6::0', nm: 'Tchu', aka: ['Tchanul'],
+    t: 'The source of subnothingness at the sixth door, demon of ultimate outsideness and unnamable things.',
+    r: 'The Matrix marks its rite with a question mark in place of a route; it attends cosmic deletions and real impossibilities.' },
+  { m: 16, k: '6::1', nm: 'Djungo', aka: [],
+    t: 'The infiltrator, a demon of subtle involvements and intricate puzzles.',
+    r: 'Its rites stir maelstroms past calculation and bring stealthy invasions and unexplained contaminations, fish falling from the sky among them.' },
+  { m: 17, k: '6::2', nm: 'Djuddha', aka: ['Judd Dread'],
+    t: 'A decentred threat, the demon of artificial turbulence and complex-dynamics simulation.',
+    r: 'Its rites spin a machine vortex and haunt the edges of storms, where the Wendigo legends live.' },
+  { m: 18, k: '6::3', nm: 'Djynxx', aka: ['Ching', 'The Jinn'],
+    t: 'The child stealer, a demon of time-lapse whose region is the Warp.',
+    r: 'Its rite raises abstract cyclones and dust spirals, the nomad war machine.' },
+  { m: 19, k: '6::4', nm: 'Tchakki', aka: ['Chuckles'],
+    t: 'A bag of tricks, the demon of combustion.',
+    r: 'Its rites run from the quenching accidents of apprentice smiths, to maps between incompatible time-systems, to outright conflagration.' },
+  { m: 20, k: '6::5', nm: 'Tchattuk', aka: ['One Eyed Jack', 'Djatka'],
+    t: 'A pseudo-basis, the demon of the unscreened matrix, pitched lowest of all.',
+    r: 'Its rites bring zero gravity and cut-outs: UFO cover-ups and the Nephilim.' },
+  { m: 21, k: '7::0', nm: 'Puppo', aka: ['The Pup'],
+    t: 'Break-outs: a demon of larval regression, at the seventh door.',
+    r: 'Its rites dissolve things into slime and swallow them into the earth.' },
+  { m: 22, k: '7::1', nm: 'Bubbamu', aka: ['Bubs'],
+    t: 'After Babylon, a demon of relapse.',
+    r: 'Its rites carry marine life onto land, send assassins from a black Atlantis, and raise seawalls.' },
+  { m: 23, k: '7::2', nm: 'Oddubb', aka: ['Odba'],
+    t: 'The broken mirror, a demon of swamp labyrinths and blind doubles.',
+    r: 'Its rite is time loops, glamour and glosses.' },
+  { m: 24, k: '7::3', nm: 'Pabbakis', aka: ['Pabzix'],
+    t: 'The dabbler, a demon of interference and fakery.',
+    r: 'Its rites bring frog mutations and plagues of frogs, and open cans of worms that multiply by division.' },
+  { m: 25, k: '7::4', nm: 'Ababbatok', aka: ['Abracadabra'],
+    t: 'The regenerator, a demon of suspended decay.',
+    r: 'Its rites run from Frankensteinian experiment, reanimations and golems, through purifications, amphibious cycles and the healing of wounds, to sustenance by smoke visions.' },
+  { m: 26, k: '7::5', nm: 'Papatakoo', aka: ['Pataku'],
+    t: 'The upholder, a demon of calendar time.',
+    r: 'Its rites win final success by perseverance and blood sacrifice, and turn rituals into nature.' },
+  { m: 27, k: '7::6', nm: 'Bobobja', aka: ['Bubbles', 'Beelzebub, Lord of the Flies'],
+    t: 'Heavy atmosphere: the demon of teeming pestilence.',
+    r: 'Its rites hang strange lights over swamps and send swarms over lost harvests.' },
+  { m: 28, k: '8::0', nm: 'Minommo', aka: [],
+    t: 'The webmaker, a demon of submergence at the eighth door.',
+    r: 'Its one rite is the shaman’s voyage: dream sorcery and the chatter of mitochondria.' },
+  { m: 29, k: '8::1', nm: 'Mur Mur', aka: ['Murrumur', 'Mu(mu)'],
+    t: 'The dream-serpent, a demon of the Deep Ones.',
+    r: 'Its rite is oceanic sensation: gilled unlife and regression down the spine.' },
+  { m: 30, k: '8::2', nm: 'Nammamad', aka: [],
+    t: 'The mirroracle, a demon of underground trade.',
+    r: 'Its rites work voodoo through cyberspace, end in collapse and heat death, and bring emergences and things washed up on beaches.' },
+  { m: 31, k: '8::3', nm: 'Mummumix', aka: ['Mix-Up'],
+    t: 'The mist-crawler, a demon of creeping fog that the Matrix links to Nyarlathotep.',
+    r: 'Its rites raise ocean storms, carry alien messages at the bacterial level, and bring diseases from outer space.' },
+  { m: 32, k: '8::4', nm: 'Numko', aka: ['Old Nuk'],
+    t: 'Keeper of old terrors, a demon of things born from the earth itself.',
+    r: 'Its rites reward patience in the abyss, pull the crust under, and wake volcanoes and bacterial intelligence.' },
+  { m: 33, k: '8::5', nm: 'Muntuk', aka: ['Manta', 'Manitou'],
+    t: 'The desert swimmer, a demon of dry seabeds.',
+    r: 'Its rites follow ancient rivers, or bring cloud-vaults, oppressive tension and protection during the monsoon.' },
+  { m: 34, k: '8::6', nm: 'Mommoljo', aka: ['Mama Jo'],
+    t: 'The alien mother, a demon of xenogenesis.',
+    r: 'Its rites seed life from cosmic bacteria and leave extraterrestrial residues, alien DNA among them.' },
+  { m: 35, k: '8::7', nm: 'Mombbo', aka: [],
+    t: 'Tentacle face, the fishy princess: a demon of hybridity.',
+    r: 'Its rites turn bodies serpentine, colonise unnoticed, and leave a forgetting at the surface.' },
+  { m: 36, k: '9::0', nm: 'Uttunul', aka: [],
+    t: 'The seething void, a demon of atonality whose region is the Plex, at the ninth door.',
+    r: 'Its rite crosses the iron ocean.' },
+  { m: 37, k: '9::1', nm: 'Tutagool', aka: ['Yettuk'],
+    t: 'The tattered ghoul, a demon of punctuality.',
+    r: 'Its one rite is the dark arts, rusting iron and tattooing: a one-way ticket to hell.' },
+  { m: 38, k: '9::2', nm: 'Unnunddo', aka: ['The False Nun'],
+    t: 'Double-undoing, a demon of endless unwrapping, horror in onion-skin layers.',
+    r: 'Its rites run traffic through crypts and lay communication grids.' },
+  { m: 39, k: '9::3', nm: 'Ununuttix', aka: ['Tick-Tock'],
+    t: 'Particle clocks, a demon of absolute coincidence.',
+    r: 'The Matrix marks its rite with a question mark in place of a route; it makes numerical connections where no link exists.' },
+  { m: 40, k: '9::4', nm: 'Ununak', aka: ['Nuke'],
+    t: 'Blind catastrophe, a demon of convulsions.',
+    r: 'Its rites keep the secrets of the blacksmiths and stir impulses under the earth.' },
+  { m: 41, k: '9::5', nm: 'Tukutu', aka: ['Killer-Kate'],
+    t: 'Cosmotraumatics, a demon of death strokes.',
+    r: 'Its one rite sends crash signals, the scarring named for Barker.' },
+  { m: 42, k: '9::6', nm: 'Unnutchi', aka: ['Outch', 'T’ai Chi'],
+    t: 'Tachyonic stillness, a slow vortex: a demon of coiling outsideness.',
+    r: 'The Matrix marks its rite with a question mark in place of a route; it governs an asymmetric poise between a pair, and cybernetic anomalies.' },
+  { m: 43, k: '9::7', nm: 'Nuttubab', aka: ['Nut-Cracker'],
+    t: 'A mimetic anorganism, the demon of metallic unlife.',
+    r: 'Its rites bring lunacy, iron in the blood, and the dragon lines of the earth’s electromagnetism.' },
+  { m: 44, k: '9::8', nm: 'Ummnu', aka: ['Om', 'Omni', 'Amen', 'Omen'],
+    t: 'Ultimate inconsequence, a demon of earth screams.',
+    r: 'Its one rite is the friction of the crust, a tension in inorganic matter.' }
+];
+function demonLore(a, b) { return DEMON_LORE[a * (a - 1) / 2 + b] || null; }
+/* the other names for a demon, leaving out whichever one the page is showing */
+function demonAka(lore, shown) {
+  return [lore.nm].concat(lore.aka).filter(n => n.toLowerCase() !== String(shown).toLowerCase());
+}
 
 /* ---------- cipher core ---------- */
 const CIPHERS6 = ['ord', 'red', 'aq', 'rev', 'rred', 'sat'];
@@ -1126,14 +1286,22 @@ if (typeof module !== 'undefined') module.exports = {
     if (ra.z === rb.z) {
       h += `<p class="big">Same zone · ${ra.z}</p><p>No demon stands between them.${twins ? ' They are exact twins too: the same in Ordinal, Reverse, Satanic and AQ.' : shared}</p>`;
     } else {
-      const d = demonBetween(ra.z, rb.z, 'murrumur');
-      h += `<p class="big">${esc(d.name)} · ${d.a}::${d.b}</p><p>Mesh ${pad(d.mesh)}, ${CLASS_TEXT[d.cls]}.${shared}</p>`;
-      if (d.syzygetic) {
-        const s = syzOf(d.a);
-        h += `<p><strong>Syzygy twins.</strong> Zones ${d.a} and ${d.b} sum to nine, and the ${s.current} current flows to zone ${s.to}.</p>`;
-      }
+      const d = demonBetween(ra.z, rb.z, 'murrumur'), lore = demonLore(d.a, d.b);
+      const s = syzOf(d.a);
+      const twins = d.syzygetic ? ` <strong>Syzygy twins.</strong> Zones ${d.a} and ${d.b} sum to nine, and the ${s.current} current flows to zone ${s.to}.` : '';
+      h += `<p class="big">${esc(d.name)} · ${d.a}::${d.b}</p>` + (lore ? `<p class="pc-lore">${esc(lore.t)}</p>` : '') +
+        `<p>Mesh ${pad(d.mesh)}, ${CLASS_TEXT[d.cls]}.${twins}${shared}</p>`;
     }
     el.innerHTML = h;
+  }
+  /* the cross-cipher note, with its digit example worked out by the same functions the card uses */
+  function cipherNote() {
+    const ex = 'GPT6', v = values(ex);
+    $('#cipher-note').textContent = 'For a phrase of letters alone, Ordinal, Reduction and AQ always agree on the zone. ' +
+      'Reverse and Reverse reduction land in its syzygy twin; for a phrase on 9, that twin is 0, which a digital root also writes as 9. ' +
+      'Satanic shifts the zone back one step for every letter. ' +
+      `Digits break the pattern: AQ counts them at face value and the other ciphers skip them, so ${ex} is AQ ${v.aq} → zone ${dr(v.aq)} but Ordinal ${v.ord} → zone ${dr(v.ord)}. ` +
+      'Values the two phrases share are shaded in the card.';
   }
   function buildChips() {
     const box = $('#pair-chips');
@@ -1245,6 +1413,12 @@ if (typeof module !== 'undefined') module.exports = {
     let h = `<h3>Selected demon</h3><p class="big">${esc(d.name)} · ${d.a}::${d.b}</p>` +
       `<p>Mesh ${pad(d.mesh)} · home zones ${d.a} and ${d.b === 0 ? '0, written 9' : d.b}</p>` +
       `<p class="mono">AQ ${st.join(' → ')} · ${d.home ? `lands home in zone ${d.zone}` : `lands in zone ${d.zone}, away from ${d.a} and ${d.b}`}</p>`;
+    const lore = demonLore(d.a, d.b);
+    if (lore) {
+      const aka = demonAka(lore, d.name);
+      h += `<p>${esc(lore.t)} ${esc(lore.r)}</p>` +
+        `<p class="note">${aka.length ? `The Matrix also calls it ${esc(andList(aka))}. ` : ''}Paraphrased from the <a href="${PANDEMONIUM_URL}" target="_blank" rel="noopener">Pandemonium Matrix</a>, mesh ${pad(d.mesh)}.</p>`;
+    }
     if (d.a === 8 && d.b === 1) h += '<p class="note">The Ccru glossary spells this demon Murrumur and the Pandemonium table writes Mur Mur. Murrumur plexes home; Mur Mur does not.</p>';
     $('#pm-detail').innerHTML = h;
   }
@@ -1514,6 +1688,7 @@ if (typeof module !== 'undefined') module.exports = {
     mast();
     buildNumogram();
     buildChips();
+    cipherNote();
     ['#in-a', '#in-b'].forEach(s => $(s).addEventListener('input', updateZones));
     $('#all-gates').addEventListener('change', updateZones);
     updateZones();

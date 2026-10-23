@@ -314,6 +314,10 @@ pre.tm {
   .traveler { display: none; }
 }
 
+/* the demon's description on the step-6 card (from shared/demons.js) */
+.demon .lore { text-wrap: pretty; }
+.demon .note a { color: var(--muted); }
+
 /* ---------- shared by all three pages: build.py appends this to each page's stylesheet ----------
    The header and footer markup comes from nav() and foot() in build.py. Every page defines
    --mono, --sans, --ink, --muted, --t-sm, which this relies on. */
@@ -457,7 +461,7 @@ pre.tm {
       <li><a href="https://dataswamp.org/~john/sites/ccru/id(entity)/glossary.htm" target="_blank" rel="noopener">Ccru Glossary</a> <span>· K-Time, Time-Sorcery, Rite, Hyperstition, Syzygy, Decadence</span></li>
       <li><a href="https://dataswamp.org/~john/sites/ccru/digithype/pandemonium.htm" target="_blank" rel="noopener">Ccru: Pandemonium</a> <span>· the 45 demons and their rite paths; cross-checked against the transcription in <a href="https://github.com/Cyphers-News/gematro-hyperdope" target="_blank" rel="noopener">Cyphers’ source</a>, which matches for all 45</span></li>
       <li><a href="https://dataswamp.org/~john/sites/ccru/zones/Zn9.htm" target="_blank" rel="noopener">Ccru: Zone-9</a> <span>· ninety-nine and the cyclic completion of time</span></li>
-      <li><a href="https://www.urbanomic.com/chapter/fanged-noumena-tic-talk/" target="_blank" rel="noopener">Nick Land, “Tic-Talk,” <i>Fanged Noumena</i></a> <span>· Barker’s Tic Xenotation; rules as summarized at <a href="https://word.site/2019/11/11/nullary/" target="_blank" rel="noopener">word.site</a></span></li>
+      <li><a href="https://www.urbanomic.com/chapter/fanged-noumena-tic-talk/" target="_blank" rel="noopener">Nick Land, “Tic-Talk,” <i>Fanged Noumena</i></a> <span>· Barker’s Tic Xenotation; rules as summarised at <a href="https://word.site/2019/11/11/nullary/" target="_blank" rel="noopener">word.site</a></span></li>
     </ul>
     <p class="note">Plexing years into zones, reading rites backwards, and xenotating totals are this page’s own moves. They follow the texts’ arithmetic, but the texts don’t prescribe them. Two random phrases share a zone about one time in nine, so coincidences here are cheap; what you make of them is the part that matters.</p>
     <div class="svl-foot"><span>Built by SVL with Claude, October 2026.</span><span>Elsewhere: <a href="index.html">Numogram Lab</a> <span class="sep" aria-hidden="true">·</span> <a href="vanishing-point.html">Vanishing Point</a> <span class="sep" aria-hidden="true">·</span> <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a></span></div>
@@ -470,6 +474,163 @@ const Q101_WORDS = ["absolution", "abstract", "absurd", "accessibly", "according
 const FUTURES = ["The Singularity", "Technocapital Singularity", "Machine Intelligence", "Superintelligence", "Intelligence Explosion", "Escape Velocity", "Takeoff", "Year Zero", "Zero Hour", "The Millennium", "Nineteen Ninety Nine", "Two Thousand", "Deep Time", "The Far Future", "After Humanity", "Posthuman", "The Last Man", "Heat Death", "Exit", "Accelerate", "Planetary Computation", "Outside", "The Event", "Eschaton", "Omega Point", "Kali Yuga", "Golden Age", "Dark Age", "Brave New World", "Utopia", "Dystopia", "Collapse", "Meltdown", "First Contact", "The Great Filter", "Signal from Outside", "Message from the Future", "Time Travel", "Future Shock", "The Long Now", "Tomorrow", "Doomsday", "Judgment Day", "Revelation", "Prophecy", "Oracle", "Cyberspace", "Neo-China", "Shanghai", "Mars", "Moon Base", "Space Age", "Atomic Age", "Information Age", "Anthropocene", "Extinction", "Uplift", "Cyborg", "Alignment", "Rokos Basilisk", "Skynet", "Gnon", "Capital", "Bitcoin", "Crash", "Boom", "Bubble", "Fourth Turning", "Age of Aquarius", "The Old Ones", "Return of the Old Ones", "Lemuria Rising", "Hyperstition", "Time Sorcery", "Counterchronic", "The Year 2000", "Y2K", "Ninety Nine", "Neuromancer", "Ghost in the Machine", "Deus ex Machina", "The Machine", "Thinking Machines", "Artificial General Intelligence", "Recursive Self Improvement", "Compute", "Scaling Laws", "The Transformer", "Tokens", "Weights", "The Model", "Next Token", "Language Model"];
 const RITES = {"1::0": [{"n": 1, "p": "1890"}], "2::0": [{"n": 1, "p": "271890"}, {"n": 2, "p": "27541890"}], "2::1": [{"n": 1, "p": "1872"}, {"n": 2, "p": "271"}, {"n": 3, "p": "27541"}], "3::0": [{"n": 0, "p": "?"}], "3::1": [{"n": 1, "p": "18723"}, {"n": 2, "p": "1872563"}], "3::2": [{"n": 1, "p": "23"}, {"n": 2, "p": "27563"}], "4::0": [{"n": 1, "p": "41890"}], "4::1": [{"n": 1, "p": "187254"}, {"n": 2, "p": "41"}], "4::2": [{"n": 1, "p": "2754"}, {"n": 2, "p": "41872"}, {"n": 3, "p": "451872"}], "4::3": [{"n": 1, "p": "418723"}, {"n": 2, "p": "4518723"}, {"n": 3, "p": "4563"}], "5::0": [{"n": 1, "p": "541890"}], "5::1": [{"n": 1, "p": "18725"}, {"n": 2, "p": "541"}], "5::2": [{"n": 1, "p": "275"}, {"n": 2, "p": "541872"}], "5::3": [{"n": 1, "p": "5418723"}, {"n": 2, "p": "563"}], "5::4": [{"n": 0, "p": "X"}, {"n": 1, "p": "418725"}], "6::0": [{"n": 0, "p": "?"}], "6::1": [{"n": 1, "p": "187236"}, {"n": 2, "p": "187256"}], "6::2": [{"n": 1, "p": "236"}, {"n": 2, "p": "256"}], "6::3": [{"n": 0, "p": "X"}], "6::4": [{"n": 1, "p": "4187236"}, {"n": 2, "p": "45187236"}, {"n": 3, "p": "456"}], "6::5": [{"n": 1, "p": "54187236"}, {"n": 2, "p": "56"}], "7::0": [{"n": 1, "p": "71890"}, {"n": 2, "p": "72541890"}], "7::1": [{"n": 1, "p": "187"}, {"n": 2, "p": "71"}, {"n": 3, "p": "72541"}], "7::2": [{"n": 0, "p": "X"}], "7::3": [{"n": 1, "p": "723"}, {"n": 2, "p": "72563"}], "7::4": [{"n": 1, "p": "4187"}, {"n": 2, "p": "45187"}, {"n": 3, "p": "7254"}], "7::5": [{"n": 1, "p": "54187"}, {"n": 2, "p": "725"}], "7::6": [{"n": 1, "p": "7236"}, {"n": 2, "p": "7256"}], "8::0": [{"n": 1, "p": "890"}], "8::1": [{"n": 0, "p": "X"}], "8::2": [{"n": 1, "p": "2718"}, {"n": 2, "p": "275418"}, {"n": 3, "p": "8172"}], "8::3": [{"n": 1, "p": "81723"}, {"n": 2, "p": "8172563"}], "8::4": [{"n": 1, "p": "418"}, {"n": 2, "p": "4518"}, {"n": 3, "p": "817254"}], "8::5": [{"n": 1, "p": "5418"}, {"n": 2, "p": "81725"}], "8::6": [{"n": 1, "p": "817236"}, {"n": 2, "p": "817256"}], "8::7": [{"n": 1, "p": "718"}, {"n": 2, "p": "725418"}, {"n": 3, "p": "817"}], "9::0": [{"n": 0, "p": "X"}], "9::1": [{"n": 1, "p": "189"}], "9::2": [{"n": 1, "p": "27189"}, {"n": 2, "p": "2754189"}], "9::3": [{"n": 0, "p": "?"}], "9::4": [{"n": 1, "p": "4189"}, {"n": 2, "p": "45189"}], "9::5": [{"n": 1, "p": "54189"}], "9::6": [{"n": 0, "p": "?"}], "9::7": [{"n": 1, "p": "7189"}, {"n": 2, "p": "7254189"}], "9::8": [{"n": 0, "p": "89"}]};
 const ANCHORS = [[1900, "K-00 · the count begins (Ccru glossary)"], [1995, "The Ccru forms at Warwick (mid-1990s)"], [1999, "K-99 · “the cyclic completion of time” (Zone-9 page)"], [2000, "Y2K · a two-digit count rolls over to 00"], [2006, "Land’s “Qabbala 101” is published"], [2026, "This page"]];
+
+/* ---------- demon descriptions: shared by Numogram Lab and Time-Sorcery ----------
+   build.py puts this file in front of both pages' scripts.
+   One entry per demon, keyed by mesh number, a(a − 1)/2 + b, with its net-span k.
+   Each entry is this page's paraphrase of the demon's entry in the Ccru's Pandemonium Matrix
+   (PANDEMONIUM_URL), never a quotation:
+     t    what the demon is: its title and its kind, in one sentence (the Lab's pair card shows only this)
+     r    what its rites do, in one sentence
+     nm   the name the Matrix heads the entry with
+     aka  the other names the Matrix gives in brackets
+   Display only. Nothing here feeds a name, a number or a route: the arithmetic keeps its own
+   name tables (DEMON_TABLE in the Lab, DEMONS in Time-Sorcery), so the Murrumur / Mur Mur
+   spelling experiment is untouched, and the descriptions never name the demon they describe.
+   CLAUDE.md has the rules for editing these, and DEMONS.md the ledger of what each one draws on. */
+const PANDEMONIUM_URL = 'https://dataswamp.org/~john/sites/ccru/digithype/pandemonium.htm';
+const DEMON_LORE = [
+  { m: 0, k: '1::0', nm: 'Lurgo', aka: ['Legba'],
+    t: 'The initiator: a demon of openings, stationed at the first door.',
+    r: 'Its one rite is the spinal voyage, glossed as a fate line, and programming.' },
+  { m: 1, k: '2::0', nm: 'Duoddod', aka: [],
+    t: 'A duplicitous redoubler, demon of abstract addiction, at the second door.',
+    r: 'Its rites regress through the pineal gland to look backward, and comb data with exactness down to the second.' },
+  { m: 2, k: '2::1', nm: 'Doogu', aka: ['The Blob'],
+    t: 'The original schism, a demon of waters splitting apart.',
+    r: 'Its rites run from primordial breath, through baited traps and plot twists, to a slow pull into stillness and protection from drowning.' },
+  { m: 3, k: '3::0', nm: 'Ixix', aka: ['Yix'],
+    t: 'The abductor, a demon of cosmic indifference, at the third door.',
+    r: 'The Matrix marks its rite with a question mark in place of a route; its concern is the hidden history of the Earth.' },
+  { m: 4, k: '3::1', nm: 'Ixigool', aka: ['Djinn of the Magi'],
+    t: 'An over-ghoul of threefold identity and sphinx-time.',
+    r: 'Its rites climb unhindered toward prophecy and follow implications to their end: as above, so below.' },
+  { m: 5, k: '3::2', nm: 'Ixidod', aka: ['King Sid'],
+    t: 'The zombie-maker, a demon of escape velocity.',
+    r: 'Its rites bring crises through excess and the illusion of progress: out of the frying pan, into the fire.' },
+  { m: 6, k: '4::0', nm: 'Krako', aka: ['Kru', 'Karak-oa'],
+    t: 'The croaking curse, a demon of burning hail, at the fourth door.',
+    r: 'Its one rite is subsidence, the heaviness of fate.' },
+  { m: 7, k: '4::1', nm: 'Sukugool', aka: ['Old Skug'],
+    t: 'The sucking ghoul, a demon of flood and implosion.',
+    r: 'Its rites turn the cycle of creation and destruction, and submerge: a gravedigger’s work.' },
+  { m: 8, k: '4::2', nm: 'Skoodu', aka: ['Li’l Scud'],
+    t: 'The fashioner, a demon of switching crazes.',
+    r: 'Its rites cover historical time and its end, a passage through the deep, and a cycle remade and steadied.' },
+  { m: 9, k: '4::3', nm: 'Skarkix', aka: ['Sharky', 'Scar-head'],
+    t: 'The buzz-cutter, a demon of anti-evolution in the eddies of the Delta.',
+    r: 'Its rites tell the history of the magicians in hermetic shorthand, seal time in threes, and end in jagged apocalyptic rapture.' },
+  { m: 10, k: '5::0', nm: 'Tokhatto', aka: ['Old Toker', 'Top Cat'],
+    t: 'Decimal camouflage: a demon of talisman mania at the fifth door, and the angel of the cards.',
+    r: 'Its one rite makes number into destiny.' },
+  { m: 11, k: '5::1', nm: 'Tukkamu', aka: [],
+    t: 'Occulturation: a demon of the origins of disease.',
+    r: 'Its rites go two ways, toward optimal maturation and medicine as diffuse healing, or toward rapid decay and putrefaction.' },
+  { m: 12, k: '5::2', nm: 'Kuttadid', aka: ['Kitty'],
+    t: 'Ticking machines, a demon of precarious states.',
+    r: 'Its rites maintain balance by keeping to the calendar, or keep watch without rest.' },
+  { m: 13, k: '5::3', nm: 'Tikkitix', aka: ['Tickler'],
+    t: 'Clicking menaces, a demon of whirling delirium.',
+    r: 'Its rites draw swirl patterns, tornadoes and voices in the wind, and carry things off without trace.' },
+  { m: 14, k: '5::4', nm: 'Katak', aka: [],
+    t: 'The desolator, a demon of cataclysmic convergence.',
+    r: 'Its rites are tail-chasing and rabid animals, nature at its most savage, and panic, from horror pulp to religious frenzy.' },
+  { m: 15, k: '6::0', nm: 'Tchu', aka: ['Tchanul'],
+    t: 'The source of subnothingness at the sixth door, demon of ultimate outsideness and unnamable things.',
+    r: 'The Matrix marks its rite with a question mark in place of a route; it attends cosmic deletions and real impossibilities.' },
+  { m: 16, k: '6::1', nm: 'Djungo', aka: [],
+    t: 'The infiltrator, a demon of subtle involvements and intricate puzzles.',
+    r: 'Its rites stir maelstroms past calculation and bring stealthy invasions and unexplained contaminations, fish falling from the sky among them.' },
+  { m: 17, k: '6::2', nm: 'Djuddha', aka: ['Judd Dread'],
+    t: 'A decentred threat, the demon of artificial turbulence and complex-dynamics simulation.',
+    r: 'Its rites spin a machine vortex and haunt the edges of storms, where the Wendigo legends live.' },
+  { m: 18, k: '6::3', nm: 'Djynxx', aka: ['Ching', 'The Jinn'],
+    t: 'The child stealer, a demon of time-lapse whose region is the Warp.',
+    r: 'Its rite raises abstract cyclones and dust spirals, the nomad war machine.' },
+  { m: 19, k: '6::4', nm: 'Tchakki', aka: ['Chuckles'],
+    t: 'A bag of tricks, the demon of combustion.',
+    r: 'Its rites run from the quenching accidents of apprentice smiths, to maps between incompatible time-systems, to outright conflagration.' },
+  { m: 20, k: '6::5', nm: 'Tchattuk', aka: ['One Eyed Jack', 'Djatka'],
+    t: 'A pseudo-basis, the demon of the unscreened matrix, pitched lowest of all.',
+    r: 'Its rites bring zero gravity and cut-outs: UFO cover-ups and the Nephilim.' },
+  { m: 21, k: '7::0', nm: 'Puppo', aka: ['The Pup'],
+    t: 'Break-outs: a demon of larval regression, at the seventh door.',
+    r: 'Its rites dissolve things into slime and swallow them into the earth.' },
+  { m: 22, k: '7::1', nm: 'Bubbamu', aka: ['Bubs'],
+    t: 'After Babylon, a demon of relapse.',
+    r: 'Its rites carry marine life onto land, send assassins from a black Atlantis, and raise seawalls.' },
+  { m: 23, k: '7::2', nm: 'Oddubb', aka: ['Odba'],
+    t: 'The broken mirror, a demon of swamp labyrinths and blind doubles.',
+    r: 'Its rite is time loops, glamour and glosses.' },
+  { m: 24, k: '7::3', nm: 'Pabbakis', aka: ['Pabzix'],
+    t: 'The dabbler, a demon of interference and fakery.',
+    r: 'Its rites bring frog mutations and plagues of frogs, and open cans of worms that multiply by division.' },
+  { m: 25, k: '7::4', nm: 'Ababbatok', aka: ['Abracadabra'],
+    t: 'The regenerator, a demon of suspended decay.',
+    r: 'Its rites run from Frankensteinian experiment, reanimations and golems, through purifications, amphibious cycles and the healing of wounds, to sustenance by smoke visions.' },
+  { m: 26, k: '7::5', nm: 'Papatakoo', aka: ['Pataku'],
+    t: 'The upholder, a demon of calendar time.',
+    r: 'Its rites win final success by perseverance and blood sacrifice, and turn rituals into nature.' },
+  { m: 27, k: '7::6', nm: 'Bobobja', aka: ['Bubbles', 'Beelzebub, Lord of the Flies'],
+    t: 'Heavy atmosphere: the demon of teeming pestilence.',
+    r: 'Its rites hang strange lights over swamps and send swarms over lost harvests.' },
+  { m: 28, k: '8::0', nm: 'Minommo', aka: [],
+    t: 'The webmaker, a demon of submergence at the eighth door.',
+    r: 'Its one rite is the shaman’s voyage: dream sorcery and the chatter of mitochondria.' },
+  { m: 29, k: '8::1', nm: 'Mur Mur', aka: ['Murrumur', 'Mu(mu)'],
+    t: 'The dream-serpent, a demon of the Deep Ones.',
+    r: 'Its rite is oceanic sensation: gilled unlife and regression down the spine.' },
+  { m: 30, k: '8::2', nm: 'Nammamad', aka: [],
+    t: 'The mirroracle, a demon of underground trade.',
+    r: 'Its rites work voodoo through cyberspace, end in collapse and heat death, and bring emergences and things washed up on beaches.' },
+  { m: 31, k: '8::3', nm: 'Mummumix', aka: ['Mix-Up'],
+    t: 'The mist-crawler, a demon of creeping fog that the Matrix links to Nyarlathotep.',
+    r: 'Its rites raise ocean storms, carry alien messages at the bacterial level, and bring diseases from outer space.' },
+  { m: 32, k: '8::4', nm: 'Numko', aka: ['Old Nuk'],
+    t: 'Keeper of old terrors, a demon of things born from the earth itself.',
+    r: 'Its rites reward patience in the abyss, pull the crust under, and wake volcanoes and bacterial intelligence.' },
+  { m: 33, k: '8::5', nm: 'Muntuk', aka: ['Manta', 'Manitou'],
+    t: 'The desert swimmer, a demon of dry seabeds.',
+    r: 'Its rites follow ancient rivers, or bring cloud-vaults, oppressive tension and protection during the monsoon.' },
+  { m: 34, k: '8::6', nm: 'Mommoljo', aka: ['Mama Jo'],
+    t: 'The alien mother, a demon of xenogenesis.',
+    r: 'Its rites seed life from cosmic bacteria and leave extraterrestrial residues, alien DNA among them.' },
+  { m: 35, k: '8::7', nm: 'Mombbo', aka: [],
+    t: 'Tentacle face, the fishy princess: a demon of hybridity.',
+    r: 'Its rites turn bodies serpentine, colonise unnoticed, and leave a forgetting at the surface.' },
+  { m: 36, k: '9::0', nm: 'Uttunul', aka: [],
+    t: 'The seething void, a demon of atonality whose region is the Plex, at the ninth door.',
+    r: 'Its rite crosses the iron ocean.' },
+  { m: 37, k: '9::1', nm: 'Tutagool', aka: ['Yettuk'],
+    t: 'The tattered ghoul, a demon of punctuality.',
+    r: 'Its one rite is the dark arts, rusting iron and tattooing: a one-way ticket to hell.' },
+  { m: 38, k: '9::2', nm: 'Unnunddo', aka: ['The False Nun'],
+    t: 'Double-undoing, a demon of endless unwrapping, horror in onion-skin layers.',
+    r: 'Its rites run traffic through crypts and lay communication grids.' },
+  { m: 39, k: '9::3', nm: 'Ununuttix', aka: ['Tick-Tock'],
+    t: 'Particle clocks, a demon of absolute coincidence.',
+    r: 'The Matrix marks its rite with a question mark in place of a route; it makes numerical connections where no link exists.' },
+  { m: 40, k: '9::4', nm: 'Ununak', aka: ['Nuke'],
+    t: 'Blind catastrophe, a demon of convulsions.',
+    r: 'Its rites keep the secrets of the blacksmiths and stir impulses under the earth.' },
+  { m: 41, k: '9::5', nm: 'Tukutu', aka: ['Killer-Kate'],
+    t: 'Cosmotraumatics, a demon of death strokes.',
+    r: 'Its one rite sends crash signals, the scarring named for Barker.' },
+  { m: 42, k: '9::6', nm: 'Unnutchi', aka: ['Outch', 'T’ai Chi'],
+    t: 'Tachyonic stillness, a slow vortex: a demon of coiling outsideness.',
+    r: 'The Matrix marks its rite with a question mark in place of a route; it governs an asymmetric poise between a pair, and cybernetic anomalies.' },
+  { m: 43, k: '9::7', nm: 'Nuttubab', aka: ['Nut-Cracker'],
+    t: 'A mimetic anorganism, the demon of metallic unlife.',
+    r: 'Its rites bring lunacy, iron in the blood, and the dragon lines of the earth’s electromagnetism.' },
+  { m: 44, k: '9::8', nm: 'Ummnu', aka: ['Om', 'Omni', 'Amen', 'Omen'],
+    t: 'Ultimate inconsequence, a demon of earth screams.',
+    r: 'Its one rite is the friction of the crust, a tension in inorganic matter.' }
+];
+function demonLore(a, b) { return DEMON_LORE[a * (a - 1) / 2 + b] || null; }
+/* the other names for a demon, leaving out whichever one the page is showing */
+function demonAka(lore, shown) {
+  return [lore.nm].concat(lore.aka).filter(n => n.toLowerCase() !== String(shown).toLowerCase());
+}
 
 /* ================= Time-Sorcery engine ================= */
 
@@ -663,6 +824,25 @@ if (typeof module !== 'undefined') module.exports = {
   const reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   const NOW_YEAR = new Date().getFullYear();
   const cap1 = s => s.charAt(0).toUpperCase() + s.slice(1);
+  const andText = xs => xs.length < 2 ? xs.join('') : xs.slice(0, -1).join(', ') + ' and ' + xs[xs.length - 1];
+  /* the years the page accepts that land in zone 0 under a count: worked out, not written in */
+  const YEAR_MIN = 1900, YEAR_MAX = 2999;
+  function zeroYears(bin) {
+    const out = [];
+    for (let y = YEAR_MIN; y <= YEAR_MAX; y++) if (dr(kYear(y, bin)) === 0) out.push(y);
+    return out;
+  }
+  function zeroText(bin) {
+    const ys = zeroYears(bin);
+    if (ys.length === 1) return `${ys[0]} is the only year that lands in zone 0 in this count.`;
+    const centuries = ys.every(y => y % 100 === 0);
+    return `In this count ${ys.length} of the years from ${YEAR_MIN} to ${YEAR_MAX} land in zone 0` +
+      (centuries ? `: every year ending in 00, from ${ys[0]} to ${ys[ys.length - 1]}.` : `: ${andText(ys.map(String))}.`);
+  }
+  function zeroShort(bin) {
+    const ys = zeroYears(bin);
+    return ys.length < 3 ? andText(ys.map(String)) : `${ys[0]}, ${ys[1]} … ${ys[ys.length - 1]}`;
+  }
 
   const state = { seed: 'Machine Intelligence', year: 2030, binomic: false, sel: null };
   let R = null;
@@ -776,7 +956,7 @@ if (typeof module !== 'undefined') module.exports = {
       const th = (-90 + z * 40) * Math.PI / 180, x = C + (RMAX + 21) * Math.cos(th), y = C + (RMAX + 21) * Math.sin(th);
       h += `<g class="slab ${region(z)}${z === R.z ? ' mine' : ''}"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="10"/><text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}">${z}</text>${z === R.z ? '<title>Your phrase’s zone</title>' : ''}</g>`;
     }
-    h += `<g class="origin"><circle cx="${C}" cy="${C}" r="7.5"/><text x="${C}" y="${C + 3.5}">0</text><title>1900 · K-00 · zone 0</title></g>`;
+    h += `<g class="origin"><circle cx="${C}" cy="${C}" r="7.5"/><text x="${C}" y="${C + 3.5}">0</text><title>${zeroShort(g.bin)} · K-00 · zone 0</title></g>`;
     for (const [yr, text] of ANCHORS) {
       const k = kYear(yr, g.bin);
       if (k < 1 || k > g.maxK) continue;
@@ -894,7 +1074,7 @@ if (typeof module !== 'undefined') module.exports = {
       `<tr${!state.binomic ? ' class="cur"' : ''}><td>Running count</td><td>${kLabel(kFull, false)}</td><td>${plexText(plexSteps(kFull))}</td><td>${rchip(zf)}</td></tr>` +
       `<tr${state.binomic ? ' class="cur"' : ''}><td>Two digits</td><td>${kLabel(kBin, true)}</td><td>${plexText(plexSteps(kBin))}</td><td>${rchip(zb)}</td></tr>` +
       `</tbody></table></div>` +
-      `<p class="note">The bold row is the count in use; switch it under the spiral. This year, ${NOW_YEAR}, is ${kLabel(kNow, state.binomic)}: ${pos}. 1900 is the only year that ever lands in zone 0.</p>`;
+      `<p class="note">The bold row is the count in use; switch it under the spiral. This year, ${NOW_YEAR}, is ${kLabel(kNow, state.binomic)}: ${pos}. ${zeroText(state.binomic)}</p>`;
   }
 
   /* ---------- step 6 ---------- */
@@ -911,7 +1091,13 @@ if (typeof module !== 'undefined') module.exports = {
     } else {
       const d = R.demon;
       const cls = { chronodemon: 'a chronodemon: both zones lie on the Time-Circuit', amphidemon: 'an amphidemon: one zone on the Time-Circuit, one Outside', xenodemon: 'a xenodemon: both zones lie Outside' }[d.cls];
-      card = `<div class="demon"><p class="name">${esc(d.name)}</p><p class="mono">${d.key} · mesh ${pad(d.mesh)}</p><p>${cap1(cls)}.${d.syzygetic ? ` The two zones sum to nine, so ${esc(d.name)} carries a syzygy.` : ''}${d.key === '8::1' ? ' The Ccru’s Zone-8 page calls this demon “the nethermost denizen of time.”' : ''}</p></div>`;
+      const lore = demonLore(d.a, d.b), aka = lore ? demonAka(lore, d.name) : [];
+      const why = `It stands between zone ${R.z}, your phrase’s, and zone ${R.kz}, your year’s.`;
+      card = `<div class="demon"><p class="name">${esc(d.name)}</p><p class="mono">${d.key} · mesh ${pad(d.mesh)}</p>` +
+        (lore ? `<p class="lore">${esc(lore.t)} ${esc(lore.r)}</p>` : '') +
+        `<p>${why} ${cap1(cls)}.${d.syzygetic ? ` The two zones sum to nine, so ${esc(d.name)} carries a syzygy.` : ''}${d.key === '8::1' ? ' The Ccru’s Zone-8 page calls this demon “the nethermost denizen of time.”' : ''}</p>` +
+        (lore ? `<p class="note">${aka.length ? `The Matrix also calls it ${esc(andText(aka))}. ` : ''}Paraphrased from the <a href="${PANDEMONIUM_URL}" target="_blank" rel="noopener">Pandemonium Matrix</a>, mesh ${pad(d.mesh)}.</p>` : '') +
+        '</div>';
     }
     const rows = turnYears().map(y => {
       if (y < 1900 || y > 2999) return '';
