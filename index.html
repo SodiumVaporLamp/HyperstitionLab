@@ -207,8 +207,60 @@ svg text { font-family: var(--mono); }
 .h-warp { stroke: var(--warp-tint); }
 .h-plex { stroke: var(--plex-tint); }
 
-/* readouts */
-.readouts { display: grid; gap: 16px; min-width: 0; align-content: start; }
+/* zones: inputs and the pair card first, the diagram beside them on wide screens */
+.zgrid { display: grid; gap: 26px; }
+.z-main, .z-fig, .z-notes { display: grid; gap: 14px; min-width: 0; align-content: start; }
+@media (min-width: 880px) {
+  .zgrid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "main fig" "notes fig";
+    column-gap: 32px; row-gap: 22px; align-items: start;
+  }
+  .z-main { grid-area: main; }
+  .z-fig { grid-area: fig; }
+  .z-notes { grid-area: notes; }
+}
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.pair-card {
+  border: 1.5px solid var(--ink); border-radius: 12px; background: var(--surface);
+  padding: 12px 12px 8px; display: grid; gap: 10px; min-width: 0;
+}
+@media (min-width: 540px) { .pair-card { padding: 14px 14px 10px; gap: 12px; } }
+.pc-verdict { display: grid; gap: 4px; min-width: 0; }
+.pc-verdict h3 { margin: 0; font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.pc-verdict p { margin: 0; }
+.pc-verdict .big { font-size: clamp(20px, 5.6vw, 24px); }
+table.pc { table-layout: fixed; width: 100%; border-top: 1px solid var(--rule); }
+.pc col.c-lbl { width: 62px; }
+@media (min-width: 540px) { .pc col.c-lbl { width: 76px; } }
+.pc th, .pc td { white-space: normal; padding: 5px 6px; line-height: 1.35; vertical-align: baseline; overflow-wrap: anywhere; }
+.pc tbody tr:last-child th, .pc tbody tr:last-child td { border-bottom: 0; }
+.pc tbody th { padding-left: 0; font-size: 10.5px; }
+.pc thead th, .pc thead td { padding-block: 9px 7px; vertical-align: top; }
+.pc thead th { text-transform: none; letter-spacing: 0; color: var(--ink); font-weight: 400; font-size: var(--t-sm); }
+.pc-id { display: flex; align-items: flex-start; gap: 6px; min-width: 0; }
+.pc-id .pc-name { padding-top: 2px; }
+.pc .badge { width: 22px; height: 22px; font-size: 11px; }
+.pc-name { font-size: 15px; line-height: 1.25; overflow-wrap: anywhere; min-width: 0; }
+@media (min-width: 540px) { .pc-name { font-size: 16px; } .pc .badge { width: 24px; height: 24px; font-size: 12px; } }
+.pc-name.empty { color: var(--muted); }
+.pc-zone { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 6px; margin-top: 5px; font-size: 12px; color: var(--muted); }
+.pc-reg { flex-basis: 100%; white-space: nowrap; }
+@media (min-width: 540px) {
+  .pc-reg { flex-basis: auto; }
+  .pc-reg::before { content: "· "; }
+}
+.pc td { font-size: var(--t-sm); }
+.pc td .v { font-size: 15px; margin-right: 8px; }
+.pc tr.aq td .v { font-size: var(--t-sm); margin-right: 0; }
+.pc td .z { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); white-space: nowrap; }
+.pc td.both { text-align: center; }
+.pc td.none { color: var(--muted); }
+.pc tr.first th, .pc tr.first td { border-top: 1.5px solid var(--rule); }
+.pc td.eq .v { font-weight: 600; }
+.pc td.eq.tc { background: var(--tc-tint); }
+.pc td.eq.warp { background: var(--warp-tint); }
+.pc td.eq.plex { background: var(--plex-tint); }
+.pc-mark { margin: 0; text-align: right; font-family: var(--display); font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
 .between {
   padding: 14px 16px; border: 1.5px solid var(--ink); border-radius: 10px;
   display: grid; gap: 6px; background: var(--surface); min-width: 0;
@@ -216,27 +268,11 @@ svg text { font-family: var(--mono); }
 .between h3 { margin: 0; font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
 .between p { margin: 0; }
 .big { font-family: var(--mono); font-size: var(--t-lg); line-height: 1.3; overflow-wrap: anywhere; }
-.ph { display: grid; gap: 10px; padding-top: 14px; border-top: 1px solid var(--rule); min-width: 0; }
-.ph-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
 .badge {
   font-family: var(--mono); font-size: 12px; font-weight: 600; border: 1.5px solid var(--ink); border-radius: 50%;
   width: 24px; height: 24px; display: inline-grid; place-items: center; flex: none;
 }
 .badge.b { border-style: dashed; }
-.ph-name { font-family: var(--mono); font-size: var(--t-lg); overflow-wrap: anywhere; min-width: 0; }
-.ph-name.empty { color: var(--muted); }
-.kv { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; font-size: var(--t-sm); margin: 0; }
-.kv dt { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
-.kv dd { margin: 0; min-width: 0; }
-.cz { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
-@media (min-width: 540px) { .cz { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
-.cz div {
-  border: 1px solid var(--rule); border-radius: 6px; padding: 6px 8px; display: grid; gap: 1px;
-  font-family: var(--mono); font-variant-numeric: tabular-nums; background: var(--surface); min-width: 0;
-}
-.cz .k { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
-.cz .v { font-size: 15px; }
-.cz .z { font-size: 11px; display: flex; align-items: center; gap: 5px; color: var(--muted); }
 
 /* tables */
 .tbl-wrap { overflow-x: auto; }
@@ -429,25 +465,29 @@ details.method > summary:hover { color: var(--muted); }
         <h2>zones</h2>
         <p class="lead">Type two phrases. Each lands in the zone given by its AQ digital root, and the pair summons the demon that stands between those two zones.</p>
       </div>
-      <div class="cols">
-        <div class="stack">
+      <div class="zgrid">
+        <div class="z-main">
           <div class="pair-inputs">
             <div class="field"><label for="in-a">Phrase A</label><input id="in-a" type="text" value="Man" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
             <div class="field"><label for="in-b">Phrase B</label><input id="in-b" type="text" value="Machine" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
           </div>
+          <div class="pair-card" id="pair-card">
+            <div class="pc-verdict" id="between" aria-live="polite"></div>
+            <table class="pc" id="pair-table"></table>
+            <p class="pc-mark" aria-hidden="true">numogram lab</p>
+          </div>
+          <h3 class="sub">Try a pair</h3>
+          <div class="chips" id="pair-chips" role="group" aria-label="Example pairs"></div>
+        </div>
+        <div class="z-fig">
           <figure class="diagram">
             <svg id="numo" viewBox="0 0 400 600" role="img" aria-label="The Numogram: ten zones in five syzygy pairs, the Warp at the top, the Time-Circuit in the middle and the Plex at the bottom, with currents and gates."></svg>
             <figcaption>Zones pair into syzygies that sum to nine. Moving dashes are currents, which flow to the zone numbered by each syzygy’s difference. Dashed arcs are gates, which lead from zone n to the digital root of 0&nbsp;+&nbsp;1&nbsp;+&nbsp;…&nbsp;+&nbsp;n. Phrase A wears the solid ring, phrase B the dashed one.</figcaption>
           </figure>
           <label class="toggle"><input type="checkbox" id="all-gates"> Show every gate</label>
-          <h3 class="sub">Try a pair</h3>
-          <div class="chips" id="pair-chips" role="group" aria-label="Example pairs"></div>
         </div>
-        <div class="readouts">
-          <div class="between" id="between" aria-live="polite"></div>
-          <div class="ph" id="ro-a"></div>
-          <div class="ph" id="ro-b"></div>
-          <p class="note">Ordinal, Reduction and AQ always agree on the zone. Reverse and Reverse reduction always land in the syzygy twin; for a phrase on 9, that twin is 0, which a digital root also writes as 9. Satanic shifts the zone back one step for every letter.</p>
+        <div class="z-notes">
+          <p class="note">Ordinal, Reduction and AQ always agree on the zone. Reverse and Reverse reduction always land in the syzygy twin; for a phrase on 9, that twin is 0, which a digital root also writes as 9. Satanic shifts the zone back one step for every letter. Values the two phrases share are shaded in the card.</p>
           <p class="note">For a fuller reading of the demon between two names, with each Lemur’s titles and descriptions, try the Divination mode in <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a>’ Numogram, which inspired this page.</p>
         </div>
       </div>
@@ -1016,39 +1056,65 @@ if (typeof module !== 'undefined') module.exports = {
     $('#overlay').innerHTML = h;
   }
 
-  /* ---------- zones readouts ---------- */
+  /* ---------- zones: the pair card ---------- */
   const CLASS_TEXT = {
     chrono: 'a chronodemon, one of the distances inside the Time-Circuit',
     amphi: 'an amphidemon, a rupture in the Time-Circuit that opens onto the Outside',
     xeno: 'a xenodemon of the outer gulfs'
   };
-  function readout(el, which, raw) {
+  function reading(raw) {
     const text = String(raw || '').trim(), v = values(text);
-    if (v.n === 0 && v.digits === 0) {
-      el.innerHTML = `<div class="ph-head"><span class="badge ${which}" aria-hidden="true">${which.toUpperCase()}</span><span class="ph-name empty">Type a phrase</span></div>`;
-      return null;
-    }
-    const st = plexSteps(v.aq), z = st[st.length - 1], r = region(z), sz = syzOf(z), g = gateOf(z), cz = cipherZones(v);
-    el.innerHTML =
-      `<div class="ph-head"><span class="badge ${which}" aria-hidden="true">${which.toUpperCase()}</span><span class="ph-name">${esc(text)}</span><span class="rchip"><i class="dot ${r}"></i>zone ${z} · ${REGION_NAME[r]}</span></div>` +
-      `<dl class="kv"><dt>AQ</dt><dd class="mono">${st.join(' → ')}</dd>` +
-      `<dt>Syzygy</dt><dd>${sz.key} · ${sz.demon} · twin zone ${sz.twin}</dd>` +
-      `<dt>Current</dt><dd>${sz.current} → zone ${sz.to}</dd>` +
-      `<dt>Gate</dt><dd>${g.label} → zone ${g.to}</dd></dl>` +
-      `<div class="cz" aria-label="Zone under each cipher">${CIPHERS6.map(c =>
-        `<div><span class="k">${CIPHER_SHORT[c]}</span><span class="v">${v[c]}</span><span class="z"><i class="dot ${region(cz[c])}"></i>zone ${cz[c]}</span></div>`).join('')}</div>`;
-    return { z, v };
+    if (v.n === 0 && v.digits === 0) return null;
+    const st = plexSteps(v.aq), z = st[st.length - 1];
+    return { text, v, st, z, r: region(z), sz: syzOf(z), g: gateOf(z), cz: cipherZones(v) };
+  }
+  const andList = xs => xs.length < 2 ? xs.join('') : xs.slice(0, -1).join(', ') + ' and ' + xs[xs.length - 1];
+  /* A and B side by side. Rows that read the same for both span the two columns;
+     cipher values the two phrases share are shaded in their zone's colour. */
+  function pairTable(ra, rb) {
+    const head = (r, k) => {
+      const badge = `<span class="badge ${k}" aria-hidden="true">${k.toUpperCase()}</span>`;
+      if (!r) return `<th scope="col"><span class="pc-id">${badge}<span class="pc-name empty">Type a phrase</span></span></th>`;
+      return `<th scope="col"><span class="pc-id">${badge}<span class="pc-name">${esc(r.text)}</span></span>` +
+        `<span class="pc-zone"><i class="dot ${r.r}"></i>zone ${r.z}<span class="pc-reg">${REGION_NAME[r.r]}</span></span></th>`;
+    };
+    const both = ra && rb;
+    const shared = (label, f) => {
+      if (both && f(ra) === f(rb)) return `<tr><th scope="row">${label}</th><td colspan="2" class="both">${f(ra)}</td></tr>`;
+      return `<tr><th scope="row">${label}</th>${[ra, rb].map(r => r ? `<td>${f(r)}</td>` : '<td class="none">—</td>').join('')}</tr>`;
+    };
+    const numbers = (label, val, zoneOf, show, cls, withZone = true) => {
+      const eq = both && val(ra) === val(rb);
+      return `<tr${cls ? ` class="${cls}"` : ''}><th scope="row">${label}</th>${[ra, rb].map(r => {
+        if (!r) return '<td class="none">—</td>';
+        const z = zoneOf(r), reg = region(z);
+        return `<td${eq ? ` class="eq ${reg}"` : ''}><span class="v">${show(r)}</span>` +
+          (withZone ? `<span class="z"><i class="dot ${reg}"></i>zone ${z}</span>` : '') + '</td>';
+      }).join('')}</tr>`;
+    };
+    let h = '<caption class="vh">Phrase A and phrase B, reading by reading</caption>' +
+      `<colgroup><col class="c-lbl"><col><col></colgroup><thead><tr><td></td>${head(ra, 'a')}${head(rb, 'b')}</tr></thead><tbody>`;
+    h += numbers('AQ', r => r.v.aq, r => r.z, r => r.st.join(' → '), 'aq', false);
+    h += shared('Syzygy', r => `${r.sz.key} · ${r.sz.demon} · twin zone ${r.sz.twin}`);
+    h += shared('Current', r => `${r.sz.current} → zone ${r.sz.to}`);
+    h += shared('Gate', r => `${r.g.label} → zone ${r.g.to}`);
+    ['ord', 'red', 'rev', 'rred', 'sat'].forEach((c, i) => {
+      h += numbers(CIPHER_SHORT[c], r => r.v[c], r => r.cz[c], r => r.v[c], i === 0 ? 'first' : '');
+    });
+    return h + '</tbody>';
   }
   function between(ra, rb) {
     const el = $('#between');
     let h = '<h3>Between them</h3>';
     if (!ra || !rb) { el.innerHTML = h + '<p class="big">Waiting for two phrases</p>'; return; }
+    const twins = ra.v.n === rb.v.n && ra.v.ord === rb.v.ord;
+    const eq = CIPHERS6.filter(c => ra.v[c] === rb.v[c]);
+    const shared = !twins && eq.length ? ` Equal in ${andList(eq.map(c => `${CIPHER_LONG[c]} (${ra.v[c]})`))}.` : '';
     if (ra.z === rb.z) {
-      const twins = ra.v.n === rb.v.n && ra.v.ord === rb.v.ord;
-      h += `<p class="big">Same zone · ${ra.z}</p><p>No demon stands between them.${twins ? ' They are exact twins too: the same in Ordinal, Reverse, Satanic and AQ.' : ''}</p>`;
+      h += `<p class="big">Same zone · ${ra.z}</p><p>No demon stands between them.${twins ? ' They are exact twins too: the same in Ordinal, Reverse, Satanic and AQ.' : shared}</p>`;
     } else {
       const d = demonBetween(ra.z, rb.z, 'murrumur');
-      h += `<p class="big">${esc(d.name)} · ${d.a}::${d.b}</p><p>Mesh ${pad(d.mesh)}, ${CLASS_TEXT[d.cls]}.</p>`;
+      h += `<p class="big">${esc(d.name)} · ${d.a}::${d.b}</p><p>Mesh ${pad(d.mesh)}, ${CLASS_TEXT[d.cls]}.${shared}</p>`;
       if (d.syzygetic) {
         const s = syzOf(d.a);
         h += `<p><strong>Syzygy twins.</strong> Zones ${d.a} and ${d.b} sum to nine, and the ${s.current} current flows to zone ${s.to}.</p>`;
@@ -1073,8 +1139,8 @@ if (typeof module !== 'undefined') module.exports = {
     });
   }
   function updateZones() {
-    const ra = readout($('#ro-a'), 'a', $('#in-a').value);
-    const rb = readout($('#ro-b'), 'b', $('#in-b').value);
+    const ra = reading($('#in-a').value), rb = reading($('#in-b').value);
+    $('#pair-table').innerHTML = pairTable(ra, rb);
     between(ra, rb);
     overlay(ra ? ra.z : null, rb ? rb.z : null);
     syncChips();
