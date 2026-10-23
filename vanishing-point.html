@@ -26,6 +26,8 @@
   --gold: #9A7A00;
   --violet: #6E4FD0;
   --crimson: #C23B5A;
+  --crimson-ink: #A8304D;   /* crimson for text and pressed buttons: 4.5:1 or better on every background */
+  --gold-ink: #745B00;      /* gold for text on the gold tint: 4.8:1 */
   --gold-tint: #E0DECF;
   --violet-tint: #DAD9E8;
   --display: "Major Mono Display", "IBM Plex Mono", ui-monospace, monospace;
@@ -40,14 +42,14 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #101316; --surface: #161A1E; --ribbon: #1D2328; --ink: #E3E7E5; --muted: #9AA3A9; --rule: #2E363C;
-    --gold: #B48C22; --violet: #9070EA; --crimson: #DD4A76;
+    --gold: #B48C22; --violet: #9070EA; --crimson: #DD4A76; --crimson-ink: #E8648C; --gold-ink: #B48C22;
     --gold-tint: #272418; --violet-tint: #222034;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #101316; --surface: #161A1E; --ribbon: #1D2328; --ink: #E3E7E5; --muted: #9AA3A9; --rule: #2E363C;
-  --gold: #B48C22; --violet: #9070EA; --crimson: #DD4A76;
+  --gold: #B48C22; --violet: #9070EA; --crimson: #DD4A76; --crimson-ink: #E8648C; --gold-ink: #B48C22;
   --gold-tint: #272418; --violet-tint: #222034;
   color-scheme: dark;
 }
@@ -76,8 +78,6 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
   .mast-row { grid-template-columns: auto minmax(0, 54ch); gap: 40px; align-items: end; }
   .mast-row .lede { padding-bottom: 4px; }
 }
-.kicker { margin: 0; font-family: var(--mono); font-size: var(--t-sm); color: var(--muted); }
-.kicker a { color: var(--muted); }
 .mast h1 {
   font-family: var(--display); font-weight: 400; margin: 0;
   font-size: clamp(34px, 9vw, 56px); line-height: 1; letter-spacing: 0.01em;
@@ -131,7 +131,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 }
 .btn.ghost { background: transparent; color: var(--ink); }
 .btn:hover { opacity: 0.86; }
-.btn[aria-pressed="true"] { background: var(--crimson); border-color: var(--crimson); color: var(--surface); }
+.btn[aria-pressed="true"] { background: var(--crimson-ink); border-color: var(--crimson-ink); color: var(--surface); }
 .depth { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; }
 .depth span { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 input[type="range"] { width: 100%; min-width: 0; accent-color: var(--ink); }
@@ -204,7 +204,7 @@ input[type="range"] { width: 100%; min-width: 0; accent-color: var(--ink); }
 .voice.texts { background: var(--gold-tint); }
 .voice.page { border: 1px dashed var(--rule); }
 .voice h3 { color: var(--muted); }
-.voice.texts h3 { color: var(--gold); }
+.voice.texts h3 { color: var(--gold-ink); }
 .voice blockquote { margin: 0; font-size: 16px; line-height: 1.5; font-style: italic; text-wrap: pretty; }
 .voice .qc { margin: 0; font-size: 12.5px; color: var(--muted); }
 .voice p { margin: 0; font-size: 14.5px; line-height: 1.55; text-wrap: pretty; }
@@ -257,6 +257,74 @@ footer.foot {
 }
 footer.foot a { color: var(--muted); }
 
+/* forecasts: marks shared by the legend, the cards and the list */
+.sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.mk.fc { width: 12px; height: 12px; border-radius: 50%; border: 1.5px dashed var(--crimson); background: var(--surface); box-sizing: border-box; position: relative; }
+.mk.fc.half { background: linear-gradient(90deg, var(--crimson) 50%, var(--surface) 50%); }
+.mk.fc.done { border-color: var(--muted); }
+.mk.fc.done.half { background: linear-gradient(90deg, var(--muted) 50%, var(--surface) 50%); }
+.mk.fc.hit::after { content: ""; position: absolute; inset: 2.5px; border-radius: 50%; background: var(--ink); }
+.mk.fc.claim::after { content: ""; position: absolute; inset: 2px; border-radius: 50%; border: 1px solid var(--ink); }
+.mk.fc.miss::after { content: "×"; position: absolute; inset: -1px 0 0; font: 11px/10px var(--mono); text-align: center; color: var(--ink); }
+.st { font-family: var(--mono); font-size: 11px; letter-spacing: 0.02em; padding: 0 6px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); white-space: nowrap; }
+.st-open { border-color: var(--crimson); color: var(--crimson-ink); }
+.st-met, .st-late, .st-claimed { color: var(--ink); }
+.tag.st { font-size: 11.5px; padding: 2px 8px; }
+
+/* the forecast card */
+.voice.said { border-left: 3px solid var(--crimson); background: var(--bg); border-radius: 0 8px 8px 0; }
+.voice.said h3 { color: var(--crimson-ink); }
+.fcdl { margin: 0; display: grid; gap: 4px; }
+.fcdl dt { font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-top: 6px; }
+.fcdl dd { margin: 0; font-size: 14.5px; line-height: 1.55; text-wrap: pretty; }
+.fcdl dd p { margin: 0; }
+.fcdl dd p.judge { margin-top: 2px; color: var(--muted); font-size: 13.5px; }
+.fcdl dd blockquote { margin: 6px 0 2px; font-style: italic; font-size: 14.5px; }
+.fcdl .qc { margin: 0; font-size: 12.5px; color: var(--muted); }
+.fcdl .qc a { color: var(--muted); }
+.fcard .who { margin: -6px 0 0; font-size: var(--t-sm); color: var(--muted); }
+.fcfrom { margin: 0; font-size: var(--t-sm); color: var(--muted); }
+.linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; cursor: pointer; }
+.fclinks { display: grid; gap: 6px; }
+.fclinks h3 { margin: 0; font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.fclink { display: flex; gap: 8px; align-items: center; text-align: left; background: none; border: 1px dashed var(--rule); border-radius: 8px; padding: 6px 10px; font: inherit; font-size: 14px; color: var(--ink); cursor: pointer; }
+.fclink:hover { border-color: var(--crimson); }
+.fclink .mk { flex: none; }
+
+/* the list of forecasts, each with a strip: today in the middle, log time back to the left and ahead to the right */
+.fcl { margin-top: 44px; display: grid; gap: 12px; }
+.fcl > h3 { margin: 8px 0 0; font-size: var(--t-lg); font-weight: 600; }
+.fcl ul { list-style: none; margin: 0; padding: 0; }
+.fcl-note { margin: 0; font-size: var(--t-sm); color: var(--muted); max-width: 86ch; text-wrap: pretty; }
+.fi {
+  display: grid; grid-template-columns: 170px minmax(0, 1fr) 260px; gap: 4px 16px; align-items: center; width: 100%;
+  background: none; border: 0; border-bottom: 1px solid var(--rule); padding: 7px 2px; text-align: left; cursor: pointer;
+  font: inherit; color: var(--ink);
+}
+.fi:hover { background: var(--surface); }
+.fi[aria-current="true"] { background: var(--violet-tint); }
+.fi .fd { font-family: var(--mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.fi .ft { font-size: 14.5px; line-height: 1.4; }
+.fi .fw { display: block; font-size: 12.5px; color: var(--muted); }
+.fs { position: relative; display: block; height: 16px; }
+.fs i { position: absolute; display: block; }
+.fs .fs-now { left: 50%; top: 0; bottom: 0; width: 1px; background: var(--crimson); }
+.fs .fs-thread { top: 7px; height: 0; border-top: 1.5px dashed var(--muted); }
+.fs .fs-win { top: 5px; height: 5px; border-radius: 3px; background: var(--muted); opacity: 0.55; }
+.fs .fs-p10 { top: 3px; width: 2px; height: 10px; margin-left: -1px; background: var(--crimson); }
+.fs .fs-said { top: 5px; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: var(--muted); }
+.fs .mk.fc { top: 2px; margin-left: -6px; }
+.fcaxis { position: relative; height: 16px; margin-left: calc(100% - 260px); font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.fcaxis span { position: absolute; top: 0; white-space: nowrap; }
+.fcaxis .fx-l { left: 0; }
+.fcaxis .fx-r { right: 0; }
+.fcaxis .fx-now { left: 50%; transform: translateX(-50%); color: var(--crimson-ink); }
+.fs .fs-tick { top: 3px; height: 10px; width: 1px; background: var(--rule); }
+@media (max-width: 860px) {
+  .fi { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .fcaxis { margin-left: 0; }
+}
+
 @media (max-width: 600px) {
   .li { grid-template-columns: 78px 10px minmax(0, 1fr); }
   .li .ld { font-size: 11px; }
@@ -267,12 +335,25 @@ footer.foot a { color: var(--muted); }
   * { scroll-behavior: auto !important; }
 }
 
+/* ---------- shared by all three pages: build.py appends this to each page's stylesheet ----------
+   The header and footer markup comes from nav() and foot() in build.py. Every page defines
+   --mono, --sans, --ink, --muted, --t-sm, which this relies on. */
+.svl-nav { margin: 0; font-family: var(--mono); font-size: var(--t-sm); line-height: 1.6; color: var(--muted); }
+.svl-nav a, .svl-foot a { color: var(--muted); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.svl-nav a:hover, .svl-foot a:hover { color: var(--ink); }
+.svl-nav [aria-current="page"] { color: var(--ink); }
+.svl-nav a, .svl-nav [aria-current="page"], .svl-foot a { white-space: nowrap; }
+.svl-foot {
+  display: flex; flex-wrap: wrap; gap: 6px 24px; justify-content: space-between; width: 100%;
+  margin: 4px 0 0; font-family: var(--sans); font-size: var(--t-sm); line-height: 1.6; color: var(--muted);
+}
+
 </style>
 </head>
 <body>
 <div class="page">
   <header class="mast">
-    <p class="kicker"><a href="index.html">Numogram Lab</a> · <a href="time-sorcery.html">Time-Sorcery</a> · Vanishing Point</p>
+    <nav class="svl-nav" aria-label="SVL’s pages"><a href="index.html">Numogram Lab</a> <span class="sep" aria-hidden="true">·</span> <a href="time-sorcery.html">Time-Sorcery</a> <span class="sep" aria-hidden="true">·</span> <span aria-current="page">Vanishing Point</span></nav>
     <div class="mast-row">
       <h1>vanishing point</h1>
       <p class="lede">The history of AI on a logarithmic spiral, from the first ledgers to this month. Each turn holds a tenth of the time of the turn outside it, so zooming in also turns the spiral: the timeline is a tunnel.</p>
@@ -293,14 +374,16 @@ footer.foot a { color: var(--muted); }
         <button class="btn ghost" id="prev" type="button" aria-label="Previous milestone">← Prev</button>
         <button class="btn" id="play" type="button" aria-pressed="false">▶&#xFE0E; Descend</button>
         <button class="btn ghost" id="next" type="button" aria-label="Next milestone">Next →</button>
+        <button class="btn ghost ahead" id="ahead" type="button" aria-pressed="false">Looking ahead</button>
       </div>
       <div class="depth">
         <span aria-hidden="true">Rim</span>
         <input type="range" id="depth" min="-4" max="1" step="0.001" value="-1.8" aria-label="Travel through time, from the rim of the spiral to its centre">
         <span aria-hidden="true">Centre</span>
       </div>
-      <div class="eras" id="eras" aria-label="Jump to an era"></div>
-      <p class="hint">Scroll or pinch to travel, drag to turn the spiral, tap a mark to read it. With the spiral focused, ← → step through milestones and the space bar plays.</p>
+      <div class="eras" id="eras" role="group" aria-label="Jump to an era"></div>
+      <p class="hint">Scroll or pinch to travel, drag to turn the spiral, tap a mark to read it. With the spiral focused, ← → step through milestones and the space bar plays. Centred on now, keep going in past today and the spiral turns round to look ahead.</p>
+      <p class="sr" id="vplive" aria-live="polite"></p>
     </div>
 
     <article class="card" id="card" aria-live="polite"></article>
@@ -313,6 +396,7 @@ footer.foot a { color: var(--muted); }
       <div class="opts">
         <label><input type="checkbox" id="bitter"> Bitter Lesson view (hide hand-built roads)</label>
         <label><input type="checkbox" id="keyonly"> Key milestones only</label>
+        <label><input type="checkbox" id="fcshow" checked> Resolved forecasts</label>
         <label>Centre <select id="vp" aria-label="Centre of the spiral"></select></label>
       </div>
       <ul class="legend" aria-label="Legend">
@@ -322,12 +406,29 @@ footer.foot a { color: var(--muted); }
         <li><span class="mk sq"></span>a verdict</li>
         <li><span class="mk dia"></span>Land or the Ccru speak here</li>
         <li><span class="mk now"></span>today</li>
+        <li><span class="mk fc"></span>an open forecast</li>
+        <li><span class="mk fc half"></span>a 50% date</li>
+        <li><span class="mk fc done hit"></span>came true</li>
+        <li><span class="mk fc done miss"></span>missed</li>
       </ul>
       <figure class="pace">
         <figcaption><span id="pace-title">Model releases per year</span> <small>on this spiral · * so far this year</small></figcaption>
         <div id="pace"></div>
       </figure>
     </div>
+  </section>
+
+  <section class="fcl" id="fclist" aria-labelledby="fc-title">
+    <div class="list-head">
+      <h2 id="fc-title">Forecasts</h2>
+      <p id="fccount"></p>
+    </div>
+    <p class="fcl-note">Dated forecasts about AI and its neighbours, each checked against its original and quoted in its own words. On the spiral each one is a dashed ring at the date it named: open forecasts in Looking ahead, resolved ones in the history views with a thread back to the day they were said. Each line below draws the same on a strip, with today in the middle, time past to the left and time ahead to the right; the faint ticks mark one and ten years, so each step out is ten times further.</p>
+    <div class="fcaxis" aria-hidden="true"><span class="fx-l">100 years ago</span><span class="fx-now">today</span><span class="fx-r">100 years ahead</span></div>
+    <h3 id="fc-open-h">Open</h3>
+    <ul id="fc-open" aria-labelledby="fc-open-h"></ul>
+    <h3 id="fc-done-h">Resolved or closed</h3>
+    <ul id="fc-done" aria-labelledby="fc-done-h"></ul>
   </section>
 
   <section class="list" aria-labelledby="list-title">
@@ -348,7 +449,7 @@ footer.foot a { color: var(--muted); }
       </div>
       <div class="note">
         <h3>The centre</h3>
-        <p>By default the centre is the date in the title of Heinz von Foerster, Patricia Mora and Lawrence Amiot’s 1960 <i>Science</i> paper, “Doomsday: Friday, 13 November, A.D. 2026”. They fitted two thousand years of population estimates to a hyperbolic curve, the kind that reaches infinity in finite time. Population growth bent away from it in the 1960s. The date falls three weeks after this page was made.</p>
+        <p>By default the centre is the date in the title of Heinz von Foerster, Patricia Mora and Lawrence Amiot’s 1960 <i>Science</i> paper, “Doomsday: Friday, 13 November, A.D. 2026”. They fitted two thousand years of population estimates to a hyperbolic curve, the kind that reaches infinity in finite time. Population growth bent away from it in the 1960s.</p>
         <p>“Now” puts the moment you opened the page at the centre. “2045” uses the date Ray Kurzweil gave for the Singularity in 2005; the inner turns then become empty future and the whole history crowds onto the outer turns.</p>
         <p>Any list of milestones drawn in log time looks as if it accelerates into its centre. Recent events are easier to know about, and the axis gives them more room. Read the crowding near the centre as partly a property of the drawing.</p>
       </div>
@@ -359,6 +460,11 @@ footer.foot a { color: var(--muted); }
         <p>Each milestone carries a weight. The <span data-count="key">56</span> key milestones show up in “Key milestones only” and in the larger marks; the rest fill in the record. Before 1900 the selection follows two threads: the places where Land’s story touches the past (zero and place value, double-entry ledgers, the oceanic trading companies), and the machine line from Llull through Babbage and Lovelace to Boole.</p>
       </div>
       <div class="note">
+        <h3>Forecasts</h3>
+        <p>The <span data-count="forecasts">20</span> forecasts were chosen by a rule written before any were picked: dated claims by the pioneers already on the spiral, by the frontier labs and their heads since 2023, by the first and latest of the large surveys of AI researchers, in one public bet, and in Land. Misses stay in with the hits. Each card quotes the forecaster’s own words with a page or a timestamp, says how the outcome is decided and who judged it, and links an archived copy. Forecasts are counted apart from the milestones.</p>
+        <p><b>Looking ahead</b> is the tunnel reversed: today at the centre and the far future at the rim, each turn out ten times further ahead. Open forecasts live there. Centred on now, keep going in past today and the spiral turns round to look ahead; go in past today again to look back. A half-filled ring is a 50 percent date, the point by which the forecast gives even odds, not a deadline. Resolved forecasts stay in the history views, with a thread from the day each was said to the date it named.</p>
+      </div>
+      <div class="note">
         <h3>Whose words</h3>
         <p>On each card, “From the texts” quotes Nick Land or the Ccru directly and says where. “This page” is the page’s own reading in the same spirit, and is never presented as Land’s. Where a link might be expected but isn’t in the texts checked, the card says so: Land doesn’t name the Dutch East India Company in the texts checked here, for instance, so that pairing is the page’s own.</p>
         <p>Main texts: Land, “Machinic Desire” (1993), “Meltdown” (1994), “Qabbala 101” (2007) and <i>Crypto-Current</i>; the Ccru Glossary; Brian Rotman, <i>Signifying Nothing</i> (1987); Richard Sutton, “The Bitter Lesson” (2019); Peter Norvig on Chomsky. Every card lists its own sources.</p>
@@ -367,8 +473,7 @@ footer.foot a { color: var(--muted); }
   </section>
 
   <footer class="foot">
-    <span>Built by SVL with Claude, October 2026.</span>
-    <span>Elsewhere: <a href="index.html">Numogram Lab</a> · <a href="time-sorcery.html">Time-Sorcery</a> · <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a></span>
+    <div class="svl-foot"><span>Built by SVL with Claude, October 2026.</span><span>Elsewhere: <a href="index.html">Numogram Lab</a> <span class="sep" aria-hidden="true">·</span> <a href="time-sorcery.html">Time-Sorcery</a> <span class="sep" aria-hidden="true">·</span> <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a></span></div>
   </footer>
 </div>
 <script>
@@ -715,7 +820,7 @@ const EVENTS = [
 
 { id: 'doomsday', d: '1960-11-04', t: 'Doomsday: Friday, 13 November, A.D. 2026', short: 'The Doomsday paper', th: 'hyp', w: 3,
   x: 'Heinz von Foerster, Patricia Mora and Lawrence Amiot fitted two thousand years of world population estimates to a curve that grows faster than exponentially and reaches infinity in finite time, and put the date in the title of their paper in Science. They argued that people who cooperate grow faster the more of them there are, and hoped the warning would prompt population control.',
-  o: 'This is the default centre of the spiral. Hyperbolic growth is the curve singularity arguments are built on. Population growth bent away from it in the 1960s, so the date became a curiosity. It happens to fall three weeks after this page was made.',
+  o: 'This is the default centre of the spiral. Hyperbolic growth is the curve singularity arguments are built on. Population growth bent away from it in the 1960s, so the date became a curiosity.',
   s: [['Science 132:1291 (1960)', 'https://doi.org/10.1126/science.132.3436.1291'], ['Scott Alexander, “1960: The Year the Singularity Was Cancelled”', 'https://slatestarcodex.com/2019/04/22/1960-the-year-the-singularity-was-cancelled/']] },
 
 { id: 'good', d: '1965', t: 'Good’s ultraintelligent machine', th: 'hyp', w: 3,
@@ -964,6 +1069,18 @@ const EVENTS = [
 { id: 'deepmind', d: '2010-09', t: 'DeepMind founded', th: 'learn', w: 2,
   x: 'Demis Hassabis, Shane Legg and Mustafa Suleyman founded DeepMind in London with the stated aim to “solve intelligence”. Early investors included Peter Thiel’s Founders Fund.',
   s: [['Google DeepMind', W + 'Google_DeepMind']] },
+
+{ id: 'watson', d: '2011-02-16', t: 'Watson wins Jeopardy!', th: 'lang', w: 2, f: 'road',
+  x: 'IBM’s Watson beat Ken Jennings and Brad Rutter, the show’s two most successful champions, in a match aired over three nights, finishing on $77,147 to their $24,000 and $21,600. It ran hundreds of algorithms on each clue against encyclopedias, dictionaries, novels and Wikipedia, held offline on 90 servers, and buzzed in only when enough of them agreed. In one Final Jeopardy!, under “U.S. Cities”, it answered “What is Toronto?????”. Below his last answer Jennings wrote “I for one welcome our new computer overlords.” IBM then marketed Watson to hospitals. MD Anderson, the Houston cancer centre, put its Watson project on hold in 2017 after spending some $62 million, and in 2022 IBM sold Watson Health’s data businesses to the private equity firm Francisco Partners for a reported $1 billion or more.',
+  o: 'IBM again, after the Georgetown demo and Deep Blue: a win staged for television that the system behind it couldn’t follow up. Within a decade, hand-assembled pipelines like Watson’s had given way to networks trained end to end.',
+  s: [['IBM: Watson, “Jeopardy!” champion', 'https://www.ibm.com/history/watson-jeopardy'], ['NPR on the final game (2011)', 'https://www.npr.org/sections/thetwo-way/2011/02/17/133834740/who-is-the-new-overlord'], ['Engadget: MD Anderson’s Watson project on hold (2017)', 'https://www.engadget.com/2017-02-20-watson-cancer-research-runs-into-trouble.html'], ['Healthcare IT News: IBM sells Watson Health assets (2022)', 'https://www.healthcareitnews.com/news/ibm-sell-watson-health-assets-francisco-partners']] },
+
+{ id: 'meltdown2012', d: '2012', t: 'Meltdown’s vanishing point', th: 'hyp', w: 2,
+  x: 'In “Meltdown” (1994), Land’s phase-out culture accelerates through ten “compression thresholds” from 1500 to 2011. Each gap is half the one before it: 256 years, then 128, 64, 32, 16, 8, 4, 2 and 1. Carried on, the series converges on 2012, a year the essay never names. The list breaks off at 2011 with an ellipsis, and the next line reads “Nothing human makes it out of the near-future.”',
+  q: 'Converging upon terrestrial meltdown singularity, phase-out culture accelerates through its digitech-heated adaptive landscape, passing through compression thresholds normed to an intensive logistic curve: 1500, 1756, 1884, 1948, 1980, 1996, 2004, 2008, 2010, 2011 …',
+  qc: 'Land, “Meltdown” (1994), section “Machinic Synthesis”',
+  o: 'Gaps that halve make a countdown in log time: on a spiral centred on 2012, the ten thresholds would sit evenly, three-tenths of a turn apart. On this one, the countdown runs out in the year of AlexNet.',
+  s: [MELTDOWN] },
 
 { id: 'alexnet', d: '2012-09-30', t: 'AlexNet', th: 'learn', w: 3,
   x: 'Alex Krizhevsky, Ilya Sutskever and Geoffrey Hinton’s deep convolutional network, trained on two Nvidia gaming cards at Krizhevsky’s home, won the ImageNet contest with a top-5 error of 15.3 percent against the runner-up’s 26.2. Within two years nearly every serious entrant used deep networks.',
@@ -1510,6 +1627,330 @@ if (typeof module !== 'undefined') module.exports = { THREADS, THREAD_ORDER, LAB
 
 </script>
 <script>
+/* ================= Vanishing Point: forecasts =================
+   Chosen by the selection rule in FORECASTS.md (written before choosing). Every claim was checked
+   against its original in October 2026 and is quoted verbatim; straight quotes and spaced hyphens
+   are set as curly quotes and en dashes, and nothing else is changed. Forecasts are counted
+   separately from the milestones in data.js.
+
+   id      'f-…', unique, and never the same as a milestone id
+   who     the forecaster as the card names them
+   group   which part of the rule admitted it: pioneer | lab | survey | bet | land
+   made    the date it was said, as in EVENTS ('YYYY-MM-DD', 'YYYY-MM' or 'YYYY')
+   th      lane (as in EVENTS)
+   t       title; short is the label on the spiral
+   type    date | deadline | window | spread | bet, and the target fields that go with it:
+             date      at       a point: the ring sits at the date (a year sits mid-year)
+             deadline  due      by the end of the named day, month or year
+             window    from, to from the start of one period to the end of another
+             spread    p10, p50 years by which the forecast gives 10 and 50 percent; p50 is drawn as a
+                                50% date, never as a deadline, and a spread never closes
+             bet       due      the bet's end
+   prob    the probability or hedge in the forecaster's words, if any
+   say     the claim, verbatim; sayc gives the source with page, section or timestamp
+   event   the event, in the forecaster's own words
+   decide  how the outcome is decided
+   read    the page's own reading, where it has had to interpret (shown under "This page")
+   outcome { is, on, judge, say, sayc, s, after }
+             is     met | late | claimed | disputed | missed | none (no verdict)
+             on     when the verdict or the event came; for met, late and claimed, the date it came true
+             judge  who judged; say/sayc quote the verdict; s is its source
+             after  the verdict applies only from this date (used for Doomsday, which resolves on its day)
+           A forecast with no outcome is open until its target passes, then "closed, awaiting a verdict";
+           check.js warns about those.
+   x       a plain account; s sources: the original first, then an archived copy, then the rest
+   card    the milestone on the spiral that this forecast belongs to, if any
+*/
+const FORECASTS = [
+/* ---------------- pioneers already on the spiral ---------------- */
+{ id: 'f-turing', who: 'Alan Turing', group: 'pioneer', made: '1950-10', th: 'reck', card: 'turing50',
+  t: 'The imitation game “in about fifty years”', short: 'Turing · about 2000',
+  type: 'date', at: '2000',
+  say: 'I believe that in about fifty years’ time it will be possible to programme computers, with a storage capacity of about 10⁹, to make them play the imitation game so well that an average interrogator will not have more than 70 per cent. chance of making the right identification after five minutes of questioning.',
+  sayc: 'Turing, “Computing Machinery and Intelligence”, Mind 59, no. 236 (October 1950), p. 442',
+  event: 'an average interrogator will not have more than 70 per cent. chance of making the right identification after five minutes of questioning',
+  decide: 'A test in Turing’s own format: five minutes of questioning, with the interrogator right no more than 70 percent of the time.',
+  outcome: { is: 'late', on: '2025-03-31', judge: 'Cameron Jones and Benjamin Bergen, UC San Diego (a preprint)',
+    say: 'The results constitute the first empirical evidence that any artificial system passes a standard three-party Turing test.',
+    sayc: 'Jones and Bergen, “Large Language Models Pass the Turing Test”, arXiv 2503.23674, abstract, 31 March 2025',
+    s: ['Jones and Bergen (2025), arXiv', 'https://arxiv.org/abs/2503.23674'] },
+  x: 'Turing put numbers on his test. In 2025 Jones and Bergen ran it in his three-way format, with five-minute chats: told to adopt a humanlike persona, GPT-4.5 was picked as the human 73 percent of the time, more often than the real people it was paired with. The machine arrived about 25 years after Turing’s date, and with far more than 10⁹ bits of storage.',
+  s: [['Turing (1950), full text, Oxford Academic', 'https://academic.oup.com/mind/article/LIX/236/433/986238'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261015012922/https://academic.oup.com/mind/article/LIX/236/433/986238'],
+      ['Jones and Bergen (2025), arXiv', 'https://arxiv.org/abs/2503.23674']] },
+
+{ id: 'f-georgetown', who: 'Leon Dostert, Georgetown–IBM', group: 'pioneer', made: '1954-01-07', th: 'lang', card: 'georgetown',
+  t: 'Machine translation “five, perhaps three years hence”', short: 'Dostert · 1957–59',
+  type: 'window', from: '1957-01', to: '1959-01', prob: 'may well be',
+  say: 'five, perhaps three years hence, interlingual meaning conversion by electronic process in important functional areas of several languages may well be an accomplished fact.',
+  sayc: 'IBM press release, 8 January 1954 (datelined New York, 7 January), quoting Leon Dostert of Georgetown University',
+  event: 'interlingual meaning conversion by electronic process in important functional areas of several languages',
+  decide: 'Whether machine translation had become useful by about 1959. The US government’s advisory committee reviewed the field in 1966.',
+  read: 'Three to five years from January 1954 is drawn as a window from January 1957 to January 1959.',
+  outcome: { is: 'missed', on: '1966-11', judge: 'ALPAC, the Automatic Language Processing Advisory Committee of the US National Academy of Sciences',
+    say: 'Further, there is no immediate or predictable prospect of useful machine translation.',
+    sayc: 'ALPAC, Language and Machines: Computers in Translation and Linguistics (1966), p. 32',
+    s: ['ALPAC report (1966), PDF', 'https://www.mt-archive.net/50/ALPAC-1966.pdf'] },
+  x: 'The press release quoted Leon Dostert, a Georgetown language scholar, as saying it was not yet possible “to insert a Russian book at one end and come out with an English book at the other”, but that within three to five years machine translation could be routine in important areas. Twelve years later the government’s review found no prospect of useful machine translation, and funding was cut.',
+  s: [['IBM press release, 8 January 1954', 'https://www.ibm.com/ibm/history/exhibits/701/701_translator.html'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20231225181320/https://www.ibm.com/ibm/history/exhibits/701/701_translator.html'],
+      ['ALPAC report (1966), PDF', 'https://www.mt-archive.net/50/ALPAC-1966.pdf']] },
+
+{ id: 'f-dartmouth', who: 'McCarthy, Minsky, Rochester and Shannon', group: 'pioneer', made: '1955-08-31', th: 'reck', card: 'dartmouth',
+  t: '“A significant advance” in one summer', short: 'Dartmouth · summer 1956',
+  type: 'deadline', due: '1956-08',
+  say: 'We think that a significant advance can be made in one or more of these problems if a carefully selected group of scientists work on it together for a summer.',
+  sayc: 'McCarthy, Minsky, Rochester and Shannon, “A Proposal for the Dartmouth Summer Research Project on Artificial Intelligence”, 31 August 1955, opening paragraph',
+  event: 'a significant advance … in one or more of these problems',
+  decide: 'Whether the study in the summer of 1956 made that advance. The proposers set no test.',
+  outcome: { is: 'missed', on: '2006-10-30', judge: 'John McCarthy, one of the four proposers, fifty years on',
+    say: 'My hope for a breakthrough towards human-level AI was not realized at Dartmouth, and while AI has advanced enormously in the last 50 years, I think new ideas are still required for the breakthrough.',
+    sayc: 'McCarthy, “The Dartmouth Workshop—as planned and as it happened”, talk slides, 30 October 2006',
+    s: ['McCarthy (2006), slides', 'https://www-formal.stanford.edu/jmc/slides/dartmouth/dartmouth/node1.html'] },
+  x: 'The problems were set out just before this sentence: to find “how to make machines use language, form abstractions and concepts, solve kinds of problems now reserved for humans, and improve themselves.” The proposal asked for a two-month, ten-man study at Dartmouth in the summer of 1956. Fifty years later McCarthy wrote that his hope for a breakthrough had not been realised there.',
+  s: [['The proposal (31 August 1955), McCarthy’s site', 'http://jmc.stanford.edu/articles/dartmouth/dartmouth.pdf'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261016231400/http://jmc.stanford.edu/articles/dartmouth/dartmouth.pdf'],
+      ['McCarthy (2006), “as planned and as it happened”', 'https://www-formal.stanford.edu/jmc/slides/dartmouth/dartmouth/node1.html']] },
+
+{ id: 'f-moore', who: 'Gordon Moore', group: 'pioneer', made: '1965-04-19', th: 'cap', card: 'moore',
+  t: '65,000 components on a chip by 1975', short: 'Moore · 1975',
+  type: 'date', at: '1975',
+  say: 'That means by 1975, the number of components per integrated circuit for minimum cost will be 65,000.',
+  sayc: 'Moore, “Cramming more components onto integrated circuits”, Electronics, 19 April 1965, p. 115',
+  event: 'the number of components per integrated circuit for minimum cost will be 65,000',
+  decide: 'The most complex chips made in 1975, against the doubling every year that Moore extended for ten years.',
+  outcome: { is: 'met', on: '1975-12', judge: 'Gordon Moore himself, in 1975',
+    say: 'Complexity of integrated circuits has approximately doubled every year since their introduction.',
+    sayc: 'Moore, “Progress in Digital Integrated Electronics”, IEEE International Electron Devices Meeting, Technical Digest 1975, pp. 11–13, opening sentence',
+    s: ['Moore (1975), PDF', 'https://www.eng.auburn.edu/~agrawvd/COURSE/E7770_Spr07/READ/Gordon_Moore_1975_Speech.pdf'] },
+  x: 'Moore plotted the number of components on the cheapest chip to make, doubling every year from 1959, and carried the line on for a decade. In his 1975 review he set a 16,384-bit charge-coupled memory chip at the 1975 point, said complexity had doubled about every year, and predicted a slowdown to a doubling every two years. The judge here is Moore himself.',
+  s: [['Electronics, 19 April 1965, scan', 'https://www.worldradiohistory.com/Archive-Electronics/60s/65/Electronics-1965-04-19-Moore%27s-Law.pdf'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20241221151628/https://www.worldradiohistory.com/Archive-Electronics/60s/65/Electronics-1965-04-19-Moore%27s-Law.pdf'],
+      ['Moore (1975), archived copy', 'http://web.archive.org/web/20261013020920/https://www.eng.auburn.edu/~agrawvd/COURSE/E7770_Spr07/READ/Gordon_Moore_1975_Speech.pdf']] },
+
+{ id: 'f-good', who: 'I. J. Good', group: 'pioneer', made: '1965', th: 'hyp', card: 'good',
+  t: 'An ultraintelligent machine within the twentieth century', short: 'Good · by 2000',
+  type: 'deadline', due: '2000', prob: 'more probable than not',
+  say: 'It is more probable than not that, within the twentieth century, an ultraintelligent machine will be built and that it will be the last invention that man need make, since it will lead to an “intelligence explosion.”',
+  sayc: 'Good, “Speculations Concerning the First Ultraintelligent Machine”, Advances in Computers 6 (1965), p. 78, section 9, “Conclusions”',
+  event: 'an ultraintelligent machine will be built',
+  decide: 'Whether a machine that can “far surpass all the intellectual activities of any man however clever” (Good’s definition, p. 33) was built by the end of 2000.',
+  outcome: { is: 'missed', on: '2000-12-31', judge: 'No formal judge: nobody has claimed such a machine was built in the twentieth century' },
+  x: 'Good gave his odds in the paper’s conclusions, which he called “primarily the opinions of the writer”. He expected the first such machine to be “ultraparallel”, probably built with “a very large artificial neural net”. The century ended without one.',
+  s: [['Good (1965), scan on gwern.net', 'https://gwern.net/doc/ai/1966-good.pdf'],
+      ['Another scan, archived (Wayback Machine)', 'http://web.archive.org/web/20260921162949/http://incompleteideas.net/papers/Good65ultraintelligent.pdf']] },
+
+{ id: 'f-doomsday', who: 'Heinz von Foerster, Patricia Mora and Lawrence Amiot', group: 'pioneer', made: '1960-11-04', th: 'hyp', card: 'doomsday',
+  t: 'Doomsday: Friday, 13 November, A.D. 2026', short: 'Doomsday · 13 Nov 2026',
+  type: 'date', at: '2026-11-13',
+  say: 'At this date human population will approach infinity if it grows as it has grown in the last two millenia.',
+  sayc: 'von Foerster, Mora and Amiot, “Doomsday: Friday, 13 November, A.D. 2026”, Science 132 (4 November 1960), p. 1291. The fitted date is t₀ = A.D. 2026.87 ± 5.50 years (p. 1293); “millenia” is as printed.',
+  event: 'human population will approach infinity',
+  decide: 'World population on the day. The authors’ condition was that growth kept to the curve of the previous two thousand years.',
+  read: 'The title names a day, so the page resolves the forecast when that day ends, not at the end of the ± 5.50-year error band.',
+  outcome: { is: 'missed', on: '2026-11-13', after: '2026-11-14', judge: 'The UN Population Division’s estimates',
+    say: 'growing over the next sixty years from 8.2 billion people in 2024 to around 10.3 billion in the mid-2080s',
+    sayc: 'UN press release on World Population Prospects 2024, 11 July 2024',
+    s: ['UN press release, 11 July 2024', 'https://www.un.org/sustainabledevelopment/blog/2024/07/press-release-wpp2024/'] },
+  x: 'The paper fitted two thousand years of population estimates to a curve that reaches infinity at a finite date, and put the day in its title. The condition failed within a few years, as growth slowed from the 1960s. The UN puts world population at 8.2 billion in 2024, peaking at about 10.3 billion in the 2080s.',
+  s: [['Science 132:1291 (1960)', 'https://doi.org/10.1126/science.132.3436.1291'],
+      ['Archived copy of the Science page (Wayback Machine)', 'http://web.archive.org/web/20250718012917/https://www.science.org/doi/10.1126/science.132.3436.1291'],
+      ['The paper, PDF copy (Rensselaer course page)', 'https://mozart.bioinfo.rpi.edu/bystrc/courses/biol4961/Doomsday.pdf'],
+      ['UN press release, 11 July 2024', 'https://www.un.org/sustainabledevelopment/blog/2024/07/press-release-wpp2024/']] },
+
+{ id: 'f-vinge-means', who: 'Vernor Vinge', group: 'pioneer', made: '1993-03-30', th: 'hyp', card: 'vinge',
+  t: '“Within thirty years”: the means to superhuman intelligence', short: 'Vinge · by 2023',
+  type: 'deadline', due: '2023-03-30',
+  say: 'Within thirty years, we will have the technological means to create superhuman intelligence. Shortly after, the human era will be ended.',
+  sayc: 'Vinge, “The Coming Technological Singularity”, VISION-21 Symposium, NASA Lewis Research Center, 30–31 March 1993; NASA CP-10129, p. 12, abstract',
+  event: 'the technological means to create superhuman intelligence',
+  decide: 'No test was named.',
+  outcome: { is: 'none', on: '2023-03-30', judge: 'No verdict found. The thirty years ran out with no ruling either way' },
+  x: 'Vinge gave two limits in the same paper. This one, in the abstract, is for the means; the window in the body of the paper is for the event itself. Thirty years from the symposium ran out on 30 March 2023, a fortnight after OpenAI released GPT-4.',
+  s: [['Vinge (1993), NASA CP-10129, PDF', 'https://ntrs.nasa.gov/api/citations/19940022856/downloads/19940022856.pdf'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260925161548/https://ntrs.nasa.gov/api/citations/19940022856/downloads/19940022856.pdf'],
+      ['Vinge’s own copy, San Diego State University', 'https://edoras.sdsu.edu/~vinge/misc/singularity.html']] },
+
+{ id: 'f-vinge-window', who: 'Vernor Vinge', group: 'pioneer', made: '1993-03-30', th: 'hyp', card: 'vinge',
+  t: 'Not before 2005 or after 2030', short: 'Vinge · 2005–30',
+  type: 'window', from: '2005', to: '2030',
+  say: 'Just so I’m not guilty of a relative-time ambiguity, let me more specific: I’ll be surprised if this event occurs before 2005 or after 2030.',
+  sayc: 'Vinge, “The Coming Technological Singularity” (1993), NASA CP-10129, p. 12. “Let me more specific” is as printed.',
+  event: 'the creation of greater than human intelligence (from the sentence before)',
+  decide: 'No test was named. The window closes at the end of 2030.',
+  x: 'The sentence before reads: “Based largely on this trend, I believe that the creation of greater than human intelligence will occur during the next thirty years.” The trend was computer hardware. Vinge died in March 2024, with six years of his window left.',
+  s: [['Vinge (1993), NASA CP-10129, PDF', 'https://ntrs.nasa.gov/api/citations/19940022856/downloads/19940022856.pdf'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260925161548/https://ntrs.nasa.gov/api/citations/19940022856/downloads/19940022856.pdf'],
+      ['Vinge’s own copy, archived', 'http://web.archive.org/web/20261013093837/https://edoras.sdsu.edu/~vinge/misc/singularity.html']] },
+
+{ id: 'f-kurzweil', who: 'Ray Kurzweil', group: 'pioneer', made: '2005-09', th: 'hyp',
+  t: 'The Singularity in 2045', short: 'Kurzweil · 2045',
+  type: 'date', at: '2045',
+  say: 'I set the date for the Singularity—representing a profound and disruptive transformation in human capability—as 2045.',
+  sayc: 'Kurzweil, questions and answers for The Singularity Is Near, singularity.com (2005), “When will that occur?”',
+  event: 'the Singularity—representing a profound and disruptive transformation in human capability',
+  decide: 'No test was named.',
+  read: 'This is the date the page’s 2045 centre uses. It is on the spiral as a centre rather than a milestone, which is why the rule counts it among the pioneers.',
+  x: 'The next sentence in the same answer reads: “The nonbiological intelligence created in that year will be one billion times more powerful than all human intelligence today.” The earliest archived copy of the answer is from 24 September 2005, the week the book went on sale.',
+  s: [['Kurzweil, Q&A on singularity.com', 'https://singularity.com/qanda.html'],
+      ['Archived copy, 24 September 2005 (Wayback Machine)', 'http://web.archive.org/web/20050924221040/http://singularity.com:80/qanda.html']] },
+
+/* ---------------- a public bet ---------------- */
+{ id: 'f-longbet', who: 'Mitchell Kapor and Ray Kurzweil', group: 'bet', made: '2002', th: 'reck',
+  t: 'Long Bet 1: a machine passes the Turing test by 2029', short: 'Kapor–Kurzweil bet · 2029',
+  type: 'bet', due: '2029', prob: '$20,000 at even stakes',
+  say: 'By 2029 no computer – or “machine intelligence” – will have passed the Turing Test.',
+  sayc: 'Long Bets, Bet 1 (2002), the statement. Kapor is the predictor; Kurzweil challenges it and says a computer will pass.',
+  event: 'a computer will pass the Turing test, under the bet’s terms',
+  decide: 'The bet’s terms: three judges each interview four candidates, the computer and three human foils, for two hours each. The computer passes if it fools two of the three judges and is ranked at least as human as two of the three foils, before the end of 2029. The winner’s charity gets $20,000.',
+  x: 'Their test is much harder than the one Turing described: two hours with each candidate, not five minutes. The 2025 result that met Turing’s 1950 forecast does not settle the bet, and the bet’s page records no result.',
+  s: [['Long Bets, Bet 1', 'https://longbets.org/1/'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261017104103/https://longbets.org/1/']] },
+
+/* ---------------- Land ---------------- */
+{ id: 'f-land', who: 'Nick Land', group: 'land', made: '1994', th: 'hyp', card: 'meltdown2012',
+  t: 'Meltdown’s limit, 2012', short: 'Meltdown · 2012',
+  type: 'date', at: '2012',
+  say: 'Converging upon terrestrial meltdown singularity, phase-out culture accelerates through its digitech-heated adaptive landscape, passing through compression thresholds normed to an intensive logistic curve: 1500, 1756, 1884, 1948, 1980, 1996, 2004, 2008, 2010, 2011 …',
+  sayc: 'Land, “Meltdown” (1994), section “Machinic Synthesis”, as the Ccru published it (Abstract Culture, swarm 1)',
+  event: 'terrestrial meltdown singularity',
+  decide: 'Land named no year and no test.',
+  read: 'The year is the page’s, not Land’s: the gaps between his thresholds halve from 256 years to one, so the series converges on 2012.',
+  outcome: { is: 'none', on: '2012-12-31', judge: 'No one: the year is derived, and the event has no test' },
+  x: 'Land never names 2012; the list stops at 2011 with an ellipsis, and the next line reads “Nothing human makes it out of the near-future.” The year came and went with AlexNet.',
+  s: [['Land, “Meltdown”, on the Ccru’s site', 'http://www.ccru.net/swarm1/1_melt.htm'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261007023103/http://www.ccru.net/swarm1/1_melt.htm']] },
+
+/* ---------------- frontier labs and their heads, since 2023 ---------------- */
+{ id: 'f-legg', who: 'Shane Legg, Google DeepMind', group: 'lab', made: '2023-10-26', th: 'hyp', card: 'deepmind',
+  t: 'Even odds of AGI by 2028', short: 'Legg · 50% by 2028',
+  type: 'spread', p50: '2028', prob: '50%',
+  say: 'And so, yeah, I think there’s a 50% chance that we have AGI by 2028.',
+  sayc: 'Legg on the Dwarkesh Podcast, 26 October 2023, answer beginning at 0:34:32',
+  event: 'AGI, which he defined at the start of the episode as “a machine that can do the sorts of cognitive things that people can typically do, possibly more” (0:00:26)',
+  decide: 'No test was named. A 50% date is not a deadline: if 2028 ends without AGI, the forecast has not been shown wrong.',
+  x: 'Legg co-founded DeepMind and is its chief AGI scientist. The year goes back to his blog at the end of 2011, where he gave AGI “a log-normal distribution with a mean of 2028 and a mode of 2025”. That was a mean; the 2023 figure is a median.',
+  s: [['Dwarkesh Podcast transcript, 26 October 2023', 'https://www.dwarkesh.com/p/shane-legg'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261012042821/https://dwarkesh.com/p/shane-legg'],
+      ['Legg, “Goodbye 2011, hello 2012”, vetta.org', 'http://www.vetta.org/2011/12/goodbye-2011-hello-2012/']] },
+
+{ id: 'f-anthropic', who: 'Anthropic', group: 'lab', made: '2025-03-06', th: 'hyp',
+  t: 'Powerful AI “in late 2026 or early 2027”', short: 'Anthropic · late 2026–27',
+  type: 'window', from: '2026-09', to: '2027-04', prob: 'we expect',
+  say: 'As our CEO Dario Amodei writes in ‘Machines of Loving Grace’, we expect powerful AI systems will emerge in late 2026 or early 2027.',
+  sayc: 'Anthropic, “Anthropic’s Recommendations to OSTP for the U.S. AI Action Plan”, blog post, 6 March 2025',
+  event: 'powerful AI systems, which the post defines by four properties: “Intellectual capabilities matching or exceeding that of Nobel Prize winners across most disciplines”; every interface a human doing digital work uses; reasoning on its own through tasks over “hours, days, or even weeks”; and control of laboratory and manufacturing equipment',
+  decide: 'No test was named.',
+  read: 'Late 2026 is read as September to December, and early 2027 as January to April. That follows Ryan Greenblatt of Redwood Research, who reads “early 2027” as “within the first third of 2027”, and allows that it could charitably mean the first half.',
+  x: 'The submission Anthropic sent the White House the same day is more cautious: “we anticipate that powerful AI systems could emerge as soon as late 2026 or 2027” (p. 2). The page takes the blog post’s wording because it is the more specific of the lab’s two documents.',
+  s: [['Anthropic, blog post, 6 March 2025', 'https://www.anthropic.com/news/anthropic-s-recommendations-ostp-u-s-ai-action-plan'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261013051748/https://www.anthropic.com/news/anthropic-s-recommendations-ostp-u-s-ai-action-plan'],
+      ['The submission to OSTP, PDF', 'https://assets.anthropic.com/m/4e20a4ab6512e217/original/Anthropic-Response-to-OSTP-RFI-March-2025-Final-Submission-v3.pdf'],
+      ['Greenblatt, “What’s up with Anthropic predicting AGI by early 2027?”', 'https://blog.redwoodresearch.org/p/whats-up-with-anthropic-predicting']] },
+
+{ id: 'f-amodei-code', who: 'Dario Amodei, Anthropic', group: 'lab', made: '2025-03-10', th: 'lang',
+  t: 'AI writing 90 percent of the code within six months', short: 'Amodei · 90% of code',
+  type: 'window', from: '2025-06-10', to: '2025-09-10',
+  say: 'If I look at coding, programming, which is one area where AI is making the most progress, what we are finding is we are not far from the world—I think we’ll be there in three to six months—where AI is writing 90 percent of the code.',
+  sayc: 'Amodei at the Council on Foreign Relations, CEO Speaker Series, 10 March 2025, from CFR’s uncorrected transcript',
+  event: 'AI is writing 90 percent of the code',
+  decide: 'No measure was named: whose code, and counted how.',
+  read: 'Three to six months from 10 March 2025 is drawn as a window from 10 June to 10 September 2025.',
+  outcome: { is: 'disputed', on: '2025-10-22', judge: 'Ryan Greenblatt, Redwood Research, against Amodei’s own later claim that it was true',
+    say: 'Thus, when Dario said “this is absolutely true”, I don’t agree: I don’t think the prediction came true.',
+    sayc: 'Greenblatt, “Is 90% of code at Anthropic being written by AIs?”, Redwood Research blog, 22 October 2025',
+    s: ['Greenblatt (2025)', 'https://blog.redwoodresearch.org/p/is-90-of-code-at-anthropic-being'] },
+  x: 'He went on: “And then in twelve months, we may be in a world where AI is writing essentially all of the code.” Greenblatt, an outside safety researcher, estimated that the share of merged code written by AI across Anthropic was “much less than 90%, more like 50%.”',
+  s: [['CFR, CEO Speaker Series with Dario Amodei', 'https://www.cfr.org/event/ceo-speaker-series-dario-amodei-anthropic'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261011200015/https://www.cfr.org/event/ceo-speaker-series-dario-amodei-anthropic'],
+      ['Greenblatt (2025)', 'https://blog.redwoodresearch.org/p/is-90-of-code-at-anthropic-being']] },
+
+{ id: 'f-deepmind', who: 'Google DeepMind', group: 'lab', made: '2025-04-02', th: 'hyp',
+  t: 'Powerful AI “plausible” by 2030', short: 'DeepMind · by 2030',
+  type: 'deadline', due: '2030', prob: 'plausible',
+  say: 'We are highly uncertain about the timelines until powerful AI systems are developed, but crucially, we find it plausible that they will be developed by 2030.',
+  sayc: 'Shah and others, Google DeepMind, “An Approach to Technical AGI Safety and Security”, arXiv 2504.01849, 2 April 2025, p. 2, “Background assumptions”',
+  event: 'powerful AI systems; the paper aims at what it calls Exceptional AGI, “an AI system that matches or exceeds that of the 99th percentile of skilled adults on a wide range of non-physical tasks” (p. 15)',
+  decide: 'No test was named.',
+  read: '“Plausible” claims a possibility, not a central estimate, so the date is drawn as a limit with no probability attached. “By 2030” is read as by the end of 2030.',
+  x: 'The paper sets out how Google DeepMind means to make AGI safe, and says the approach should work at any time because timelines may be very short.',
+  s: [['Google DeepMind (2025), arXiv', 'https://arxiv.org/abs/2504.01849'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260917083329/https://arxiv.org/abs/2504.01849']] },
+
+{ id: 'f-openai-intern', who: 'OpenAI, in Sam Altman’s words', group: 'lab', made: '2025-10-28', th: 'learn',
+  t: 'An automated AI research intern by September 2026', short: 'OpenAI intern · Sep 2026',
+  type: 'deadline', due: '2026-09',
+  say: 'We have set internal goals of having an automated AI research intern by September of 2026 running on hundreds of thousands of GPUs, and a true automated AI researcher by March of 2028.',
+  sayc: 'Sam Altman on X, 29 October 2025, summing up OpenAI’s livestream of the day before',
+  event: 'an automated AI research intern',
+  decide: 'OpenAI’s own measurements. It later defined an intern as “a system that can carry out well-defined research tasks under human direction”.',
+  outcome: { is: 'claimed', on: '2026-09-06', judge: 'OpenAI itself, by its own measurements; there was no outside test',
+    say: 'According to our measurements, we have now reached the goal, announced last fall, of having an automated research intern by September of this year.',
+    sayc: 'OpenAI, “Research acceleration: The view inside OpenAI”, 6 September 2026',
+    s: ['OpenAI, 6 September 2026', 'https://openai.com/index/research-acceleration-view-inside-openai/'] },
+  x: 'Altman called both targets internal goals: “We may totally fail at this goal.” OpenAI’s claim rests on usage data: by mid-August its research staff were running about 3.1 agent workdays for every human workday, and “over half of successful 4-8 hour tasks involved 1 or more interventions” by a person.',
+  s: [['Sam Altman on X, 29 October 2025', 'https://x.com/sama/status/1983584366547829073'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260302053252/https://x.com/sama/status/1983584366547829073'],
+      ['OpenAI, “Research acceleration”, 6 September 2026', 'https://openai.com/index/research-acceleration-view-inside-openai/']] },
+
+{ id: 'f-openai-researcher', who: 'OpenAI, in Sam Altman’s words', group: 'lab', made: '2025-10-28', th: 'learn',
+  t: 'A true automated AI researcher by March 2028', short: 'OpenAI researcher · Mar 2028',
+  type: 'deadline', due: '2028-03',
+  say: 'We have set internal goals of having an automated AI research intern by September of 2026 running on hundreds of thousands of GPUs, and a true automated AI researcher by March of 2028.',
+  sayc: 'Sam Altman on X, 29 October 2025, summing up OpenAI’s livestream of the day before',
+  event: 'a true automated AI researcher',
+  decide: 'No test was named. OpenAI judged the first goal by its own measurements.',
+  x: 'In September 2026, when it said the first goal had been met, OpenAI wrote: “We are making strong progress toward creating an automated AI researcher by March of 2028.”',
+  s: [['Sam Altman on X, 29 October 2025', 'https://x.com/sama/status/1983584366547829073'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260302053252/https://x.com/sama/status/1983584366547829073'],
+      ['OpenAI, “Research acceleration”, 6 September 2026', 'https://openai.com/index/research-acceleration-view-inside-openai/']] },
+
+{ id: 'f-zuckerberg', who: 'Mark Zuckerberg, Meta', group: 'lab', made: '2025-01-29', th: 'lang',
+  t: 'An AI engineer as good as a mid-level engineer, in 2025', short: 'Zuckerberg · 2025',
+  type: 'date', at: '2025',
+  say: 'I also expect that 2025 will be the year when it becomes possible to build an AI engineering agent that has coding and problem-solving abilities of around a good mid-level engineer.',
+  sayc: 'Meta, fourth-quarter 2024 earnings call, 29 January 2025, transcript p. 2',
+  event: 'an AI engineering agent that has coding and problem-solving abilities of around a good mid-level engineer',
+  decide: 'No test was named.',
+  outcome: { is: 'none', on: '2026-01-28', judge: 'No verdict. Meta’s call a year later did not say the goal had been met',
+    say: 'We’re starting to see agents really work.',
+    sayc: 'Zuckerberg, Meta fourth-quarter 2025 earnings call, 28 January 2026, transcript p. 1',
+    s: ['Meta, Q4 2025 earnings call transcript', 'https://s21.q4cdn.com/399680738/files/doc_financials/2025/q4/META-Q4-2025-Earnings-Call-Transcript.pdf'] },
+  x: 'He called it “a profound milestone” in the same answer. A year later he told investors that agents were starting to work, without coming back to the mid-level engineer.',
+  s: [['Meta, Q4 2024 earnings call transcript', 'https://s21.q4cdn.com/399680738/files/doc_financials/2024/q4/META-Q4-2024-Earnings-Call-Transcript.pdf'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260925201356/https://s21.q4cdn.com/399680738/files/doc_financials/2024/q4/META-Q4-2024-Earnings-Call-Transcript.pdf'],
+      ['Meta, Q4 2025 earnings call transcript', 'https://s21.q4cdn.com/399680738/files/doc_financials/2025/q4/META-Q4-2025-Earnings-Call-Transcript.pdf']] },
+
+/* ---------------- surveys of AI researchers ---------------- */
+{ id: 'f-survey-2016', who: '352 AI researchers, surveyed by AI Impacts in 2016', group: 'survey', made: '2016-06', th: 'hyp',
+  t: 'Machines better than people at every task: 10% by 2025, 50% by 2061', short: 'Survey 2016 · 50% by 2061',
+  type: 'spread', p10: '2025', p50: '2061',
+  say: 'Taking the mean over each individual, the aggregate forecast gave a 50% chance of HLMI occurring within 45 years and a 10% chance of it occurring within 9 years.',
+  sayc: 'Grace, Salvatier, Dafoe, Zhang and Evans, “When Will AI Exceed Human Performance? Evidence from AI Experts”, arXiv 1705.08807v3, p. 2. Answered 3 May to 28 June 2016 by researchers who published at NIPS or ICML in 2015.',
+  event: '“High-level machine intelligence” (HLMI) is achieved when unaided machines can accomplish every task better and more cheaply than human workers.',
+  decide: 'A spread is a probability, so no single date passing makes it right or wrong.',
+  read: '“Within 45 years” and “within 9 years” are counted from 2016.',
+  x: 'The first survey in the series asked researchers who had published at NIPS and ICML in 2015 when machines would beat people at every task. Its 10 percent year has passed; its 50 percent year is 2061.',
+  s: [['Grace and others (2017), arXiv', 'https://arxiv.org/abs/1705.08807'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261012032524/https://arxiv.org/abs/1705.08807']] },
+
+{ id: 'f-survey-2024', who: '1,580 AI researchers, surveyed by AI Impacts in 2024', group: 'survey', made: '2024-12', th: 'hyp',
+  t: 'Machines better than people at every task: 10% by 2027, 50% by 2042', short: 'Survey 2024 · 50% by 2042',
+  type: 'spread', p10: '2027', p50: '2042',
+  say: 'In the mean aggregate forecast, HLMI reaches a 10% chance in 2027 and a 50% chance in 2042 (18 years from the survey).',
+  sayc: 'Grace and others, “Advanced AI according to 1,580 researchers: uncertain, unsafe, and sooner than we thought”, AI Impacts, September 2026, p. 12. Answered 9–24 December 2024.',
+  event: 'when unaided machines can accomplish every task better and more cheaply than human workers (p. 5)',
+  decide: 'A spread is a probability, so no single date passing makes it right or wrong.',
+  x: 'The same question as in 2016, put to a larger group. The 50 percent year moved from 2061 in 2016 to 2047 in the 2023 survey and 2042 in this one, five years earlier than a year before.',
+  s: [['AI Impacts (2026), PDF', 'https://aiimpacts.org/wp-content/uploads/2026/09/ESPAI2024.pdf'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260925120827/https://aiimpacts.org/wp-content/uploads/2026/09/ESPAI2024.pdf'],
+      ['The 2023 survey, arXiv 2401.02843', 'https://arxiv.org/abs/2401.02843']] }
+];
+
+if (typeof module !== 'undefined') module.exports = { FORECASTS };
+
+</script>
+<script>
 /* ================= Vanishing Point: time and geometry ================= */
 
 const YEAR_MS = 365.2425 * 86400000;
@@ -1609,9 +2050,10 @@ function fmtTau(tau) {
   if (days >= 1.5) return Math.round(days) + ' days';
   return 'less than a day';
 }
-/* the date at a given log distance from the centre, formatted for its scale */
-function fmtAt(T, L) {
-  const tau = Math.pow(10, L), y = T - tau;
+/* the date at a given log distance from the centre, formatted for its scale;
+   sign -1 counts back from T (the history views), +1 counts forward (looking ahead) */
+function fmtAt(T, L, sign) {
+  const tau = Math.pow(10, L), y = T + (sign || -1) * tau;
   if (tau > 1200) { const r = Math.round(y / 100) * 100; return r <= 0 ? 'c. ' + (1 - r) + ' BCE' : 'c. ' + r; }
   if (tau > 4) return y < 0 ? Math.round(-y + 1) + ' BCE' : String(Math.floor(y));
   const ms = Date.UTC(1970, 0, 1) + (y - 1970) * YEAR_MS;
@@ -1620,8 +2062,48 @@ function fmtAt(T, L) {
   return d.getUTCDate() + ' ' + MONTHS[d.getUTCMonth()] + ' ' + d.getUTCFullYear();
 }
 
+/* ---------- forecasts ----------
+   A date names a period: a day, a month or a year. A forecast's ring sits at the middle of a
+   point date ('at'), and at the end of the period for a deadline, a bet, a window's end or a
+   spread's 50% year ('by 2028' means by the end of 2028). */
+const FLOOR = Math.log10(MIN_TAU);       // log time stops at one day either side of today
+function startMs(d) { const p = parseD(d); return Date.UTC(p.Y, p.M ? p.M - 1 : 0, p.D || 1); }
+function endMs(d) {
+  const p = parseD(d);
+  if (p.D) return Date.UTC(p.Y, p.M - 1, p.D + 1);
+  if (p.M) return Date.UTC(p.Y, p.M, 1);
+  return Date.UTC(p.Y + 1, 0, 1);
+}
+/* the times a forecast names, in decimal years: made; a..b, the span it covers (a deadline runs from
+   the day it was said); ring, where its mark sits; p10 for spreads; closes, in ms (null: never) */
+function fcTimes(f) {
+  const made = parseD(f.made).y, yr = decYearFromMs;
+  let a, b, ring, p10 = null, closes = null;
+  if (f.type === 'date') { ring = parseD(f.at).y; a = b = ring; closes = endMs(f.at); }
+  else if (f.type === 'deadline' || f.type === 'bet') { ring = yr(endMs(f.due)); a = made; b = ring; closes = endMs(f.due); }
+  else if (f.type === 'window') { a = yr(startMs(f.from)); b = yr(endMs(f.to)); ring = b; closes = endMs(f.to); }
+  else if (f.type === 'spread') { ring = yr(endMs(f.p50)); p10 = f.p10 ? yr(endMs(f.p10)) : null; a = p10 == null ? ring : p10; b = ring; }
+  else throw new Error('unknown forecast type ' + f.type);
+  return { made, a, b, ring, p10, closes };
+}
+/* open | closed (its time has passed with no verdict recorded) | the recorded outcome */
+function fcStatus(f, nowMs) {
+  const o = f.outcome;
+  if (o && (!o.after || nowMs >= startMs(o.after))) return o.is;
+  const t = fcTimes(f);
+  return t.closes != null && nowMs >= t.closes ? 'closed' : 'open';
+}
+/* horizon in years from the day it was said: [nearest, furthest] of what it names */
+function fcHorizon(f) {
+  const t = fcTimes(f);
+  if (f.type === 'window') return [t.a - t.made, t.b - t.made];
+  if (f.type === 'spread') return [t.p10 == null ? t.ring - t.made : t.p10 - t.made, t.ring - t.made];
+  return [t.ring - t.made, t.ring - t.made];
+}
+
 if (typeof module !== 'undefined') module.exports = {
-  parseD, fmtDate, kLabelFor, VPS, vpYear, logTau, spreadLane, layoutEvents, fmtTau, fmtAt, decYearFromMs
+  parseD, fmtDate, kLabelFor, VPS, vpYear, logTau, spreadLane, layoutEvents, fmtTau, fmtAt, decYearFromMs,
+  MIN_TAU, FLOOR, startMs, endMs, fcTimes, fcStatus, fcHorizon
 };
 
 </script>
@@ -1638,17 +2120,35 @@ if (typeof module !== 'undefined') module.exports = {
   for (const e of EVENTS) BY_ID[e.id] = e;
   const CHRONO = EVENTS.slice().sort((a, b) => a._p.y - b._p.y);
 
+  const NOW_MS = Date.now();
+  const NOW_Y = decYearFromMs(NOW_MS);
+
+  /* ---------- forecasts: statuses are read from the clock when the page opens ---------- */
+  const FC = typeof FORECASTS !== 'undefined' ? FORECASTS : [];
+  const FBY = Object.create(null);
+  for (const f of FC) { f._t = fcTimes(f); f._st = fcStatus(f, NOW_MS); FBY[f.id] = f; }
+  const FC_SORTED = FC.slice().sort((a, b) => a._t.ring - b._t.ring);
+  const fcOpen = () => FC_SORTED.filter(f => f._st === 'open');
+  const fcDone = () => FC_SORTED.filter(f => f._st !== 'open');
+  const isF = id => !!(id && FBY[id]);
+  const ST = { open: 'Open', met: 'Came true', late: 'Came true, late', claimed: 'Claimed met', disputed: 'Disputed',
+               missed: 'Missed', none: 'No verdict', closed: 'Closed, no verdict yet' };
+  const TYPE = { date: 'A date', deadline: 'A deadline', window: 'A window', spread: 'Odds by a date', bet: 'A bet' };
+  const GROUP = { pioneer: 'Pioneer on the spiral', lab: 'Frontier lab', survey: 'Researcher survey', bet: 'Public bet', land: 'Land' };
+
   /* ---------- spiral geometry ---------- */
   const GROW = 2.5, LG = Math.log(GROW);     // radius grows 2.5x per turn; one turn = one decade of log time
   const LANE_D = [0.30, 0.18, 0.06, -0.06, -0.18, -0.30]; // lane offsets in turns; lane 0 (Models) is the outermost
   const RIB = 0.38;                                        // half-width of the ribbon, in turns
   const GAP = { model: 0.007, default: 0.011 };           // minimum spacing within a lane, in decades of log time
+  const FGAP = 0.03;                                       // the same for forecast rings, which are bigger
   const TWO_PI = Math.PI * 2;
+  const PUSH = 0.36;     // decades of travel past the floor that turn the spiral round
+  const LAND_D = 0.45;   // where a turn-round lands: the head about three years from today
 
-  const S = { vp: 'doomsday', D: 1.8, sel: null, hover: null, thread: null, demons: false, lab: null, bitter: false, keyOnly: false, playing: false };
-  const NOW_MS = Date.now();
-  const NOW_Y = decYearFromMs(NOW_MS);
-  let T = 0, POS = {}, LNOW = null, DMIN = -1, DMAX = 4;
+  const S = { vp: 'doomsday', D: 1.8, sel: null, hover: null, thread: null, demons: false, lab: null, bitter: false, keyOnly: false,
+              playing: false, ahead: false, back: null, fc: true, push: 0 };
+  let T = 0, POS = {}, FPOS = {}, LNOW = null, DMIN = -1, DMAX = 4;
 
   const cv = $('#tunnel'), ctx = cv.getContext('2d');
   const geo = { W: 0, H: 0, cx: 0, cy: 0, R0: 0, Rmax: 0, dpr: 1 };
@@ -1659,20 +2159,24 @@ if (typeof module !== 'undefined') module.exports = {
     const cs = getComputedStyle(document.documentElement);
     const g = n => cs.getPropertyValue(n).trim() || '#888';
     P = { bg: g('--bg'), surface: g('--surface'), ribbon: g('--ribbon'), ink: g('--ink'), muted: g('--muted'), rule: g('--rule'),
-          gold: g('--gold'), violet: g('--violet'), crimson: g('--crimson') };
+          gold: g('--gold'), violet: g('--violet'), crimson: g('--crimson'), crimsonInk: g('--crimson-ink') };
   }
 
   function rOf(u, lane) { return geo.R0 * Math.exp(LG * (u + (lane == null ? 0 : LANE_D[lane]))); }
   function rEdge(u, side) { return geo.R0 * Math.exp(LG * (u + side * RIB)); }
-  function phiOf(u) { return -TWO_PI * u; }   // clockwise from 12 o'clock as time moves toward the centre
+  /* clockwise from 12 o'clock as time moves toward the centre; looking ahead the spiral is mirrored */
+  function phiOf(u) { return (S.ahead ? TWO_PI : -TWO_PI) * u; }
   function pt(r, phi) { return [geo.cx + r * Math.sin(phi), geo.cy - r * Math.cos(phi)]; }
   function uRange() {
     const far = Math.hypot(geo.W, geo.H) / 2 + 40;
     return { lo: Math.log(0.9 / geo.R0) / LG - RIB, hi: Math.log(far / geo.R0) / LG + RIB };
   }
+  /* log distance of a date from the centre: time left before the centre, or time ahead of today */
+  function lOfY(y) { return S.ahead ? Math.log10(Math.max(y - NOW_Y, MIN_TAU)) : logTau(T, y); }
 
   /* ---------- centre, layout and range ---------- */
   function setCentre(key) {
+    S.ahead = false;
     S.vp = key;
     T = vpYear(key, NOW_MS);
     POS = layoutEvents(EVENTS, THREADS, T, GAP);
@@ -1680,13 +2184,63 @@ if (typeof module !== 'undefined') module.exports = {
     let lo = Infinity, hi = -Infinity;
     for (const e of EVENTS) { const L = POS[e.id].Ld; if (L < lo) lo = L; if (L > hi) hi = L; }
     DMAX = hi + 0.22;
-    DMIN = (LNOW == null ? lo : Math.min(lo, LNOW)) - 0.4;
+    // centred on now, travel stops one day before today; elsewhere a little past today
+    DMIN = key === 'now' ? FLOOR : (LNOW == null ? lo : Math.min(lo, LNOW)) - 0.4;
+    layoutForecasts();
+    syncMode();
+  }
+  function setAheadState() {
+    if (!S.ahead) S.back = { vp: S.vp, D: S.D };
+    S.ahead = true;
+    T = NOW_Y; LNOW = null;
+    layoutForecasts();
+    let hi = FLOOR + 1;
+    for (const id in FPOS) hi = Math.max(hi, FPOS[id].Ld);
+    DMAX = hi + 0.3;
+    DMIN = FLOOR;
+    syncMode();
+  }
+  /* forecasts drawn in this view: the open ones looking ahead, the rest in the history views */
+  function layoutForecasts() {
+    FPOS = {};
+    const byLane = {};
+    for (const f of FC) {
+      if (S.ahead ? f._st !== 'open' : f._st === 'open') continue;
+      const t = f._t, lane = THREADS[f.th].lane, L = lOfY(t.ring);
+      const o = f.outcome;
+      const lo = o && o.on && (f._st === 'met' || f._st === 'late' || f._st === 'claimed') ? lOfY(parseD(o.on).y) : null;
+      FPOS[f.id] = { L, Ld: L, lane, La: lOfY(t.a), Lb: lOfY(t.b), Lm: lOfY(t.made), Lp: t.p10 == null ? null : lOfY(t.p10), Lo: lo };
+      (byLane[lane] = byLane[lane] || []).push(f.id);
+    }
+    for (const lane in byLane) {
+      const ids = byLane[lane].sort((a, b) => FPOS[a].L - FPOS[b].L);
+      const placed = spreadLane(ids.map(id => FPOS[id].L), FGAP);
+      ids.forEach((id, i) => { FPOS[id].Ld = placed[i]; });
+    }
+  }
+  function syncMode() {
+    stopHintUntil = 0;
     const sl = $('#depth');
     sl.min = (-DMAX).toFixed(3); sl.max = (-DMIN).toFixed(3);
+    sl.setAttribute('aria-label', S.ahead ? 'Look ahead: from the far future at the rim to today at the centre'
+      : 'Travel through time, from the rim of the spiral to its centre');
+    const b = $('#ahead');
+    b.setAttribute('aria-pressed', String(S.ahead));
+    $('#eras').hidden = S.ahead;
+    $('#prev').setAttribute('aria-label', S.ahead ? 'Previous open forecast' : 'Previous milestone');
+    $('#next').setAttribute('aria-label', S.ahead ? 'Next open forecast' : 'Next milestone');
+    cv.setAttribute('aria-label', S.ahead
+      ? 'Looking ahead: a logarithmic spiral of the ' + fcOpen().length + ' forecasts still open, with today at the centre and the far future at the rim. The list of forecasts below gives the same information.'
+      : 'A logarithmic spiral of ' + EVENTS.length + ' milestones in the history of AI' + (S.fc && fcDone().length ? ', with ' + fcDone().length + ' resolved forecasts as dashed rings' : '') + '. The lists below the controls give the same information.');
+    document.body.classList.toggle('looking-ahead', S.ahead);
     renderCaption();
   }
   function renderCaption() {
     const cap = $('#vpcap');
+    if (S.ahead) {
+      cap.innerHTML = 'Looking ahead from <b>today</b> · ' + fcOpen().length + ' open forecasts';
+      return;
+    }
     if (S.vp === 'now') {
       cap.innerHTML = 'Centre: <b>now</b>, the moment you opened this page';
       return;
@@ -1775,7 +2329,22 @@ if (typeof module !== 'undefined') module.exports = {
     }
     return t.filter(k => !(k.label.indexOf('2026') >= 0 && k.rank === 4 && k.y > 2026.9));
   })();
+  /* looking ahead: the months of the coming year, then years and round decades */
+  const TICKS_AHEAD = (() => {
+    const t = [];
+    const add = (y, label, rank) => { if (y > NOW_Y) t.push({ y, label, rank }); };
+    const d = new Date(NOW_MS), y0 = d.getUTCFullYear();
+    for (let k = 1; k <= 13; k++) {
+      const ms = Date.UTC(y0, d.getUTCMonth() + k, 1), m = new Date(ms).getUTCMonth();
+      if (m) add(decYearFromMs(ms), MONTHS[m] + ' ' + new Date(ms).getUTCFullYear(), 4);
+    }
+    for (let y = y0 + 1; y <= y0 + 9; y++) add(y, String(y), y % 5 === 0 ? 2 : 3);
+    for (let y = Math.ceil((y0 + 10) / 5) * 5; y <= 2100; y += 5) add(y, String(y), y % 50 === 0 ? 0 : (y % 10 === 0 ? 1 : 2));
+    for (const y of [2150, 2200, 2300]) add(y, String(y), 1);
+    return t;
+  })();
 
+  let flashT = 0;
   function draw() {
     if (!geo.W || !geo.R0) return;
     const c = ctx;
@@ -1785,14 +2354,18 @@ if (typeof module !== 'undefined') module.exports = {
     const uNow = LNOW == null ? -Infinity : LNOW - S.D;
     const uSplit = Math.max(lo, Math.min(hi, uNow));
 
-    // ribbon: the past solid, the future between today and the centre faint
-    ribbon(c, uSplit, hi, P.ribbon, 1);
-    if (uNow > lo) ribbon(c, lo, uSplit, P.ribbon, 0.45);
+    // ribbon: the past solid, the future between today and the centre faint; looking ahead, all of it is future
+    if (S.ahead) ribbon(c, lo, hi, P.ribbon, 0.45);
+    else {
+      ribbon(c, uSplit, hi, P.ribbon, 1);
+      if (uNow > lo) ribbon(c, lo, uSplit, P.ribbon, 0.45);
+    }
 
     // lanes
     const hl = S.thread ? THREADS[S.thread].lane : -1;
     for (let k = 0; k < 5; k++) {
-      const isHl = k === hl;
+      const isHl = k === hl && !S.ahead;
+      if (S.ahead) { laneLine(c, k, lo, hi, P.rule, 1, [2, 3], 0.8); continue; }
       laneLine(c, k, uSplit, hi, isHl ? P.violet : P.rule, isHl ? 1.6 : 1, null, isHl ? 1 : 1);
       if (uNow > lo) laneLine(c, k, lo, uSplit, isHl ? P.violet : P.rule, 1, [2, 3], 0.8);
     }
@@ -1806,9 +2379,9 @@ if (typeof module !== 'undefined') module.exports = {
     const fontSel = '600 ' + (small ? '12.5px' : '13px') + ' "IBM Plex Sans", system-ui, sans-serif';
 
     // year ticks: candidates now, spokes drawn only for ticks whose labels find room
-    for (const tk of TICKS) {
-      if (tk.y >= T) continue;
-      const u = logTau(T, tk.y) - S.D;
+    for (const tk of (S.ahead ? TICKS_AHEAD : TICKS)) {
+      if (!S.ahead && tk.y >= T) continue;
+      const u = lOfY(tk.y) - S.D;
       if (u < lo || u > hi) continue;
       const rIn = rEdge(u, -1);
       if (rIn < 24) continue;
@@ -1824,12 +2397,12 @@ if (typeof module !== 'undefined') module.exports = {
       if (rOut > 30) pending.push({ kind: 'now', pri: 95, text: 'today', r: rOut + 4, r0: rOut, phi, dir: 1, font: fontSm, color: P.crimson, alpha: 1 });
     }
 
-    // events
+    // events (the history views only)
     HIT = [];
     const BASE = [0, 2.5, 3.5, 4.8];
     const sel = S.sel, hov = S.hover, focus = focusOn();
     const drawn = [];
-    for (const e of EVENTS) {
+    if (!S.ahead) for (const e of EVENTS) {
       if (!shown(e)) continue;
       const p = POS[e.id];
       const u = p.Ld - S.D;
@@ -1850,7 +2423,7 @@ if (typeof module !== 'undefined') module.exports = {
       c.globalAlpha = inF ? alphaBase : alphaBase * 0.22;
       markShape(c, e, d.x, d.y, d.rad, color, d.phi);
       c.globalAlpha = 1;
-      HIT.push({ id: e.id, x: d.x, y: d.y, rad: d.rad });
+      HIT.push({ id: e.id, x: d.x, y: d.y, rad: d.rad, kind: 'ev' });
       if (d.rad >= 1.8) blocks.push({ id: e.id, x: d.x - d.rad - 1, y: d.y - d.rad - 1, w: 2 * d.rad + 2, h: 2 * d.rad + 2 });
       if (e.id === sel || e.id === hov) {
         c.strokeStyle = e.id === sel ? P.ink : P.muted; c.lineWidth = e.id === sel ? 1.8 : 1.2;
@@ -1867,11 +2440,33 @@ if (typeof module !== 'undefined') module.exports = {
       if (pri >= 0) pending.push({ kind: 'ev', id: e.id, r0: d.r, pri, text: shorten(e.short || e.t, e.id === sel ? (small ? 34 : 46) : (small ? 26 : 32)), r: d.r + d.rad + (e.id === sel ? 7 : 4), phi: d.phi, dir: 1, font, color: colorL, alpha: e.id === sel || e.id === hov ? 1 : Math.max(0.6, depthAlpha(d.r)) });
     }
 
+    // forecasts: open ones looking ahead, resolved ones in the history views
+    if (S.ahead || S.fc) drawForecasts(c, lo, hi, pending, blocks, { small, fontLab, fontSel });
+
     // centre
     c.fillStyle = P.crimson; c.beginPath(); c.arc(geo.cx, geo.cy, 2.6, 0, TWO_PI); c.fill();
     c.strokeStyle = P.crimson; c.lineWidth = 1; c.globalAlpha = 0.55;
     c.beginPath(); c.arc(geo.cx, geo.cy, 6.5, 0, TWO_PI); c.stroke(); c.globalAlpha = 1;
     blocks.push(rect(geo.cx - 8, geo.cy - 8, 16, 16));
+
+    // pushing past the floor: a ring grows from the centre until the spiral turns round
+    if (S.push > 0) {
+      c.save();
+      c.strokeStyle = P.crimson; c.lineWidth = 1.5 + S.push; c.setLineDash([4, 3]);
+      c.globalAlpha = 0.35 + 0.55 * S.push;
+      c.beginPath(); c.arc(geo.cx, geo.cy, 10 + S.push * Math.min(80, geo.R0 * 0.45), 0, TWO_PI); c.stroke();
+      c.restore();
+    }
+    // after a turn-round, one ring sweeps out from the centre
+    if (flashT) {
+      const k = (performance.now() - flashT) / 700;
+      if (k >= 1) flashT = 0;
+      else {
+        c.save(); c.strokeStyle = P.crimson; c.lineWidth = 2; c.globalAlpha = 0.5 * (1 - k);
+        c.beginPath(); c.arc(geo.cx, geo.cy, 8 + k * geo.Rmax, 0, TWO_PI); c.stroke(); c.restore();
+        requestDraw();
+      }
+    }
 
     // head: a notch at twelve o'clock just outside the ribbon, and the date tag above the frame's top edge
     const rh = rEdge(0, 1) + 3;
@@ -1914,6 +2509,105 @@ if (typeof module !== 'undefined') module.exports = {
       }
       c.globalAlpha = L.alpha; c.fillStyle = L.color; c.textBaseline = 'top'; c.textAlign = 'left';
       c.fillText(L.text, box.x, box.y + (L.kind === 'tick' ? 0 : 1)); c.globalAlpha = 1;
+    }
+  }
+
+  /* An arc along a lane between two log distances, clipped to what is on screen */
+  function laneArc(c, lane, L0, L1, lo, hi) {
+    let u0 = Math.min(L0, L1) - S.D, u1 = Math.max(L0, L1) - S.D;
+    u0 = Math.max(u0, lo); u1 = Math.min(u1, hi);
+    if (u1 - u0 < 0.002) return false;
+    c.beginPath(); spiralPath(c, u0, u1, u => rOf(u, lane)); c.stroke();
+    return true;
+  }
+  /* Forecast marks. Looking ahead: a dashed ring at the date named, with the span it covers from today
+     drawn along its lane (a dotted run from the 10% to the 50% date for odds). In the history views:
+     a dashed thread from the day it was said to the date it named, a muted ring, and inside the ring
+     a dot if it came true, a small ring if it was claimed, a cross if it was missed. */
+  function drawForecasts(c, lo, hi, pending, blocks, F) {
+    const sel = S.sel, hov = S.hover;
+    const ids = Object.keys(FPOS);
+    // spans and threads first, so the rings sit on top
+    for (const id of ids) {
+      const f = FBY[id], p = FPOS[id], isSel = id === sel || id === hov;
+      c.save();
+      if (S.ahead) {
+        c.strokeStyle = P.crimson; c.lineCap = 'round';
+        if (f.type === 'spread') {
+          // a dotted run from the 10% date, if that is still ahead, to the 50% date
+          if (p.Lp != null && f._t.p10 > NOW_Y) { c.globalAlpha = isSel ? 0.75 : 0.4; c.lineWidth = isSel ? 2.2 : 1.6; c.setLineDash([1, 4]); laneArc(c, p.lane, p.Lp, p.Ld, lo, hi); }
+          // odds keep rising after the 50% date: a fading run beyond it, never an end
+          for (let k = 0; k < 4; k++) { c.globalAlpha = (isSel ? 0.6 : 0.32) * (1 - k / 4); c.lineWidth = 1.6; c.setLineDash([1, 4]); laneArc(c, p.lane, p.Ld + k * 0.06, p.Ld + (k + 1) * 0.06, lo, hi); }
+        } else if (f.type !== 'date') {
+          // the time a deadline or window leaves. A window that starts ahead is drawn from its start;
+          // one that is already running, or a deadline, fades in over the third of a turn before its end
+          // rather than winding all the way back to today
+          c.lineWidth = isSel ? 3 : 2.2; c.setLineDash([]);
+          const base = isSel ? 0.7 : 0.34;
+          if (f.type === 'window' && f._t.a > NOW_Y && p.La > p.Ld - 0.35) { c.globalAlpha = base; laneArc(c, p.lane, p.La, p.Ld, lo, hi); }
+          else {
+            const s0 = p.Ld - 0.35;
+            for (let k = 0; k < 5; k++) { c.globalAlpha = base * (k + 1) / 5; laneArc(c, p.lane, s0 + k * 0.07, s0 + (k + 1) * 0.07, lo, hi); }
+          }
+        }
+      } else {
+        // the thread from the day it was said to the date it named
+        c.strokeStyle = isSel ? P.crimson : P.muted; c.globalAlpha = isSel ? 0.85 : 0.3; c.lineWidth = isSel ? 1.8 : 1;
+        c.setLineDash([4, 3]);
+        laneArc(c, p.lane, p.Lm, p.Ld, lo, hi);
+        if (f.type === 'window') { c.setLineDash([]); c.lineWidth = isSel ? 3 : 2; c.globalAlpha = isSel ? 0.6 : 0.25; laneArc(c, p.lane, p.La, p.Lb, lo, hi); }
+        if (p.Lo != null && f._st === 'late') { c.setLineDash([1, 3]); c.lineWidth = 1.4; c.globalAlpha = isSel ? 0.9 : 0.45; laneArc(c, p.lane, p.Ld, p.Lo, lo, hi); }
+      }
+      c.restore();
+    }
+    for (const id of ids) {
+      const f = FBY[id], p = FPOS[id];
+      const isSel = id === sel, isHov = id === hov, open = f._st === 'open';
+      // where it came true, if it did
+      if (!S.ahead && p.Lo != null) {
+        const uo = p.Lo - S.D;
+        if (uo >= lo && uo <= hi) {
+          const ro = rOf(uo, p.lane), [xo, yo] = pt(ro, phiOf(uo));
+          if (ro > 2) { c.globalAlpha = isSel ? 1 : Math.max(0.4, depthAlpha(ro)); c.fillStyle = isSel ? P.crimson : P.ink; c.beginPath(); c.arc(xo, yo, 2.2, 0, TWO_PI); c.fill(); c.globalAlpha = 1; }
+        }
+      }
+      const u = p.Ld - S.D;
+      if (u < lo || u > hi) continue;
+      const r = rOf(u, p.lane);
+      if (r < 1.5) continue;
+      const phi = phiOf(u), [x, y] = pt(r, phi);
+      if (x < -20 || y < -20 || x > geo.W + 20 || y > geo.H + 20) continue;
+      const scale = Math.max(0.55, Math.min(1.25, 0.5 + 0.5 * r / geo.R0));
+      const rad = 5.2 * scale;
+      const col = open ? P.crimson : P.muted;
+      c.save();
+      c.globalAlpha = Math.max(0.45, depthAlpha(r));
+      c.fillStyle = P.surface; c.beginPath(); c.arc(x, y, rad, 0, TWO_PI); c.fill();
+      if (f.type === 'spread') {   // a 50% date: the ring half filled
+        c.fillStyle = col; c.beginPath(); c.moveTo(x, y); c.arc(x, y, rad, Math.PI / 2, Math.PI * 1.5); c.closePath(); c.fill();
+      }
+      c.strokeStyle = col; c.lineWidth = 1.7; c.setLineDash([2.4, 1.9]);
+      c.beginPath(); c.arc(x, y, rad, 0, TWO_PI); c.stroke(); c.setLineDash([]);
+      const st = f._st;
+      if (st === 'met' || st === 'late') { c.fillStyle = P.ink; c.beginPath(); c.arc(x, y, rad * 0.42, 0, TWO_PI); c.fill(); }
+      else if (st === 'claimed') { c.strokeStyle = P.ink; c.lineWidth = 1.2; c.beginPath(); c.arc(x, y, rad * 0.42, 0, TWO_PI); c.stroke(); }
+      else if (st === 'missed') {
+        const q = rad * 0.45; c.strokeStyle = P.ink; c.lineWidth = 1.3;
+        c.beginPath(); c.moveTo(x - q, y - q); c.lineTo(x + q, y + q); c.moveTo(x + q, y - q); c.lineTo(x - q, y + q); c.stroke();
+      }
+      if (isSel || isHov) {
+        c.globalAlpha = 1; c.strokeStyle = isSel ? P.ink : P.muted; c.lineWidth = isSel ? 1.8 : 1.2;
+        c.beginPath(); c.arc(x, y, rad + (isSel ? 4.5 : 3.5), 0, TWO_PI); c.stroke();
+      }
+      c.restore();
+      HIT.push({ id, x, y, rad: rad + 1, kind: 'fc' });
+      blocks.push({ id, x: x - rad - 1, y: y - rad - 1, w: 2 * rad + 2, h: 2 * rad + 2 });
+      let pri, font = F.fontLab, colorL = open ? P.crimsonInk : P.muted;
+      if (isSel) { pri = 100; font = F.fontSel; colorL = P.ink; }
+      else if (isHov) { pri = 98; colorL = P.ink; }
+      else pri = (S.ahead ? 72 : 30) + Math.max(0, 12 - Math.abs(r - geo.R0) / geo.R0 * 14);
+      pending.push({ kind: 'ev', id, r0: r, pri, text: shorten(f.short || f.t, isSel ? (F.small ? 34 : 46) : (F.small ? 26 : 32)),
+        r: r + rad + (isSel ? 7 : 4), phi, dir: 1, font, color: colorL, alpha: isSel || isHov ? 1 : Math.max(0.65, depthAlpha(r)) });
     }
   }
 
@@ -1968,11 +2662,18 @@ if (typeof module !== 'undefined') module.exports = {
   }
 
   /* ---------- depth ---------- */
+  let stopHintUntil = 0;
   function clampD(D) { return Math.max(DMIN, Math.min(DMAX, D)); }
+  function headtag() {
+    const tag = $('#headtag');
+    if (S.push > 0) tag.textContent = S.ahead ? 'today · keep going to look back' : 'today · keep going to look ahead';
+    else if (performance.now() < stopHintUntil && !canTurn()) tag.textContent = 'looking ahead starts from today';
+    else tag.textContent = S.ahead ? 'ahead · ' + fmtAt(NOW_Y, S.D, 1) : 'head · ' + fmtAt(T, S.D);
+  }
   function setD(D) {
     S.D = clampD(D);
     $('#depth').value = (-S.D).toFixed(3);
-    $('#headtag').textContent = 'head · ' + fmtAt(T, S.D);
+    headtag();
     requestDraw();
   }
   let anim = 0;
@@ -1993,11 +2694,87 @@ if (typeof module !== 'undefined') module.exports = {
     anim = requestAnimationFrame(stepFn);
   }
 
+  /* ---------- the floor, and turning round ----------
+     Log time has no bottom at today, so travel stops one day short of it. Centred on now (or looking
+     ahead), travel toward the centre that continues past that floor builds up pressure, drawn as a
+     ring growing from the centre; enough of it turns the spiral round, to look ahead (or back). The
+     view lands a few years out, and the next scroll in either direction means what it always means:
+     in, toward today; out, away from it. Centred on Doomsday or 2045 there is no today at the centre
+     to pass through, so the floor is a plain stop and the Looking ahead button is the way across. */
+  let pushTimer = 0, quietUntil = 0;
+  const live = msg => { const n = $('#vplive'); if (n) { n.textContent = ''; setTimeout(() => { n.textContent = msg; }, 30); } };
+  function canTurn() { return S.ahead || S.vp === 'now'; }
+  function pushReset() { clearTimeout(pushTimer); if (S.push) { S.push = 0; headtag(); requestDraw(); } }
+  function pressure(add, holdMs) {
+    const was = S.push;
+    S.push = Math.min(1, S.push + add / PUSH);
+    clearTimeout(pushTimer);
+    pushTimer = setTimeout(pushReset, holdMs || 700);
+    if (!was) live(S.ahead ? 'Today. Keep going to look back.' : 'Today. Keep going to look ahead.');
+    headtag(); requestDraw();
+    if (S.push >= 1) turnRound();
+  }
+  function atStop() {
+    stopHintUntil = performance.now() + 1600;
+    headtag();
+    setTimeout(headtag, 1650);
+  }
+  /* travel toward the centre by `amount` decades */
+  function inward(amount, holdMs) {
+    const target = S.D - amount;
+    if (target >= DMIN) { setD(target); return; }
+    setD(DMIN);
+    if (!canTurn()) { atStop(); return; }
+    pressure(DMIN - target, holdMs);
+  }
+  function outward(amount) { pushReset(); setD(S.D + amount); }
+  function turnRound() {
+    pushReset();
+    stopPlay(); stopAnim();
+    quietUntil = performance.now() + 400;   // swallow the rest of the gesture that did it
+    if (S.ahead) leaveAhead('now', LAND_D);
+    else enterAhead(LAND_D);
+  }
+  function landAt(D1) {
+    if (REDUCED) { setD(D1); return; }
+    setD(DMIN); flashT = performance.now(); flyTo(D1, 1100);
+  }
+  function enterAhead(D1, opts) {
+    opts = opts || {};
+    stopPlay();
+    setAheadState();
+    if (!isF(S.sel) || FBY[S.sel]._st !== 'open') {
+      // show the card of the open forecast nearest where the view lands
+      const at = D1 == null ? LAND_D : D1;
+      let best = null, bd = Infinity;
+      for (const id in FPOS) { const d = Math.abs(FPOS[id].Ld - at); if (d < bd) { bd = d; best = id; } }
+      if (best) { S.sel = best; renderFCard(FBY[best]); markList(); }
+    }
+    if (!opts.noLand) landAt(D1 == null ? LAND_D : D1);
+    live('Looking ahead from today. ' + fcOpen().length + ' open forecasts. Scroll out to look further ahead.');
+  }
+  function leaveAhead(key, D1, opts) {
+    opts = opts || {};
+    const back = S.back;
+    S.back = null;
+    setCentre(key || (back && back.vp) || 'now');
+    vpSel.value = S.vp;
+    renderEras();
+    if (!opts.noLand) landAt(D1 != null ? D1 : (back ? back.D : LAND_D));
+    live('Looking back. Centre: ' + (S.vp === 'now' ? 'now' : VPS[S.vp].name) + '.');
+  }
+  $('#ahead').addEventListener('click', () => {
+    stopPlay(); stopAnim(); pushReset();
+    if (S.ahead) leaveAhead(null, null); else enterAhead(LAND_D);
+  });
+
   /* ---------- selection and the card ---------- */
   function select(id, opts) {
+    if (isF(id)) { selectF(id, opts); return; }
     const e = BY_ID[id];
     if (!e) return;
     opts = opts || {};
+    if (S.ahead) leaveAhead(null, null, { noLand: true });
     S.sel = id;
     renderCard(e);
     markList();
@@ -2005,17 +2782,38 @@ if (typeof module !== 'undefined') module.exports = {
     if (opts.fly !== false) flyTo(POS[id].Ld);
     requestDraw();
   }
+  /* a forecast: open ones are shown looking ahead, the rest in the history view */
+  function selectF(id, opts) {
+    const f = FBY[id];
+    opts = opts || {};
+    if (f._st === 'open' && !S.ahead) enterAhead(null, { noLand: true });
+    else if (f._st !== 'open' && S.ahead) leaveAhead(null, null, { noLand: true });
+    if (!S.ahead && !S.fc) { S.fc = true; $('#fcshow').checked = true; syncMode(); }   // picking one shows them again
+    S.sel = id;
+    renderFCard(f);
+    markList();
+    if (!opts.quiet) { try { history.replaceState(null, '', '#' + id); } catch (err) { /* ignore */ } }
+    if (opts.fly !== false && FPOS[id]) flyTo(FPOS[id].Ld);
+    requestDraw();
+  }
   function step(dir) {
+    if (S.ahead) { stepF(dir, fcOpen()); return; }
     const set = stepSet();
     if (!set.length) return;
     const cur = BY_ID[S.sel];
     let i = set.indexOf(cur);
     if (i < 0) {
-      const y = cur ? cur._p.y : T - Math.pow(10, S.D);
+      const y = cur ? cur._p.y : (isF(S.sel) ? FBY[S.sel]._t.ring : T - Math.pow(10, S.D));
       if (dir > 0) { i = set.findIndex(e => e._p.y > y); if (i < 0) i = set.length - 1; }
       else { i = -1; for (let j = set.length - 1; j >= 0; j--) if (set[j]._p.y < y) { i = j; break; } if (i < 0) i = 0; }
     } else i = Math.max(0, Math.min(set.length - 1, i + dir));
     select(set[i].id);
+  }
+  function stepF(dir, set) {
+    if (!set.length) return;
+    let i = set.indexOf(FBY[S.sel]);
+    i = i < 0 ? (dir > 0 ? 0 : set.length - 1) : Math.max(0, Math.min(set.length - 1, i + dir));
+    selectF(set[i].id);
   }
   const FATE = { road: 'Road not taken: hand-built knowledge', verdict: 'Verdict' };
   function renderCard(e) {
@@ -2036,16 +2834,136 @@ if (typeof module !== 'undefined') module.exports = {
       '<p class="x">' + esc(e.x) + '</p>';
     if (e.q) html += '<div class="voice texts"><h3>From the texts</h3><blockquote>“' + esc(e.q) + '”</blockquote><p class="qc">' + esc(e.qc) + '</p></div>';
     if (e.o) html += '<div class="voice page"><h3>This page</h3><p>' + esc(e.o) + '</p></div>';
+    const fs = FC.filter(f => f.card === e.id);
+    if (fs.length) html += '<div class="fclinks"><h3>' + (fs.length > 1 ? 'Forecasts' : 'The forecast') + ' in this source</h3>' +
+      fs.map(f => '<button class="fclink" type="button" data-f="' + f.id + '"><span class="mk fc' + fcMarkClass(f) + '" aria-hidden="true"></span>' + esc(f.t) + ' · ' + esc(ST[f._st]) + '</button>').join('') + '</div>';
     html += '<ul class="srcs" aria-label="Sources">' + e.s.map(s => '<li><a href="' + esc(s[1]) + '" target="_blank" rel="noopener">' + esc(s[0]) + ' ↗</a></li>').join('') + '</ul>';
     html += '<nav class="cardnav" aria-label="Step through milestones"><button class="btn ghost" type="button" data-step="-1">← Prev</button>' +
       '<span class="pos">' + (idx >= 0 ? (idx + 1) + ' of ' + set.length : 'outside the current filter') + '</span>' +
       '<button class="btn ghost" type="button" data-step="1">Next →</button></nav>';
     const card = $('#card');
+    card.classList.remove('fcard');
     card.innerHTML = html;
     card.querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => { stopPlay(); step(+b.dataset.step); }));
+    card.querySelectorAll('[data-f]').forEach(b => b.addEventListener('click', () => { stopPlay(); selectF(b.dataset.f); }));
   }
 
-  /* ---------- the list ---------- */
+  /* ---------- forecast cards ---------- */
+  const fday = d => fmtDate({ _p: parseD(d) });
+  function named(f) {
+    if (f.type === 'date') return (f.id === 'f-turing' ? 'about ' : '') + fday(f.at);
+    if (f.type === 'deadline' || f.type === 'bet') return 'by ' + (parseD(f.due).M ? '' : 'the end of ') + fday(f.due);
+    if (f.type === 'window') return fday(f.from) + ' to ' + fday(f.to);
+    return (f.p10 ? '10% by ' + f.p10 + ', ' : '') + '50% by ' + f.p50;
+  }
+  function horizon(f) {
+    const h = fcHorizon(f), fmt = y => y >= 2 ? Math.round(y) + ' years' : (y >= 1 / 6 ? Math.round(y * 12) + ' months' : Math.round(y * 365.2425) + ' days');
+    return Math.abs(h[1] - h[0]) < 0.05 ? fmt(h[0]) : fmt(h[0]) + ' to ' + fmt(h[1]);
+  }
+  function fcMarkClass(f) {
+    const st = f._st;
+    return (f.type === 'spread' ? ' half' : '') + (st === 'open' ? '' : ' done') + (st === 'met' || st === 'late' ? ' hit' : '') +
+      (st === 'claimed' ? ' claim' : '') + (st === 'missed' ? ' miss' : '');
+  }
+  function outcomeHtml(f) {
+    const st = f._st, o = f.outcome, t = f._t;
+    if (st === 'open') {
+      if (f.type === 'spread') return '<p>Open. Odds do not close: ' + (t.ring < NOW_Y ? 'the 50 percent date has passed, and that alone does not make it wrong.' : 'nothing is settled when a date passes.') + '</p>';
+      const when = new Date(t.closes - 1);
+      return '<p>Open until the end of ' + esc(when.getUTCDate() + ' ' + MONTHS_LONG[when.getUTCMonth()] + ' ' + when.getUTCFullYear()) + '.' +
+        (o && o.after ? ' From the next day the page counts it as ' + esc(ST[o.is].toLowerCase()) + ', on the evidence of ' + esc(o.judge.replace(/^The /, 'the ')) + '.' : '') + '</p>';
+    }
+    if (st === 'closed') return '<p>Its time has passed and no verdict is recorded yet. The page waits for one rather than judging it.</p>';
+    let h = '<p><b>' + esc(ST[st]) + '</b>' + (o.on && st !== 'none' ? ', ' + esc(fday(o.on)) : '') + '.</p><p class="judge">Who judged: ' + esc(o.judge) + '.</p>';
+    if (o.say) h += '<blockquote>“' + esc(o.say) + '”</blockquote><p class="qc">' + esc(o.sayc) + (o.s ? ' · <a href="' + esc(o.s[1]) + '" target="_blank" rel="noopener">source ↗</a>' : '') + '</p>';
+    return h;
+  }
+  function renderFCard(f) {
+    const st = f._st;
+    const meta = ['Said ' + fday(f.made), named(f), 'horizon ' + horizon(f)];
+    const tags = ['<span class="tag">' + esc(THREADS[f.th].name) + '</span>', '<span class="tag">' + esc(GROUP[f.group]) + '</span>',
+      '<span class="tag">' + esc(TYPE[f.type]) + (f.prob ? ': ' + esc(f.prob) : '') + '</span>',
+      '<span class="tag st st-' + st + '">' + esc(ST[st]) + '</span>'];
+    const land = f.group === 'land';
+    let html = '<p class="meta">' + esc(meta.join(' · ')) + '</p>' +
+      '<h2>' + esc(f.t) + '</h2>' +
+      '<p class="who">' + esc(f.who) + '</p>' +
+      '<div class="tags">' + tags.join('') + '</div>' +
+      '<div class="voice ' + (land ? 'texts' : 'said') + '"><h3>' + (land ? 'From the texts' : 'In their words') + '</h3><blockquote>“' + esc(f.say) + '”</blockquote><p class="qc">' + esc(f.sayc) + '</p></div>' +
+      '<p class="x">' + esc(f.x) + '</p>' +
+      '<dl class="fcdl"><dt>The event, in their words</dt><dd>' + esc(f.event) + '</dd>' +
+      '<dt>How it is decided</dt><dd>' + esc(f.decide) + '</dd>' +
+      '<dt>Outcome</dt><dd>' + outcomeHtml(f) + '</dd></dl>';
+    if (f.read) html += '<div class="voice page"><h3>This page</h3><p>' + esc(f.read) + '</p></div>';
+    if (f.card && BY_ID[f.card]) html += '<p class="fcfrom">On the spiral: <button class="linkish" type="button" data-ev="' + f.card + '">' + esc(BY_ID[f.card].t) + '</button></p>';
+    html += '<ul class="srcs" aria-label="Sources">' + f.s.map(s => '<li><a href="' + esc(s[1]) + '" target="_blank" rel="noopener">' + esc(s[0]) + ' ↗</a></li>').join('') + '</ul>';
+    const set = st === 'open' ? fcOpen() : fcDone(), idx = set.indexOf(f);
+    html += '<nav class="cardnav" aria-label="Step through forecasts"><button class="btn ghost" type="button" data-fstep="-1">← Prev</button>' +
+      '<span class="pos">' + (idx + 1) + ' of ' + set.length + (st === 'open' ? ' open' : ' resolved') + '</span>' +
+      '<button class="btn ghost" type="button" data-fstep="1">Next →</button></nav>';
+    const card = $('#card');
+    card.classList.add('fcard');
+    card.innerHTML = html;
+    card.querySelectorAll('[data-fstep]').forEach(b => b.addEventListener('click', () => { stopPlay(); stepF(+b.dataset.fstep, set); }));
+    card.querySelectorAll('[data-ev]').forEach(b => b.addEventListener('click', () => { stopPlay(); select(b.dataset.ev); }));
+  }
+
+  /* ---------- the list of forecasts: a text version of the rings, with a strip for each ----------
+     Each strip is a line of time with today in the middle: log time back to the left, ahead to the
+     right, one month to a hundred years each way. A bar runs from the day a forecast was said to the
+     date it named; the ring is the date named. */
+  const STRIP = { lo: Math.log10(1 / 12), hi: 2 };
+  const STRIP_TICKS = [-10, -1, 1, 10].map(d => '<i class="fs-tick" style="left:' + (50 + Math.sign(d) * 50 * (Math.log10(Math.abs(d)) - STRIP.lo) / (STRIP.hi - STRIP.lo)).toFixed(1) + '%"></i>').join('');
+  function stripX(y) {
+    const d = y - NOW_Y, a = Math.abs(d);
+    const k = Math.max(0, Math.min(1, (Math.log10(Math.max(a, 1e-9)) - STRIP.lo) / (STRIP.hi - STRIP.lo)));
+    return 50 + (d < 0 ? -50 : 50) * k;
+  }
+  function stripHtml(f) {
+    const t = f._t, st = f._st;
+    const x0 = stripX(t.made), x1 = stripX(t.ring), xs = Math.min(x0, x1), xe = Math.max(x0, x1);
+    let h = '<span class="fs" aria-hidden="true">' + STRIP_TICKS + '<i class="fs-now"></i>';
+    h += '<i class="fs-thread" style="left:' + xs.toFixed(1) + '%;width:' + (xe - xs).toFixed(1) + '%"></i>';
+    if (f.type === 'window') { const a = stripX(t.a), b = stripX(t.b); h += '<i class="fs-win" style="left:' + Math.min(a, b).toFixed(1) + '%;width:' + Math.max(1, Math.abs(b - a)).toFixed(1) + '%"></i>'; }
+    if (t.p10 != null) h += '<i class="fs-p10" style="left:' + stripX(t.p10).toFixed(1) + '%"></i>';
+    h += '<i class="fs-said" style="left:' + x0.toFixed(1) + '%"></i>';
+    h += '<i class="mk fc' + fcMarkClass(f) + '" style="left:' + x1.toFixed(1) + '%"></i></span>';
+    return h;
+  }
+  /* short dates for the list: 28 Oct 2025, Oct 2025, 2025 */
+  const sday = d => { const p = parseD(d); return (p.D ? p.D + ' ' : '') + (p.M ? MONTHS[p.M - 1] + ' ' : '') + p.Y; };
+  function namedShort(f) {
+    if (f.type === 'date') return (f.id === 'f-turing' ? 'about ' : '') + sday(f.at);
+    if (f.type === 'deadline' || f.type === 'bet') return 'by ' + sday(f.due);
+    if (f.type === 'window') return sday(f.from) + '–' + sday(f.to);
+    return (f.p10 ? '10% ' + f.p10 + ', ' : '') + '50% ' + f.p50;
+  }
+  function fcRow(f) {
+    const st = f._st;
+    return '<li><button class="fi" type="button" data-id="' + f.id + '">' +
+      '<span class="fd">' + esc(sday(f.made)) + ' <span aria-hidden="true">→</span><span class="sr"> to </span> ' + esc(namedShort(f)) + '</span>' +
+      '<span class="ft"><span class="fw">' + esc(f.who) + '</span> ' + esc(f.t) + ' <span class="st st-' + st + '">' + esc(ST[st]) + '</span></span>' +
+      stripHtml(f) + '</button></li>';
+  }
+  function renderFList() {
+    if (!FC.length) { $('#fclist').hidden = true; return; }
+    const open = fcOpen(), done = fcDone().reverse();
+    $('#fc-open').innerHTML = open.map(fcRow).join('');
+    $('#fc-done').innerHTML = done.map(fcRow).join('');
+    $('#fccount').textContent = FC.length + ' forecasts, counted apart from the ' + EVENTS.length + ' milestones · ' + open.length + ' open · ' + done.length + ' resolved or closed';
+    $('#fc-open-h').textContent = 'Open · ' + open.length + ', soonest first';
+    $('#fc-done-h').textContent = 'Resolved or closed · ' + done.length + ', latest first';
+  }
+  $('#fclist').addEventListener('click', ev => {
+    const b = ev.target.closest('.fi');
+    if (!b) return;
+    stopPlay();
+    selectF(b.dataset.id);
+    const box = $('.tunnel-box');
+    if (box && box.scrollIntoView) box.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+  });
+
+  /* ---------- the list of milestones ---------- */
   const ERAS = [
     { name: 'Before 1900', sub: 'Zero, ledgers and engines', to: 1900 },
     { name: '1900–1945', sub: 'Foundations and limits', to: 1946 },
@@ -2088,8 +3006,8 @@ if (typeof module !== 'undefined') module.exports = {
     markList();
   }
   function markList() {
-    document.querySelectorAll('.li[aria-current]').forEach(b => b.removeAttribute('aria-current'));
-    const b = document.querySelector('.li[data-id="' + S.sel + '"]');
+    document.querySelectorAll('.li[aria-current], .fi[aria-current]').forEach(b => b.removeAttribute('aria-current'));
+    const b = document.querySelector('.li[data-id="' + S.sel + '"], .fi[data-id="' + S.sel + '"]');
     if (b) b.setAttribute('aria-current', 'true');
   }
   $('#eralist').addEventListener('click', ev => {
@@ -2137,7 +3055,9 @@ if (typeof module !== 'undefined') module.exports = {
   /* releases per year: one series, bars with every value labelled */
   function renderPace() {
     const rel = EVENTS.filter(e => e.th === 'model' && (!S.lab || labsOf(e).indexOf(S.lab) >= 0));
-    const y0 = 2018, y1 = new Date(NOW_MS).getUTCFullYear();
+    // up to this year, or to the last year with a release recorded if the page has not been updated since
+    const yNow = new Date(NOW_MS).getUTCFullYear();
+    const y0 = 2018, y1 = Math.min(yNow, Math.max(y0, ...EVENTS.filter(e => e.th === 'model').map(e => e._p.Y)));
     const counts = [];
     for (let y = y0; y <= y1; y++) counts.push({ y, n: rel.filter(e => e._p.Y === y).length });
     const max = Math.max(1, ...counts.map(c => c.n));
@@ -2145,7 +3065,7 @@ if (typeof module !== 'undefined') module.exports = {
     const band = (W - left - right) / counts.length, bw = Math.min(24, band * 0.6), ph = H - top - bottom;
     const bars = counts.map((c, i) => {
       const x = left + band * i + (band - bw) / 2, h = c.n ? Math.max(2, ph * c.n / max) : 0, y = top + ph - h;
-      const partial = c.y === y1;
+      const partial = c.y === yNow;
       const r = Math.min(4, h, bw / 2);
       const path = h ? 'M' + x + ',' + (top + ph) + 'V' + (y + r) + 'Q' + x + ',' + y + ' ' + (x + r) + ',' + y + 'H' + (x + bw - r) + 'Q' + (x + bw) + ',' + y + ' ' + (x + bw) + ',' + (y + r) + 'V' + (top + ph) + 'Z' : '';
       const label = c.y + ': ' + c.n + (c.n === 1 ? ' release' : ' releases') + (partial ? ' so far' : '');
@@ -2165,7 +3085,7 @@ if (typeof module !== 'undefined') module.exports = {
     renderPace();
     renderList();
     const cur = BY_ID[S.sel];
-    if (jump && focusOn() && cur && !inFocus(cur)) {
+    if (jump && focusOn() && (!cur || !inFocus(cur))) {
       // move to the focused milestone nearest the head
       const set = stepSet();
       if (set.length) {
@@ -2180,6 +3100,7 @@ if (typeof module !== 'undefined') module.exports = {
   }
   $('#bitter').addEventListener('change', ev => { S.bitter = ev.target.checked; refreshFilters(false); });
   $('#keyonly').addEventListener('change', ev => { S.keyOnly = ev.target.checked; refreshFilters(false); });
+  $('#fcshow').addEventListener('change', ev => { S.fc = ev.target.checked; syncMode(); requestDraw(); });
 
   const vpSel = $('#vp');
   const passed = NOW_MS >= VPS.doomsday.ms;
@@ -2188,11 +3109,13 @@ if (typeof module !== 'undefined') module.exports = {
     '<option value="now">Now</option>' +
     '<option value="k2045">2045 · Kurzweil</option>';
   vpSel.addEventListener('change', () => {
-    stopPlay(); stopAnim();
+    stopPlay(); stopAnim(); pushReset();
+    S.back = null;
     setCentre(vpSel.value);
     const cur = BY_ID[S.sel];
-    setD(cur ? POS[cur.id].Ld : S.D);
-    if (cur) renderCard(cur);
+    if (cur) { setD(POS[cur.id].Ld); renderCard(cur); }
+    else if (isF(S.sel) && FPOS[S.sel]) setD(FPOS[S.sel].Ld);
+    else setD(LAND_D);
     renderEras();
   });
 
@@ -2214,7 +3137,7 @@ if (typeof module !== 'undefined') module.exports = {
   function setPlayButton() {
     const b = $('#play');
     b.setAttribute('aria-pressed', String(S.playing));
-    b.textContent = S.playing ? '❚❚ Pause' : '▶\uFE0E Descend';
+    b.textContent = S.playing ? '❚❚ Pause' : '▶︎ Descend';
   }
   function stopPlay() {
     if (!S.playing) return;
@@ -2224,11 +3147,18 @@ if (typeof module !== 'undefined') module.exports = {
     playRaf = 0; playTimer = 0;
     setPlayButton();
   }
+  /* looking ahead, Descend comes in from the furthest forecast toward today */
   function startPlay() {
     stopAnim();
     S.playing = true; setPlayButton();
     if (REDUCED) {
       playTimer = setInterval(() => {
+        if (S.ahead) {
+          const set = fcOpen().slice().reverse(), i = set.indexOf(FBY[S.sel]);
+          if (i >= set.length - 1) { stopPlay(); return; }
+          selectF(set[i + 1].id, { quiet: true });
+          return;
+        }
         const set = stepSet(), i = set.indexOf(BY_ID[S.sel]);
         if (i >= set.length - 1) { stopPlay(); return; }
         step(1);
@@ -2244,11 +3174,16 @@ if (typeof module !== 'undefined') module.exports = {
       const D0 = S.D, D1 = Math.max(DMIN, D0 - speed * dt);
       if (t - lastCard > 650) {
         let best = null;
-        for (const e of stepSet()) {
-          const L = POS[e.id].Ld;
-          if (L <= D0 && L > D1 && e.w >= 2 && (!best || e.w > best.w)) best = e;
+        if (S.ahead) {
+          for (const id in FPOS) { const L = FPOS[id].Ld; if (L <= D0 && L > D1) best = id; }
+          if (best) { selectF(best, { fly: false, quiet: true }); lastCard = t; }
+        } else {
+          for (const e of stepSet()) {
+            const L = POS[e.id].Ld;
+            if (L <= D0 && L > D1 && e.w >= 2 && (!best || e.w > best.w)) best = e;
+          }
+          if (best) { select(best.id, { fly: false, quiet: true }); lastCard = t; }
         }
-        if (best) { select(best.id, { fly: false, quiet: true }); lastCard = t; }
       }
       setD(D1);
       if (D1 <= DMIN + 1e-6) { stopPlay(); return; }
@@ -2260,7 +3195,7 @@ if (typeof module !== 'undefined') module.exports = {
   $('#play').addEventListener('click', togglePlay);
   $('#prev').addEventListener('click', () => { stopPlay(); step(-1); });
   $('#next').addEventListener('click', () => { stopPlay(); step(1); });
-  $('#depth').addEventListener('input', ev => { stopPlay(); stopAnim(); setD(-parseFloat(ev.target.value)); });
+  $('#depth').addEventListener('input', ev => { stopPlay(); stopAnim(); pushReset(); setD(-parseFloat(ev.target.value)); });
 
   /* ---------- pointer, wheel and keys ---------- */
   const ptrs = new Map();
@@ -2284,7 +3219,7 @@ if (typeof module !== 'undefined') module.exports = {
     else if (ptrs.size === 2) {
       drag = null;
       const [p1, p2] = Array.from(ptrs.values());
-      pinch = { d0: Math.hypot(p1.x - p2.x, p1.y - p2.y), D0: S.D };
+      pinch = { d0: Math.hypot(p1.x - p2.x, p1.y - p2.y), D0: S.D, done: false };
     }
   });
   cv.addEventListener('pointermove', ev => {
@@ -2300,9 +3235,22 @@ if (typeof module !== 'undefined') module.exports = {
     }
     p.x = x; p.y = y;
     if (pinch && ptrs.size >= 2) {
+      if (pinch.done) return;     // this pinch already turned the spiral round
       const [p1, p2] = Array.from(ptrs.values());
       const d = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-      if (pinch.d0 > 10) setD(pinch.D0 - Math.log(d / pinch.d0) / LG);
+      if (pinch.d0 > 10) {
+        const target = pinch.D0 - Math.log(d / pinch.d0) / LG;
+        if (target >= DMIN) { if (S.push) pushReset(); setD(target); }
+        else if (!canTurn()) { setD(DMIN); atStop(); }
+        else {
+          // a pinch carries its pressure with it: spreading the fingers further past the floor adds to it
+          setD(DMIN);
+          S.push = Math.min(1, (DMIN - target) / PUSH);
+          clearTimeout(pushTimer);
+          headtag(); requestDraw();
+          if (S.push >= 1) { pinch.done = true; turnRound(); }
+        }
+      }
       return;
     }
     if (drag && drag.id === ev.pointerId) {
@@ -2312,14 +3260,15 @@ if (typeof module !== 'undefined') module.exports = {
         let da = a - drag.a;
         if (da > Math.PI) da -= TWO_PI; else if (da < -Math.PI) da += TWO_PI;
         drag.a = a;
-        if (Math.hypot(x - geo.cx, y - geo.cy) > 16) setD(S.D + da / TWO_PI);
+        // turning the spiral by hand never turns it round: the floor is a plain stop for dragging
+        if (Math.hypot(x - geo.cx, y - geo.cy) > 16) setD(S.D + (S.ahead ? -1 : 1) * da / TWO_PI);
       }
     }
   });
   function endPointer(ev) {
     const p = ptrs.get(ev.pointerId);
     ptrs.delete(ev.pointerId);
-    if (ptrs.size < 2) pinch = null;
+    if (ptrs.size < 2) { if (pinch && !pinch.done) pushReset(); pinch = null; }
     if (drag && drag.id === ev.pointerId) {
       if (!drag.moved && ev.type === 'pointerup' && p) {
         const h = nearest(p.x, p.y, drag.type === 'mouse' ? 9 : 16);
@@ -2336,20 +3285,29 @@ if (typeof module !== 'undefined') module.exports = {
   });
   cv.addEventListener('wheel', ev => {
     ev.preventDefault();
-    stopPlay(); stopAnim();
+    stopPlay();
+    const now = performance.now();
+    if (now < quietUntil) { quietUntil = now + 250; return; }   // the tail of the gesture that turned the spiral round
+    stopAnim();
     let dy = ev.deltaY;
     if (ev.deltaMode === 1) dy *= 16; else if (ev.deltaMode === 2) dy *= 400;
-    setD(S.D + dy * (ev.ctrlKey ? 0.006 : 0.0016));
+    const k = ev.ctrlKey ? 0.006 : 0.0016;
+    if (dy < 0) inward(-dy * k); else if (dy > 0) outward(dy * k);
   }, { passive: false });
   cv.addEventListener('keydown', ev => {
     const k = ev.key;
     if (k === 'ArrowRight') { stopPlay(); step(1); }
     else if (k === 'ArrowLeft') { stopPlay(); step(-1); }
-    else if (k === 'ArrowUp' || k === '+' || k === '=') { stopPlay(); stopAnim(); setD(S.D - 0.08); }
-    else if (k === 'ArrowDown' || k === '-' || k === '_') { stopPlay(); stopAnim(); setD(S.D + 0.08); }
+    else if (k === 'ArrowUp' || k === '+' || k === '=') {
+      stopPlay(); stopAnim();
+      // at the floor, two presses in a row turn the spiral round
+      if (S.D <= DMIN + 1e-6 && canTurn()) pressure(PUSH / 2 + 1e-6, 1600);
+      else inward(0.08, 1600);
+    }
+    else if (k === 'ArrowDown' || k === '-' || k === '_') { stopPlay(); stopAnim(); outward(0.08); }
     else if (k === ' ' || k === 'Spacebar') togglePlay();
-    else if (k === 'Home') { stopPlay(); flyTo(DMAX); }
-    else if (k === 'End') { stopPlay(); flyTo(DMIN); }
+    else if (k === 'Home') { stopPlay(); pushReset(); flyTo(DMAX); }
+    else if (k === 'End') { stopPlay(); pushReset(); flyTo(DMIN); }
     else return;
     ev.preventDefault();
   });
@@ -2377,10 +3335,15 @@ if (typeof module !== 'undefined') module.exports = {
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => requestDraw());
 
   /* ---------- start ---------- */
-  window.__vanishing = { state: S, hits: () => HIT.slice(), range: () => ({ DMIN, DMAX, T, LNOW }) };
+  window.__vanishing = {
+    state: S, hits: () => HIT.slice(),
+    range: () => ({ DMIN, DMAX, T, LNOW, FLOOR, ahead: S.ahead, now: NOW_MS }),
+    geo: () => ({ cx: geo.cx, cy: geo.cy, R0: geo.R0, Rmax: geo.Rmax, W: geo.W, H: geo.H, grow: GROW, lanes: LANE_D.slice() }),
+    forecasts: () => FC.map(f => ({ id: f.id, status: f._st, lane: THREADS[f.th].lane, ring: f._t.ring, made: f._t.made, pos: FPOS[f.id] ? Object.assign({}, FPOS[f.id]) : null }))
+  };
   function fromHash() {
     const h = (location.hash || '').replace(/^#/, '');
-    return h && BY_ID[h] ? h : null;
+    return h && (BY_ID[h] || FBY[h]) ? h : null;
   }
   window.addEventListener('hashchange', () => { const id = fromHash(); if (id && id !== S.sel) select(id); });
 
@@ -2388,18 +3351,26 @@ if (typeof module !== 'undefined') module.exports = {
   document.querySelectorAll('[data-count="all"]').forEach(n => { n.textContent = EVENTS.length; });
   document.querySelectorAll('[data-count="key"]').forEach(n => { n.textContent = EVENTS.filter(e => e.w === 3).length; });
   document.querySelectorAll('[data-count="models"]').forEach(n => { n.textContent = EVENTS.filter(e => e.th === 'model').length; });
-  cv.setAttribute('aria-label', 'A logarithmic spiral of ' + EVENTS.length + ' milestones in the history of AI. The full list follows below the controls.');
+  document.querySelectorAll('[data-count="forecasts"]').forEach(n => { n.textContent = FC.length; });
   setCentre(passed ? 'now' : 'doomsday');
   vpSel.value = S.vp;
   renderLaneChips();
   renderLabChips();
   renderPace();
   renderEras();
+  renderFList();
   const first = fromHash() || 'doomsday';
-  S.sel = first;
-  renderList();
-  renderCard(BY_ID[first]);
-  setD(POS[first].Ld);
+  if (isF(first)) {
+    S.sel = first;
+    renderList();
+    selectF(first, { quiet: true, fly: false });
+    if (FPOS[first]) setD(FPOS[first].Ld);
+  } else {
+    S.sel = first;
+    renderList();
+    renderCard(BY_ID[first]);
+    setD(POS[first].Ld);
+  }
   resize();
 })();
 
