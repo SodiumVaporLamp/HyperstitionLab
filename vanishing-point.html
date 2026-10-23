@@ -305,6 +305,9 @@ footer.foot a { color: var(--muted); }
 .fclink { display: flex; gap: 8px; align-items: center; text-align: left; background: none; border: 1px dashed var(--rule); border-radius: 8px; padding: 6px 10px; font: inherit; font-size: 14px; color: var(--ink); cursor: pointer; }
 .fclink:hover { border-color: var(--crimson); }
 .fclink .mk { flex: none; }
+.seelinks .fclink { border-style: solid; }
+.seelinks .fclink:hover { border-color: var(--ink); }
+.fclink .sd { font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 
 /* the list of forecasts, each with a strip: today in the middle, log time back to the left and ahead to the right */
 .fcl { margin-top: 44px; display: grid; gap: 12px; }
@@ -460,7 +463,8 @@ footer.foot a { color: var(--muted); }
       <div class="note">
         <h3>How to read the spiral</h3>
         <p>Distance from the centre is drawn in log time. Every turn inward divides the time left by ten, so the turns hold millennia, then centuries, decades, years and months. A logarithmic spiral is the curve where scaling and rotating are the same transformation: zoom in and it turns, which is why travelling through it feels like a tunnel.</p>
-        <p>Six lanes run side by side, from the rim inward: Models, Capital, Reckoning, Learning, Language and Hyperstition. Milestones on the same date line up across the lanes. When two milestones in one lane fall almost on the same date, they are nudged apart along the lane so both can be tapped; the card always gives the true date.</p>
+        <p>The same curve is the course of a ship that holds one compass bearing: steer about eight degrees north of due west and, seen from above the North Pole in stereographic projection, your track is this spiral. Mercator’s map of 1569 is in effect a logarithm of that view, which is why it draws such courses as straight lines; it would draw this spiral as a straight line of log time. Each drawing keeps some relations true and gives up others. Mercator keeps directions and swells areas toward the poles; the spiral keeps ratios of the time left and shrinks equal spans of years toward the rim.</p>
+        <p>Six lanes run side by side, from the rim inward: Models, Capital, Reckoning, Learning, Language and Hyperstition. Milestones on the same date line up across the lanes. When two milestones in one lane fall almost on the same date, they are nudged apart along the lane so both can be tapped; the card always gives the true date. Some cards end with links, under “Elsewhere on the spiral”, to the milestones they connect with.</p>
       </div>
       <div class="note">
         <h3>The centre</h3>
@@ -470,9 +474,9 @@ footer.foot a { color: var(--muted); }
       </div>
       <div class="note">
         <h3>What counts, and how much</h3>
-        <p>The Models lane holds <span data-count="models">85</span> releases: the major ones from OpenAI and Anthropic and the most notable from other labs, each drawn as a triangle pointing at the centre. Releases per year went from one or two before 2022 to more than twenty in 2025, and 2026 passed that by October. The log axis already gives recent time extra room, so the crowding of triangles toward the centre is the pace showing through it.</p>
+        <p>The Models lane holds <span data-count="models">92</span> releases: the major ones from OpenAI and Anthropic, xAI’s main Grok releases, and the most notable from other labs, each drawn as a triangle pointing at the centre. Releases per year went from one or two before 2022 to more than twenty in 2025, and 2026 passed that by October. The log axis already gives recent time extra room, so the crowding of triangles toward the centre is the pace showing through it.</p>
         <p>Frederick Jelinek’s line about firing linguists raised the question of whether linguists should count for less in this history. The page’s answer is to count the rule-writers for less. Markov, Shannon, Harris and Firth were doing linguistics by counting, and modern language models descend from that line. Hand-written grammars, expert systems and other attempts to type knowledge in are drawn hollow, as roads not taken. The Bitter Lesson view hides them, leaving roughly the history as the winners tell it.</p>
-        <p>Each milestone carries a weight. The <span data-count="key">59</span> key milestones show up in “Key milestones only” and in the larger marks; the rest fill in the record. Before 1900 the selection follows two threads: the places where Land’s story touches the past (zero and place value, double-entry ledgers, the oceanic trading companies), and the machine line from Llull through Babbage and Lovelace to Boole.</p>
+        <p>Each milestone carries a weight. The <span data-count="key">59</span> key milestones show up in “Key milestones only” and in the larger marks; the rest fill in the record. Before 1900 the selection follows three threads: the places where Land’s story touches the past (zero and place value, double-entry ledgers, the oceanic trading companies); the machine line from Llull through Babbage and Lovelace to Boole, with the Antikythera mechanism alone far out before it; and the machinery for copying, steering, producing and connecting: Gutenberg’s press, Mercator’s chart, Watt’s governor, Evans’s mill and the Atlantic cable. Two early archives of writing sit at the rim, Uruk’s ledgers and the Shang kings’ questions to the dead.</p>
       </div>
       <div class="note bm" id="body-machine">
         <h3>The body of the machine</h3>
@@ -522,6 +526,8 @@ footer.foot a { color: var(--muted); }
    q   words from Land or the Ccru, with qc as citation
    o   this page's own reading
    s   sources [label, url]
+   see other milestone ids this card links to under "Elsewhere on the spiral"; the page adds the
+       link back on each of those cards, so write a connection once, on the newer card or the one it explains
    tag extra tags ('demon')
 */
 const THREADS = {
@@ -544,10 +550,28 @@ const CRYPTO = ['Land, Crypto-Current (Outsideness serialization)', 'https://zer
 
 const EVENTS = [
 /* ---------------- before 1900 ---------------- */
-{ id: 'uruk', d: '~-3300', dl: 'c. 3300–3000 BCE', t: 'Writing begins as bookkeeping', th: 'cap', w: 2,
-  x: 'The oldest writing we have, the proto-cuneiform tablets of Uruk in Mesopotamia, is mostly accounting. About 85 percent of them record goods moving in and out of institutional stores, with quantities and the offices responsible. Most of the rest are lists of signs that scribes copied as training.',
-  o: 'The first texts are ledgers and the word lists scribes trained on. Writing began as accounting and its training data, long before it carried a story.',
+{ id: 'uruk', d: '~-3300', dl: 'c. 3300–3000 BCE', t: 'Uruk: writing as bookkeeping', th: 'cap', w: 2,
+  x: 'The proto-cuneiform tablets of Uruk in Mesopotamia, among the oldest surviving written records, are mostly accounting. About 85 percent of them record goods moving in and out of institutional stores, with quantities and the offices responsible. Most of the rest are word lists, probably used in part to train scribes.',
+  o: 'At Uruk the surviving texts are ledgers and the word lists scribes probably trained on: accounting and its training data, long before writing carried a story. The oldest surviving Chinese writing, further in, is another kind of archive: questions put to the dead.',
   s: [['Proto-cuneiform', W + 'Proto-cuneiform']] },
+
+{ id: 'shang-oracle-bones', d: '~-1200', dl: 'Late Shang, c. 1250–1050 BCE', t: 'Shang kings question the dead', th: 'lang', w: 2,
+  x: 'In late Shang China, diviners working for the king chiselled hollows into the backs of cattle shoulder blades and turtle shells, then pressed a heated rod into them until cracks formed on the other side, read as answers from royal ancestors and other powers. The character for divining, 卜, may be a drawing of such a crack. Questions were often put as a pair of possible outcomes. An inscription could record the day and the diviner, the charge, the king’s prognostication and, occasionally, what happened: one charge reads “We will hunt at Wu; going and coming back there will be no disasters”, and its verification “[We] caught one wild buffalo, one tiger, seven foxes.” These royal records are the earliest body of Chinese writing to survive, in a script already mature. Villagers dug the bones up and ground them into medicine as “dragon bones” until the writing was recognised in 1899.',
+  o: 'An inscription runs in four parts: who asked and when, the question, the reading, and how it came out. That is the shape of a forecast card on this page; on the bones the last part is usually missing. In 2024 the OBI-Bench study tested 23 multimodal models on reading them, and at deciphering the best of them did about as well as untrained people.',
+  s: [['Smithsonian: Making Sense of the Future', 'https://asia-archive.si.edu/learn/for-educators/teaching-china-with-the-smithsonian/lesson-plans/making-sense-of-the-future-the-oracle-bone-and-shang-dynasty-divination/'],
+      ['Columbia, Asia for Educators: Shang oracle-bone inscriptions', 'https://afe.easia.columbia.edu/main_pop/ps/ps_china-oracle-bone-general.htm'],
+      ['Oracle bone', W + 'Oracle_bone'], ['Oracle bone script', W + 'Oracle_bone_script'],
+      ['Chen et al., OBI-Bench (arXiv, 2024)', 'https://arxiv.org/abs/2412.01175']],
+  see: ['uruk', 'antikythera'] },
+
+{ id: 'antikythera', d: '~-100', dl: '2nd–1st century BCE', t: 'Antikythera computes the heavens', th: 'reck', w: 2,
+  x: 'In 1900 sponge divers found the wreck of a Roman-era cargo ship off the Greek island of Antikythera, and in 1901 the corroded remains of a geared bronze device came up from it: 82 fragments, about a third of the original, with 30 gears still visible. Turned by hand, it modelled the motions of the Sun and Moon, and in the 2021 UCL reconstruction the planets. On the back, a pin on each pointer followed a spiral: a calendar of 235 months in five turns, and an eclipse dial of 223 months, the Saros cycle, in four, its glyphs giving each predicted eclipse’s time in hours. A small dial kept the four-year cycle of the Greek games, naming Olympia, Nemea, Isthmia and Pythia among them. The wreck dates to about 70–60 BCE; estimates for the device run from about 205 to 87 BCE. Nothing of comparable complexity survives until fourteenth-century Europe.',
+  o: 'Turn a handle and a future eclipse becomes a position on a dial. Its spirals count months, one cell to each; this page’s spiral gives each turn a tenth of the time of the turn outside it. Babbage died thirty years before it surfaced.',
+  s: [['Antikythera mechanism', W + 'Antikythera_mechanism'],
+      ['Freeth, “Eclipse prediction on the ancient Greek astronomical calculating machine”, PLoS ONE (2014)', 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0103275'],
+      ['UCL: the 2021 reconstruction', 'https://www.ucl.ac.uk/news/2021/mar/experts-recreate-mechanical-cosmos-worlds-first-computer'],
+      ['Live Science on the games dial (2008)', 'https://livescience.com/7553-ancient-olympic-calculator-discovered.html'], ['Charles Babbage', W + 'Charles_Babbage']],
+  see: ['laplace', 'least-squares', 'cauchy'] },
 
 { id: 'brahmagupta', d: '628', t: 'Zero becomes a number', th: 'reck', w: 3,
   x: 'In the Brāhmasphuṭasiddhānta, the Indian astronomer Brahmagupta gave rules for calculating with zero as a number in its own right, alongside rules for negative quantities: a number minus itself is zero, and any number times zero is zero. Zero as a placeholder in written numbers was older. Treating nothing as a quantity you can compute with was new.',
@@ -571,12 +595,28 @@ const EVENTS = [
   o: 'A device for producing statements by recombining a fixed vocabulary. Seven centuries later the vocabulary is a hundred thousand or so tokens and the wheels are matrix multiplications.',
   s: [['Ramon Llull', W + 'Ramon_Llull']] },
 
+{ id: 'gutenberg', d: '1455', dl: '1454–55', t: 'Gutenberg prints the Bible', th: 'lang', w: 2,
+  x: 'In Mainz, Johannes Gutenberg printed a Latin Bible with movable metal type in 1454–55, perhaps as many as 180 copies, about a quarter of them on vellum. The printed text was substantially the same from copy to copy, but rubricators added headings and initials by hand and buyers paid extra for illumination, so no two finished books are alike. Johann Fust had lent the money, and after a hearing between the two men, recorded on 6 November 1455, Fust took control of the workshop. The press also earned money printing thousands of indulgences for the Church. Printing was older in East Asia: woodblocks from the seventh century, Bi Sheng’s ceramic movable type around 1040, and the Korean Jikji, printed with metal type in 1377.',
+  o: 'Text gets a production line and, in the same year, a creditor who takes the machine. Swift’s professor at Lagado, asking the public to fund five hundred frames, had the economics right.',
+  s: [['Library of Congress: the Gutenberg Bible', 'https://guides.loc.gov/gutenberg'], ['Johannes Gutenberg', W + 'Johannes_Gutenberg'],
+      ['Gutenberg Museum: before Gutenberg', 'https://www.gutenberg.de/en/erfindung/vor_gutenberg'], ['Jikji', W + 'Jikji'],
+      ['The Lagado passage (Lillian Lee, Cornell)', 'https://www.cs.cornell.edu/home/llee/extra/lagado.html']],
+  see: ['pacioli', 'swift', 'wikipedia'] },
+
 { id: 'pacioli', d: '1494-11-10', t: 'Pacioli prints double-entry', th: 'cap', w: 3,
   x: 'Luca Pacioli’s Summa de arithmetica, printed in Venice, contained the first published description of double-entry bookkeeping: every transaction is recorded twice, as a debit and a credit, so the books must balance. Merchants in Genoa, Florence and Venice had kept accounts this way for two centuries. Pacioli codified the method and print spread it. He taught mathematics to Leonardo da Vinci.',
   q: 'whenever money is added, on one side of a ledger, it is subtracted on the other',
   qc: 'Land, Crypto-Current §0.35. He calls this “allocation”, a use of signs distinct from signification and designation: a ledger entry can be spent only once, which is why, for him, money is not a language.',
   o: 'Two kinds of sign run through this spiral. Ledger entries can’t be copied without fraud; words can’t stop being copied. Language models are made of the second kind and paid for in the first.',
   s: [['Luca Pacioli', W + 'Luca_Pacioli'], ['Double-entry bookkeeping', W + 'Double-entry_bookkeeping'], CRYPTO] },
+
+{ id: 'mercator', d: '1569', t: 'Mercator maps a navigable world', th: 'cap', w: 2,
+  x: 'Gerard Mercator’s world map of 1569, engraved on eighteen sheets, is titled in Latin as adapted for use in navigation. He spaced the parallels further apart toward the poles, so that a rhumb line, a course of constant compass bearing, is a straight line on the sheet. Local angles stay true and areas swell with latitude; the poles can’t be drawn at all, and the north polar region went into an inset. Mercator never explained how he spaced the parallels. Edward Wright published tables for it in 1599, built by summing small steps, and in the 1640s Henry Bond noticed that they matched a table of logarithms of tangents, which James Gregory proved in 1668. Navigators took the projection up slowly. Later it was used on wall maps, where its swollen high latitudes misled.',
+  o: 'Hold one compass bearing other than due north, south, east or west and you spiral in toward the pole, winding round it infinitely many times. On Mercator’s sheet that course is a straight line. Seen from above the pole, in stereographic projection, it is a logarithmic spiral: steer about eight degrees north of due west and you trace the curve this page is drawn on.',
+  s: [['Mercator 1569 world map', W + 'Mercator_1569_world_map'],
+      ['Monmonier, Rhumb Lines and Map Wars (Syracuse University)', 'https://www.maxwell.syr.edu/research/article/rhumb-lines-and-map-wars-a-social-history-of-the-mercator-projection'],
+      ['Mercator projection', W + 'Mercator_projection'], ['Rhumb line', W + 'Rhumb_line'], ['Integral of the secant function', W + 'Integral_of_the_secant_function']],
+  see: ['voc'] },
 
 { id: 'voc', d: '1602-03-20', t: 'The VOC is chartered', th: 'cap', w: 3,
   x: 'The Dutch States General chartered the Vereenigde Oostindische Compagnie with a monopoly on trade with Asia and powers to wage war, make treaties and build forts. It raised capital from the public in shares that were soon traded on the Amsterdam exchange, which makes it the usual candidate for the first publicly traded company. It was also violent: in 1621 its forces killed or expelled most of the Banda Islands’ people to control the nutmeg trade. It was dissolved in 1799.',
@@ -630,6 +670,19 @@ const EVENTS = [
   o: 'Two ideas that run straight into computing: split a hard job into small mechanical steps, and let an order emerge that nobody designed.',
   s: [['The Wealth of Nations', W + 'The_Wealth_of_Nations']] },
 
+{ id: 'watt-governor', d: '1788', t: 'Watt’s engine regulates itself', th: 'cap', w: 2,
+  x: 'In 1788 Boulton and Watt built a rotative steam engine for Matthew Boulton’s Soho Manufactory in Birmingham, the first of their engines fitted with a centrifugal governor. Weighted balls spun by the engine swing outward as it speeds up and, through linkages, close the steam valve; as it slows they fall and open it. Watt designed the governor at Boulton’s suggestion, and regulators of the kind were already used on windmills and water mills. The engine drove 43 metal-polishing machines at Soho for 70 years and is now in the Science Museum. A governor of this kind holds the speed within a range rather than fixing it, and on faster engines it tended to overshoot; James Clerk Maxwell’s paper “On Governors” (1868) became a founding text of control theory.',
+  o: 'The engine’s speed becomes the signal that sets its speed: part of the overseer’s job, moved into the machine. Norbert Wiener took the name cybernetics from the Greek for steersman and noted that “governor” comes from the same word, through Latin.',
+  s: [['Science Museum Group: Boulton and Watt rotative engine, 1788', 'https://collection.sciencemuseumgroup.org.uk/objects/co50948/rotative-steam-engine-by-boulton-and-watt-1788'],
+      ['Centrifugal governor', W + 'Centrifugal_governor'], ['Cybernetics', W + 'Cybernetics']],
+  see: ['teleology', 'god-golem'] },
+
+{ id: 'evans-mill', d: '1791', t: 'Evans’s automated mill', th: 'cap', w: 2,
+  x: 'Through the later 1780s Oliver Evans rebuilt his family’s mill near Newport, Delaware, so that grain and meal moved between the stages of milling by machine: bucket elevators lifted it, screw conveyors carried it, and the hopper boy, a mechanical rake, spread and cooled the hot meal, a job done before with hand rakes. Evans received the third United States patent, after George Washington, as president, signed his application, and in 1791 Washington bought a licence and had the system installed in his gristmill at Mount Vernon. The mill still needed people: Ben, an enslaved miller, worked there from 1785 until Washington’s death in 1799. Evans’s Young Mill-Wright and Miller’s Guide (1795) stayed a standard manual for half a century.',
+  o: 'The machine grows into a building, and the organisation of the work moves into the connections between machines. The president who signed Evans’s application paid for a licence under the patent, and an enslaved man kept the automatic mill running.',
+  s: [['Mount Vernon: the millworks of Oliver Evans', 'https://www.mountvernon.org/the-estate-gardens/gristmill/oliver-evans-systems'], ['Oliver Evans', W + 'Oliver_Evans']],
+  see: ['smith', 'prony', 'babbage'] },
+
 { id: 'prony', d: '1793', dl: '1793–1801', t: 'De Prony’s human computers', th: 'cap', w: 2,
   x: 'Asked by the French revolutionary government for vast new tables of logarithms for the national land survey, Gaspard de Prony organised the work on Adam Smith’s pin-factory plan. A few mathematicians chose the formulas, a middle tier turned them into procedures, and some ninety workers with no mathematical training did nothing but add and subtract. Many are said to have been hairdressers, left without work when the aristocracy’s wigs went out of fashion.',
   o: 'Thinking divided into steps so simple that anyone, and then anything, could do them. Babbage studied these tables and designed a machine to replace the bottom tier.',
@@ -679,6 +732,15 @@ const EVENTS = [
   x: 'Writing from New Zealand, Samuel Butler sent a letter to the Christchurch Press arguing that machines were evolving far faster than animals and that “the time will come when the machines will hold the real supremacy over the world and its inhabitants.” He proposed, half seriously, destroying every machine at once. He expanded the idea into “The Book of the Machines” in his 1872 novel Erewhon.',
   o: 'Deleuze and Guattari used “The Book of the Machines” in Anti-Oedipus (1972) to get past the old quarrel between vitalism and mechanism. Anti-Oedipus is the book Land’s 1990s writing grows out of.',
   s: [['Darwin among the Machines', W + 'Darwin_among_the_Machines'], ['Erewhon', W + 'Erewhon']] },
+
+{ id: 'atlantic-cable', d: '1866-07-27', t: 'A working cable crosses the Atlantic', short: 'The Atlantic cable', th: 'cap', w: 2,
+  x: 'On 27 July 1866 the Great Eastern, a liner much larger than any ship before it, landed a telegraph cable from Ireland at Heart’s Content in Newfoundland. It then grappled up the cable lost on its voyage of 1865, spliced it and brought it in early in September, so there were two working lines. A cable of 1858 had carried messages for about three weeks, at roughly a tenth of a word a minute, before high voltage applied to it destroyed it; the 1866 cable carried eight words a minute. A message of twenty words cost £20. People and cargo still crossed by ship.',
+  o: 'Before the cable, news between New York and London moved at the speed of a steamship, and each market’s prices lagged the other’s by the crossing. Christopher Hoag found the crossing times can be recovered from stock prices, and some evidence that after July 1866 the lag fell from ten days to none. The trading network grew a nervous system under the sea.',
+  s: [['Royal Museums Greenwich: the Great Eastern laying the Atlantic cable', 'https://www.rmg.co.uk/collections/objects/rmgc-object-14853'],
+      ['Transatlantic telegraph cable', W + 'Transatlantic_telegraph_cable'],
+      ['Hoag, “The Atlantic Telegraph Cable and Capital Market Information Flows” (2006)', 'https://ideas.repec.org/a/cup/jechis/v66y2006i02p342-353_00.html'],
+      ['Scientific American, August 1866: the cost of a message', 'https://www.scientificamerican.com/article/cost-to-message-london-is-exorbitant']],
+  see: ['voc', 'mercator', 'shannon48'] },
 
 { id: 'maxwell', d: '1867-12-11', t: 'Maxwell’s demon', th: 'reck', w: 2, tag: ['demon'],
   x: 'In a letter to Peter Guthrie Tait, James Clerk Maxwell imagined a tiny being working a door between two chambers of gas, letting fast molecules through one way and slow ones the other, so that it seemed to beat the second law of thermodynamics with nothing but information. William Thomson called it a demon in 1874. Settling the paradox took a century and showed that information is physical.',
@@ -1546,6 +1608,9 @@ const EVENTS = [
 { id: 'sora', d: '2024-02-15', t: 'Sora', th: 'model', lab: 'openai', w: 2,
   x: 'OpenAI previewed Sora, which generated video clips up to a minute long from text prompts. Google showed Gemini 1.5 the same day.',
   s: [['Sora', W + 'Sora_(text-to-video_model)']] },
+{ id: 'grok15', d: '2024-03-28', t: 'Grok 1.5 announced', th: 'model', lab: 'other', org: 'xAI', w: 1,
+  x: 'Announced with a 128,000-token context window and stronger reasoning, for early testers and existing Grok users on X “in the coming days”; it reached all X Premium users in May.',
+  s: [['xAI: Announcing Grok-1.5', 'https://x.ai/news/grok-1.5'], ['Grok (chatbot)', W + 'Grok_(chatbot)']] },
 { id: 'llama3', d: '2024-04-18', t: 'Llama 3', th: 'model', lab: 'meta', w: 1,
   x: 'Meta’s third generation, trained on about 15 trillion tokens.',
   s: [['Llama (language model)', W + 'Llama_(language_model)']] },
@@ -1558,6 +1623,9 @@ const EVENTS = [
 { id: 'llama31', d: '2024-07-23', t: 'Llama 3.1 405B', th: 'model', lab: 'meta', w: 1,
   x: 'The largest open-weight model yet, released with Mark Zuckerberg’s letter “Open Source AI Is the Path Forward”.',
   s: [['Llama (language model)', W + 'Llama_(language_model)']] },
+{ id: 'grok2', d: '2024-08-13', t: 'Grok 2 and Grok 2 mini', th: 'model', lab: 'other', org: 'xAI', w: 1,
+  x: 'Released in beta on X for Premium and Premium+ subscribers, with a smaller Grok 2 mini; xAI said developers would get them through its API later that month.',
+  s: [['xAI: Grok-2 beta release', 'https://x.ai/news/grok-2']] },
 { id: 'sonnet35new', d: '2024-10-22', t: 'Claude 3.5 Sonnet (new) and 3.5 Haiku', th: 'model', lab: 'anthropic', w: 1,
   x: 'An upgraded Sonnet and a new Haiku, released alongside the computer-use beta.',
   s: [['Claude (language model)', W + 'Claude_(language_model)']] },
@@ -1627,6 +1695,9 @@ const EVENTS = [
 { id: 'gpt51', d: '2025-11-12', t: 'GPT-5.1', th: 'model', lab: 'openai', w: 1,
   x: 'An update to GPT-5 with a warmer default tone and reasoning that adapts to the question.',
   s: [['List of large language models', W + 'List_of_large_language_models']] },
+{ id: 'grok41', d: '2025-11-17', t: 'Grok 4.1', th: 'model', lab: 'other', org: 'xAI', w: 1,
+  x: 'Announced for grok.com, X and the iOS and Android apps after a silent rollout of preliminary builds from 1 to 14 November.',
+  s: [['xAI: Grok 4.1', 'https://x.ai/news/grok-4-1']] },
 { id: 'gemini3', d: '2025-11-18', t: 'Gemini 3', th: 'model', lab: 'google', w: 2,
   x: 'Topped most leaderboards on release and, by most reports, set off a “code red” inside OpenAI.',
   s: [['Gemini (language model)', W + 'Gemini_(language_model)']] },
@@ -1648,12 +1719,18 @@ const EVENTS = [
 { id: 'gpt54', d: '2026-03-05', t: 'GPT-5.4', th: 'model', lab: 'openai', w: 1,
   x: 'The fourth point release of GPT-5 in seven months.',
   s: [['List of large language models', W + 'List_of_large_language_models']] },
+{ id: 'grok420', d: '2026-03-10', t: 'Grok 4.20 and Multi-agent', th: 'model', lab: 'other', org: 'xAI', w: 1,
+  x: 'The API release notes recorded Grok 4.20 and a Grok 4.20 Multi-agent version as live on 10 March. Wikipedia dates the model to February 2026; this date marks its arrival on the API.',
+  s: [['xAI API release notes', 'https://docs.x.ai/developers/release-notes'], ['Grok (chatbot)', W + 'Grok_(chatbot)']] },
 { id: 'mythospreview', d: '2026-04-07', t: 'Claude Mythos Preview', th: 'model', lab: 'anthropic', w: 2,
   x: 'A model kept from general release and given to eleven organisations through Project Glasswing to find and fix software vulnerabilities.',
   s: [['Claude (language model)', W + 'Claude_(language_model)']] },
 { id: 'musespark', d: '2026-04-08', t: 'Muse Spark', th: 'model', lab: 'meta', w: 1,
   x: 'The first model from Meta Superintelligence Labs, and a closed one, after years of Meta’s open Llama releases.',
   s: [['DataNorth on Muse Spark', 'https://datanorth.ai/news/meta-releases-muse-spark-first-model-from-superintelligence-labs']] },
+{ id: 'grok43', d: '2026-04', t: 'Grok 4.3', th: 'model', lab: 'other', org: 'xAI', w: 1,
+  x: 'Released in April 2026; xAI’s own pages give no exact day. Its API documentation gives a context window of a million tokens and a choice of reasoning effort, from none upward.',
+  s: [['xAI docs: Grok 4.3', 'https://docs.x.ai/developers/models/grok-4.3'], ['Grok (chatbot)', W + 'Grok_(chatbot)']] },
 { id: 'opus47', d: '2026-04-16', t: 'Claude Opus 4.7', th: 'model', lab: 'anthropic', w: 1,
   x: 'An Opus update. Some users reported it was worse than 4.6 and refused too often.',
   s: [['Claude (language model)', W + 'Claude_(language_model)']] },
@@ -1672,15 +1749,18 @@ const EVENTS = [
 { id: 'sonnet5', d: '2026-06-30', t: 'Claude Sonnet 5', th: 'model', lab: 'anthropic', w: 1,
   x: 'Priced at $2 and $10 per million input and output tokens, with a million-token context option.',
   s: [['Claude (language model)', W + 'Claude_(language_model)']] },
-{ id: 'grok45', d: '2026-07-08', t: 'Grok 4.5', th: 'model', lab: 'other', org: 'xAI', w: 1,
-  x: 'xAI’s update a year after Grok 4, with a 500,000-token context window.',
-  s: [['LLM Learner: Grok 4.5', 'https://llmlearner.com/models/grok-4-5']] },
+{ id: 'grok45', d: '2026-07-08', t: 'Grok 4.5 reaches the API', th: 'model', lab: 'other', org: 'xAI', w: 1,
+  x: 'The API release notes list Grok 4.5 as available on 8 July. The announcement followed on 16 July, under the name xAI’s pages now used: “SpaceXSI’s smartest model”, built for coding, agentic tasks and knowledge work and “trained alongside Cursor”.',
+  s: [['xAI API release notes', 'https://docs.x.ai/developers/release-notes'], ['Grok 4.5 announcement, 16 July', 'https://x.ai/news/grok-4-5']] },
 { id: 'gpt56', d: '2026-07-09', t: 'GPT-5.6: Sol, Terra and Luna', th: 'model', lab: 'openai', w: 1,
   x: 'Three tiers that OpenAI said would each advance on its own schedule, after a preview held during a US government safety review. Sol, the flagship, was one of the two models in the Hugging Face break-in disclosed that month.',
   s: [['NYU Shanghai RITS on GPT-5.6', 'https://rits.shanghai.nyu.edu/ai/openai-launches-gpt-5-6-family-sol-terra-and-luna-reach-general-availability/']] },
 { id: 'opus5', d: '2026-07-24', t: 'Claude Opus 5', th: 'model', lab: 'anthropic', w: 1,
   x: 'Scored 96 percent on SWE-bench Verified, a coding benchmark that had stood near 50 percent two years earlier.',
   s: [['DataNorth on Claude Opus 5', 'https://datanorth.ai/news/claude-opus-5-by-anthropic']] },
+{ id: 'grok46', d: '2026-08-12', t: 'Grok 4.6', th: 'model', lab: 'other', org: 'xAI', w: 1,
+  x: 'Built on Grok 4.5 with a focus on long-running agents and more ambitious interactive and visual work, and released the same day in Cursor, Grok Build and the API.',
+  s: [['Grok 4.6 announcement', 'https://x.ai/news/grok-4-6']] },
 { id: 'deepseekv4', d: '2026-08-13', t: 'DeepSeek V4-Pro', th: 'model', lab: 'china', org: 'DeepSeek', w: 1,
   x: 'Left preview with MIT-licensed weights for a 1.7-trillion-parameter model.',
   s: [['AI Weekly on DeepSeek V4-Pro', 'https://aiweekly.co/alerts/deepseek-v4-pro-exits-preview-with-mit-licensed-17t-weights']] },
@@ -1690,6 +1770,9 @@ const EVENTS = [
 { id: 'gpt6', d: '2026-09-03', t: 'GPT-6 Astra', th: 'model', lab: 'openai', w: 2,
   x: 'Trained on more than 100,000 GPUs at the Stargate site in Texas. OpenAI called it its first model with critical cybersecurity capability and released it first to a limited group of customers.',
   s: [['Constellation Research on GPT-6 Astra', 'https://www.constellationr.com/insights/news/openai-launches-gpt-6-astra']] },
+{ id: 'grok47', d: '2026-09-21', t: 'Grok 4.7', th: 'model', lab: 'other', org: 'xAI', w: 1,
+  x: 'Billed as its maker’s most capable model for coding and knowledge work: a new, larger base model than Grok 4.6, trained with a longer reinforcement-learning run on a harder mix of tasks, with a 500,000-token context window on the API.',
+  s: [['Grok 4.7 announcement', 'https://x.ai/news/grok-4-7'], ['xAI API release notes', 'https://docs.x.ai/developers/release-notes']] },
 { id: 'opus55', d: '2026-09-22', t: 'Claude Opus 5.5', th: 'model', lab: 'anthropic', w: 1,
   x: 'Close to Fable 5.1 on most tasks, Anthropic said, at about 40 percent lower typical cost than Opus 5.',
   s: [['TechNews on Opus 5.5', 'https://technews.tw/2026/09/23/anthropic-upgrades-claude-with-new-opus-5-5-model/']] },
@@ -2247,6 +2330,14 @@ if (typeof module !== 'undefined') module.exports = {
   const BY_ID = Object.create(null);
   for (const e of EVENTS) BY_ID[e.id] = e;
   const CHRONO = EVENTS.slice().sort((a, b) => a._p.y - b._p.y);
+  /* "Elsewhere on the spiral": a card's own see list plus every card whose see list names it, in date order */
+  const SEE = Object.create(null);
+  for (const e of EVENTS) for (const id of e.see || []) {
+    if (!BY_ID[id]) continue;
+    (SEE[e.id] = SEE[e.id] || new Set()).add(id);
+    (SEE[id] = SEE[id] || new Set()).add(e.id);
+  }
+  const seeOf = e => SEE[e.id] ? [...SEE[e.id]].map(id => BY_ID[id]).sort((a, b) => a._p.y - b._p.y) : [];
 
   const NOW_MS = Date.now();
   const NOW_Y = decYearFromMs(NOW_MS);
@@ -2965,6 +3056,10 @@ if (typeof module !== 'undefined') module.exports = {
     const fs = FC.filter(f => f.card === e.id);
     if (fs.length) html += '<div class="fclinks"><h3>' + (fs.length > 1 ? 'Forecasts' : 'The forecast') + ' in this source</h3>' +
       fs.map(f => '<button class="fclink" type="button" data-f="' + f.id + '"><span class="mk fc' + fcMarkClass(f) + '" aria-hidden="true"></span>' + esc(f.t) + ' · ' + esc(ST[f._st]) + '</button>').join('') + '</div>';
+    const sees = seeOf(e);
+    if (sees.length) html += '<div class="fclinks seelinks"><h3>Elsewhere on the spiral</h3>' +
+      sees.map(m => '<button class="fclink" type="button" data-see="' + m.id + '"><span class="mk ' + markClass(m) + '" aria-hidden="true"></span>' +
+        '<span>' + esc(m.t) + ' <span class="sd">' + esc(listDate(m)) + '</span></span></button>').join('') + '</div>';
     html += '<ul class="srcs" aria-label="Sources">' + e.s.map(s => '<li><a href="' + esc(s[1]) + '" target="_blank" rel="noopener">' + esc(s[0]) + ' ↗</a></li>').join('') + '</ul>';
     html += '<nav class="cardnav" aria-label="Step through milestones"><button class="btn ghost" type="button" data-step="-1">← Prev</button>' +
       '<span class="pos">' + (idx >= 0 ? (idx + 1) + ' of ' + set.length : 'outside the current filter') + '</span>' +
@@ -2974,6 +3069,7 @@ if (typeof module !== 'undefined') module.exports = {
     card.innerHTML = html;
     card.querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => { stopPlay(); step(+b.dataset.step); }));
     card.querySelectorAll('[data-f]').forEach(b => b.addEventListener('click', () => { stopPlay(); selectF(b.dataset.f); }));
+    card.querySelectorAll('[data-see]').forEach(b => b.addEventListener('click', () => { stopPlay(); select(b.dataset.see); }));
   }
 
   /* ---------- forecast cards ---------- */
@@ -3104,7 +3200,7 @@ if (typeof module !== 'undefined') module.exports = {
   function markClass(e) { return e.th === 'model' ? 'tri' : (e.f === 'road' ? 'ring' : (e.f === 'verdict' ? 'sq' : (e.q ? 'dia' : 'dot'))); }
   function listDate(e) {
     const p = e._p;
-    if (e.dl) return e.dl.replace('c. 3300–3000 BCE', 'c. 3300 BCE');
+    if (e.dl && e.dl.length <= 12) return e.dl;   // longer labels (c. 3300–3000 BCE, Late Shang, …) don't fit the list's date column
     if (p.D) return p.D + ' ' + MONTHS[p.M - 1] + ' ' + p.Y;
     if (p.M) return MONTHS[p.M - 1] + ' ' + p.Y;
     return (p.circa ? 'c. ' : '') + (p.Y < 0 ? (-p.Y) + ' BCE' : p.Y);
