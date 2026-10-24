@@ -462,8 +462,8 @@ footer.foot a { color: var(--muted); }
     <div class="notes">
       <div class="note">
         <h3>How to read the spiral</h3>
-        <p>Distance from the centre is drawn in log time. Every turn inward divides the time left by ten, so the turns hold millennia, then centuries, decades, years and months. A logarithmic spiral is the curve where scaling and rotating are the same transformation: zoom in and it turns, which is why travelling through it feels like a tunnel.</p>
-        <p>The same curve is the course of a ship that holds one compass bearing: steer about eight degrees north of due west and, seen from above the North Pole in stereographic projection, your track is this spiral. Mercator’s map of 1569 is in effect a logarithm of that view, which is why it draws such courses as straight lines; it would draw this spiral as a straight line of log time. Each drawing keeps some relations true and gives up others. Mercator keeps directions and swells areas toward the poles; the spiral keeps ratios of the time left and shrinks equal spans of years toward the rim.</p>
+        <p>The spiral is drawn in log time. Every turn inward divides the time left by ten, so the turns hold millennia, then centuries, decades, years and months, while on screen each turn is two and a half times smaller than the one outside it. A logarithmic spiral is the curve where scaling and rotating are the same transformation: zoom in and it turns, which is why travelling through it feels like a tunnel.</p>
+        <p>The same curve is the course of a ship that holds one compass bearing: steer about eight degrees north of due west and, seen from above the North Pole in stereographic projection, your track is this spiral, closing in two and a half times with each turn. Mercator’s map of 1569 is in effect a logarithm of that view, which is why it draws such courses as straight lines; it would draw this spiral as a straight line of log time. Each drawing keeps some relations true and gives up others. Mercator keeps directions and swells areas toward the poles; the spiral keeps ratios of the time left and shrinks equal spans of years toward the rim.</p>
         <p>Six lanes run side by side, from the rim inward: Models, Capital, Reckoning, Learning, Language and Hyperstition. Milestones on the same date line up across the lanes. When two milestones in one lane fall almost on the same date, they are nudged apart along the lane so both can be tapped; the card always gives the true date. Some cards end with links, under “Elsewhere on the spiral”, to the milestones they connect with.</p>
       </div>
       <div class="note">
@@ -1220,6 +1220,21 @@ const EVENTS = [
   o: 'The demon returns as a figure of speech for the technology itself. The Ccru would have asked which one, and for its number.',
   s: [['Existential risk from artificial intelligence', W + 'Existential_risk_from_artificial_intelligence']] },
 
+{ id: 'diffusion', d: '2015-03-12', t: 'Diffusion: learning to undo noise', short: 'Diffusion models', th: 'learn', w: 2,
+  x: 'Jascha Sohl-Dickstein, Eric Weiss, Niru Maheswaranathan and Surya Ganguli described a way to generate data “inspired by non-equilibrium statistical physics”: destroy the structure in a set of examples slowly, adding noise over many small steps, and train a network to reverse each step. Run backwards from pure noise, it produces new examples. In June 2020 Jonathan Ho, Ajay Jain and Pieter Abbeel’s denoising diffusion models turned the method into high-quality image synthesis. The papers behind DALL·E 2 and Stable Diffusion both cite the 2015 paper when they introduce diffusion models.',
+  o: 'Borrowed from the physics of things coming apart: dissolve the picture into noise, then learn to put it back one step at a time. Stable Diffusion, further in, makes its pictures by gradually denoising random noise.',
+  s: [['Sohl-Dickstein et al. (arXiv 1503.03585)', 'https://arxiv.org/abs/1503.03585'], ['Ho, Jain and Abbeel (arXiv 2006.11239)', 'https://arxiv.org/abs/2006.11239'],
+      ['Diffusion model', W + 'Diffusion_model'], ['Ramesh et al., the DALL·E 2 paper (arXiv 2204.06125)', 'https://arxiv.org/abs/2204.06125'],
+      ['Rombach et al., the Stable Diffusion paper (arXiv 2112.10752)', 'https://arxiv.org/abs/2112.10752']],
+  see: ['dalle2', 'sd'] },
+
+{ id: 'resnet', d: '2015-12-10', t: 'ResNet goes 152 layers deep', th: 'learn', w: 2,
+  x: 'Kaiming He, Xiangyu Zhang, Shaoqing Ren and Jian Sun at Microsoft Research had each block of layers learn only a correction to its input, which a shortcut then adds back, instead of a whole new mapping. On ImageNet they trained networks built this way up to 152 layers deep, eight times deeper than the VGG nets yet less costly to run, and an ensemble of them won the 2015 ImageNet classification challenge with a 3.57 percent error rate.',
+  o: 'Eighteen months later the Transformer wrapped each of its sub-layers in the same shortcut, and every Transformer since has kept it.',
+  s: [['He et al. (arXiv 1512.03385)', 'https://arxiv.org/abs/1512.03385'], ['Residual neural network', W + 'Residual_neural_network'],
+      ['Attention Is All You Need, section 3.1 (arXiv 1706.03762)', 'https://arxiv.org/abs/1706.03762']],
+  see: ['alexnet', 'transformer'] },
+
 { id: 'openai', d: '2015-12-11', t: 'OpenAI', th: 'cap', w: 3,
   x: 'Sam Altman, Elon Musk, Ilya Sutskever, Greg Brockman and others announced OpenAI as a non-profit research company whose aim was to advance digital intelligence “in the way that is most likely to benefit humanity as a whole, unconstrained by a need to generate financial return.” Backers pledged $1 billion.',
   o: 'A lab founded as a brake on the race. Its later entries on this spiral show the brake turning into part of the engine.',
@@ -1236,10 +1251,22 @@ const EVENTS = [
   s: [['Fortune, August 2016', 'https://fortune.com/2016/08/15/elon-musk-artificial-intelligence-openai-nvidia-supercomputer/'], ['Nvidia DGX', W + 'Nvidia_DGX']] },
 
 /* ---------------- 2017-2022 ---------------- */
+{ id: 'moe', d: '2017-01-23', t: '“Outrageously large” networks', th: 'learn', w: 2,
+  x: 'Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le, Geoffrey Hinton and Jeff Dean, six of them at Google Brain and Maziarz at the Jagiellonian University in Kraków, put up to thousands of small sub-networks, the experts, inside one layer and trained a gating network to send each example to only a few of them. Capacity grew more than a thousandfold, to as many as 137 billion parameters, with only minor losses in computational efficiency, and the models beat the best previous results in language modelling and translation at lower cost. The mixture of experts itself went back to a 1991 paper by Robert Jacobs, Michael Jordan, Steven Nowlan and Hinton.',
+  o: 'A model can own far more parameters than it uses on any one token. Shazeer was also an author of the Transformer, which cited this paper that June; DeepSeek-V3, further in, used 37 billion of its 671 billion parameters for each token.',
+  s: [['Shazeer et al. (arXiv 1701.06538)', 'https://arxiv.org/abs/1701.06538'], ['Mixture of experts', W + 'Mixture_of_experts'],
+      ['Attention Is All You Need (arXiv 1706.03762)', 'https://arxiv.org/abs/1706.03762'],
+      ['DeepSeek-V3 Technical Report (arXiv 2412.19437)', 'https://arxiv.org/abs/2412.19437']],
+  see: ['transformer', 'deepseekv3'] },
+
 { id: 'transformer', d: '2017-06-12', t: 'Attention Is All You Need', th: 'lang', w: 3,
-  x: 'Eight Google researchers published the Transformer, an architecture that drops recurrence and processes a whole sequence at once, using attention to relate every word to every other. It trained far faster on GPUs and beat the best translation systems. All eight authors later left Google, most of them to found or join AI companies.',
+  x: 'Eight researchers who did the work at Google Brain and Google Research published the Transformer, an architecture that drops recurrence and processes a whole sequence at once, using attention to relate every word to every other. One of them, Aidan Gomez, was a University of Toronto undergraduate who had taken a semester off to work at Google Brain. Their largest model trained in three and a half days on eight Nvidia P100 GPUs and beat the best translation systems. All eight later left Google, to found start-ups or join other companies. Noam Shazeer went back in 2024, when Google licensed the technology of Character.AI, the start-up he had co-founded, and in June 2026 announced he was leaving again, for OpenAI.',
   o: 'Nearly every model further in is built on it. Its parallelism let capital turn straight into capability: scaling up became a matter of buying more chips.',
-  s: [['Attention Is All You Need', W + 'Attention_Is_All_You_Need'], ['arXiv 1706.03762', 'https://arxiv.org/abs/1706.03762']] },
+  s: [['arXiv 1706.03762 (v1 and v7)', 'https://arxiv.org/abs/1706.03762'], ['Attention Is All You Need', W + 'Attention_Is_All_You_Need'],
+      ['U of T News, 21 June 2017', 'https://www.utoronto.ca/news/making-impact-u-t-undergrad-co-authors-important-machine-learning-study-google'],
+      ['TechCrunch, 2 August 2024', 'https://techcrunch.com/2024/08/02/character-ai-ceo-noam-shazeer-returns-to-google/'],
+      ['9to5Google, 17 June 2026', 'https://9to5google.com/2026/06/17/geminis-co-lead-is-leaving-google-to-join-openai/']],
+  see: ['attention14', 'gpt1', 'bert'] },
 
 { id: 'gpt1', d: '2018-06-11', t: 'GPT', th: 'model', lab: 'openai', w: 2,
   x: 'OpenAI’s first Generative Pre-trained Transformer showed that training a Transformer to predict the next word across thousands of unpublished books, then briefly fine-tuning it, beat specialised systems on a range of language tasks.',
@@ -1292,6 +1319,12 @@ const EVENTS = [
   o: 'Human judgement compressed into a reward signal. The corrective feedback becomes a training method.',
   s: [['Reinforcement learning from human feedback', W + 'Reinforcement_learning_from_human_feedback']] },
 
+{ id: 'chinchilla', d: '2022-03-29', t: 'Chinchilla: models were undertrained', short: 'Chinchilla', th: 'learn', w: 2,
+  x: 'Jordan Hoffmann and colleagues at DeepMind trained more than 400 language models to find the best way to split a fixed computing budget between the size of a model and the amount of text it learns from. The answer was to grow both equally, doubling the training tokens with every doubling of parameters, which meant the large models of the day were “significantly undertrained”. Chinchilla, given the same budget as DeepMind’s 280-billion-parameter Gopher but with 70 billion parameters and four times the data, beat Gopher, GPT-3 and Megatron-Turing NLG across a wide range of tasks, and was cheaper to run.',
+  o: 'The scaling laws, further out, told capital what a dollar of compute buys. This paper revised the rate: models had been scaled up while their training data stayed the same, and the next dollars were better spent on data.',
+  s: [['Hoffmann et al. (arXiv 2203.15556)', 'https://arxiv.org/abs/2203.15556'], ['Chinchilla (language model)', W + 'Chinchilla_(language_model)']],
+  see: ['scaling'] },
+
 { id: 'lemoine', d: '2022-06-11', t: 'Lemoine and LaMDA', th: 'hyp', w: 2,
   x: 'The Washington Post reported that the Google engineer Blake Lemoine believed the company’s chatbot LaMDA was sentient, on the strength of his conversations with it. Google put him on leave and fired him the following month.',
   o: 'ELIZA’s effect, with a far better model on the other end. The question of what is in the room went mainstream.',
@@ -1300,6 +1333,17 @@ const EVENTS = [
 { id: 'sd', d: '2022-08-22', t: 'Stable Diffusion', th: 'model', lab: 'other', org: 'Stability AI', w: 1,
   x: 'Stability AI released Stable Diffusion, an image generator whose weights anyone could download and run on a home graphics card, a few months after OpenAI’s DALL-E 2 and Midjourney opened to users.',
   s: [['Stable Diffusion', W + 'Stable_Diffusion']] },
+
+{ id: 'chip-controls', d: '2022-10-07', t: 'US export controls on AI chips', th: 'cap', w: 2,
+  x: 'The US Commerce Department’s Bureau of Industry and Security restricted exports to China of advanced computing chips and of equipment for making chips, and barred US persons from supporting chipmaking at certain plants in China without a licence. Its announcement spoke of chips “essential for highly capable artificial intelligence applications”, and the rule noted China’s stated aim to lead the world in AI by 2030. The controls caught chips with both high computing power and fast chip-to-chip links. Nvidia answered with versions for China, the A800 and then the H800, which a chip industry source told Reuters had about half the H100’s chip-to-chip transfer rate. A tighter rule in October 2023 dropped the chip-to-chip test those designs were built around. DeepSeek trained V3 on H800s.',
+  o: 'Capability measured in law, and chips engineered to sit just under the line. Less than four years later the same department’s controls reached the models themselves.',
+  s: [['BIS press release, 7 October 2022', 'https://www.bis.gov/press-release/commerce-implements-new-export-controls-advanced-computing-semiconductor-manufacturing-items-peoples'],
+      ['Federal Register, 87 FR 62186 (13 October 2022)', 'https://www.govinfo.gov/content/pkg/FR-2022-10-13/html/2022-21658.htm'],
+      ['Reuters on the H800 (Malay Mail, 22 March 2023)', 'https://www.malaymail.com/news/money/2023/03/22/nvidia-tweaks-flagship-h100-chip-for-export-to-china-as-h800/60917'],
+      ['CSET on the October 2023 update', 'https://cset.georgetown.edu/article/bis-2023-update-explainer/'],
+      ['DeepSeek-V3 Technical Report (arXiv 2412.19437)', 'https://arxiv.org/abs/2412.19437'],
+      ['Engadget, 30 June 2026: Commerce lifts the controls on Fable 5 and Mythos 5', 'https://engadget.com/2205599/anthropic-redeploy-mythos-fable-ai-models/']],
+  see: ['fable', 'deepseekv3'] },
 
 { id: 'chatgpt', d: '2022-11-30', t: 'ChatGPT', th: 'model', lab: 'openai', w: 3,
   x: 'OpenAI released ChatGPT, a chat interface to a GPT-3.5 model tuned with human feedback, as a “research preview”. It passed a million users in five days and an estimated 100 million within two months, at the time the fastest adoption of any consumer app.',
@@ -1465,7 +1509,8 @@ const EVENTS = [
 { id: 'fable', d: '2026-06-12', t: 'Fable 5 and Mythos 5 suspended', short: 'Fable and Mythos paused', th: 'cap', w: 2,
   x: 'Anthropic released Claude Fable 5 and Claude Mythos 5 on 9 June. Three days later it suspended access to both to comply with US Department of Commerce export controls. The controls were lifted on 30 June and access returned on 1 July.',
   o: 'Frontier models treated as strategic exports, the way chips already were. The suspension lasted eighteen days.',
-  s: [['Anthropic’s statement', 'https://www.anthropic.com/news/fable-mythos-access']] },
+  s: [['Anthropic’s statement', 'https://www.anthropic.com/news/fable-mythos-access'],
+      ['Engadget, 30 June 2026', 'https://engadget.com/2205599/anthropic-redeploy-mythos-fable-ai-models/']] },
 
 { id: 'frontiermath', d: '2026-06-13', t: 'FrontierMath’s top tier falls', th: 'reck', w: 1,
   x: 'Epoch AI’s evaluations, as reported in June, put Claude Fable 5 at 88 percent on Tier 4 of FrontierMath, its research-level problems that take expert mathematicians hours or days, against roughly 75 percent for OpenAI’s GPT-5.5. In January, Anthropic’s best public model had scored under 10 percent.',
