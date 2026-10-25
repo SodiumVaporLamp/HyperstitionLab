@@ -1,0 +1,1125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Type a word: its AQ total becomes the law of a Life-like universe and its letters its starting shape, run beside Conway's Life, which is 135, like CONWAY.">
+<meta property="og:title" content="Codex">
+<meta property="og:description" content="Type a word: its AQ total becomes the law of a Life-like universe and its letters its starting shape, run beside Conway's Life, which is 135, like CONWAY.">
+<meta name="twitter:card" content="summary">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>Codex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Major+Mono+Display&display=swap">
+<style>
+:root {
+  /* Layout: the SVL field-manual column. Masthead with a live readout; the instrument (word, zone card,
+     two dishes side by side from 760px); then the notes. Tokens are Numogram Lab's, so the pages match. */
+  --bg: #E9ECEB;
+  --surface: #F5F7F6;
+  --ink: #15181A;
+  --muted: #586168;
+  --rule: #C6CDCE;
+  --tc: #9A7A00;
+  --warp: #6E4FD0;
+  --plex: #C23B5A;
+  --tc-tint: #E0DECF;
+  --warp-tint: #DAD9E8;
+  --plex-tint: #E4D7DA;
+  --display: "Major Mono Display", "IBM Plex Mono", ui-monospace, monospace;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --t-xs: 12px;
+  --t-sm: 13.5px;
+  --t-md: 15px;
+  --t-lg: 19px;
+  --t-xl: 26px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101316; --surface: #171B1F; --ink: #E3E7E5; --muted: #9AA3A9; --rule: #2E363C;
+    --tc: #B48C22; --warp: #9070EA; --plex: #DD4A76;
+    --tc-tint: #272418; --warp-tint: #222034; --plex-tint: #2D1B23;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101316; --surface: #171B1F; --ink: #E3E7E5; --muted: #9AA3A9; --rule: #2E363C;
+  --tc: #B48C22; --warp: #9070EA; --plex: #DD4A76;
+  --tc-tint: #272418; --warp-tint: #222034; --plex-tint: #2D1B23;
+  color-scheme: dark;
+}
+
+[hidden] { display: none !important; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: var(--t-md);
+  line-height: 1.55; -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--bg);
+}
+a { color: var(--ink); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.page {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 22px 56px;
+}
+button:focus-visible, input:focus-visible, summary:focus-visible, a:focus-visible, canvas:focus-visible {
+  outline: 2px solid var(--ink); outline-offset: 2px;
+}
+
+/* masthead */
+.mast { display: grid; gap: 10px; padding-block: 4px 18px; }
+.mast h1 {
+  font-family: var(--display); font-weight: 400; margin: 0;
+  font-size: clamp(32px, 9vw, 48px); line-height: 1; letter-spacing: 0.01em;
+}
+.readout {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px;
+  font-family: var(--mono); font-size: var(--t-sm); color: var(--muted); font-variant-numeric: tabular-nums;
+}
+.readout .on { color: var(--ink); }
+.mast p { margin: 0; max-width: 66ch; }
+
+/* instrument */
+.instrument { display: grid; gap: 18px; padding-block: 20px 6px; border-top: 1px solid var(--rule); }
+.top { display: grid; gap: 18px; }
+@media (min-width: 880px) { .top { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: start; column-gap: 28px; } }
+.inputs { display: grid; gap: 12px; min-width: 0; align-content: start; }
+.field { display: grid; gap: 4px; min-width: 0; }
+.label, .field label {
+  font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+}
+#word {
+  font-family: var(--mono); font-size: 22px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink); background: var(--surface); border: 1.5px solid var(--ink); border-radius: 8px;
+  padding: 10px 12px; width: 100%; min-width: 0; box-sizing: border-box;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-family: var(--mono); font-size: var(--t-sm); line-height: 1.3; letter-spacing: 0.03em;
+  border: 1px solid var(--rule); background: transparent; color: var(--ink);
+  padding: 5px 10px; border-radius: 999px; cursor: pointer;
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.sum {
+  margin: 0; font-family: var(--mono); font-size: var(--t-sm); color: var(--muted);
+  font-variant-numeric: tabular-nums; overflow-wrap: anywhere; line-height: 1.6;
+}
+.sum b { color: var(--ink); font-weight: 600; }
+
+/* the code card */
+.card {
+  border: 1.5px solid var(--ink); border-radius: 12px; background: var(--surface);
+  padding: 14px 14px 12px; display: grid; gap: 12px; min-width: 0;
+}
+.card-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 14px; }
+.card-head h2 { margin: 0; font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.trits { font-family: var(--mono); font-size: var(--t-sm); color: var(--muted); font-variant-numeric: tabular-nums; }
+.zones { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.z {
+  display: grid; justify-items: center; align-content: center; gap: 3px; min-width: 0;
+  border: 1px solid var(--rule); border-radius: 8px; padding: 7px 2px 6px; background: var(--bg);
+  font-family: var(--mono);
+}
+.z .zn { display: inline-flex; align-items: center; gap: 5px; font-size: 18px; font-weight: 500; line-height: 1; }
+.z .za { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.z .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.z.tc .dot { background: var(--tc); }
+.z.warp .dot { background: var(--warp); }
+.z.plex .dot { background: var(--plex); }
+.z.hold { border: 1.5px solid var(--ink); }
+.z.hold .za { color: var(--ink); }
+.z.ignite { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.z.ignite .za { color: var(--bg); }
+.rule-line { display: grid; gap: 2px; }
+.rule-line .bsr { margin: 0; font-family: var(--mono); font-size: var(--t-lg); line-height: 1.3; overflow-wrap: anywhere; }
+.rule-line p { margin: 0; font-size: var(--t-sm); }
+.notes { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: var(--t-sm); }
+.notes:empty { display: none; }
+.cap { margin: 0; font-family: var(--mono); font-size: var(--t-xs); color: var(--muted); line-height: 1.55; }
+.cap .reg { color: var(--ink); white-space: nowrap; }
+.cap .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 4px; vertical-align: 0.05em; }
+.cap .dot.tc { background: var(--tc); }
+.cap .dot.warp { background: var(--warp); }
+.cap .dot.plex { background: var(--plex); }
+
+/* dishes */
+.dishes { display: grid; gap: 14px; }
+@media (min-width: 760px) { .dishes { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.dish {
+  margin: 0; border: 1px solid var(--rule); border-radius: 12px; background: var(--surface);
+  padding: 10px; display: grid; gap: 8px; min-width: 0; align-content: start;
+}
+.dish-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; }
+.dish-head h3 { margin: 0; font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.dish-head .law { font-family: var(--mono); font-size: var(--t-sm); }
+.badge {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; border: 1px solid var(--rule);
+  border-radius: 999px; padding: 1px 8px; color: var(--muted); white-space: nowrap;
+}
+.dish canvas {
+  display: block; width: 100%; max-width: 100%; aspect-ratio: 4 / 3; height: auto;
+  background: var(--bg); border-radius: 8px;
+}
+.dish-foot { display: grid; gap: 3px; }
+.count { margin: 0; font-family: var(--mono); font-size: var(--t-sm); color: var(--muted); font-variant-numeric: tabular-nums; }
+.fate { margin: 0; font-size: var(--t-sm); min-height: 2.9em; }
+.fate.pending { color: var(--muted); }
+
+/* transport */
+.transport { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.btn {
+  font-family: var(--mono); font-size: 14px; border: 1px solid var(--ink); background: var(--ink); color: var(--bg);
+  border-radius: 6px; padding: 8px 14px; cursor: pointer; white-space: nowrap; min-width: 84px;
+}
+.btn.ghost { background: transparent; color: var(--ink); min-width: 0; }
+.btn:hover { opacity: 0.88; }
+.speed { display: inline-flex; align-items: center; gap: 6px; }
+.note { margin: 0; font-size: var(--t-sm); color: var(--muted); max-width: 70ch; }
+
+/* reading sections */
+.panel { padding-block: 30px 4px; display: grid; gap: 14px; }
+.panel h2 { font-family: var(--display); font-weight: 400; font-size: var(--t-xl); margin: 0; letter-spacing: 0.02em; text-wrap: balance; }
+.cols { display: grid; gap: 14px 32px; }
+@media (min-width: 880px) { .cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.cols p, .panel > p { margin: 0; max-width: 66ch; }
+.limits { display: grid; gap: 14px; }
+@media (min-width: 880px) { .limits { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; } }
+.limit { display: grid; gap: 6px; align-content: start; border-top: 1.5px solid var(--ink); padding-top: 10px; min-width: 0; }
+.limit h3 { margin: 0; font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
+.limit p { margin: 0; font-size: var(--t-sm); }
+.odds { display: grid; gap: 10px; }
+@media (min-width: 640px) { .odds { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.stat { border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); padding: 10px 12px; display: grid; gap: 2px; min-width: 0; }
+.stat .v { font-family: var(--mono); font-size: var(--t-lg); font-variant-numeric: tabular-nums; }
+.stat .k { font-size: var(--t-sm); color: var(--muted); }
+details.terms { border-top: 1px solid var(--rule); padding-top: 10px; }
+details.terms > summary { cursor: pointer; font-family: var(--mono); font-size: var(--t-sm); }
+.termlist { display: flex; flex-wrap: wrap; gap: 4px 6px; padding: 10px 0 0; margin: 0; list-style: none; }
+.termlist li { font-family: var(--mono); font-size: 12px; border: 1px solid var(--rule); border-radius: 6px; padding: 2px 7px; font-variant-numeric: tabular-nums; }
+.termlist li.hit { border-color: var(--ink); background: var(--ink); color: var(--bg); }
+.checks { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.checks li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: baseline; font-size: var(--t-sm); }
+.checks .ok { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; border: 1px solid var(--ink); border-radius: 4px; padding: 0 5px; }
+
+/* footer */
+.foot { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--rule); display: grid; gap: 14px; font-size: var(--t-sm); }
+.foot h2 { font-family: var(--mono); font-size: var(--t-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 0; font-weight: 500; }
+.rules { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 16px; margin: 0; max-width: 90ch; }
+.rules dt { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.rules dd { margin: 0; }
+.src { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.src span { color: var(--muted); }
+
+/* ---------- shared by all four pages: build.py appends this to each page's stylesheet ----------
+   The header and footer markup comes from nav() and foot() in build.py. Every page defines
+   --mono, --sans, --ink, --muted, --t-sm, which this relies on. */
+.svl-nav { margin: 0; font-family: var(--mono); font-size: var(--t-sm); line-height: 1.6; color: var(--muted); }
+.svl-nav a, .svl-foot a { color: var(--muted); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.svl-nav a:hover, .svl-foot a:hover { color: var(--ink); }
+.svl-nav [aria-current="page"] { color: var(--ink); }
+.svl-nav a, .svl-nav [aria-current="page"], .svl-foot a { white-space: nowrap; }
+.svl-foot {
+  display: flex; flex-wrap: wrap; gap: 6px 24px; justify-content: space-between; width: 100%;
+  margin: 4px 0 0; font-family: var(--sans); font-size: var(--t-sm); line-height: 1.6; color: var(--muted);
+}
+
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header class="mast">
+    <nav class="svl-nav" aria-label="SVL’s pages"><a href="index.html">Numogram Lab</a> <span class="sep" aria-hidden="true">·</span> <a href="time-sorcery.html">Time-Sorcery</a> <span class="sep" aria-hidden="true">·</span> <a href="vanishing-point.html">Vanishing Point</a> <span class="sep" aria-hidden="true">·</span> <span aria-current="page">Codex</span></nav>
+    <h1>codex</h1>
+    <div class="readout" id="readout" aria-live="polite"><span>AQ 135</span><span>B3/S23</span><span class="on">Conway’s Life</span></div>
+    <p>Conway’s Life judges every cell by its 3×3 block, which holds 0 to 9 live cells: ten zones, like the Numogram’s. Write what each zone does as one base-3 digit and the rule becomes a number. Conway’s Life is 135, and in AQ, so is CONWAY. Type a word: its AQ total becomes a law, its letters become a body, and the body runs under its own law beside Conway’s.</p>
+  </header>
+
+  <main>
+  <section class="instrument" aria-label="Codex">
+    <div class="top">
+      <div class="inputs">
+        <div class="field">
+          <label for="word">Word or phrase</label>
+          <input id="word" type="text" value="CONWAY" maxlength="120" autocomplete="off" autocapitalize="characters" spellcheck="false">
+        </div>
+        <div class="chips" id="presets" role="group" aria-label="Words to try"></div>
+        <p class="sum" id="sum"></p>
+      </div>
+      <div class="card" id="card">
+        <div class="card-head"><h2>Its physics</h2><span class="trits" id="trits"></span></div>
+        <div class="zones" id="zones" role="img" aria-label="Zone table"></div>
+        <p class="cap">Each column is a syzygy, two zones that sum to nine. Filled: ignite. Outlined: hold. Plain: void. Dots mark the Numogram’s regions: <span class="reg"><i class="dot tc" aria-hidden="true"></i>Time-Circuit</span>, <span class="reg"><i class="dot warp" aria-hidden="true"></i>Warp</span>, <span class="reg"><i class="dot plex" aria-hidden="true"></i>Plex</span>.</p>
+        <div class="rule-line"><p class="bsr" id="bsr"></p><p id="plain"></p></div>
+        <ul class="notes" id="notes"></ul>
+      </div>
+    </div>
+
+    <div class="dishes">
+      <figure class="dish" id="dish-own">
+        <div class="dish-head"><h3>Under its own law</h3><span class="law" id="own-law"></span></div>
+        <canvas id="cv-own" role="img" aria-label="The word’s body under its own law"></canvas>
+        <figcaption class="dish-foot"><p class="count" id="own-count"></p><p class="fate pending" id="own-fate" aria-live="polite"></p></figcaption>
+      </figure>
+      <figure class="dish" id="dish-life">
+        <div class="dish-head"><h3>Under Conway’s law</h3><span class="law">B3/S23</span></div>
+        <canvas id="cv-life" role="img" aria-label="The word’s body under Conway’s Life"></canvas>
+        <figcaption class="dish-foot"><p class="count" id="life-count"></p><p class="fate pending" id="life-fate" aria-live="polite"></p></figcaption>
+      </figure>
+    </div>
+
+    <div class="transport">
+      <button type="button" class="btn" id="play">Pause</button>
+      <button type="button" class="btn ghost" id="step">Step</button>
+      <button type="button" class="btn ghost" id="restart">Restart</button>
+      <span class="speed" role="group" aria-label="Speed">
+        <span class="label">Speed</span>
+        <button type="button" class="chip" data-speed="3" aria-pressed="false">3/s</button>
+        <button type="button" class="chip" data-speed="10" aria-pressed="true">10/s</button>
+        <button type="button" class="chip" data-speed="30" aria-pressed="false">30/s</button>
+      </span>
+    </div>
+    <p class="note" id="flash-note" hidden>Slowed to three generations a second while large areas flicker.</p>
+  </section>
+
+  <section class="panel" aria-labelledby="h-how">
+    <h2 id="h-how">how a word becomes a universe</h2>
+    <div class="cols">
+      <p>A Life-like rule asks one question of each cell: how many of the nine cells in its 3×3 block, the cell and its eight neighbours, are alive. The answer runs from 0 to 9, the ten digits the Numogram lays out as zones. Conway’s rule, born with 3 neighbours and surviving with 2 or 3, says exactly this in zone terms: zone 3 ignites, zone 4 holds, and every other zone goes void.</p>
+      <p>Give each zone a base-3 digit, 0 for void, 1 for hold and 2 for ignite, and read them as one number with zone 0 as the lowest digit. Conway’s Life comes out as 2&nbsp;×&nbsp;27&nbsp;+&nbsp;1&nbsp;×&nbsp;81&nbsp;=&nbsp;135. Every number below 59,049 is a rule, and a word’s AQ total picks one. Totals here stay under 6,561, so zones 8 and 9 always void.</p>
+      <p>The letters build the starting shape. Each letter or digit becomes a row of live cells as long as its AQ value, from 10 cells for A to 35 for Z, centred and stacked with one empty row between rows; a 0 leaves its row empty. Words with equal totals obey the same law but start from different bodies, which is gematria’s claim made literal: TIME and DEATH are both 83.</p>
+      <p>Both dishes run on an unbounded plane. A fate is called when the pattern repeats exactly, as a still life, a cycle or a single traveller, or when its population has repeated for 600 generations while objects fly away. A run that passes 25,000 cells is called an explosion; one still changing after 10,000 generations, or about fifteen seconds of computing, is reported as unsettled.</p>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-limits">
+    <h2 id="h-limits">what the code can’t do</h2>
+    <div class="limits">
+      <div class="limit">
+        <h3>Twins</h3>
+        <p>A live cell always counts itself, so zone 0 only ever judges dead cells, where void and hold mean the same thing. Every multiple of 3 therefore has a twin one above it: 136 is Conway’s Life too, and ORACLE (108) shares GLIDER’s physics (109). Zone 9 is the mirror case. The 59,049 codes give 26,244 different physics.</p>
+      </div>
+      <div class="limit">
+        <h3>No flips</h3>
+        <p>A zone can void, hold or ignite, but it can’t flip, giving birth to a dead cell while killing a live one at the same count. Rules that need a flip have no number here, among them HighLife (B36/S23), Seeds (B2/S) and Day &amp; Night (B3678/S34678). The code reaches 26,244 of the 262,144 Life-like rules, about one in ten.</p>
+      </div>
+      <div class="limit">
+        <h3>Empty space ignites</h3>
+        <p>A total that leaves a remainder of 2 when divided by 3 makes zone 0 ignite: every empty cell with no live neighbours is born, so the whole background flips each generation. That happens for 33% of common English words. The dish follows Golly’s method and draws only the cells that differ from the background, so the screen never strobes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-odds">
+    <h2 id="h-odds">how lucky is conway?</h2>
+    <p>Less than it looks. Totals of short words bunch together: the average letter is worth about 20.6 in AQ, so six-letter words average about 124, and 135 is well inside their usual range. Before computing anything, a list of 50 Life terms was fixed (below) to ask how often such a search finds a hit by luck.</p>
+    <div class="odds">
+      <div class="stat"><span class="v">3.7%</span><span class="k">of 7,113 common six-letter words land on 135 or 136</span></div>
+      <div class="stat"><span class="v">41%</span><span class="k">chance that 50 Life terms produce at least one hit by luck (0.51 expected)</span></div>
+      <div class="stat"><span class="v">706</span><span class="k">of the 47,973 commonest English words are Conway’s Life, ALWAYS and ASSERT among them</span></div>
+    </div>
+    <p class="note">The reading order is a choice too. Read the zone digits the other way round and Conway’s Life is 1701. Word counts use the top 50,000 words in the wordfreq list, letters only.</p>
+    <details class="terms">
+      <summary>The 50 Life terms, fixed in advance, with their AQ totals</summary>
+      <ul class="termlist"><li class="hit">CONWAY 135</li><li>JOHN CONWAY 218</li><li>JOHN HORTON CONWAY 362</li><li>GOSPER 134</li><li>BILL GOSPER 205</li><li>MARTIN GARDNER 259</li><li>GARDNER 130</li><li>LIFE 68</li><li>GAME OF LIFE 169</li><li>CELLULAR AUTOMATON 357</li><li>AUTOMATON 201</li><li>CELL 68</li><li>GENERATION 198</li><li>NEIGHBOR 150</li><li>BIRTH 102</li><li>SURVIVAL 196</li><li>GLIDER 109</li><li>GLIDER GUN 178</li><li>GUN 69</li><li>SPACESHIP 177</li><li>BLINKER 134</li><li>BLOCK 88</li><li>BEEHIVE 119</li><li>LOAF 70</li><li>BOAT 74</li><li>SHIP 88</li><li>TUB 70</li><li>POND 85</li><li>TOAD 76</li><li>BEACON 94</li><li>PULSAR 141</li><li>PENTADECATHLON 264</li><li>OSCILLATOR 214</li><li>STILL LIFE 185</li><li>METHUSELAH 202</li><li>ACORN 96</li><li>DIEHARD 112</li><li>R PENTOMINO 229</li><li>PUFFER 126</li><li>RAKE 71</li><li>BREEDER 120</li><li>EATER 94</li><li>REFLECTOR 183</li><li>ASH 55</li><li>SOUP 107</li><li>GARDEN OF EDEN 206</li><li>GOLLY 116</li><li>HASHLIFE 140</li><li>LIFEWIKI 156</li><li>CATAGOLUE 166</li></ul>
+    </details>
+  </section>
+
+  <section class="panel" aria-labelledby="h-checks">
+    <h2 id="h-checks">checks</h2>
+    <ul class="checks">
+      <li><span class="ok">PASS</span><span>LifeWiki’s benchmarks, reproduced exactly: the R-pentomino settles at generation 1103 with 116 cells and six gliders, the acorn at 5206 with 633 cells and 13 gliders, and die hard vanishes at 130.</span></li>
+      <li><span class="ok">PASS</span><span>Populations match lifelib, an independent engine, at every generation through 500 for 20 words, under their own law and under Conway’s: 40 runs, the largest reaching 464,588 cells. Rules where empty space ignites are compared on even generations, the only ones where the true population is finite.</span></li>
+      <li><span class="ok">PASS</span><span>The zone decoder agrees with a separate Python version on all 59,049 codes, tested against all 512 possible 3×3 blocks.</span></li>
+      <li><span class="ok">PASS</span><span>AQ values match Numogram Lab’s on 26 test strings, including accents and digits, and the body encoding matches a second, independent implementation.</span></li>
+    </ul>
+  </section>
+  </main>
+
+  <footer class="foot">
+    <h2>Rules</h2>
+    <dl class="rules">
+      <dt>AQ</dt><dd>A&nbsp;=&nbsp;10 through Z&nbsp;=&nbsp;35, with digits 0–9 at face value. Accents are dropped before counting, as in Numogram Lab.</dd>
+      <dt>Zones</dt><dd>A cell’s zone is the number of live cells in its 3×3 block, itself included. A dead cell with n live neighbours sits in zone n; a live one sits in zone n&nbsp;+&nbsp;1.</dd>
+      <dt>Code</dt><dd>The AQ total modulo 59,049, read in base 3 with zone 0 as the lowest digit: 0 void (dead next), 1 hold (keep its state), 2 ignite (alive next).</dd>
+      <dt>Body</dt><dd>One row per letter or digit, as many cells long as its AQ value, starting at x&nbsp;=&nbsp;−⌊L/2⌋, with rows two apart. Other characters are skipped.</dd>
+      <dt>Empty space</dt><dd>Rules with zone 0 igniting follow Golly’s emulation: without S8 the background flips every generation, with S8 it lights once and stays lit. Counts and drawings show the cells that differ from it.</dd>
+      <dt>Fates</dt><dd>Exact repeats give still lifes, cycles and travellers. Objects count as thrown off once their surroundings were empty 200 generations earlier and the population has repeated for 600. Runs stop at 25,000 cells or 10,000 generations.</dd>
+    </dl>
+    <h2>Sources</h2>
+    <ul class="src">
+      <li><a href="https://dataswamp.org/~john/sites/ccru/id(entity)/glossary.htm" target="_blank" rel="noopener">Ccru Glossary</a> <span>· Alphanumeric Qabbala, A&nbsp;=&nbsp;10 to Z&nbsp;=&nbsp;35, a continuous decimal-alphabetic system</span></li>
+      <li><a href="https://conwaylife.com/wiki/R" target="_blank" rel="noopener">LifeWiki: R-pentomino</a>, <a href="https://conwaylife.com/wiki/Acorn" target="_blank" rel="noopener">Acorn</a>, <a href="https://conwaylife.com/wiki/Die_hard" target="_blank" rel="noopener">Die hard</a> <span>· the benchmark numbers</span></li>
+      <li><a href="https://golly.sourceforge.io/Help/Algorithms/QuickLife.html" target="_blank" rel="noopener">Golly: QuickLife</a> <span>· how rules with B0 are emulated</span></li>
+      <li><a href="https://pypi.org/project/python-lifelib/" target="_blank" rel="noopener">lifelib</a> <span>· the independent engine for the population checks</span></li>
+      <li><a href="https://pypi.org/project/wordfreq/" target="_blank" rel="noopener">wordfreq</a> <span>· the English word list behind the odds</span></li>
+    </ul>
+    <div class="svl-foot"><span>Built by SVL with Claude, October 2026.</span><span>Elsewhere: <a href="index.html">Numogram Lab</a> <span class="sep" aria-hidden="true">·</span> <a href="time-sorcery.html">Time-Sorcery</a> <span class="sep" aria-hidden="true">·</span> <a href="vanishing-point.html">Vanishing Point</a> <span class="sep" aria-hidden="true">·</span> <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a></span></div>
+  </footer>
+</div>
+
+<script id="codex-engine">
+/* Codex engine: AQ, the ternary zone code, word bodies, a sparse unbounded Life-like engine
+   with Golly-style B0 emulation, and a fate classifier. Pure JS, no DOM; exposes CodexEngine. */
+(function (root) {
+  'use strict';
+
+  /* ---------- AQ ----------
+     Ccru glossary, "Alphanumeric Qabbala": a continuous decimal-alphabetic system, A = 10 ... Z = 35.
+     Digits keep their face value. Accents are dropped first, as Numogram Lab does. */
+  function glyphs(text) {
+    const out = [];
+    for (const ch of String(text == null ? '' : text).normalize('NFD')) {
+      const c = ch.codePointAt(0);
+      if (c >= 48 && c <= 57) out.push({ ch: ch, v: c - 48 });
+      else if (c >= 65 && c <= 90) out.push({ ch: ch, v: c - 55 });
+      else if (c >= 97 && c <= 122) out.push({ ch: ch.toUpperCase(), v: c - 87 });
+    }
+    return out;
+  }
+  function aq(text) {
+    let t = 0;
+    for (const g of glyphs(text)) t += g.v;
+    return t;
+  }
+
+  /* ---------- the ternary zone code ----------
+     Zone k = number of live cells in a cell's 3x3 block (itself and its eight neighbours), 0..9.
+     Trit k of the code (little-endian base 3) says what zone k does: 0 void, 1 hold, 2 ignite. */
+  const NCODES = 59049;
+  function norm(code) {
+    const c = Math.floor(Number(code) || 0) % NCODES;
+    return c < 0 ? c + NCODES : c;
+  }
+  function trits(code) {
+    let n = norm(code);
+    const t = new Array(10);
+    for (let k = 0; k < 10; k++) { t[k] = n % 3; n = (n - t[k]) / 3; }
+    return t;
+  }
+  function fromTrits(t) {
+    let c = 0;
+    for (let k = 9; k >= 0; k--) c = c * 3 + t[k];
+    return c;
+  }
+  // A dead cell with n live neighbours has block sum n; a live one has block sum n + 1.
+  function decode(code) {
+    const t = trits(code);
+    let B = 0, S = 0;
+    for (let n = 0; n <= 8; n++) {
+      if (t[n] === 2) B |= 1 << n;
+      if (t[n + 1] >= 1) S |= 1 << n;
+    }
+    return { code: norm(code), trits: t, B: B, S: S };
+  }
+  function bs(B, S) {
+    let b = 'B', s = '/S';
+    for (let n = 0; n <= 8; n++) {
+      if ((B >> n) & 1) b += n;
+      if ((S >> n) & 1) s += n;
+    }
+    return b + s;
+  }
+  // Codes with identical physics: zone 0 only ever sees dead cells (void = hold there),
+  // zone 9 only ever sees live cells (hold = ignite there).
+  function twins(code) {
+    const t = trits(code);
+    const z0 = t[0] === 2 ? [2] : [0, 1];
+    const z9 = t[9] === 0 ? [0] : [1, 2];
+    const out = [];
+    for (const a of z0) for (const b of z9) {
+      const u = t.slice();
+      u[0] = a; u[9] = b;
+      out.push(fromTrits(u));
+    }
+    return out.sort(function (a, b) { return a - b; });
+  }
+  // The code (if any) for a Life-like rule given as masks; null when a zone would need a "flip".
+  function encode(B, S) {
+    const t = new Array(10).fill(0);
+    for (let s = 0; s <= 9; s++) {
+      const dead = s <= 8 ? (B >> s) & 1 : 0;           // dead cell, block sum s, next state
+      const live = s >= 1 ? (S >> (s - 1)) & 1 : 1;     // live cell, block sum s, next state
+      if (s === 0) t[0] = dead ? 2 : 0;
+      else if (s === 9) t[9] = live ? 1 : 0;
+      else if (dead && live) t[s] = 2;
+      else if (!dead && live) t[s] = 1;
+      else if (!dead && !live) t[s] = 0;
+      else return null;                                  // born when dead, dies when alive: a flip
+    }
+    return fromTrits(t);
+  }
+
+  /* ---------- the body ----------
+     Each letter or digit becomes a horizontal bar of AQ(char) cells starting at x = -floor(L/2),
+     one bar per row with one empty row between bars; a 0 digit leaves its row empty. */
+  function body(text) {
+    const cells = [];
+    glyphs(text).forEach(function (g, i) {
+      const L = g.v, x0 = -Math.floor(L / 2), y = 2 * i;
+      for (let x = x0; x < x0 + L; x++) cells.push([x, y]);
+    });
+    return cells;
+  }
+
+  /* ---------- sparse engine ---------- */
+  const OFF = 16384, SH = 15, LIM = 15900;
+  function pack(x, y) { return ((x + OFF) << SH) | (y + OFF); }
+  function ux(k) { return (k >> SH) - OFF; }
+  function uy(k) { return (k & 32767) - OFF; }
+  const ROW = 1 << SH;
+  const D9 = [-ROW - 1, -ROW, -ROW + 1, -1, 0, 1, ROW - 1, ROW, ROW + 1];
+
+  // Open-addressing table of block sums; bit 4 of a value marks a live cell.
+  function Table() { this.alloc(12); }
+  Table.prototype.alloc = function (bits) {
+    this.bits = bits; this.cap = 1 << bits; this.mask = this.cap - 1; this.shift = 32 - bits;
+    this.keys = new Int32Array(this.cap).fill(-1);
+    this.vals = new Uint8Array(this.cap);
+    this.used = new Int32Array(this.cap);
+    this.n = 0;
+  };
+  Table.prototype.reset = function (expected) {
+    let bits = this.bits;
+    while ((1 << bits) < expected * 2) bits++;
+    if (bits !== this.bits) { this.alloc(bits); return; }
+    const keys = this.keys, vals = this.vals, used = this.used;
+    for (let i = 0; i < this.n; i++) { keys[used[i]] = -1; vals[used[i]] = 0; }
+    this.n = 0;
+  };
+
+  function stepList(live, Bm, Sm, T) {
+    const n = live.length;
+    T.reset(n * 9 + 16);
+    const keys = T.keys, vals = T.vals, used = T.used, mask = T.mask, shift = T.shift;
+    let cnt = 0;
+    for (let j = 0; j < n; j++) {
+      const k0 = live[j];
+      for (let d = 0; d < 9; d++) {
+        const k = k0 + D9[d];
+        let i = Math.imul(k, -1640531535) >>> shift;
+        for (;;) {
+          const kk = keys[i];
+          if (kk === k) break;
+          if (kk === -1) { keys[i] = k; used[cnt++] = i; break; }
+          i = (i + 1) & mask;
+        }
+        vals[i] += d === 4 ? 17 : 1;
+      }
+    }
+    T.n = cnt;
+    const out = new Int32Array(cnt);
+    let m = 0, changed = 0;
+    for (let u = 0; u < cnt; u++) {
+      const i = used[u], v = vals[i], alive = v >> 4, nb = (v & 15) - alive;
+      const nxt = alive ? (Sm >> nb) & 1 : (Bm >> nb) & 1;
+      if (nxt) out[m++] = keys[i];
+      if (nxt !== alive) changed++;
+    }
+    return { live: out.slice(0, m), changed: changed };
+  }
+
+  function bbox(live) {
+    if (!live.length) return null;
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    for (let j = 0; j < live.length; j++) {
+      const k = live[j], x = (k >> SH) - OFF, y = (k & 32767) - OFF;
+      if (x < x0) x0 = x; if (x > x1) x1 = x;
+      if (y < y0) y0 = y; if (y > y1) y1 = y;
+    }
+    return { x0: x0, x1: x1, y0: y0, y1: y1 };
+  }
+
+  const comp = function (m) { return (~m) & 511; };
+  const rev = function (m) { let r = 0; for (let n = 0; n <= 8; n++) if ((m >> n) & 1) r |= 1 << (8 - n); return r; };
+
+  /* A universe stores the cells that differ from the background. Rules with B0 are emulated as
+     Golly does: without S8 the background flips every generation, and the stored pattern is run by
+     NOT(rule) on even generations and REVERSE(rule) on odd ones; with S8 the background lights once
+     at generation 1 and stays lit. */
+  function Universe(cellsXY, B, S) {
+    this.B = B; this.S = S;
+    this.mode = (B & 1) ? (((S >> 8) & 1) ? 'flipped' : 'alternating') : 'plain';
+    if (this.mode === 'plain') this.rules = [[B, S]];
+    else if (this.mode === 'alternating') this.rules = [[comp(B), comp(S)], [rev(S), rev(B)]];
+    else this.rules = [[comp(B), comp(S)], [comp(rev(S)), comp(rev(B))]];
+    const seen = new Set(), arr = [];
+    for (const c of cellsXY) {
+      const k = pack(c[0], c[1]);
+      if (!seen.has(k)) { seen.add(k); arr.push(k); }
+    }
+    this.live = Int32Array.from(arr);
+    this.gen = 0;
+    this.changed = 0;
+    this.T = new Table();
+    this.box = bbox(this.live);
+    this.outOfRange = false;
+  }
+  Universe.prototype.ruleIndex = function (g) {
+    if (this.mode === 'plain') return 0;
+    if (this.mode === 'alternating') return g & 1;
+    return g === 0 ? 0 : 1;
+  };
+  Universe.prototype.background = function (g) {
+    if (g === undefined) g = this.gen;
+    if (this.mode === 'plain') return 0;
+    if (this.mode === 'alternating') return g & 1;
+    return g === 0 ? 0 : 1;
+  };
+  Universe.prototype.step = function () {
+    if (this.outOfRange) return false;
+    const r = this.rules[this.ruleIndex(this.gen)];
+    const res = stepList(this.live, r[0], r[1], this.T);
+    this.live = res.live;
+    this.changed = res.changed;
+    this.gen++;
+    this.box = bbox(this.live);
+    const b = this.box;
+    if (b && (b.x0 < -LIM || b.x1 > LIM || b.y0 < -LIM || b.y1 > LIM)) this.outOfRange = true;
+    return true;
+  };
+  Universe.prototype.cells = function () {
+    const out = new Array(this.live.length);
+    for (let j = 0; j < this.live.length; j++) out[j] = [ux(this.live[j]), uy(this.live[j])];
+    return out;
+  };
+
+  /* ---------- fate classifier ---------- */
+  function mix(v, seed) {
+    let h = Math.imul(v ^ seed, 0x85ebca6b);
+    h ^= h >>> 13;
+    h = Math.imul(h, 0xc2b2ae35);
+    h ^= h >>> 16;
+    return h >>> 0;
+  }
+  function shapeKey(live, b) {
+    let h1 = 0, h2 = 0;
+    for (let j = 0; j < live.length; j++) {
+      const k = live[j];
+      const v = ((ux(k) - b.x0) << 15) | (uy(k) - b.y0);
+      h1 = (h1 + mix(v, 0x2c1b3c6d)) >>> 0;
+      h2 = (h2 + mix(v, 0x297a2d39)) >>> 0;
+    }
+    return h1 + ':' + h2 + ':' + live.length;
+  }
+  // Groups of cells within Chebyshev distance 2 of each other.
+  function components(live) {
+    const idx = new Map();
+    for (let j = 0; j < live.length; j++) idx.set(live[j], j);
+    const parent = new Int32Array(live.length);
+    for (let j = 0; j < parent.length; j++) parent[j] = j;
+    const find = function (a) { while (parent[a] !== a) { parent[a] = parent[parent[a]]; a = parent[a]; } return a; };
+    for (let j = 0; j < live.length; j++) {
+      const k = live[j];
+      for (let dx = -2; dx <= 2; dx++) for (let dy = -2; dy <= 2; dy++) {
+        if (!dx && !dy) continue;
+        const o = idx.get(k + dx * ROW + dy);
+        if (o !== undefined) { const a = find(j), c = find(o); if (a !== c) parent[a] = c; }
+      }
+    }
+    const groups = new Map();
+    for (let j = 0; j < live.length; j++) {
+      const r = find(j), x = ux(live[j]), y = uy(live[j]);
+      let g = groups.get(r);
+      if (!g) { g = { n: 0, x0: x, x1: x, y0: y, y1: y }; groups.set(r, g); }
+      g.n++;
+      if (x < g.x0) g.x0 = x; if (x > g.x1) g.x1 = x;
+      if (y < g.y0) g.y0 = y; if (y > g.y1) g.y1 = y;
+    }
+    return Array.from(groups.values());
+  }
+
+  const DEFAULTS = { maxGen: 10000, popCap: 25000, window: 600, maxPeriod: 120, budgetMs: Infinity };
+
+  function Analysis(cellsXY, B, S, opts) {
+    this.opts = Object.assign({}, DEFAULTS, opts || {});
+    this.u = new Universe(cellsXY, B, S);
+    this.pops = [this.u.live.length];
+    this.seen = new Map();
+    this.snaps = [];
+    this.result = null;
+    this.spent = 0;
+    this.examine();
+  }
+  Analysis.prototype.phase = function () { return this.u.background(); };
+  Analysis.prototype.examine = function () {
+    const u = this.u, g = u.gen, pop = u.live.length, o = this.opts;
+    if (pop === 0) { this.result = { kind: 'dies', gen: g }; return; }
+    if (pop > o.popCap) { this.result = { kind: 'explodes', gen: g, pop: pop }; return; }
+    if (u.outOfRange) { this.result = { kind: 'unsettled', gen: g, pop: pop, why: 'range' }; return; }
+    if (g % 100 === 0) {
+      this.snaps.push([g, u.live]);
+      if (this.snaps.length > 8) this.snaps.shift();
+    }
+    const key = shapeKey(u.live, u.box) + ':' + this.phase();
+    const prev = this.seen.get(key);
+    if (prev) {
+      const p = g - prev[0], dx = u.box.x0 - prev[1], dy = u.box.y0 - prev[2];
+      if (!dx && !dy) this.result = { kind: p === 1 ? 'still' : 'osc', from: prev[0], period: p, pop: pop };
+      else this.result = { kind: 'ship', from: prev[0], period: p, dx: dx, dy: dy, pop: pop };
+      return;
+    }
+    this.seen.set(key, [g, u.box.x0, u.box.y0]);
+    if (g >= o.window + 100 && g % 50 === 0) {
+      const per = this.popPeriod();
+      if (per) {
+        const esc = this.escapes();
+        if (esc.count > 0) {
+          let t = g - per;
+          while (t >= 0 && this.pops[t] === this.pops[t + per]) t--;
+          const T = t + 1;
+          this.result = { kind: 'escapes', from: T, period: per, pop: this.pops[T], escapes: esc.count, sizes: esc.sizes };
+          return;
+        }
+      }
+    }
+    if (g >= o.maxGen) this.result = { kind: 'unsettled', gen: g, pop: pop, why: 'horizon' };
+  };
+  Analysis.prototype.popPeriod = function () {
+    const P = this.pops, g = P.length - 1, W = this.opts.window;
+    for (let q = 1; q <= this.opts.maxPeriod; q++) {
+      let ok = true;
+      for (let t = g; t > g - W; t--) if (P[t] !== P[t - q]) { ok = false; break; }
+      if (ok) return q;
+    }
+    return 0;
+  };
+  // Objects whose neighbourhood was empty 200+ generations ago are moving: escaping ships.
+  Analysis.prototype.escapes = function () {
+    const g = this.u.gen;
+    let snap = null;
+    for (let i = this.snaps.length - 1; i >= 0; i--) if (g - this.snaps[i][0] >= 200) { snap = this.snaps[i]; break; }
+    if (!snap) return { count: 0, sizes: [] };
+    const old = new Set(snap[1]);
+    const sizes = [];
+    for (const c of components(this.u.live)) {
+      let hit = false;
+      for (let x = c.x0 - 2; x <= c.x1 + 2 && !hit; x++)
+        for (let y = c.y0 - 2; y <= c.y1 + 2; y++) if (old.has(pack(x, y))) { hit = true; break; }
+      if (!hit) sizes.push(c.n);
+    }
+    return { count: sizes.length, sizes: sizes.sort(function (a, b) { return a - b; }) };
+  };
+  Analysis.prototype.run = function (budgetMs) {
+    const clock = (typeof performance !== 'undefined' && performance.now) ? function () { return performance.now(); } : Date.now;
+    const t0 = clock();
+    while (!this.result) {
+      this.u.step();
+      this.pops.push(this.u.live.length);
+      this.examine();
+      if (this.u.gen % 16 === 0) {
+        const el = clock() - t0;
+        if (el > budgetMs) { this.spent += el; break; }
+      }
+    }
+    if (this.result) this.spent += clock() - t0;
+    if (!this.result && this.spent > this.opts.budgetMs)
+      this.result = { kind: 'unsettled', gen: this.u.gen, pop: this.u.live.length, why: 'time' };
+    return !!this.result;
+  };
+
+  root.CodexEngine = {
+    glyphs: glyphs, aq: aq, NCODES: NCODES, norm: norm, trits: trits, fromTrits: fromTrits,
+    decode: decode, encode: encode, bs: bs, twins: twins, body: body,
+    Universe: Universe, Analysis: Analysis, components: components, pack: pack, ux: ux, uy: uy
+  };
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script>
+<script>
+(function () {
+  'use strict';
+  const E = window.CodexEngine;
+  const LIFE_B = 1 << 3, LIFE_S = (1 << 2) | (1 << 3);
+  const POP_CAP = 25000;
+  const OPTS = { maxGen: 10000, popCap: POP_CAP, budgetMs: 15000 };
+  const PRESETS = ['CONWAY', 'HYPERSTITION', 'GLIDER', 'TIME', 'DEATH', 'MURRUMUR', 'NUMOGRAM', 'CCRU'];
+  const $ = function (id) { return document.getElementById(id); };
+  const fmt = function (n) { return Number(n).toLocaleString('en-US'); };
+  const reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  function region(z) { return (z === 3 || z === 6) ? 'warp' : ((z === 0 || z === 9) ? 'plex' : 'tc'); }
+  const ACT = ['void', 'hold', 'ignite'];
+  function nums(mask) { const a = []; for (let n = 0; n <= 8; n++) if ((mask >> n) & 1) a.push(n); return a; }
+  function list(a) { return a.length <= 1 ? a.join('') : a.slice(0, -1).join(', ') + ' or ' + a[a.length - 1]; }
+  function plain(B, S) {
+    const b = nums(B), s = nums(S);
+    const born = b.length ? 'An empty cell is born with ' + list(b) + ' live neighbour' + (b.length === 1 && b[0] === 1 ? '' : 's') : 'Nothing is ever born';
+    const surv = s.length ? 'a live cell survives with ' + list(s) : 'every live cell dies';
+    return born + '; ' + surv + '.';
+  }
+  function notesFor(aqv, d) {
+    const out = [];
+    const tw = E.twins(d.code).filter(function (c) { return c !== d.code; });
+    if (d.B === LIFE_B && d.S === LIFE_S) out.push('This is Conway’s Life, so both dishes run the same law.');
+    if (tw.length) out.push(tw.join(' and ') + (tw.length === 1 ? ' runs' : ' run') + ' the same physics (see Twins below).');
+    if (d.B & 1) {
+      out.push(((d.S >> 8) & 1 ? 'Zone 0 ignites and zone 9 holds, so empty space lights at generation 1 and stays lit.'
+        : 'Zone 0 ignites, so every empty cell with no live neighbours is born and the whole background flips each generation.') +
+        ' The dish shows only the cells that differ from the background.');
+    } else if (d.B & 2) {
+      out.push('Zone 1 ignites, so any empty cell touching exactly one live cell is born. Nothing here can stop growing: its outermost corners advance a cell every generation.');
+    }
+    if (!d.B) out.push('No zone ignites, so nothing is ever born and this universe can only lose cells.');
+    if (d.code !== aqv) out.push('The total wraps: ' + fmt(aqv) + ' mod 59,049 = ' + fmt(d.code) + '.');
+    return out;
+  }
+  function fateText(r, opts) {
+    if (!r) return 'Working out its fate…';
+    const g = function (n) { return 'generation ' + fmt(n); };
+    switch (r.kind) {
+      case 'dies':
+        return r.gen === 0 ? 'Nothing to run.' : (opts.b0 ? 'Dissolves into the background at ' + g(r.gen) + '.' : 'Dies out at ' + g(r.gen) + '.');
+      case 'still':
+        return r.from === 0 ? 'Never changes: the body is already a still life.' : 'Freezes into a still life of ' + fmt(r.pop) + ' cells at ' + g(r.from) + '.';
+      case 'osc':
+        return 'Settles at ' + g(r.from) + ' into a cycle that repeats every ' + r.period + ' generations.';
+      case 'ship':
+        return (opts.life && r.pop === 5 && r.period === 4) ? 'Becomes a single glider at ' + g(r.from) + '.'
+          : 'Becomes a single traveller at ' + g(r.from) + ', repeating every ' + r.period + ' generations as it moves.';
+      case 'escapes': {
+        const gl = opts.life && r.sizes.every(function (s) { return s === 5; });
+        const noun = gl ? (r.escapes === 1 ? 'glider' : 'gliders') : (r.escapes === 1 ? 'moving object' : 'moving objects');
+        return 'Throws off ' + r.escapes + ' ' + noun + ' and settles by ' + g(r.from) + ', with ' + fmt(r.pop) + ' cells counting ' + (r.escapes === 1 ? 'it' : 'them') + '.';
+      }
+      case 'explodes':
+        return 'Explodes, passing ' + fmt(POP_CAP) + ' cells at ' + g(r.gen) + '.';
+      default:
+        return r.why === 'range' ? 'Outgrows the simulated plane at ' + g(r.gen) + '.' : 'Still changing after ' + fmt(r.gen) + ' generations.';
+    }
+  }
+
+  /* ---------- colors from the theme tokens ---------- */
+  let colors = { bg: '#E9ECEB', ink: '#15181A', rule: '#C6CDCE' };
+  function readColors() {
+    const cs = getComputedStyle(document.documentElement);
+    colors = { bg: cs.getPropertyValue('--bg').trim() || colors.bg, ink: cs.getPropertyValue('--ink').trim() || colors.ink, rule: cs.getPropertyValue('--rule').trim() || colors.rule };
+    dishes.forEach(function (d) { d.dirty = true; });
+  }
+
+  /* ---------- the core of a pattern, ignoring objects that have flown off ---------- */
+  function coreBounds(live) {
+    const n = live.length;
+    if (!n) return null;
+    if (n > 6000) {
+      const b = { x0: Infinity, x1: -Infinity, y0: Infinity, y1: -Infinity };
+      for (let j = 0; j < n; j++) { const k = live[j], x = (k >> 15) - 16384, y = (k & 32767) - 16384; if (x < b.x0) b.x0 = x; if (x > b.x1) b.x1 = x; if (y < b.y0) b.y0 = y; if (y > b.y1) b.y1 = y; }
+      return b;
+    }
+    const buckets = new Map();
+    for (let j = 0; j < n; j++) {
+      const k = live[j], x = (k >> 15) - 16384, y = (k & 32767) - 16384, bx = x >> 3, by = y >> 3;
+      const key = (bx + 4096) * 8192 + (by + 4096);
+      let b = buckets.get(key);
+      if (!b) { b = { bx: bx, by: by, n: 0, x0: x, x1: x, y0: y, y1: y }; buckets.set(key, b); }
+      b.n++;
+      if (x < b.x0) b.x0 = x; if (x > b.x1) b.x1 = x; if (y < b.y0) b.y0 = y; if (y > b.y1) b.y1 = y;
+    }
+    const arr = Array.from(buckets.values());
+    const index = new Map();
+    arr.forEach(function (b, i) { index.set((b.bx + 4096) * 8192 + (b.by + 4096), i); });
+    const parent = arr.map(function (_, i) { return i; });
+    const find = function (a) { while (parent[a] !== a) { parent[a] = parent[parent[a]]; a = parent[a]; } return a; };
+    arr.forEach(function (b, i) {
+      for (let dx = -2; dx <= 2; dx++) for (let dy = -2; dy <= 2; dy++) {
+        const o = index.get((b.bx + dx + 4096) * 8192 + (b.by + dy + 4096));
+        if (o !== undefined) { const p = find(i), q = find(o); if (p !== q) parent[p] = q; }
+      }
+    });
+    const groups = new Map();
+    arr.forEach(function (b, i) {
+      const r = find(i);
+      let gr = groups.get(r);
+      if (!gr) { gr = { n: 0, x0: b.x0, x1: b.x1, y0: b.y0, y1: b.y1 }; groups.set(r, gr); }
+      gr.n += b.n;
+      gr.x0 = Math.min(gr.x0, b.x0); gr.x1 = Math.max(gr.x1, b.x1); gr.y0 = Math.min(gr.y0, b.y0); gr.y1 = Math.max(gr.y1, b.y1);
+    });
+    let best = null;
+    groups.forEach(function (gr) { if (!best || gr.n > best.n) best = gr; });
+    return best;
+  }
+  function fit(b, margin, aspect) {
+    let w = b.x1 - b.x0 + 1 + 2 * margin, h = b.y1 - b.y0 + 1 + 2 * margin;
+    const cx = (b.x0 + b.x1 + 1) / 2, cy = (b.y0 + b.y1 + 1) / 2;
+    if (w / h < aspect) w = h * aspect; else h = w / aspect;
+    return { x: cx - w / 2, y: cy - h / 2, w: w, h: h };
+  }
+  function union(a, b, aspect) {
+    const x0 = Math.min(a.x, b.x), y0 = Math.min(a.y, b.y), x1 = Math.max(a.x + a.w, b.x + b.w), y1 = Math.max(a.y + a.h, b.y + b.h);
+    let w = x1 - x0, h = y1 - y0;
+    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+    if (w / h < aspect) w = h * aspect; else h = w / aspect;
+    return { x: cx - w / 2, y: cy - h / 2, w: w, h: h };
+  }
+
+  /* ---------- a dish ---------- */
+  const ASPECT = 4 / 3;
+  function Dish(id) {
+    this.cv = $('cv-' + id);
+    this.ctx = this.cv.getContext('2d');
+    this.countEl = $(id + '-count');
+    this.fateEl = $(id + '-fate');
+    this.u = null; this.view = null; this.target = null;
+    this.dirty = true; this.frozen = false; this.b0 = false; this.life = id === 'life';
+    this.W = 0; this.H = 0; this.cs = 1;
+    const self = this;
+    if (window.ResizeObserver) new ResizeObserver(function () { self.resize(); }).observe(this.cv);
+    this.resize();
+  }
+  Dish.prototype.resize = function () {
+    const r = this.cv.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 3);
+    const W = Math.max(1, Math.round(r.width)), H = Math.max(1, Math.round(r.width / ASPECT));
+    if (W === this.W && H === this.H) return;
+    this.W = W; this.H = H;
+    this.cv.width = Math.round(W * dpr); this.cv.height = Math.round(H * dpr);
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    this.dirty = true;
+  };
+  Dish.prototype.load = function (cells, B, S) {
+    this.u = new E.Universe(cells, B, S);
+    this.b0 = !!(B & 1);
+    this.frozen = false;
+    const b = this.u.box || { x0: -8, x1: 8, y0: -6, y1: 6 };
+    const margin = Math.max(6, Math.round(0.3 * Math.max(b.x1 - b.x0 + 1, b.y1 - b.y0 + 1)));
+    this.base = fit(b, margin, ASPECT);
+    this.target = this.base;
+    this.view = Object.assign({}, this.base);
+    this.dirty = true;
+    this.updateCount();
+  };
+  Dish.prototype.step = function () {
+    if (!this.u || this.frozen) return 0;
+    this.u.step();
+    if (this.u.live.length > POP_CAP || this.u.outOfRange) this.frozen = true;
+    if (this.u.gen % 4 === 0 || this.u.live.length > 2000) {
+      const c = coreBounds(this.u.live);
+      if (c) this.target = union(this.target, fit(c, 4, ASPECT), ASPECT);
+    }
+    this.dirty = true;
+    this.updateCount();
+    return this.u.changed * this.cs * this.cs;
+  };
+  Dish.prototype.updateCount = function () {
+    if (!this.u) { this.countEl.textContent = ''; return; }
+    const pop = this.u.live.length;
+    let s = 'gen ' + fmt(this.u.gen) + ' · ' + fmt(pop) + (pop === 1 ? ' cell' : ' cells');
+    if (this.b0) s += ' off the background';
+    if (this.frozen) s += this.u.outOfRange ? ' · stopped at the edge' : ' · stopped at ' + fmt(POP_CAP) + ' cells';
+    this.countEl.textContent = s;
+  };
+  Dish.prototype.ease = function () {
+    if (!this.view) return;
+    const v = this.view, t = this.target;
+    let moved = false;
+    ['x', 'y', 'w', 'h'].forEach(function (k) {
+      const d = t[k] - v[k];
+      if (Math.abs(d) > 0.02) { v[k] += d * (reduceMotion ? 1 : 0.18); moved = true; } else v[k] = t[k];
+    });
+    if (moved) this.dirty = true;
+  };
+  Dish.prototype.draw = function () {
+    if (!this.dirty) return;
+    this.dirty = false;
+    const ctx = this.ctx, W = this.W, H = this.H;
+    ctx.fillStyle = colors.bg;
+    ctx.fillRect(0, 0, W, H);
+    if (!this.u) return;
+    const v = this.view, cs = Math.min(W / v.w, H / v.h);
+    this.cs = cs;
+    const ox = (W - v.w * cs) / 2 - v.x * cs, oy = (H - v.h * cs) / 2 - v.y * cs;
+    if (cs >= 9) {
+      ctx.strokeStyle = colors.rule;
+      ctx.globalAlpha = 0.55;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      const gx0 = Math.floor(v.x), gx1 = Math.ceil(v.x + v.w), gy0 = Math.floor(v.y), gy1 = Math.ceil(v.y + v.h);
+      for (let x = gx0; x <= gx1; x++) { const px = Math.round(ox + x * cs) + 0.5; ctx.moveTo(px, 0); ctx.lineTo(px, H); }
+      for (let y = gy0; y <= gy1; y++) { const py = Math.round(oy + y * cs) + 0.5; ctx.moveTo(0, py); ctx.lineTo(W, py); }
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+    ctx.fillStyle = colors.ink;
+    const inset = cs >= 5 ? Math.min(1.5, cs * 0.14) : 0, sz = Math.max(cs - inset, 1);
+    ctx.beginPath();
+    const live = this.u.live;
+    for (let j = 0; j < live.length; j++) {
+      const k = live[j], x = (k >> 15) - 16384, y = (k & 32767) - 16384;
+      ctx.rect(ox + x * cs + inset / 2, oy + y * cs + inset / 2, sz, sz);
+    }
+    ctx.fill();
+  };
+
+  const dishes = [new Dish('own'), new Dish('life')];
+  const own = dishes[0], life = dishes[1];
+
+  /* ---------- fates, worked out off the main thread ---------- */
+  const ENGINE_SRC = $('codex-engine').textContent;
+  let workerURL = null;
+  try {
+    workerURL = URL.createObjectURL(new Blob([ENGINE_SRC, '\n;self.onmessage=function(e){var d=e.data,a=new self.CodexEngine.Analysis(d.cells,d.B,d.S,d.opts);while(!a.run(250)){}self.postMessage({token:d.token,result:a.result});};'], { type: 'text/javascript' }));
+  } catch (err) { workerURL = null; }
+  let jobs = [];
+  let token = 0;
+  function cancelJobs() { jobs.forEach(function (j) { j.cancelled = true; if (j.worker) j.worker.terminate(); }); jobs = []; }
+  function analyse(cells, B, S, done) {
+    const job = { cancelled: false, worker: null };
+    const t = ++token;
+    jobs.push(job);
+    const here = function () {
+      const a = new E.Analysis(cells, B, S, OPTS);
+      (function tick() {
+        if (job.cancelled) return;
+        if (a.run(8)) done(a.result); else setTimeout(tick, 0);
+      })();
+    };
+    if (workerURL) {
+      try {
+        const w = new Worker(workerURL);
+        job.worker = w;
+        w.onmessage = function (e) { if (!job.cancelled && e.data.token === t) { done(e.data.result); w.terminate(); } };
+        w.onerror = function (e) { e.preventDefault(); w.terminate(); job.worker = null; if (!job.cancelled) here(); };
+        w.postMessage({ token: t, cells: cells, B: B, S: S, opts: OPTS });
+        return;
+      } catch (err) { job.worker = null; }
+    }
+    here();
+  }
+
+  /* ---------- the word ---------- */
+  const zonesEl = $('zones');
+  const ORDER = [0, 1, 2, 3, 4, 9, 8, 7, 6, 5];
+  ORDER.forEach(function (z) {
+    const el = document.createElement('div');
+    el.className = 'z ' + region(z);
+    el.innerHTML = '<span class="zn"><i class="dot" aria-hidden="true"></i>' + z + '</span><span class="za"></span>';
+    el.dataset.zone = String(z);
+    zonesEl.appendChild(el);
+  });
+  const presetsEl = $('presets');
+  PRESETS.forEach(function (w) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.textContent = w; b.dataset.word = w;
+    b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', function () { $('word').value = w; setWord(w); });
+    presetsEl.appendChild(b);
+  });
+
+  let current = null;
+  function setWord(text) {
+    const glyphs = E.glyphs(text);
+    const key = glyphs.map(function (g) { return g.ch; }).join('');
+    presetsEl.querySelectorAll('.chip').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.word === key)); });
+    if (current && current.key === key) return;
+    cancelJobs();
+    const aqv = E.aq(text);
+    const d = E.decode(aqv);
+    current = { key: key, aqv: aqv, d: d };
+    try { localStorage.setItem('codex-word', text); } catch (err) { /* storage unavailable */ }
+
+    const sumEl = $('sum');
+    if (!glyphs.length) {
+      sumEl.textContent = 'Type a word with at least one letter or digit.';
+      $('readout').innerHTML = '<span>AQ 0</span>';
+    } else {
+      sumEl.innerHTML = glyphs.map(function (g) { return g.ch + '&nbsp;' + g.v; }).join(' + ') + ' = <b>' + fmt(aqv) + '</b>';
+    }
+    const isLife = d.B === LIFE_B && d.S === LIFE_S;
+    const bsr = E.bs(d.B, d.S);
+    if (glyphs.length) $('readout').innerHTML = '<span>AQ ' + fmt(aqv) + '</span><span>' + bsr + '</span>' + (isLife ? '<span class="on">Conway’s Life</span>' : '');
+    $('trits').textContent = 'base 3, zone 0 first: ' + d.trits.join('');
+    zonesEl.querySelectorAll('.z').forEach(function (el) {
+      const z = +el.dataset.zone, a = ACT[d.trits[z]];
+      el.classList.remove('void', 'hold', 'ignite');
+      el.classList.add(a);
+      el.querySelector('.za').textContent = a;
+    });
+    zonesEl.setAttribute('aria-label', 'Zone table: ' + ORDER.slice().sort().map(function (z) { return 'zone ' + z + ' ' + ACT[d.trits[z]]; }).join(', '));
+    $('bsr').textContent = bsr;
+    $('plain').textContent = plain(d.B, d.S);
+    $('notes').innerHTML = '';
+    notesFor(aqv, d).forEach(function (t) { const li = document.createElement('li'); li.textContent = t; $('notes').appendChild(li); });
+    $('own-law').textContent = bsr + (isLife ? ' · same as Conway’s' : '');
+
+    const cells = E.body(text);
+    own.load(cells, d.B, d.S);
+    life.load(cells, LIFE_B, LIFE_S);
+    current.cells = cells;
+    [own, life].forEach(function (dish) { dish.fateEl.textContent = glyphs.length ? fateText(null) : ''; dish.fateEl.classList.add('pending'); });
+    if (!glyphs.length) return;
+    const show = function (dish, r) {
+      dish.fateEl.textContent = fateText(r, { life: dish.life || isLife, b0: dish.b0 });
+      dish.fateEl.classList.remove('pending');
+      dish.cv.setAttribute('aria-label', (dish.life ? 'Under Conway’s law: ' : 'Under its own law: ') + dish.fateEl.textContent);
+    };
+    if (isLife) analyse(cells, d.B, d.S, function (r) { show(own, r); show(life, r); });
+    else {
+      analyse(cells, d.B, d.S, function (r) { show(own, r); });
+      analyse(cells, LIFE_B, LIFE_S, function (r) { show(life, r); });
+    }
+  }
+
+  /* ---------- playback ---------- */
+  let playing = !reduceMotion, speed = 10, nextAt = 0, holdUntil = 0, lastFlash = -1e9;
+  const playBtn = $('play');
+  function setPlaying(p) { playing = p; playBtn.textContent = p ? 'Pause' : 'Play'; }
+  setPlaying(playing);
+  playBtn.addEventListener('click', function () { setPlaying(!playing); });
+  $('step').addEventListener('click', function () { setPlaying(false); stepAll(performance.now()); });
+  $('restart').addEventListener('click', function () {
+    if (!current || !current.cells) return;
+    own.load(current.cells, current.d.B, current.d.S);
+    life.load(current.cells, LIFE_B, LIFE_S);
+  });
+  document.querySelectorAll('[data-speed]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      speed = +b.dataset.speed;
+      document.querySelectorAll('[data-speed]').forEach(function (o) { o.setAttribute('aria-pressed', String(o === b)); });
+    });
+  });
+  function stepAll(now) {
+    let flashy = false;
+    dishes.forEach(function (dish) {
+      const area = dish.step(), safe = Math.min(21824, 0.25 * dish.W * dish.H);
+      if (area > safe) flashy = true;
+    });
+    if (flashy) { holdUntil = now + 340; lastFlash = now; }
+    if (own.frozen && life.frozen) setPlaying(false);
+  }
+  function frame(now) {
+    requestAnimationFrame(frame);
+    if (playing && now >= nextAt && now >= holdUntil) {
+      stepAll(now);
+      nextAt = now + 1000 / speed;
+    }
+    $('flash-note').hidden = now - lastFlash > 2000;
+    dishes.forEach(function (d) { d.ease(); d.draw(); });
+  }
+
+  /* ---------- start ---------- */
+  readColors();
+  if (window.matchMedia) {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    if (mq.addEventListener) mq.addEventListener('change', readColors);
+  }
+  new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class', 'style'] });
+  let timer = 0;
+  $('word').addEventListener('input', function (e) { clearTimeout(timer); const v = e.target.value; timer = setTimeout(function () { setWord(v); }, 250); });
+  let first = 'CONWAY';
+  const h = (location.hash || '').slice(1);
+  if (/^[A-Za-z0-9]{1,40}$/.test(h)) first = h.toUpperCase();
+  else { try { const s = localStorage.getItem('codex-word'); if (s && E.glyphs(s).length) first = s; } catch (err) { /* storage unavailable */ } }
+  $('word').value = first;
+  setWord(first);
+  requestAnimationFrame(frame);
+})();
+
+</script>
+
+</body>
+</html>
