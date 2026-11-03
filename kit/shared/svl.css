@@ -1,0 +1,12 @@
+/* ---------- shared by all four pages: build.py appends this to each page's stylesheet ----------
+   The header and footer markup comes from nav() and foot() in build.py. Every page defines
+   --mono, --sans, --ink, --muted, --t-sm, which this relies on. */
+.svl-nav { margin: 0; font-family: var(--mono); font-size: var(--t-sm); line-height: 1.6; color: var(--muted); }
+.svl-nav a, .svl-foot a { color: var(--muted); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.svl-nav a:hover, .svl-foot a:hover { color: var(--ink); }
+.svl-nav [aria-current="page"] { color: var(--ink); }
+.svl-nav a, .svl-nav [aria-current="page"], .svl-foot a { white-space: nowrap; }
+.svl-foot {
+  display: flex; flex-wrap: wrap; gap: 6px 24px; justify-content: space-between; width: 100%;
+  margin: 4px 0 0; font-family: var(--sans); font-size: var(--t-sm); line-height: 1.6; color: var(--muted);
+}

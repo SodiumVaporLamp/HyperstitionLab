@@ -1,0 +1,145 @@
+<title>Time-Sorcery</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Major+Mono+Display&display=swap">
+<style>
+/*STYLE*/
+</style>
+
+<div class="page">
+  <header class="mast">
+    {{NAV}}
+    <h1>time-sorcery</h1>
+    <p class="lede">The Ccru’s glossary defines time-sorcery as “counterchronic effectuation of the Numogram.” This page takes a phrase about the future and a year, and runs them through the number practices in the Ccru’s texts and Nick Land’s “Qabbala 101.” Each step says which part comes from those texts and which part is this page’s own.</p>
+  </header>
+
+  <div class="layout">
+    <div class="card-wrap">
+      <section class="card" aria-labelledby="card-h">
+        <h2 id="card-h">Your reading</h2>
+        <p class="verdict" id="verdict" aria-live="polite"></p>
+        <form id="seed-form" autocomplete="off">
+          <div class="row2">
+            <div class="field"><label for="seed">A phrase about the future</label><input id="seed" type="text" value="Machine Intelligence" maxlength="80" autocapitalize="off" spellcheck="false"></div>
+            <div class="field"><label for="year">A year</label><input id="year" type="number" inputmode="numeric" min="1900" max="2999" step="1" value="2030"></div>
+          </div>
+        </form>
+        <p class="err" id="year-err" hidden></p>
+        <div class="draw">
+          <label class="ctl-label" for="src">Draw from</label>
+          <select id="src">
+            <option value="futures">Futures</option>
+            <option value="q101">Words of “Qabbala 101”</option>
+            <option value="lab">Numogram Lab phrases</option>
+          </select>
+          <button type="button" class="btn" id="draw">Draw</button>
+          <button type="button" class="btn ghost" id="ryear">Random year</button>
+        </div>
+        <div class="chips" id="examples" role="group" aria-label="Example readings"></div>
+        <dl class="sum" id="sum" aria-live="polite"></dl>
+      </section>
+    </div>
+
+    <main>
+      <figure class="hero">
+        <svg id="spiral" viewBox="0 0 440 440" role="img" aria-label="The K-Time spiral: years from 1900 outward, one turn every nine years, each year on the spoke of its zone."></svg>
+        <figcaption id="spiral-cap">The K-Time spiral. 1900 sits at the centre as K-00, and every later year winds outward, one turn per nine years, on the spoke of its zone. Tap a year to read it.</figcaption>
+        <label class="toggle"><input type="checkbox" id="binomic"> Count in two digits, as the old date fields did</label>
+        <ul class="anchors" id="anchors"></ul>
+      </figure>
+
+      <div class="steps">
+        <section class="step" id="s1" aria-labelledby="h-s1">
+          <div class="step-head"><span class="num">1</span><h2 id="h-s1">listen for signal</h2></div>
+          <div class="prov"><p><b>From the texts</b>Land, “Qabbala 101,” pp. 272, 275, 284–85.</p><p><b>This page</b>Nothing yet; this is the premise.</p></div>
+          <p>Land opens “Qabbala 101” by calling qabbalism “a practical programme, rather than a doctrine.” Its working hypothesis is that “signal from ‘outside the system’ is detectable by numerical analysis of codes circulating within the system,” and he compares its position to that of “a spontaneous artificial intelligence.” Near the end he notices that the very words used to argue about it keep landing on multiples of nine.</p>
+          <div class="inst" id="i1"></div>
+        </section>
+
+        <section class="step" id="s2" aria-labelledby="h-s2">
+          <div class="step-head"><span class="num">2</span><h2 id="h-s2">count</h2></div>
+          <div class="prov"><p><b>From the texts</b>Land, pp. 277–79.</p><p><b>This page</b>Counting your phrase the same way.</p></div>
+          <p>The crudest procedure is to count letters, which Land calls Primitive Numerization. He runs it on the English names of the digits and finds that every syzygy, each pair of digits that sums to nine, has names totalling eight letters. If each name were randomly three, four or five letters long, a pair would reach eight in three cases out of nine, so all five pairs would do it about one time in 243. That is his figure, and the arithmetic holds.</p>
+          <div class="inst" id="i2"></div>
+        </section>
+
+        <section class="step" id="s3" aria-labelledby="h-s3">
+          <div class="step-head"><span class="num">3</span><h2 id="h-s3">total</h2></div>
+          <div class="prov"><p><b>From the texts</b>Land, p. 281 and n. 4.</p><p><b>This page</b>Totalling your phrase.</p></div>
+          <p>Land’s footnote credits “August Barrow’s ‘Anglossic Qabbala’,” whose basic tool counts digits and letters as one sequence: 0 to 9 keep their values, then A = 10 through Z = 35. His example is UNITY = 30 + 23 + 18 + 29 + 34 = 134.</p>
+          <div class="inst" id="i3"></div>
+        </section>
+
+        <section class="step" id="s4" aria-labelledby="h-s4">
+          <div class="step-head"><span class="num">4</span><h2 id="h-s4">plex</h2></div>
+          <div class="prov"><p><b>From the texts</b>Land, pp. 279–81; Ccru glossary, “Syzygy.”</p><p><b>This page</b>Plexing your total.</p></div>
+          <p>Next he adds the digits: 1 + 3 + 4 = 8. He calls 8 the “Numogrammatic twin” of numerology’s 1 for unity, because 8 and 1 sum to nine, which makes them a syzygy on the Numogram. Keep adding until one digit is left: that digit is the zone. A total that plexes to 9 stands for the 9::0 pair, since a digital root never gives 0.</p>
+          <div class="inst" id="i4"></div>
+        </section>
+
+        <section class="step" id="s5" aria-labelledby="h-s5">
+          <div class="step-head"><span class="num">5</span><h2 id="h-s5">date</h2></div>
+          <div class="prov"><p><b>From the texts</b>Ccru glossary, “K-Time”; Ccru, Zone-9 page.</p><p><b>This page</b>Plexing years into zones, and the spiral.</p></div>
+          <p>The Ccru glossary defines K-Time as the “native calendar of cyberspace”: a year count, “initially binomic,” that starts from 00 = AD 1900. Two-digit year fields in software counted exactly this way until the Y2K scare, and the Ccru’s Zone-9 page reads ninety-nine, “as dramatized by the Y2K panic,” as “the cyclic completion of time.” Count your year from 1900 and plex it like a phrase. On the spiral one turn is nine years, so years in the same zone share a spoke.</p>
+          <div class="inst" id="i5"></div>
+        </section>
+
+        <section class="step" id="s6" aria-labelledby="h-s6">
+          <div class="step-head"><span class="num">6</span><h2 id="h-s6">name the distance</h2></div>
+          <div class="prov"><p><b>From the texts</b>Ccru glossary, “Time-Sorcery”; Ccru, Pandemonium Matrix.</p><p><b>This page</b>Pairing a phrase with a year, and the turn-by-turn table.</p></div>
+          <p>The glossary’s definition goes on: time-sorcery works “through spiral involvement with demonic distances as transmutations of time.” Every pair of zones has a demon in the Pandemonium Matrix, so the distance between your phrase and your year has a name.</p>
+          <div class="inst" id="i6"></div>
+        </section>
+
+        <section class="step" id="s7" aria-labelledby="h-s7">
+          <div class="step-head"><span class="num">7</span><h2 id="h-s7">walk the rites</h2></div>
+          <div class="prov"><p><b>From the texts</b>Ccru, Pandemonium Matrix (rite paths); Ccru glossary, “Rite.”</p><p><b>This page</b>The three-move reading, the backwards direction and the shortest passage.</p></div>
+          <p>Each demon has rites, which the glossary describes as “a line of passage across the Numogram,” written as strings of zones. Lurgo’s rite [1890] runs from 1 across its syzygy to 8, through the eighth gate to 9, and across to 0. All 75 published rite paths can be walked with three moves: crossing a syzygy, riding its current, or taking a gate. “Counterchronic” suggests the future acting on the present, so this page reads the passage backwards, from your year’s zone to your phrase’s.</p>
+          <div class="inst" id="i7"></div>
+        </section>
+
+        <section class="step" id="s8" aria-labelledby="h-s8">
+          <div class="step-head"><span class="num">8</span><h2 id="h-s8">xenotate</h2></div>
+          <div class="prov"><p><b>From the texts</b>Land, “Tic-Talk,” in <i>Fanged Noumena</i>.</p><p><b>This page</b>Xenotating your totals and counting their colons.</p></div>
+          <p>Decimal digits are a convention too. In Land’s “Tic-Talk,” Daniel Barker devises Tic Xenotation for a SETI-style project, as a way of writing numbers free of any culture’s habits. A colon is 2, writing things side by side multiplies them, and brackets around a number x mean the x-th prime. So 3 = (:), 5 = ((:)) and 6 = :(:). Drawn out, every number becomes a cluster of nested cells.</p>
+          <div class="inst" id="i8"></div>
+        </section>
+
+        <section class="step" id="s9" aria-labelledby="h-s9">
+          <div class="step-head"><span class="num">9</span><h2 id="h-s9">transmit</h2></div>
+          <div class="prov"><p><b>From the texts</b>Ccru glossary, “Hyperstition”; Land, p. 275; Ccru, Pandemonium Matrix.</p><p><b>This page</b>The transmission format.</p></div>
+          <p>The glossary defines hyperstition as an “element of effective culture that makes itself real, through fictional quantities functioning as time-travelling potentials.” Land says qabbalism itself was “compelled to hyperstitionally generate an extreme antiquity for itself,” and the Pandemonium Matrix describes the Necronomicon as “retrodeposited out of the future into the deep past.” A reading only does something once it circulates. Add one line and send it forward.</p>
+          <div class="inst" id="i9">
+            <div class="tm-in field"><label for="line">Your line to the future</label><input id="line" type="text" maxlength="140" value="Something is counting backwards from here."></div>
+            <pre class="tm" id="tm"></pre>
+            <div class="tm-actions"><button type="button" class="btn" id="copy">Copy transmission</button><span class="copied" id="copied" aria-live="polite"></span></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <footer class="foot">
+    <h2>Elsewhere</h2>
+    <ul>
+      <li><a href="{{LAB_LINK}}">Numogram Lab</a> <span>· the companion page: zones, the alphabet’s mirror syzygies, demons, cipher-hop loops and the number-spelling attractor</span></li>
+      <li><a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a> <span>· a gematria workbench whose Numogram has a two-name Divination mode and a full Pandemonium catalogue, rite descriptions included</span></li>
+      <li>Decadence <span>· the Ccru’s card game, which the glossary calls “a gambling game and divination system.” Play it at <a href="https://www.playdecadence.online/" target="_blank" rel="noopener">playdecadence.online</a> or <a href="https://github.com/doomcrypt/decadence" target="_blank" rel="noopener">doomcrypt/decadence</a>, or read <a href="https://captiveliberty.substack.com/p/how-to-play-the-game-of-decadence" target="_blank" rel="noopener">how to play it</a>.</span></li>
+    </ul>
+    <h2>Sources</h2>
+    <ul>
+      <li><a href="https://www.urbanomic.com/book/collapse-1/" target="_blank" rel="noopener">Nick Land, “Qabbala 101,” <i>Collapse</i> I (Urbanomic, 2006)</a>, pp. 271–85 <span>· the programme, Primitive Numerization, Anglossic Qabbala, plexing, the nine-signature</span></li>
+      <li><a href="https://dataswamp.org/~john/sites/ccru/id(entity)/glossary.htm" target="_blank" rel="noopener">Ccru Glossary</a> <span>· K-Time, Time-Sorcery, Rite, Hyperstition, Syzygy, Decadence</span></li>
+      <li><a href="https://dataswamp.org/~john/sites/ccru/digithype/pandemonium.htm" target="_blank" rel="noopener">Ccru: Pandemonium</a> <span>· the 45 demons and their rite paths; cross-checked against the transcription in <a href="https://github.com/Cyphers-News/gematro-hyperdope" target="_blank" rel="noopener">Cyphers’ source</a>, which matches for all 45</span></li>
+      <li><a href="https://dataswamp.org/~john/sites/ccru/zones/Zn9.htm" target="_blank" rel="noopener">Ccru: Zone-9</a> <span>· ninety-nine and the cyclic completion of time</span></li>
+      <li><a href="https://www.urbanomic.com/chapter/fanged-noumena-tic-talk/" target="_blank" rel="noopener">Nick Land, “Tic-Talk,” <i>Fanged Noumena</i></a> <span>· Barker’s Tic Xenotation; rules as summarised at <a href="https://word.site/2019/11/11/nullary/" target="_blank" rel="noopener">word.site</a></span></li>
+    </ul>
+    <p class="note">Plexing years into zones, reading rites backwards, and xenotating totals are this page’s own moves. They follow the texts’ arithmetic, but the texts don’t prescribe them. Two random phrases share a zone about one time in nine, so coincidences here are cheap; what you make of them is the part that matters.</p>
+    {{FOOT}}
+  </footer>
+</div>
+
+<script>
+/*SCRIPT*/
+</script>

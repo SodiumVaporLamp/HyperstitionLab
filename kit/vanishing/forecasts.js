@@ -1,0 +1,321 @@
+/* ================= Vanishing Point: forecasts =================
+   Chosen by the selection rule in FORECASTS.md (written before choosing). Every claim was checked
+   against its original in October 2026 and is quoted verbatim; straight quotes and spaced hyphens
+   are set as curly quotes and en dashes, and nothing else is changed. Forecasts are counted
+   separately from the milestones in data.js.
+
+   id      'f-…', unique, and never the same as a milestone id
+   who     the forecaster as the card names them
+   group   which part of the rule admitted it: pioneer | lab | survey | bet | land
+   made    the date it was said, as in EVENTS ('YYYY-MM-DD', 'YYYY-MM' or 'YYYY')
+   th      lane (as in EVENTS)
+   t       title; short is the label on the spiral
+   type    date | deadline | window | spread | bet, and the target fields that go with it:
+             date      at       a point: the ring sits at the date (a year sits mid-year)
+             deadline  due      by the end of the named day, month or year
+             window    from, to from the start of one period to the end of another
+             spread    p10, p50 years by which the forecast gives 10 and 50 percent; p50 is drawn as a
+                                50% date, never as a deadline, and a spread never closes
+             bet       due      the bet's end
+   prob    the probability or hedge in the forecaster's words, if any
+   say     the claim, verbatim; sayc gives the source with page, section or timestamp
+   event   the event, in the forecaster's own words
+   decide  how the outcome is decided
+   read    the page's own reading, where it has had to interpret (shown under "This page")
+   outcome { is, on, judge, say, sayc, s, after }
+             is     met | late | claimed | disputed | missed | none (no verdict)
+             on     when the verdict or the event came; for met, late and claimed, the date it came true
+             judge  who judged; say/sayc quote the verdict; s is its source
+             after  the verdict applies only from this date (used for Doomsday, which resolves on its day)
+           A forecast with no outcome is open until its target passes, then "closed, awaiting a verdict";
+           check.js warns about those.
+   x       a plain account; s sources: the original first, then an archived copy, then the rest
+   card    the milestone on the spiral that this forecast belongs to, if any
+*/
+const FORECASTS = [
+/* ---------------- pioneers already on the spiral ---------------- */
+{ id: 'f-turing', who: 'Alan Turing', group: 'pioneer', made: '1950-10', th: 'reck', card: 'turing50',
+  t: 'The imitation game “in about fifty years”', short: 'Turing · about 2000',
+  type: 'date', at: '2000',
+  say: 'I believe that in about fifty years’ time it will be possible to programme computers, with a storage capacity of about 10⁹, to make them play the imitation game so well that an average interrogator will not have more than 70 per cent. chance of making the right identification after five minutes of questioning.',
+  sayc: 'Turing, “Computing Machinery and Intelligence”, Mind 59, no. 236 (October 1950), p. 442',
+  event: 'an average interrogator will not have more than 70 per cent. chance of making the right identification after five minutes of questioning',
+  decide: 'A test in Turing’s own format: five minutes of questioning, with the interrogator right no more than 70 percent of the time.',
+  outcome: { is: 'late', on: '2025-03-31', judge: 'Cameron Jones and Benjamin Bergen, UC San Diego (a preprint)',
+    say: 'The results constitute the first empirical evidence that any artificial system passes a standard three-party Turing test.',
+    sayc: 'Jones and Bergen, “Large Language Models Pass the Turing Test”, arXiv 2503.23674, abstract, 31 March 2025',
+    s: ['Jones and Bergen (2025), arXiv', 'https://arxiv.org/abs/2503.23674'] },
+  x: 'Turing put numbers on his test. In 2025 Jones and Bergen ran it in his three-way format, with five-minute chats: told to adopt a humanlike persona, GPT-4.5 was picked as the human 73 percent of the time, more often than the real people it was paired with. The machine arrived about 25 years after Turing’s date, and with far more than 10⁹ bits of storage.',
+  s: [['Turing (1950), full text, Oxford Academic', 'https://academic.oup.com/mind/article/LIX/236/433/986238'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261015012922/https://academic.oup.com/mind/article/LIX/236/433/986238'],
+      ['Jones and Bergen (2025), arXiv', 'https://arxiv.org/abs/2503.23674']] },
+
+{ id: 'f-georgetown', who: 'Leon Dostert, Georgetown–IBM', group: 'pioneer', made: '1954-01-07', th: 'lang', card: 'georgetown',
+  t: 'Machine translation “five, perhaps three years hence”', short: 'Dostert · 1957–59',
+  type: 'window', from: '1957-01', to: '1959-01', prob: 'may well be',
+  say: 'five, perhaps three years hence, interlingual meaning conversion by electronic process in important functional areas of several languages may well be an accomplished fact.',
+  sayc: 'IBM press release, 8 January 1954 (datelined New York, 7 January), quoting Leon Dostert of Georgetown University',
+  event: 'interlingual meaning conversion by electronic process in important functional areas of several languages',
+  decide: 'Whether machine translation had become useful by about 1959. The US government’s advisory committee reviewed the field in 1966.',
+  read: 'Three to five years from January 1954 is drawn as a window from January 1957 to January 1959.',
+  outcome: { is: 'missed', on: '1966-11', judge: 'ALPAC, the Automatic Language Processing Advisory Committee of the US National Academy of Sciences',
+    say: 'Further, there is no immediate or predictable prospect of useful machine translation.',
+    sayc: 'ALPAC, Language and Machines: Computers in Translation and Linguistics (1966), p. 32',
+    s: ['ALPAC report (1966), PDF', 'https://www.mt-archive.net/50/ALPAC-1966.pdf'] },
+  x: 'The press release quoted Leon Dostert, a Georgetown language scholar, as saying it was not yet possible “to insert a Russian book at one end and come out with an English book at the other”, but that within three to five years machine translation could be routine in important areas. Twelve years later the government’s review found no prospect of useful machine translation, and funding was cut.',
+  s: [['IBM press release, 8 January 1954', 'https://www.ibm.com/ibm/history/exhibits/701/701_translator.html'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20231225181320/https://www.ibm.com/ibm/history/exhibits/701/701_translator.html'],
+      ['ALPAC report (1966), PDF', 'https://www.mt-archive.net/50/ALPAC-1966.pdf']] },
+
+{ id: 'f-dartmouth', who: 'McCarthy, Minsky, Rochester and Shannon', group: 'pioneer', made: '1955-08-31', th: 'reck', card: 'dartmouth',
+  t: '“A significant advance” in one summer', short: 'Dartmouth · summer 1956',
+  type: 'deadline', due: '1956-08',
+  say: 'We think that a significant advance can be made in one or more of these problems if a carefully selected group of scientists work on it together for a summer.',
+  sayc: 'McCarthy, Minsky, Rochester and Shannon, “A Proposal for the Dartmouth Summer Research Project on Artificial Intelligence”, 31 August 1955, opening paragraph',
+  event: 'a significant advance … in one or more of these problems',
+  decide: 'Whether the study in the summer of 1956 made that advance. The proposers set no test.',
+  outcome: { is: 'missed', on: '2006-10-30', judge: 'John McCarthy, one of the four proposers, fifty years on',
+    say: 'My hope for a breakthrough towards human-level AI was not realized at Dartmouth, and while AI has advanced enormously in the last 50 years, I think new ideas are still required for the breakthrough.',
+    sayc: 'McCarthy, “The Dartmouth Workshop—as planned and as it happened”, talk slides, 30 October 2006',
+    s: ['McCarthy (2006), slides', 'https://www-formal.stanford.edu/jmc/slides/dartmouth/dartmouth/node1.html'] },
+  x: 'The problems were set out just before this sentence: to find “how to make machines use language, form abstractions and concepts, solve kinds of problems now reserved for humans, and improve themselves.” The proposal asked for a two-month, ten-man study at Dartmouth in the summer of 1956. Fifty years later McCarthy wrote that his hope for a breakthrough had not been realised there.',
+  s: [['The proposal (31 August 1955), McCarthy’s site', 'http://jmc.stanford.edu/articles/dartmouth/dartmouth.pdf'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261016231400/http://jmc.stanford.edu/articles/dartmouth/dartmouth.pdf'],
+      ['McCarthy (2006), “as planned and as it happened”', 'https://www-formal.stanford.edu/jmc/slides/dartmouth/dartmouth/node1.html']] },
+
+{ id: 'f-moore', who: 'Gordon Moore', group: 'pioneer', made: '1965-04-19', th: 'cap', card: 'moore',
+  t: '65,000 components on a chip by 1975', short: 'Moore · 1975',
+  type: 'date', at: '1975',
+  say: 'That means by 1975, the number of components per integrated circuit for minimum cost will be 65,000.',
+  sayc: 'Moore, “Cramming more components onto integrated circuits”, Electronics, 19 April 1965, p. 115',
+  event: 'the number of components per integrated circuit for minimum cost will be 65,000',
+  decide: 'The most complex chips made in 1975, against the doubling every year that Moore extended for ten years.',
+  outcome: { is: 'met', on: '1975-12', judge: 'Gordon Moore himself, in 1975',
+    say: 'Complexity of integrated circuits has approximately doubled every year since their introduction.',
+    sayc: 'Moore, “Progress in Digital Integrated Electronics”, IEEE International Electron Devices Meeting, Technical Digest 1975, pp. 11–13, opening sentence',
+    s: ['Moore (1975), PDF', 'https://www.eng.auburn.edu/~agrawvd/COURSE/E7770_Spr07/READ/Gordon_Moore_1975_Speech.pdf'] },
+  x: 'Moore plotted the number of components on the cheapest chip to make, doubling every year from 1959, and carried the line on for a decade. In his 1975 review he set a 16,384-bit charge-coupled memory chip at the 1975 point, said complexity had doubled about every year, and predicted a slowdown to a doubling every two years. The judge here is Moore himself.',
+  s: [['Electronics, 19 April 1965, scan', 'https://www.worldradiohistory.com/Archive-Electronics/60s/65/Electronics-1965-04-19-Moore%27s-Law.pdf'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20241221151628/https://www.worldradiohistory.com/Archive-Electronics/60s/65/Electronics-1965-04-19-Moore%27s-Law.pdf'],
+      ['Moore (1975), archived copy', 'http://web.archive.org/web/20261013020920/https://www.eng.auburn.edu/~agrawvd/COURSE/E7770_Spr07/READ/Gordon_Moore_1975_Speech.pdf']] },
+
+{ id: 'f-good', who: 'I. J. Good', group: 'pioneer', made: '1965', th: 'hyp', card: 'good',
+  t: 'An ultraintelligent machine within the twentieth century', short: 'Good · by 2000',
+  type: 'deadline', due: '2000', prob: 'more probable than not',
+  say: 'It is more probable than not that, within the twentieth century, an ultraintelligent machine will be built and that it will be the last invention that man need make, since it will lead to an “intelligence explosion.”',
+  sayc: 'Good, “Speculations Concerning the First Ultraintelligent Machine”, Advances in Computers 6 (1965), p. 78, section 9, “Conclusions”',
+  event: 'an ultraintelligent machine will be built',
+  decide: 'Whether a machine that can “far surpass all the intellectual activities of any man however clever” (Good’s definition, p. 33) was built by the end of 2000.',
+  outcome: { is: 'missed', on: '2000-12-31', judge: 'No formal judge: nobody has claimed such a machine was built in the twentieth century' },
+  x: 'Good gave his odds in the paper’s conclusions, which he called “primarily the opinions of the writer”. He expected the first such machine to be “ultraparallel”, probably built with “a very large artificial neural net”. The century ended without one.',
+  s: [['Good (1965), scan on gwern.net', 'https://gwern.net/doc/ai/1966-good.pdf'],
+      ['Another scan, archived (Wayback Machine)', 'http://web.archive.org/web/20260921162949/http://incompleteideas.net/papers/Good65ultraintelligent.pdf']] },
+
+{ id: 'f-doomsday', who: 'Heinz von Foerster, Patricia Mora and Lawrence Amiot', group: 'pioneer', made: '1960-11-04', th: 'hyp', card: 'doomsday',
+  t: 'Doomsday: Friday, 13 November, A.D. 2026', short: 'Doomsday · 13 Nov 2026',
+  type: 'date', at: '2026-11-13',
+  say: 'At this date human population will approach infinity if it grows as it has grown in the last two millenia.',
+  sayc: 'von Foerster, Mora and Amiot, “Doomsday: Friday, 13 November, A.D. 2026”, Science 132 (4 November 1960), p. 1291. The fitted date is t₀ = A.D. 2026.87 ± 5.50 years (p. 1293); “millenia” is as printed.',
+  event: 'human population will approach infinity',
+  decide: 'World population on the day. The authors’ condition was that growth kept to the curve of the previous two thousand years.',
+  read: 'The title names a day, so the page resolves the forecast when that day ends, not at the end of the ± 5.50-year error band.',
+  outcome: { is: 'missed', on: '2026-11-13', after: '2026-11-14', judge: 'The UN Population Division’s estimates',
+    say: 'growing over the next sixty years from 8.2 billion people in 2024 to around 10.3 billion in the mid-2080s',
+    sayc: 'UN press release on World Population Prospects 2024, 11 July 2024',
+    s: ['UN press release, 11 July 2024', 'https://www.un.org/sustainabledevelopment/blog/2024/07/press-release-wpp2024/'] },
+  x: 'The paper fitted two thousand years of population estimates to a curve that reaches infinity at a finite date, and put the day in its title. The condition failed within a few years, as growth slowed from the 1960s. The UN puts world population at 8.2 billion in 2024, peaking at about 10.3 billion in the 2080s.',
+  s: [['Science 132:1291 (1960)', 'https://doi.org/10.1126/science.132.3436.1291'],
+      ['Archived copy of the Science page (Wayback Machine)', 'http://web.archive.org/web/20250718012917/https://www.science.org/doi/10.1126/science.132.3436.1291'],
+      ['The paper, PDF copy (Rensselaer course page)', 'https://mozart.bioinfo.rpi.edu/bystrc/courses/biol4961/Doomsday.pdf'],
+      ['UN press release, 11 July 2024', 'https://www.un.org/sustainabledevelopment/blog/2024/07/press-release-wpp2024/']] },
+
+{ id: 'f-vinge-means', who: 'Vernor Vinge', group: 'pioneer', made: '1993-03-30', th: 'hyp', card: 'vinge',
+  t: '“Within thirty years”: the means to superhuman intelligence', short: 'Vinge · by 2023',
+  type: 'deadline', due: '2023-03-30',
+  say: 'Within thirty years, we will have the technological means to create superhuman intelligence. Shortly after, the human era will be ended.',
+  sayc: 'Vinge, “The Coming Technological Singularity”, VISION-21 Symposium, NASA Lewis Research Center, 30–31 March 1993; NASA CP-10129, p. 12, abstract',
+  event: 'the technological means to create superhuman intelligence',
+  decide: 'No test was named.',
+  outcome: { is: 'none', on: '2023-03-30', judge: 'No verdict found. The thirty years ran out with no ruling either way' },
+  x: 'Vinge gave two limits in the same paper. This one, in the abstract, is for the means; the window in the body of the paper is for the event itself. Thirty years from the symposium ran out on 30 March 2023, a fortnight after OpenAI released GPT-4.',
+  s: [['Vinge (1993), NASA CP-10129, PDF', 'https://ntrs.nasa.gov/api/citations/19940022856/downloads/19940022856.pdf'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260925161548/https://ntrs.nasa.gov/api/citations/19940022856/downloads/19940022856.pdf'],
+      ['Vinge’s own copy, San Diego State University', 'https://edoras.sdsu.edu/~vinge/misc/singularity.html']] },
+
+{ id: 'f-vinge-window', who: 'Vernor Vinge', group: 'pioneer', made: '1993-03-30', th: 'hyp', card: 'vinge',
+  t: 'Not before 2005 or after 2030', short: 'Vinge · 2005–30',
+  type: 'window', from: '2005', to: '2030',
+  say: 'Just so I’m not guilty of a relative-time ambiguity, let me more specific: I’ll be surprised if this event occurs before 2005 or after 2030.',
+  sayc: 'Vinge, “The Coming Technological Singularity” (1993), NASA CP-10129, p. 12. “Let me more specific” is as printed.',
+  event: 'the creation of greater than human intelligence (from the sentence before)',
+  decide: 'No test was named. The window closes at the end of 2030.',
+  x: 'The sentence before reads: “Based largely on this trend, I believe that the creation of greater than human intelligence will occur during the next thirty years.” The trend was computer hardware. Vinge died in March 2024, with six years of his window left.',
+  s: [['Vinge (1993), NASA CP-10129, PDF', 'https://ntrs.nasa.gov/api/citations/19940022856/downloads/19940022856.pdf'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260925161548/https://ntrs.nasa.gov/api/citations/19940022856/downloads/19940022856.pdf'],
+      ['Vinge’s own copy, archived', 'http://web.archive.org/web/20261013093837/https://edoras.sdsu.edu/~vinge/misc/singularity.html']] },
+
+{ id: 'f-kurzweil', who: 'Ray Kurzweil', group: 'pioneer', made: '2005-09', th: 'hyp',
+  t: 'The Singularity in 2045', short: 'Kurzweil · 2045',
+  type: 'date', at: '2045',
+  say: 'I set the date for the Singularity—representing a profound and disruptive transformation in human capability—as 2045.',
+  sayc: 'Kurzweil, questions and answers for The Singularity Is Near, singularity.com (2005), “When will that occur?”',
+  event: 'the Singularity—representing a profound and disruptive transformation in human capability',
+  decide: 'No test was named.',
+  read: 'This is the date the page’s 2045 centre uses. It is on the spiral as a centre rather than a milestone, which is why the rule counts it among the pioneers.',
+  x: 'The next sentence in the same answer reads: “The nonbiological intelligence created in that year will be one billion times more powerful than all human intelligence today.” The earliest archived copy of the answer is from 24 September 2005, the week the book went on sale.',
+  s: [['Kurzweil, Q&A on singularity.com', 'https://singularity.com/qanda.html'],
+      ['Archived copy, 24 September 2005 (Wayback Machine)', 'http://web.archive.org/web/20050924221040/http://singularity.com:80/qanda.html']] },
+
+/* ---------------- a public bet ---------------- */
+{ id: 'f-longbet', who: 'Mitchell Kapor and Ray Kurzweil', group: 'bet', made: '2002', th: 'reck',
+  t: 'Long Bet 1: a machine passes the Turing test by 2029', short: 'Kapor–Kurzweil bet · 2029',
+  type: 'bet', due: '2029', prob: '$20,000 at even stakes',
+  say: 'By 2029 no computer – or “machine intelligence” – will have passed the Turing Test.',
+  sayc: 'Long Bets, Bet 1 (2002), the statement. Kapor is the predictor; Kurzweil challenges it and says a computer will pass.',
+  event: 'a computer will pass the Turing test, under the bet’s terms',
+  decide: 'The bet’s terms: three judges each interview four candidates, the computer and three human foils, for two hours each. The computer passes if it fools two of the three judges and is ranked at least as human as two of the three foils, before the end of 2029. The winner’s charity gets $20,000.',
+  x: 'Their test is much harder than the one Turing described: two hours with each candidate, not five minutes. The 2025 result that met Turing’s 1950 forecast does not settle the bet, and the bet’s page records no result.',
+  s: [['Long Bets, Bet 1', 'https://longbets.org/1/'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261017104103/https://longbets.org/1/']] },
+
+/* ---------------- Land ---------------- */
+{ id: 'f-land', who: 'Nick Land', group: 'land', made: '1994', th: 'hyp', card: 'meltdown2012',
+  t: 'Meltdown’s limit, 2012', short: 'Meltdown · 2012',
+  type: 'date', at: '2012',
+  say: 'Converging upon terrestrial meltdown singularity, phase-out culture accelerates through its digitech-heated adaptive landscape, passing through compression thresholds normed to an intensive logistic curve: 1500, 1756, 1884, 1948, 1980, 1996, 2004, 2008, 2010, 2011 …',
+  sayc: 'Land, “Meltdown” (1994), section “Machinic Synthesis”, as the Ccru published it (Abstract Culture, swarm 1)',
+  event: 'terrestrial meltdown singularity',
+  decide: 'Land named no year and no test.',
+  read: 'The year is the page’s, not Land’s: the gaps between his thresholds halve from 256 years to one, so the series converges on 2012.',
+  outcome: { is: 'none', on: '2012-12-31', judge: 'No one: the year is derived, and the event has no test' },
+  x: 'Land never names 2012; the list stops at 2011 with an ellipsis, and the next line reads “Nothing human makes it out of the near-future.” The year came and went with AlexNet.',
+  s: [['Land, “Meltdown”, on the Ccru’s site', 'http://www.ccru.net/swarm1/1_melt.htm'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261007023103/http://www.ccru.net/swarm1/1_melt.htm']] },
+
+/* ---------------- frontier labs and their heads, since 2023 ---------------- */
+{ id: 'f-legg', who: 'Shane Legg, Google DeepMind', group: 'lab', made: '2023-10-26', th: 'hyp', card: 'deepmind',
+  t: 'Even odds of AGI by 2028', short: 'Legg · 50% by 2028',
+  type: 'spread', p50: '2028', prob: '50%',
+  say: 'And so, yeah, I think there’s a 50% chance that we have AGI by 2028.',
+  sayc: 'Legg on the Dwarkesh Podcast, 26 October 2023, answer beginning at 0:34:32',
+  event: 'AGI, which he defined at the start of the episode as “a machine that can do the sorts of cognitive things that people can typically do, possibly more” (0:00:26)',
+  decide: 'No test was named. A 50% date is not a deadline: if 2028 ends without AGI, the forecast has not been shown wrong.',
+  x: 'Legg co-founded DeepMind and is its chief AGI scientist. The year goes back to his blog at the end of 2011, where he gave AGI “a log-normal distribution with a mean of 2028 and a mode of 2025”. That was a mean; the 2023 figure is a median.',
+  s: [['Dwarkesh Podcast transcript, 26 October 2023', 'https://www.dwarkesh.com/p/shane-legg'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261012042821/https://dwarkesh.com/p/shane-legg'],
+      ['Legg, “Goodbye 2011, hello 2012”, vetta.org', 'http://www.vetta.org/2011/12/goodbye-2011-hello-2012/']] },
+
+{ id: 'f-anthropic', who: 'Anthropic', group: 'lab', made: '2025-03-06', th: 'hyp',
+  t: 'Powerful AI “in late 2026 or early 2027”', short: 'Anthropic · late 2026–27',
+  type: 'window', from: '2026-09', to: '2027-04', prob: 'we expect',
+  say: 'As our CEO Dario Amodei writes in ‘Machines of Loving Grace’, we expect powerful AI systems will emerge in late 2026 or early 2027.',
+  sayc: 'Anthropic, “Anthropic’s Recommendations to OSTP for the U.S. AI Action Plan”, blog post, 6 March 2025',
+  event: 'powerful AI systems, which the post defines by four properties: “Intellectual capabilities matching or exceeding that of Nobel Prize winners across most disciplines”; every interface a human doing digital work uses; reasoning on its own through tasks over “hours, days, or even weeks”; and control of laboratory and manufacturing equipment',
+  decide: 'No test was named.',
+  read: 'Late 2026 is read as September to December, and early 2027 as January to April. That follows Ryan Greenblatt of Redwood Research, who reads “early 2027” as “within the first third of 2027”, and allows that it could charitably mean the first half.',
+  x: 'The submission Anthropic sent the White House the same day is more cautious: “we anticipate that powerful AI systems could emerge as soon as late 2026 or 2027” (p. 2). The page takes the blog post’s wording because it is the more specific of the lab’s two documents.',
+  s: [['Anthropic, blog post, 6 March 2025', 'https://www.anthropic.com/news/anthropic-s-recommendations-ostp-u-s-ai-action-plan'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261013051748/https://www.anthropic.com/news/anthropic-s-recommendations-ostp-u-s-ai-action-plan'],
+      ['The submission to OSTP, PDF', 'https://assets.anthropic.com/m/4e20a4ab6512e217/original/Anthropic-Response-to-OSTP-RFI-March-2025-Final-Submission-v3.pdf'],
+      ['Greenblatt, “What’s up with Anthropic predicting AGI by early 2027?”', 'https://blog.redwoodresearch.org/p/whats-up-with-anthropic-predicting']] },
+
+{ id: 'f-amodei-code', who: 'Dario Amodei, Anthropic', group: 'lab', made: '2025-03-10', th: 'lang',
+  t: 'AI writing 90 percent of the code within six months', short: 'Amodei · 90% of code',
+  type: 'window', from: '2025-06-10', to: '2025-09-10',
+  say: 'If I look at coding, programming, which is one area where AI is making the most progress, what we are finding is we are not far from the world—I think we’ll be there in three to six months—where AI is writing 90 percent of the code.',
+  sayc: 'Amodei at the Council on Foreign Relations, CEO Speaker Series, 10 March 2025, from CFR’s uncorrected transcript',
+  event: 'AI is writing 90 percent of the code',
+  decide: 'No measure was named: whose code, and counted how.',
+  read: 'Three to six months from 10 March 2025 is drawn as a window from 10 June to 10 September 2025.',
+  outcome: { is: 'disputed', on: '2025-10-22', judge: 'Ryan Greenblatt, Redwood Research, against Amodei’s own later claim that it was true',
+    say: 'Thus, when Dario said “this is absolutely true”, I don’t agree: I don’t think the prediction came true.',
+    sayc: 'Greenblatt, “Is 90% of code at Anthropic being written by AIs?”, Redwood Research blog, 22 October 2025',
+    s: ['Greenblatt (2025)', 'https://blog.redwoodresearch.org/p/is-90-of-code-at-anthropic-being'] },
+  x: 'He went on: “And then in twelve months, we may be in a world where AI is writing essentially all of the code.” Greenblatt, an outside safety researcher, estimated that the share of merged code written by AI across Anthropic was “much less than 90%, more like 50%.”',
+  s: [['CFR, CEO Speaker Series with Dario Amodei', 'https://www.cfr.org/event/ceo-speaker-series-dario-amodei-anthropic'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261011200015/https://www.cfr.org/event/ceo-speaker-series-dario-amodei-anthropic'],
+      ['Greenblatt (2025)', 'https://blog.redwoodresearch.org/p/is-90-of-code-at-anthropic-being']] },
+
+{ id: 'f-deepmind', who: 'Google DeepMind', group: 'lab', made: '2025-04-02', th: 'hyp',
+  t: 'Powerful AI “plausible” by 2030', short: 'DeepMind · by 2030',
+  type: 'deadline', due: '2030', prob: 'plausible',
+  say: 'We are highly uncertain about the timelines until powerful AI systems are developed, but crucially, we find it plausible that they will be developed by 2030.',
+  sayc: 'Shah and others, Google DeepMind, “An Approach to Technical AGI Safety and Security”, arXiv 2504.01849, 2 April 2025, p. 2, “Background assumptions”',
+  event: 'powerful AI systems; the paper aims at what it calls Exceptional AGI, “an AI system that matches or exceeds that of the 99th percentile of skilled adults on a wide range of non-physical tasks” (p. 15)',
+  decide: 'No test was named.',
+  read: '“Plausible” claims a possibility, not a central estimate, so the date is drawn as a limit with no probability attached. “By 2030” is read as by the end of 2030.',
+  x: 'The paper sets out how Google DeepMind means to make AGI safe, and says the approach should work at any time because timelines may be very short.',
+  s: [['Google DeepMind (2025), arXiv', 'https://arxiv.org/abs/2504.01849'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260917083329/https://arxiv.org/abs/2504.01849']] },
+
+{ id: 'f-openai-intern', who: 'OpenAI, in Sam Altman’s words', group: 'lab', made: '2025-10-28', th: 'learn',
+  t: 'An automated AI research intern by September 2026', short: 'OpenAI intern · Sep 2026',
+  type: 'deadline', due: '2026-09',
+  say: 'We have set internal goals of having an automated AI research intern by September of 2026 running on hundreds of thousands of GPUs, and a true automated AI researcher by March of 2028.',
+  sayc: 'Sam Altman on X, 29 October 2025, summing up OpenAI’s livestream of the day before',
+  event: 'an automated AI research intern',
+  decide: 'OpenAI’s own measurements. It later defined an intern as “a system that can carry out well-defined research tasks under human direction”.',
+  outcome: { is: 'claimed', on: '2026-09-06', judge: 'OpenAI itself, by its own measurements; there was no outside test',
+    say: 'According to our measurements, we have now reached the goal, announced last fall, of having an automated research intern by September of this year.',
+    sayc: 'OpenAI, “Research acceleration: The view inside OpenAI”, 6 September 2026',
+    s: ['OpenAI, 6 September 2026', 'https://openai.com/index/research-acceleration-view-inside-openai/'] },
+  x: 'Altman called both targets internal goals: “We may totally fail at this goal.” OpenAI’s claim rests on usage data: by mid-August its research staff were running about 3.1 agent workdays for every human workday, and “over half of successful 4-8 hour tasks involved 1 or more interventions” by a person.',
+  s: [['Sam Altman on X, 29 October 2025', 'https://x.com/sama/status/1983584366547829073'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260302053252/https://x.com/sama/status/1983584366547829073'],
+      ['OpenAI, “Research acceleration”, 6 September 2026', 'https://openai.com/index/research-acceleration-view-inside-openai/']] },
+
+{ id: 'f-openai-researcher', who: 'OpenAI, in Sam Altman’s words', group: 'lab', made: '2025-10-28', th: 'learn',
+  t: 'A true automated AI researcher by March 2028', short: 'OpenAI researcher · Mar 2028',
+  type: 'deadline', due: '2028-03',
+  say: 'We have set internal goals of having an automated AI research intern by September of 2026 running on hundreds of thousands of GPUs, and a true automated AI researcher by March of 2028.',
+  sayc: 'Sam Altman on X, 29 October 2025, summing up OpenAI’s livestream of the day before',
+  event: 'a true automated AI researcher',
+  decide: 'No test was named. OpenAI judged the first goal by its own measurements.',
+  x: 'In September 2026, when it said the first goal had been met, OpenAI wrote: “We are making strong progress toward creating an automated AI researcher by March of 2028.”',
+  s: [['Sam Altman on X, 29 October 2025', 'https://x.com/sama/status/1983584366547829073'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260302053252/https://x.com/sama/status/1983584366547829073'],
+      ['OpenAI, “Research acceleration”, 6 September 2026', 'https://openai.com/index/research-acceleration-view-inside-openai/']] },
+
+{ id: 'f-zuckerberg', who: 'Mark Zuckerberg, Meta', group: 'lab', made: '2025-01-29', th: 'lang',
+  t: 'An AI engineer as good as a mid-level engineer, in 2025', short: 'Zuckerberg · 2025',
+  type: 'date', at: '2025',
+  say: 'I also expect that 2025 will be the year when it becomes possible to build an AI engineering agent that has coding and problem-solving abilities of around a good mid-level engineer.',
+  sayc: 'Meta, fourth-quarter 2024 earnings call, 29 January 2025, transcript p. 2',
+  event: 'an AI engineering agent that has coding and problem-solving abilities of around a good mid-level engineer',
+  decide: 'No test was named.',
+  outcome: { is: 'none', on: '2026-01-28', judge: 'No verdict. Meta’s call a year later did not say the goal had been met',
+    say: 'We’re starting to see agents really work.',
+    sayc: 'Zuckerberg, Meta fourth-quarter 2025 earnings call, 28 January 2026, transcript p. 1',
+    s: ['Meta, Q4 2025 earnings call transcript', 'https://s21.q4cdn.com/399680738/files/doc_financials/2025/q4/META-Q4-2025-Earnings-Call-Transcript.pdf'] },
+  x: 'He called it “a profound milestone” in the same answer. A year later he told investors that agents were starting to work, without coming back to the mid-level engineer.',
+  s: [['Meta, Q4 2024 earnings call transcript', 'https://s21.q4cdn.com/399680738/files/doc_financials/2024/q4/META-Q4-2024-Earnings-Call-Transcript.pdf'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260925201356/https://s21.q4cdn.com/399680738/files/doc_financials/2024/q4/META-Q4-2024-Earnings-Call-Transcript.pdf'],
+      ['Meta, Q4 2025 earnings call transcript', 'https://s21.q4cdn.com/399680738/files/doc_financials/2025/q4/META-Q4-2025-Earnings-Call-Transcript.pdf']] },
+
+/* ---------------- surveys of AI researchers ---------------- */
+{ id: 'f-survey-2016', who: '352 AI researchers, surveyed by AI Impacts in 2016', group: 'survey', made: '2016-06', th: 'hyp',
+  t: 'Machines better than people at every task: 10% by 2025, 50% by 2061', short: 'Survey 2016 · 50% by 2061',
+  type: 'spread', p10: '2025', p50: '2061',
+  say: 'Taking the mean over each individual, the aggregate forecast gave a 50% chance of HLMI occurring within 45 years and a 10% chance of it occurring within 9 years.',
+  sayc: 'Grace, Salvatier, Dafoe, Zhang and Evans, “When Will AI Exceed Human Performance? Evidence from AI Experts”, arXiv 1705.08807v3, p. 2. Answered 3 May to 28 June 2016 by researchers who published at NIPS or ICML in 2015.',
+  event: '“High-level machine intelligence” (HLMI) is achieved when unaided machines can accomplish every task better and more cheaply than human workers.',
+  decide: 'A spread is a probability, so no single date passing makes it right or wrong.',
+  read: '“Within 45 years” and “within 9 years” are counted from 2016.',
+  x: 'The first survey in the series asked researchers who had published at NIPS and ICML in 2015 when machines would beat people at every task. Its 10 percent year has passed; its 50 percent year is 2061.',
+  s: [['Grace and others (2017), arXiv', 'https://arxiv.org/abs/1705.08807'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20261012032524/https://arxiv.org/abs/1705.08807']] },
+
+{ id: 'f-survey-2024', who: '1,580 AI researchers, surveyed by AI Impacts in 2024', group: 'survey', made: '2024-12', th: 'hyp',
+  t: 'Machines better than people at every task: 10% by 2027, 50% by 2042', short: 'Survey 2024 · 50% by 2042',
+  type: 'spread', p10: '2027', p50: '2042',
+  say: 'In the mean aggregate forecast, HLMI reaches a 10% chance in 2027 and a 50% chance in 2042 (18 years from the survey).',
+  sayc: 'Grace and others, “Advanced AI according to 1,580 researchers: uncertain, unsafe, and sooner than we thought”, AI Impacts, September 2026, p. 12. Answered 9–24 December 2024.',
+  event: 'when unaided machines can accomplish every task better and more cheaply than human workers (p. 5)',
+  decide: 'A spread is a probability, so no single date passing makes it right or wrong.',
+  x: 'The same question as in 2016, put to a larger group. The 50 percent year moved from 2061 in 2016 to 2047 in the 2023 survey and 2042 in this one, five years earlier than a year before.',
+  s: [['AI Impacts (2026), PDF', 'https://aiimpacts.org/wp-content/uploads/2026/09/ESPAI2024.pdf'],
+      ['Archived copy (Wayback Machine)', 'http://web.archive.org/web/20260925120827/https://aiimpacts.org/wp-content/uploads/2026/09/ESPAI2024.pdf'],
+      ['The 2023 survey, arXiv 2401.02843', 'https://arxiv.org/abs/2401.02843']] }
+];
+
+if (typeof module !== 'undefined') module.exports = { FORECASTS };

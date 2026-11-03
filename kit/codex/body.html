@@ -1,0 +1,146 @@
+<title>Codex</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Major+Mono+Display&display=swap">
+<style>
+/*STYLE*/
+</style>
+
+<div class="page">
+  <header class="mast">
+    {{NAV}}
+    <h1>codex</h1>
+    <div class="readout" id="readout" aria-live="polite"><span>AQ 135</span><span>B3/S23</span><span class="on">Conway’s Life</span></div>
+    <p>Conway’s Life judges every cell by its 3×3 block, which holds 0 to 9 live cells: ten zones, like the Numogram’s. Write what each zone does as one base-3 digit and the rule becomes a number. Conway’s Life is 135, and in AQ, so is CONWAY. Type a word: its AQ total becomes a law, its letters become a body, and the body runs under its own law beside Conway’s.</p>
+  </header>
+
+  <main>
+  <section class="instrument" aria-label="Codex">
+    <div class="top">
+      <div class="inputs">
+        <div class="field">
+          <label for="word">Word or phrase</label>
+          <input id="word" type="text" value="CONWAY" maxlength="120" autocomplete="off" autocapitalize="characters" spellcheck="false">
+        </div>
+        <div class="chips" id="presets" role="group" aria-label="Words to try"></div>
+        <p class="sum" id="sum"></p>
+      </div>
+      <div class="card" id="card">
+        <div class="card-head"><h2>Its physics</h2><span class="trits" id="trits"></span></div>
+        <div class="zones" id="zones" role="img" aria-label="Zone table"></div>
+        <p class="cap">Each column is a syzygy, two zones that sum to nine. Filled: ignite. Outlined: hold. Plain: void. Dots mark the Numogram’s regions: <span class="reg"><i class="dot tc" aria-hidden="true"></i>Time-Circuit</span>, <span class="reg"><i class="dot warp" aria-hidden="true"></i>Warp</span>, <span class="reg"><i class="dot plex" aria-hidden="true"></i>Plex</span>.</p>
+        <div class="rule-line"><p class="bsr" id="bsr"></p><p id="plain"></p></div>
+        <ul class="notes" id="notes"></ul>
+      </div>
+    </div>
+
+    <div class="dishes">
+      <figure class="dish" id="dish-own">
+        <div class="dish-head"><h3>Under its own law</h3><span class="law" id="own-law"></span></div>
+        <canvas id="cv-own" role="img" aria-label="The word’s body under its own law"></canvas>
+        <figcaption class="dish-foot"><p class="count" id="own-count"></p><p class="fate pending" id="own-fate" aria-live="polite"></p></figcaption>
+      </figure>
+      <figure class="dish" id="dish-life">
+        <div class="dish-head"><h3>Under Conway’s law</h3><span class="law">B3/S23</span></div>
+        <canvas id="cv-life" role="img" aria-label="The word’s body under Conway’s Life"></canvas>
+        <figcaption class="dish-foot"><p class="count" id="life-count"></p><p class="fate pending" id="life-fate" aria-live="polite"></p></figcaption>
+      </figure>
+    </div>
+
+    <div class="transport">
+      <button type="button" class="btn" id="play">Pause</button>
+      <button type="button" class="btn ghost" id="step">Step</button>
+      <button type="button" class="btn ghost" id="restart">Restart</button>
+      <span class="speed" role="group" aria-label="Speed">
+        <span class="label">Speed</span>
+        <button type="button" class="chip" data-speed="3" aria-pressed="false">3/s</button>
+        <button type="button" class="chip" data-speed="10" aria-pressed="true">10/s</button>
+        <button type="button" class="chip" data-speed="30" aria-pressed="false">30/s</button>
+      </span>
+    </div>
+    <p class="note" id="flash-note" hidden>Slowed to three generations a second while large areas flicker.</p>
+  </section>
+
+  <section class="panel" aria-labelledby="h-how">
+    <h2 id="h-how">how a word becomes a universe</h2>
+    <div class="cols">
+      <p>A Life-like rule asks one question of each cell: how many of the nine cells in its 3×3 block, the cell and its eight neighbours, are alive. The answer runs from 0 to 9, the ten digits the Numogram lays out as zones. Conway’s rule, born with 3 neighbours and surviving with 2 or 3, says exactly this in zone terms: zone 3 ignites, zone 4 holds, and every other zone goes void.</p>
+      <p>Give each zone a base-3 digit, 0 for void, 1 for hold and 2 for ignite, and read them as one number with zone 0 as the lowest digit. Conway’s Life comes out as 2&nbsp;×&nbsp;27&nbsp;+&nbsp;1&nbsp;×&nbsp;81&nbsp;=&nbsp;135. Every number below 59,049 is a rule, and a word’s AQ total picks one. Totals here stay under 6,561, so zones 8 and 9 always void.</p>
+      <p>The letters build the starting shape. Each letter or digit becomes a row of live cells as long as its AQ value, from 10 cells for A to 35 for Z, centred and stacked with one empty row between rows; a 0 leaves its row empty. Words with equal totals obey the same law but start from different bodies, which is gematria’s claim made literal: TIME and DEATH are both 83.</p>
+      <p>Both dishes run on an unbounded plane. A fate is called when the pattern repeats exactly, as a still life, a cycle or a single traveller, or when its population has repeated for 600 generations while objects fly away. A run that passes 25,000 cells is called an explosion; one still changing after 10,000 generations, or about fifteen seconds of computing, is reported as unsettled.</p>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-limits">
+    <h2 id="h-limits">what the code can’t do</h2>
+    <div class="limits">
+      <div class="limit">
+        <h3>Twins</h3>
+        <p>A live cell always counts itself, so zone 0 only ever judges dead cells, where void and hold mean the same thing. Every multiple of 3 therefore has a twin one above it: 136 is Conway’s Life too, and ORACLE (108) shares GLIDER’s physics (109). Zone 9 is the mirror case. The 59,049 codes give 26,244 different physics.</p>
+      </div>
+      <div class="limit">
+        <h3>No flips</h3>
+        <p>A zone can void, hold or ignite, but it can’t flip, giving birth to a dead cell while killing a live one at the same count. Rules that need a flip have no number here, among them HighLife (B36/S23), Seeds (B2/S) and Day &amp; Night (B3678/S34678). The code reaches 26,244 of the 262,144 Life-like rules, about one in ten.</p>
+      </div>
+      <div class="limit">
+        <h3>Empty space ignites</h3>
+        <p>A total that leaves a remainder of 2 when divided by 3 makes zone 0 ignite: every empty cell with no live neighbours is born, so the whole background flips each generation. That happens for {{B0SHARE}} of common English words. The dish follows Golly’s method and draws only the cells that differ from the background, so the screen never strobes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-odds">
+    <h2 id="h-odds">how lucky is conway?</h2>
+    <p>Less than it looks. Totals of short words bunch together: the average letter is worth about {{MEANL}} in AQ, so six-letter words average about {{SIXAVG}}, and 135 is well inside their usual range. Before computing anything, a list of 50 Life terms was fixed (below) to ask how often such a search finds a hit by luck.</p>
+    <div class="odds">
+      <div class="stat"><span class="v">{{P6}}</span><span class="k">of {{N6}} common six-letter words land on 135 or 136</span></div>
+      <div class="stat"><span class="v">{{P1}}</span><span class="k">chance that 50 Life terms produce at least one hit by luck ({{EXPHITS}} expected)</span></div>
+      <div class="stat"><span class="v">{{NLIFEWORDS}}</span><span class="k">of the {{NWORDS}} commonest English words are Conway’s Life, ALWAYS and ASSERT among them</span></div>
+    </div>
+    <p class="note">The reading order is a choice too. Read the zone digits the other way round and Conway’s Life is 1701. Word counts use the top 50,000 words in the wordfreq list, letters only.</p>
+    <details class="terms">
+      <summary>The 50 Life terms, fixed in advance, with their AQ totals</summary>
+      <ul class="termlist">{{TERMS}}</ul>
+    </details>
+  </section>
+
+  <section class="panel" aria-labelledby="h-checks">
+    <h2 id="h-checks">checks</h2>
+    <ul class="checks">
+      <li><span class="ok">PASS</span><span>LifeWiki’s benchmarks, reproduced exactly: the R-pentomino settles at generation 1103 with 116 cells and six gliders, the acorn at 5206 with 633 cells and 13 gliders, and die hard vanishes at 130.</span></li>
+      <li><span class="ok">PASS</span><span>Populations match lifelib, an independent engine, at every generation through 500 for 20 words, under their own law and under Conway’s: 40 runs, the largest reaching 464,588 cells. Rules where empty space ignites are compared on even generations, the only ones where the true population is finite.</span></li>
+      <li><span class="ok">PASS</span><span>The zone decoder agrees with a separate Python version on all 59,049 codes, tested against all 512 possible 3×3 blocks.</span></li>
+      <li><span class="ok">PASS</span><span>AQ values match Numogram Lab’s on 26 test strings, including accents and digits, and the body encoding matches a second, independent implementation.</span></li>
+    </ul>
+  </section>
+  </main>
+
+  <footer class="foot">
+    <h2>Rules</h2>
+    <dl class="rules">
+      <dt>AQ</dt><dd>A&nbsp;=&nbsp;10 through Z&nbsp;=&nbsp;35, with digits 0–9 at face value. Accents are dropped before counting, as in Numogram Lab.</dd>
+      <dt>Zones</dt><dd>A cell’s zone is the number of live cells in its 3×3 block, itself included. A dead cell with n live neighbours sits in zone n; a live one sits in zone n&nbsp;+&nbsp;1.</dd>
+      <dt>Code</dt><dd>The AQ total modulo 59,049, read in base 3 with zone 0 as the lowest digit: 0 void (dead next), 1 hold (keep its state), 2 ignite (alive next).</dd>
+      <dt>Body</dt><dd>One row per letter or digit, as many cells long as its AQ value, starting at x&nbsp;=&nbsp;−⌊L/2⌋, with rows two apart. Other characters are skipped.</dd>
+      <dt>Empty space</dt><dd>Rules with zone 0 igniting follow Golly’s emulation: without S8 the background flips every generation, with S8 it lights once and stays lit. Counts and drawings show the cells that differ from it.</dd>
+      <dt>Fates</dt><dd>Exact repeats give still lifes, cycles and travellers. Objects count as thrown off once their surroundings were empty 200 generations earlier and the population has repeated for 600. Runs stop at 25,000 cells or 10,000 generations.</dd>
+    </dl>
+    <h2>Sources</h2>
+    <ul class="src">
+      <li><a href="https://dataswamp.org/~john/sites/ccru/id(entity)/glossary.htm" target="_blank" rel="noopener">Ccru Glossary</a> <span>· Alphanumeric Qabbala, A&nbsp;=&nbsp;10 to Z&nbsp;=&nbsp;35, a continuous decimal-alphabetic system</span></li>
+      <li><a href="https://conwaylife.com/wiki/R" target="_blank" rel="noopener">LifeWiki: R-pentomino</a>, <a href="https://conwaylife.com/wiki/Acorn" target="_blank" rel="noopener">Acorn</a>, <a href="https://conwaylife.com/wiki/Die_hard" target="_blank" rel="noopener">Die hard</a> <span>· the benchmark numbers</span></li>
+      <li><a href="https://golly.sourceforge.io/Help/Algorithms/QuickLife.html" target="_blank" rel="noopener">Golly: QuickLife</a> <span>· how rules with B0 are emulated</span></li>
+      <li><a href="https://pypi.org/project/python-lifelib/" target="_blank" rel="noopener">lifelib</a> <span>· the independent engine for the population checks</span></li>
+      <li><a href="https://pypi.org/project/wordfreq/" target="_blank" rel="noopener">wordfreq</a> <span>· the English word list behind the odds</span></li>
+    </ul>
+    {{FOOT}}
+  </footer>
+</div>
+
+<script id="codex-engine">
+/*ENGINE*/
+</script>
+<script>
+/*SCRIPT*/
+</script>

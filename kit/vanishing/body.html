@@ -1,0 +1,164 @@
+<title>Vanishing Point</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Major+Mono+Display&display=swap">
+<style>
+{{CSS}}
+</style>
+<div class="page">
+  <header class="mast">
+    {{NAV}}
+    <div class="mast-row">
+      <h1>vanishing point</h1>
+      <p class="lede">The history of AI on a logarithmic spiral, from the first ledgers to this month. Each turn holds a tenth of the time of the turn outside it, so zooming in also turns the spiral: the timeline is a tunnel.</p>
+    </div>
+  </header>
+
+  <section class="stage" aria-label="Spiral timeline">
+    <div class="tunnel-box">
+      <div class="tunnel-frame">
+        <canvas id="tunnel" tabindex="0" role="img" aria-label="A logarithmic spiral of milestones in the history of AI. The full list follows below the controls."></canvas>
+        <div class="headtag" id="headtag" aria-hidden="true">head · 1960</div>
+      </div>
+      <p class="vpcap" id="vpcap">Centre: <b>Doomsday, Friday 13 November 2026</b></p>
+    </div>
+
+    <div class="transport">
+      <div class="tbtns">
+        <button class="btn ghost" id="prev" type="button" aria-label="Previous milestone">← Prev</button>
+        <button class="btn" id="play" type="button" aria-pressed="false">▶&#xFE0E; Descend</button>
+        <button class="btn ghost" id="next" type="button" aria-label="Next milestone">Next →</button>
+        <button class="btn ghost ahead" id="ahead" type="button" aria-pressed="false">Looking ahead</button>
+      </div>
+      <div class="depth">
+        <span aria-hidden="true">Rim</span>
+        <input type="range" id="depth" min="-4" max="1" step="0.001" value="-1.8" aria-label="Travel through time, from the rim of the spiral to its centre">
+        <span aria-hidden="true">Centre</span>
+      </div>
+      <div class="eras" id="eras" role="group" aria-label="Jump to an era"></div>
+      <p class="hint">Scroll or pinch to travel, drag to turn the spiral, tap a mark to read it. With the spiral focused, ← → step through milestones and the space bar plays. Centred on now, keep going in past today and the spiral turns round to look ahead.</p>
+      <p class="sr" id="vplive" aria-live="polite"></p>
+    </div>
+
+    <article class="card" id="card" aria-live="polite"></article>
+
+    <div class="lanes">
+      <h2>Lanes, rim to centre</h2>
+      <div class="lane-row" id="lanechips"></div>
+      <h2>Model releases by lab</h2>
+      <div class="lane-row" id="labchips"></div>
+      <div class="opts">
+        <label><input type="checkbox" id="bitter"> Bitter Lesson view (hide hand-built roads)</label>
+        <label><input type="checkbox" id="keyonly"> Key milestones only</label>
+        <label><input type="checkbox" id="fcshow" checked> Resolved forecasts</label>
+        <label>Centre <select id="vp" aria-label="Centre of the spiral"></select></label>
+      </div>
+      <ul class="legend" aria-label="Legend">
+        <li><span class="mk tri"></span>a model release</li>
+        <li><span class="mk dot"></span>fed the present</li>
+        <li><span class="mk ring"></span>road not taken</li>
+        <li><span class="mk sq"></span>a verdict</li>
+        <li><span class="mk dia"></span>Land or the Ccru speak here</li>
+        <li><span class="mk now"></span>today</li>
+        <li><span class="mk fc"></span>an open forecast</li>
+        <li><span class="mk fc half"></span>a 50% date</li>
+        <li><span class="mk fc done hit"></span>came true</li>
+        <li><span class="mk fc done miss"></span>missed</li>
+      </ul>
+      <figure class="pace">
+        <figcaption><span id="pace-title">Model releases per year</span> <small>on this spiral · * so far this year</small></figcaption>
+        <div id="pace"></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="fcl" id="fclist" aria-labelledby="fc-title">
+    <div class="list-head">
+      <h2 id="fc-title">Forecasts</h2>
+      <p id="fccount"></p>
+    </div>
+    <p class="fcl-note">Dated forecasts about AI and its neighbours, each checked against its original and quoted in its own words. On the spiral each one is a dashed ring at the date it named: open forecasts in Looking ahead, resolved ones in the history views with a thread back to the day they were said. Each line below draws the same on a strip, with today in the middle, time past to the left and time ahead to the right; the faint ticks mark one and ten years, so each step out is ten times further.</p>
+    <div class="fcaxis" aria-hidden="true"><span class="fx-l">100 years ago</span><span class="fx-now">today</span><span class="fx-r">100 years ahead</span></div>
+    <h3 id="fc-open-h">Open</h3>
+    <ul id="fc-open" aria-labelledby="fc-open-h"></ul>
+    <h3 id="fc-done-h">Resolved or closed</h3>
+    <ul id="fc-done" aria-labelledby="fc-done-h"></ul>
+  </section>
+
+  <section class="list" aria-labelledby="list-title">
+    <div class="list-head">
+      <h2 id="list-title">All milestones</h2>
+      <p id="listcount"></p>
+    </div>
+    <div id="eralist"></div>
+  </section>
+
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">Notes</h2>
+    <div class="notes">
+      <div class="note">
+        <h3>How to read the spiral</h3>
+        <p>The spiral is drawn in log time. Every turn inward divides the time left by ten, so the turns hold millennia, then centuries, decades, years and months, while on screen each turn is two and a half times smaller than the one outside it. A logarithmic spiral is the curve where scaling and rotating are the same transformation: zoom in and it turns, which is why travelling through it feels like a tunnel.</p>
+        <p>The same curve is the course of a ship that holds one compass bearing: steer about eight degrees north of due west and, seen from above the North Pole in stereographic projection, your track is this spiral, closing in two and a half times with each turn. Mercator’s map of 1569 is in effect a logarithm of that view, which is why it draws such courses as straight lines; it would draw this spiral as a straight line of log time. Each drawing keeps some relations true and gives up others. Mercator keeps directions and swells areas toward the poles; the spiral keeps ratios of the time left and shrinks equal spans of years toward the rim.</p>
+        <p>Six lanes run side by side, from the rim inward: Models, Capital, Reckoning, Learning, Language and Hyperstition. Milestones on the same date line up across the lanes. When two milestones in one lane fall almost on the same date, they are nudged apart along the lane so both can be tapped; the card always gives the true date. Some cards end with links, under “Elsewhere on the spiral”, to the milestones they connect with.</p>
+      </div>
+      <div class="note">
+        <h3>The centre</h3>
+        <p>The Doomsday centre is the date in the title of Heinz von Foerster, Patricia Mora and Lawrence Amiot’s 1960 <i>Science</i> paper, “Doomsday: Friday, 13 November, A.D. 2026”. The page opens on it until that date arrives, and on “Now” from then on. They fitted two thousand years of population estimates to a hyperbolic curve, the kind that reaches infinity in finite time. Population growth bent away from it in the 1960s.</p>
+        <p>“Now” puts the moment you opened the page at the centre. “2045” uses the date Ray Kurzweil gave for the Singularity in 2005; the inner turns then become empty future and the whole history crowds onto the outer turns.</p>
+        <p>Any list of milestones drawn in log time looks as if it accelerates into its centre. Recent events are easier to know about, and the axis gives them more room. Read the crowding near the centre as partly a property of the drawing.</p>
+      </div>
+      <div class="note">
+        <h3>What counts, and how much</h3>
+        <p>The Models lane holds <span data-count="models">92</span> releases: the major ones from OpenAI and Anthropic, xAI’s main Grok releases, and the most notable from other labs, each drawn as a triangle pointing at the centre. Releases per year went from one or two before 2022 to more than twenty in 2025, and 2026 passed that by October. The log axis already gives recent time extra room, so the crowding of triangles toward the centre is the pace showing through it.</p>
+        <p>Frederick Jelinek’s line about firing linguists raised the question of whether linguists should count for less in this history. The page’s answer is to count the rule-writers for less. Markov, Shannon, Harris and Firth were doing linguistics by counting, and modern language models descend from that line. Hand-written grammars, expert systems and other attempts to type knowledge in are drawn hollow, as roads not taken. The Bitter Lesson view hides them, leaving roughly the history as the winners tell it.</p>
+        <p>Each milestone carries a weight. The <span data-count="key">59</span> key milestones show up in “Key milestones only” and in the larger marks; the rest fill in the record. Before 1900 the selection follows three threads: the places where Land’s story touches the past (zero and place value, double-entry ledgers, the oceanic trading companies); the machine line from Llull through Babbage and Lovelace to Boole, with the Antikythera mechanism alone far out before it; and the machinery for copying, steering, producing and connecting: Gutenberg’s press, Mercator’s chart, Watt’s governor, Evans’s mill and the Atlantic cable. Two early archives of writing sit at the rim, Uruk’s ledgers and the Shang kings’ questions to the dead.</p>
+      </div>
+      <div class="note bm" id="body-machine">
+        <h3>The body of the machine</h3>
+        <p>Most milestones on the spiral are papers, releases and announcements. In the Capital lane, Stargate and the Three Mile Island deal look ahead: up to $500 billion to be invested over four years, and power for Microsoft from a reactor still to be restarted. The two series below are money already spent and electricity already used. They come from different countries and different calendars, so each has its own chart, and neither measures spending on AI.</p>
+        <figure class="pace bmfig">
+          <figcaption><span id="bm-msft-title">Microsoft: cash spent on property and equipment</span> <small>US$ billion · fiscal years to 30 June · Form&nbsp;10&#8209;K</small></figcaption>
+          <div id="bm-msft"></div>
+        </figure>
+        <p class="bmnote">Cash additions to property and equipment, from the cash-flow statements in Microsoft’s annual reports. They cover all its new facilities, data centres and computer systems, whatever they are used for. Buildings and equipment taken on finance leases are left out: the company records those as lease assets, not as cash spent<span id="bm-lease"></span>. <span id="bm-msft-sum"></span></p>
+        <figure class="pace bmfig">
+          <figcaption><span id="bm-ie-title">Ireland: electricity used by data centres</span> <small>gigawatt hours a year · metered · Central Statistics Office</small></figcaption>
+          <div id="bm-ie"></div>
+        </figure>
+        <p class="bmnote">Metered electricity used by every data centre the Central Statistics Office identifies, whatever it runs; AI is not counted separately. The share of all metered electricity is as the CSO publishes it, to a whole percent. <span id="bm-ie-sum"></span></p>
+        <details class="bmdata">
+          <summary>The figures and their sources</summary>
+          <div id="bm-tables"></div>
+        </details>
+      </div>
+      <div class="note">
+        <h3>Forecasts</h3>
+        <p>The <span data-count="forecasts">20</span> forecasts were chosen by a rule written before any were picked: dated claims by the pioneers already on the spiral, by the frontier labs and their heads since 2023, by the first and latest of the large surveys of AI researchers, in one public bet, and in Land. Misses stay in with the hits. Each card quotes the forecaster’s own words with a page or a timestamp, says how the outcome is decided and who judged it, and links an archived copy. Forecasts are counted apart from the milestones.</p>
+        <p><b>Looking ahead</b> is the tunnel reversed: today at the centre and the far future at the rim, each turn out ten times further ahead. Open forecasts live there. Centred on now, keep going in past today and the spiral turns round to look ahead; go in past today again to look back. A half-filled ring is a 50 percent date, the point by which the forecast gives even odds, not a deadline. Resolved forecasts stay in the history views, with a thread from the day each was said to the date it named.</p>
+      </div>
+      <div class="note">
+        <h3>Whose words</h3>
+        <p>On each card, “From the texts” quotes Nick Land or the Ccru directly and says where. “This page” is the page’s own reading in the same spirit, and is never presented as Land’s. Where a link might be expected but isn’t in the texts checked, the card says so: Land doesn’t name the Dutch East India Company in the texts checked here, for instance, so that pairing is the page’s own.</p>
+        <p>Main texts: Land, “Machinic Desire” (1993), “Meltdown” (1994), “Qabbala 101” (2006) and <i>Crypto-Current</i>; the Ccru Glossary; Brian Rotman, <i>Signifying Nothing</i> (1987); Richard Sutton, “The Bitter Lesson” (2019); Peter Norvig on Chomsky. Every card lists its own sources.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    {{FOOT}}
+  </footer>
+</div>
+<script>
+{{DATA}}
+</script>
+<script>
+{{FORECASTS}}
+</script>
+<script>
+{{LOGIC}}
+</script>
+<script>
+{{UI}}
+</script>

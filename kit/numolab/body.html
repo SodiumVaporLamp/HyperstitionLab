@@ -1,0 +1,227 @@
+<title>Numogram Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Major+Mono+Display&display=swap">
+<style>
+/*STYLE*/
+</style>
+
+<div class="page">
+  <header class="mast">
+    {{NAV}}
+    <h1>numogram lab</h1>
+    <div class="readout" id="mast-readout"><span>AQ 216 → 9</span><span class="rchip"><i class="dot plex"></i>zone 9 · Plex</span></div>
+    <p>AQ gematria laid over the Ccru’s Decimal Labyrinth. In AQ, A&nbsp;=&nbsp;10 through Z&nbsp;=&nbsp;35 and digits keep their face value. A phrase’s zone is the digital root of its AQ total.</p>
+  </header>
+
+  <section class="intro" aria-labelledby="intro-h">
+    <h2 class="sub" id="intro-h">What this is</h2>
+    <div class="intro-cols">
+      <p><strong>Gematria</strong> gives each letter a number, so every word adds up to a value, and words with equal values are read as linked. It comes from Hebrew tradition. <strong>AQ</strong> is the English cipher of the <strong>Ccru</strong>, the group around Nick Land, Sadie Plant and Mark Fisher at Warwick in the late 1990s, whose work mixed philosophy, cybernetics, occultism and science fiction.</p>
+      <p>The <strong>Numogram</strong> is their map of the ten digits. Ccru texts present it as recovered rather than invented, growing out of a Professor Barker’s study of nine-sum twinning, which promised “a secret door into the long-hidden crypt of the decimal system.” Barker is probably one of their own fictions. They worked the diagram as a practical instrument: a map of time with a looping Time-Circuit and an Outside, and a register of 45 demons. Part of the appeal is the appeal of divination. Fixed rules hand you readings you didn’t choose, and the meaning comes from what you make of them. The Ccru’s word for fictions that make themselves real through use was hyperstition, and the Numogram was one of its main instruments.</p>
+    </div>
+    <p class="note"><strong>Inherited and added.</strong> The diagram, its zones, currents, gates and demons, and the AQ cipher come from Ccru texts. Reading AQ totals through the diagram has a published precedent in Nick Land’s “Qabbala 101” (<i>Collapse</i> I, 2006). A footnote totals UNITY as 30&nbsp;+&nbsp;23&nbsp;+&nbsp;18&nbsp;+&nbsp;29&nbsp;+&nbsp;34&nbsp;=&nbsp;134 and reduces it to 8, which the text calls the Numogrammatic twin of 1, numerology’s number for unity. Whether the wider Ccru worked this way is a separate question. The phrase pairs, searches and experiments built on top are this page’s own.</p>
+    <p class="note"><strong>Nine and zero.</strong> A digital root runs from 1 to 9 and never gives 0, because 9 and 0 are the same number in arithmetic mod 9. The diagram draws them as two zones joined by Uttunul’s syzygy. Whenever the page puts a phrase in zone 9, read it as that 9::0 pair.</p>
+  </section>
+
+  <nav class="rail" role="tablist" aria-label="Instruments">
+    <button type="button" role="tab" id="tab-zones" data-tab="zones" aria-controls="p-zones" aria-selected="true">Zones</button>
+    <button type="button" role="tab" id="tab-alphabet" data-tab="alphabet" aria-controls="p-alphabet" aria-selected="false" tabindex="-1">Alphabet</button>
+    <button type="button" role="tab" id="tab-demons" data-tab="demons" aria-controls="p-demons" aria-selected="false" tabindex="-1">Demons</button>
+    <button type="button" role="tab" id="tab-loops" data-tab="loops" aria-controls="p-loops" aria-selected="false" tabindex="-1">Loops</button>
+    <button type="button" role="tab" id="tab-attractor" data-tab="attractor" aria-controls="p-attractor" aria-selected="false" tabindex="-1">Attractor</button>
+  </nav>
+
+  <main>
+    <!-- ZONES -->
+    <section class="panel" id="p-zones" role="tabpanel" aria-labelledby="tab-zones">
+      <div class="panel-head">
+        <h2>zones</h2>
+        <p class="lead">Type two phrases. Each lands in the zone given by its AQ digital root, and the pair summons the demon that stands between those two zones.</p>
+      </div>
+      <div class="zgrid">
+        <div class="z-main">
+          <div class="pair-inputs">
+            <div class="field"><label for="in-a">Phrase A</label><input id="in-a" type="text" value="Man" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+            <div class="field"><label for="in-b">Phrase B</label><input id="in-b" type="text" value="Machine" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+          </div>
+          <div class="pair-card" id="pair-card">
+            <div class="pc-verdict" id="between" aria-live="polite"></div>
+            <table class="pc" id="pair-table"></table>
+            <p class="pc-mark" aria-hidden="true">numogram lab</p>
+          </div>
+          <h3 class="sub">Try a pair</h3>
+          <div class="chips" id="pair-chips" role="group" aria-label="Example pairs"></div>
+        </div>
+        <div class="z-fig">
+          <figure class="diagram">
+            <svg id="numo" viewBox="0 0 400 600" role="img" aria-label="The Numogram: ten zones in five syzygy pairs, the Warp at the top, the Time-Circuit in the middle and the Plex at the bottom, with currents and gates."></svg>
+            <figcaption>Zones pair into syzygies that sum to nine. Moving dashes are currents, which flow to the zone numbered by each syzygy’s difference. Dashed arcs are gates, which lead from zone n to the digital root of 0&nbsp;+&nbsp;1&nbsp;+&nbsp;…&nbsp;+&nbsp;n. Phrase A wears the solid ring, phrase B the dashed one.</figcaption>
+          </figure>
+          <label class="toggle"><input type="checkbox" id="all-gates"> Show every gate</label>
+        </div>
+        <div class="z-notes">
+          <p class="note" id="cipher-note">For a phrase of letters alone, Ordinal, Reduction and AQ always agree on the zone. Reverse and Reverse reduction land in its syzygy twin; for a phrase on 9, that twin is 0, which a digital root also writes as 9. Satanic shifts the zone back one step for every letter. Digits break the pattern: AQ counts them at face value and the other ciphers skip them. Values the two phrases share are shaded in the card.</p>
+          <p class="note">The line under the demon’s name is this page’s paraphrase of its entry in the Ccru’s <a href="https://dataswamp.org/~john/sites/ccru/digithype/pandemonium.htm" target="_blank" rel="noopener">Pandemonium Matrix</a>; the Demons tab adds its rites. For a fuller reading of the demon between two names, with each Lemur’s titles and descriptions, try the Divination mode in <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a>’ Numogram, which inspired this page.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALPHABET -->
+    <section class="panel" id="p-alphabet" role="tabpanel" aria-labelledby="tab-alphabet" hidden>
+      <div class="panel-head">
+        <h2>alphabet</h2>
+        <p class="lead">In AQ every mirror pair of letters, A/Z through M/N, sums to 45, the number of the final gate. So a letter and its mirror always land in the same syzygy: on twin zones, or both on 9 for I and R.</p>
+      </div>
+      <div class="cols">
+        <figure class="diagram">
+          <svg id="ring" viewBox="0 0 400 400" role="img" aria-label="The alphabet on a ring with each letter joined to its mirror; all thirteen chords sum to 45 in AQ."></svg>
+          <figcaption>The thirteen mirror pairs. Chord colour gives the region of the syzygy each pair falls in; line style separates Murrumur, Oddubb and Katak. G and T form the diameter, which is why “Gt” totals 45. Tap a letter.</figcaption>
+          <ul class="legend" id="ring-legend"></ul>
+          <p class="note" id="ring-detail" aria-live="polite"></p>
+        </figure>
+        <div class="stack">
+          <h3 class="sub">Letters by zone</h3>
+          <div class="tbl-wrap"><table id="ztable"></table></div>
+          <p class="note">No letter plexes to 0, because a digital root never does. I and R, both on 9, stand for the whole 9::0 syzygy.</p>
+
+          <h3 class="sub">Mirror a word</h3>
+          <div class="field"><label for="mir-in">Word or phrase</label><input id="mir-in" type="text" value="Man" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+          <div id="mirror" class="stack"></div>
+          <p class="note">Reverse Ordinal scores every letter as its mirror, so a word’s Reverse Ordinal always plexes into the twin of its Ordinal zone.</p>
+
+          <h3 class="sub">Gate names point home</h3>
+          <div class="tbl-wrap"><table id="gtable"></table></div>
+          <p class="note">G and T are mirror letters, so “Gt” totals 45, which plexes to nothing. Written out in AQ, every gate’s name plexes to the zone it opens onto.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMONS -->
+    <section class="panel" id="p-demons" role="tabpanel" aria-labelledby="tab-demons" hidden>
+      <div class="panel-head">
+        <h2>demons come home</h2>
+        <p class="lead">Each of the Pandemonium Matrix’s 45 demons stands between two zones. Total a demon’s name in AQ, plex it, and see whether it lands in one of its own two zones. Then ask how surprising the pattern is.</p>
+      </div>
+      <div class="controls">
+        <span class="ctl-label">8::1 spelled</span>
+        <div class="chips" role="group" aria-label="Spelling of the 8::1 demon">
+          <button type="button" class="chip" data-sp="murrumur" aria-pressed="true">Murrumur · Ccru glossary</button>
+          <button type="button" class="chip" data-sp="murmur" aria-pressed="false">Mur Mur · Pandemonium table</button>
+        </div>
+      </div>
+      <div class="cols">
+        <div class="stack">
+          <p class="big" id="pm-head" aria-live="polite"></p>
+          <figure>
+            <svg id="barcode" viewBox="0 0 460 64" role="img" aria-label="The 45 meshes in order, with the demons whose names plex home filled in."></svg>
+            <figcaption>Mesh 00 to 44, left to right. Filled slots are demons whose names plex home; the bracket marks the densest run of ten.</figcaption>
+          </figure>
+          <p id="pm-stats"></p>
+          <details class="method" id="pm-method">
+            <summary>How these odds are estimated</summary>
+            <div class="method-body" id="pm-method-body"></div>
+          </details>
+        </div>
+        <div class="stack">
+          <figure>
+            <div class="pm" id="pm"></div>
+            <figcaption>The matrix: rows give the higher zone, columns the lower, and each cell shows its mesh number, a(a−1)/2&nbsp;+&nbsp;b. A dot marks a name that plexes home. Tap a cell to check it.</figcaption>
+          </figure>
+          <div class="between" id="pm-detail" aria-live="polite"></div>
+          <p class="note">For each demon’s titles, aliases and class, see the Pandemonium catalogue in <a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a>’ Numogram, drawn from <i>Ccru: Writings 1997–2003</i>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOOPS -->
+    <section class="panel" id="p-loops" role="tabpanel" aria-labelledby="tab-loops" hidden>
+      <div class="panel-head">
+        <h2>loops</h2>
+        <p class="lead">Cipher-hop loops: one phrase’s value in one cipher equals the next phrase’s value in another, all the way back to the start. Each phrase leaves by a different cipher than it entered, and exact twins can’t share a loop.</p>
+      </div>
+      <div class="chips" id="loop-chips" role="group" aria-label="Curated loops" style="margin-bottom:18px"></div>
+      <div class="cols">
+        <figure class="diagram">
+          <svg id="loopsvg" viewBox="0 0 400 380" role="img" aria-label="A cipher-hop loop drawn as a ring of phrases."></svg>
+          <figcaption id="loop-cap"></figcaption>
+        </figure>
+        <div class="stack">
+          <h3 class="sub" id="loop-title"></h3>
+          <ol class="steps" id="loop-steps"></ol>
+          <p class="note" id="loop-soft" hidden>This loop closes through the name “Anglossic Qabbala,” which is Land’s own: “Qabbala 101” credits the system to August Barrow under that name. The Ccru glossary calls the cipher Alphanumeric Qabbala.</p>
+          <section class="finder">
+            <h3 class="sub">Find loops through a phrase</h3>
+            <form id="finder" class="row" autocomplete="off">
+              <div class="field"><label for="find-in">Phrase</label><input id="find-in" type="text" value="Mephistopheles" autocapitalize="off" spellcheck="false"></div>
+              <button type="submit" class="btn">Find loops</button>
+            </form>
+            <p class="note" id="find-status">Searches two- to four-step loops against a built-in list of about 650 Ccru, occult, philosophy, AI and literary phrases.</p>
+            <ul class="results" id="find-results"></ul>
+            <details class="method" id="vocab">
+              <summary>What the finder searches and how it ranks</summary>
+              <div class="method-body" id="vocab-body"></div>
+            </details>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- ATTRACTOR -->
+    <section class="panel" id="p-attractor" role="tabpanel" aria-labelledby="tab-attractor" hidden>
+      <div class="panel-head">
+        <h2>attractor</h2>
+        <p class="lead">Spell a number out, add up its letters, spell out the total, and repeat. Every start ends in a loop, and each loop has a zone signature.</p>
+      </div>
+      <form class="controls" id="att-form" autocomplete="off">
+        <div class="field" style="width:150px"><label for="att-n">Start</label><input id="att-n" type="number" inputmode="numeric" min="1" max="999999999" step="1" value="108"></div>
+        <div class="chips" role="group" aria-label="Cipher" id="att-c">
+          <button type="button" class="chip" data-c="ord" aria-pressed="true">Ordinal</button>
+          <button type="button" class="chip" data-c="aq" aria-pressed="false">AQ</button>
+          <button type="button" class="chip" data-c="sat" aria-pressed="false">Satanic</button>
+        </div>
+        <label class="toggle"><input type="checkbox" id="att-and"> British “and”</label>
+        <button type="button" class="btn ghost" id="att-rand">Random start</button>
+      </form>
+      <div class="cols">
+        <div class="stack">
+          <h3 class="sub" id="orbit-title"></h3>
+          <ol class="orbit" id="orbit-tail"></ol>
+          <div class="loopbox" id="orbit-loop"></div>
+          <p class="note" id="orbit-note"></p>
+        </div>
+        <div class="stack">
+          <h3 class="sub">Where 1 to 9,999 end up</h3>
+          <div class="bars" id="bars"></div>
+          <p class="note" id="bars-note"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <h2>Rules</h2>
+    <dl class="rules">
+      <dt>AQ</dt><dd>A&nbsp;=&nbsp;10 through Z&nbsp;=&nbsp;35, with digits 0–9 at face value. Accents are dropped before counting.</dd>
+      <dt>Other ciphers</dt><dd>Ordinal A&nbsp;=&nbsp;1 to Z&nbsp;=&nbsp;26. Reverse Z&nbsp;=&nbsp;1 to A&nbsp;=&nbsp;26. Reduction and Reverse reduction collapse each letter to one digit. Satanic A&nbsp;=&nbsp;36 to Z&nbsp;=&nbsp;61. These five count letters only and skip digits.</dd>
+      <dt>Zones</dt><dd>A phrase’s zone is the digital root of its AQ total. Digital roots run from 1 to 9: 9 and 0 are the same number mod 9, so anything that would land on 0 shows as 9 and stands for the 9::0 syzygy. Only an empty phrase gets 0.</dd>
+      <dt>Numogram</dt><dd>Syzygies sum to nine. Each syzygy’s current flows to the zone named by its difference: Sink, Surge, Hold, Warp and Plex. A gate leads from zone n to the digital root of 0&nbsp;+&nbsp;1&nbsp;+&nbsp;…&nbsp;+&nbsp;n.</dd>
+      <dt>Chance</dt><dd>Two random phrases share a zone about one time in nine, and land on syzygy twins about one time in ten. The lab finds coincidences; weighing them is up to you.</dd>
+    </dl>
+    <h2>Sources and inspiration</h2>
+    <ul class="src">
+      <li><a href="https://dataswamp.org/~john/sites/ccru/id(entity)/glossary.htm" target="_blank" rel="noopener">Ccru Glossary</a> <span>· currents, tractor zones, gates, mesh numbers, AQ</span></li>
+      <li><a href="https://dataswamp.org/~john/sites/ccru/digithype/pandemonium.htm" target="_blank" rel="noopener">Ccru: Pandemonium</a> <span>· the 45 demons and their classes</span></li>
+      <li><a href="https://dataswamp.org/~john/sites/ccru/declab.htm" target="_blank" rel="noopener">Ccru: Decimal Labyrinth</a> <span>· zones, syzygies and regions</span></li>
+      <li><a href="https://alektryon.github.io/ccru-aq/about/index.html" target="_blank" rel="noopener">About CCRU AQ</a> <span>· the A&nbsp;=&nbsp;10 to Z&nbsp;=&nbsp;35 system</span></li>
+      <li><a href="https://www.urbanomic.com/book/collapse-1/" target="_blank" rel="noopener">Nick Land, “Qabbala 101,” <i>Collapse</i> I (Urbanomic, 2006)</a>, p.&nbsp;281 and n.&nbsp;4 <span>· AQ totals reduced and read through the Numogram, under the name “Anglossic Qabbala”</span></li>
+      <li><a href="https://cyphers.news" target="_blank" rel="noopener">Cyphers</a> <span>· inspiration for this project: an open-source gematria workbench with a Ccru Numogram module, whose Divination mode reads a Lemur from two names much as the Zones tab does</span></li>
+    </ul>
+    {{FOOT}}
+  </footer>
+</div>
+
+<script>
+/*SCRIPT*/
+</script>

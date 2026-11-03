@@ -1,0 +1,363 @@
+{
+ "decoder_ok": true,
+ "life_codes": [
+  135,
+  136
+ ],
+ "distinct": 26244,
+ "keys_sha256": "4838fe2e6cdca93a85643a48e33cccd24f0a7f167554ef3428ff0bdaa0211e44",
+ "reachable": {
+  "HighLife B36/S23": false,
+  "Seeds B2/S": false,
+  "Day & Night B3678/S34678": false,
+  "Life B3/S23": true,
+  "Life without Death B3/S012345678": true
+ },
+ "odds": {
+  "n_words": 47973,
+  "mean_letter": 20.591071173869633,
+  "six_letter_words": 7113,
+  "six_letter_hits": 262,
+  "terms": [
+   {
+    "term": "CONWAY",
+    "aq": 135,
+    "letters": 6,
+    "p": 0.03686143979044777
+   },
+   {
+    "term": "JOHN CONWAY",
+    "aq": 218,
+    "letters": 10,
+    "p": 0.0001260076859779448
+   },
+   {
+    "term": "JOHN HORTON CONWAY",
+    "aq": 362,
+    "letters": 16,
+    "p": 0.0
+   },
+   {
+    "term": "GOSPER",
+    "aq": 134,
+    "letters": 6,
+    "p": 0.03686143979044777
+   },
+   {
+    "term": "BILL GOSPER",
+    "aq": 205,
+    "letters": 10,
+    "p": 0.0001260076859779448
+   },
+   {
+    "term": "MARTIN GARDNER",
+    "aq": 259,
+    "letters": 13,
+    "p": 7.440170166477931e-12
+   },
+   {
+    "term": "GARDNER",
+    "aq": 130,
+    "letters": 7,
+    "p": 0.0388755253501442
+   },
+   {
+    "term": "LIFE",
+    "aq": 68,
+    "letters": 4,
+    "p": 3.3883435597504535e-07
+   },
+   {
+    "term": "GAME OF LIFE",
+    "aq": 169,
+    "letters": 10,
+    "p": 0.0001260076859779448
+   },
+   {
+    "term": "CELLULAR AUTOMATON",
+    "aq": 357,
+    "letters": 17,
+    "p": 0.0
+   },
+   {
+    "term": "AUTOMATON",
+    "aq": 201,
+    "letters": 9,
+    "p": 0.0019939971082388276
+   },
+   {
+    "term": "CELL",
+    "aq": 68,
+    "letters": 4,
+    "p": 3.3883435597504535e-07
+   },
+   {
+    "term": "GENERATION",
+    "aq": 198,
+    "letters": 10,
+    "p": 0.0001260076859779448
+   },
+   {
+    "term": "NEIGHBOR",
+    "aq": 150,
+    "letters": 8,
+    "p": 0.013659299778114775
+   },
+   {
+    "term": "BIRTH",
+    "aq": 102,
+    "letters": 5,
+    "p": 0.005649732832231484
+   },
+   {
+    "term": "SURVIVAL",
+    "aq": 196,
+    "letters": 8,
+    "p": 0.013659299778114775
+   },
+   {
+    "term": "GLIDER",
+    "aq": 109,
+    "letters": 6,
+    "p": 0.03686143979044777
+   },
+   {
+    "term": "GLIDER GUN",
+    "aq": 178,
+    "letters": 9,
+    "p": 0.0019939971082388276
+   },
+   {
+    "term": "GUN",
+    "aq": 69,
+    "letters": 3,
+    "p": 0.0
+   },
+   {
+    "term": "SPACESHIP",
+    "aq": 177,
+    "letters": 9,
+    "p": 0.0019939971082388276
+   },
+   {
+    "term": "BLINKER",
+    "aq": 134,
+    "letters": 7,
+    "p": 0.0388755253501442
+   },
+   {
+    "term": "BLOCK",
+    "aq": 88,
+    "letters": 5,
+    "p": 0.005649732832231484
+   },
+   {
+    "term": "BEEHIVE",
+    "aq": 119,
+    "letters": 7,
+    "p": 0.0388755253501442
+   },
+   {
+    "term": "LOAF",
+    "aq": 70,
+    "letters": 4,
+    "p": 3.3883435597504535e-07
+   },
+   {
+    "term": "BOAT",
+    "aq": 74,
+    "letters": 4,
+    "p": 3.3883435597504535e-07
+   },
+   {
+    "term": "SHIP",
+    "aq": 88,
+    "letters": 4,
+    "p": 3.3883435597504535e-07
+   },
+   {
+    "term": "TUB",
+    "aq": 70,
+    "letters": 3,
+    "p": 0.0
+   },
+   {
+    "term": "POND",
+    "aq": 85,
+    "letters": 4,
+    "p": 3.3883435597504535e-07
+   },
+   {
+    "term": "TOAD",
+    "aq": 76,
+    "letters": 4,
+    "p": 3.3883435597504535e-07
+   },
+   {
+    "term": "BEACON",
+    "aq": 94,
+    "letters": 6,
+    "p": 0.03686143979044777
+   },
+   {
+    "term": "PULSAR",
+    "aq": 141,
+    "letters": 6,
+    "p": 0.03686143979044777
+   },
+   {
+    "term": "PENTADECATHLON",
+    "aq": 264,
+    "letters": 14,
+    "p": 0.0
+   },
+   {
+    "term": "OSCILLATOR",
+    "aq": 214,
+    "letters": 10,
+    "p": 0.0001260076859779448
+   },
+   {
+    "term": "STILL LIFE",
+    "aq": 185,
+    "letters": 9,
+    "p": 0.0019939971082388276
+   },
+   {
+    "term": "METHUSELAH",
+    "aq": 202,
+    "letters": 10,
+    "p": 0.0001260076859779448
+   },
+   {
+    "term": "ACORN",
+    "aq": 96,
+    "letters": 5,
+    "p": 0.005649732832231484
+   },
+   {
+    "term": "DIEHARD",
+    "aq": 112,
+    "letters": 7,
+    "p": 0.0388755253501442
+   },
+   {
+    "term": "R PENTOMINO",
+    "aq": 229,
+    "letters": 10,
+    "p": 0.0001260076859779448
+   },
+   {
+    "term": "PUFFER",
+    "aq": 126,
+    "letters": 6,
+    "p": 0.03686143979044777
+   },
+   {
+    "term": "RAKE",
+    "aq": 71,
+    "letters": 4,
+    "p": 3.3883435597504535e-07
+   },
+   {
+    "term": "BREEDER",
+    "aq": 120,
+    "letters": 7,
+    "p": 0.0388755253501442
+   },
+   {
+    "term": "EATER",
+    "aq": 94,
+    "letters": 5,
+    "p": 0.005649732832231484
+   },
+   {
+    "term": "REFLECTOR",
+    "aq": 183,
+    "letters": 9,
+    "p": 0.0019939971082388276
+   },
+   {
+    "term": "ASH",
+    "aq": 55,
+    "letters": 3,
+    "p": 0.0
+   },
+   {
+    "term": "SOUP",
+    "aq": 107,
+    "letters": 4,
+    "p": 3.3883435597504535e-07
+   },
+   {
+    "term": "GARDEN OF EDEN",
+    "aq": 206,
+    "letters": 12,
+    "p": 1.8444013567399592e-08
+   },
+   {
+    "term": "GOLLY",
+    "aq": 116,
+    "letters": 5,
+    "p": 0.005649732832231484
+   },
+   {
+    "term": "HASHLIFE",
+    "aq": 140,
+    "letters": 8,
+    "p": 0.013659299778114775
+   },
+   {
+    "term": "LIFEWIKI",
+    "aq": 156,
+    "letters": 8,
+    "p": 0.013659299778114775
+   },
+   {
+    "term": "CATAGOLUE",
+    "aq": 166,
+    "letters": 9,
+    "p": 0.0019939971082388276
+   }
+  ],
+  "hits": [
+   "CONWAY"
+  ],
+  "expected_hits": 0.5112812331789602,
+  "p_at_least_one": 0.4053655171642837,
+  "life_words": 706,
+  "life_word_examples": [
+   "always",
+   "assert"
+  ],
+  "b0_share": 0.331290517582807
+ },
+ "aq_test_words": {
+  "CONWAY": 135,
+  "HYPERSTITION": 286,
+  "TIME": 83,
+  "DEATH": 83,
+  "AQ": 36,
+  "CODEX": 96,
+  "ZONE": 96,
+  "GLIDER": 109,
+  "ORACLE": 108,
+  "SORCERY": 166,
+  "Nick Land": 140,
+  "Lemurian Time War": 317,
+  "Ccru 1997": 107,
+  "Café": 51,
+  "H.P. Lovecraft": 225,
+  "Pandemonium": 224,
+  "Xenotation": 227,
+  "2026": 10,
+  "Áccéléràtion": 214,
+  "Uttunul": 192,
+  "Numogram": 174,
+  "Ouroboros": 219,
+  "Katak": 89,
+  "naïve façade": 170,
+  "0": 0,
+  "": 0
+ }
+}
