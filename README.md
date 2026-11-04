@@ -37,9 +37,9 @@ Each tab has its own link: add `#zones`, `#alphabet`, `#demons`, `#loops` or `#a
 One finding from building it: all 75 rite paths published in the Pandemonium Matrix can be walked with three moves, crossing a syzygy, riding its current, or taking a gate. The rite paths were transcribed from the Ccru's Pandemonium page and match the independent transcription in [Cyphers' source](https://github.com/Cyphers-News/gematro-hyperdope) for all 45 demons.
 
 ## Companion: Vanishing Point
-**LIVE: https://sodiumvaporlamp.github.io/HyperstitionLab/vanishing-point.html ) puts 162 milestones in the history of AI, and of the numbers, ledgers and machines behind it, on a zoomable logarithmic spiral. Each turn holds a tenth of the time of the turn outside it: millennia on the rim, then centuries, decades, years and months toward the centre. On a logarithmic spiral, zooming in and turning are the same motion, so travelling through it feels like a tunnel.
+**LIVE: https://sodiumvaporlamp.github.io/HyperstitionLab/vanishing-point.html ) puts 285 milestones in the history of AI, and of the numbers, ledgers and machines behind it, on a zoomable logarithmic spiral. Each turn holds a tenth of the time of the turn outside it: millennia on the rim, then centuries, decades, years and months toward the centre. On a logarithmic spiral, zooming in and turning are the same motion, so travelling through it feels like a tunnel.
 
-The centre is the date in the title of Heinz von Foerster, Patricia Mora and Lawrence Amiot's 1960 *Science* paper, "Doomsday: Friday, 13 November, A.D. 2026", which fitted world population to a curve that reaches infinity in finite time. You can move the centre to now, or to Ray Kurzweil's 2045.
+The centre is now, the moment you open the page, and the page opens on the most recent milestone. You can move the centre to Ray Kurzweil's 2045.
 
 Five lanes run side by side: Capital, Reckoning, Learning, Language and Hyperstition. Hand-written rules and other attempts to type knowledge in, the approaches that lost to learning from data, are drawn hollow; a Bitter Lesson switch hides them. Every card separates what Land or the Ccru actually wrote ("From the texts", quoted and cited) from the page's own reading ("This page"), and lists its sources. Each milestone has its own link: add `#` and its id, for example `#pacioli` or `#transformer`.
 
