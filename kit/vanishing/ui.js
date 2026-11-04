@@ -20,6 +20,8 @@
 
   const NOW_MS = Date.now();
   const NOW_Y = decYearFromMs(NOW_MS);
+  /* the page opens on the most recent milestone dated up to today */
+  const LATEST = (CHRONO.filter(e => e._p.y <= NOW_Y).pop() || CHRONO[CHRONO.length - 1]).id;
 
   /* ---------- forecasts: statuses are read from the clock when the page opens ---------- */
   const FC = typeof FORECASTS !== 'undefined' ? FORECASTS : [];
@@ -44,7 +46,7 @@
   const PUSH = 0.36;     // decades of travel past the floor that turn the spiral round
   const LAND_D = 0.45;   // where a turn-round lands: the head about three years from today
 
-  const S = { vp: 'doomsday', D: 1.8, sel: null, hover: null, thread: null, demons: false, lab: null, bitter: false, keyOnly: false,
+  const S = { vp: 'now', D: 1.8, sel: null, hover: null, thread: null, demons: false, lab: null, bitter: false, keyOnly: false,
               playing: false, ahead: false, back: null, fc: true, push: 0 };
   let T = 0, POS = {}, FPOS = {}, LNOW = null, DMIN = -1, DMAX = 4;
 
@@ -125,7 +127,7 @@
     const b = $('#ahead');
     b.setAttribute('aria-pressed', String(S.ahead));
     $('#eras').hidden = S.ahead;
-    $('#prev').setAttribute('aria-label', S.ahead ? 'Previous open forecast' : 'Previous milestone');
+    $('#prev').setAttribute('aria-label', S.ahead ? 'Prev open forecast' : 'Prev milestone');
     $('#next').setAttribute('aria-label', S.ahead ? 'Next open forecast' : 'Next milestone');
     cv.setAttribute('aria-label', S.ahead
       ? 'Looking ahead: a logarithmic spiral of the ' + fcOpen().length + ' forecasts still open, with today at the centre and the far future at the rim. The list of forecasts below gives the same information.'
@@ -144,7 +146,7 @@
       return;
     }
     const v = VPS[S.vp];
-    const name = S.vp === 'doomsday' ? 'Doomsday, ' + v.when : v.when + ' (Kurzweil’s Singularity)';
+    const name = v.when + ' (Kurzweil’s Singularity)';
     const tau = T - NOW_Y;
     const rel = tau > 0 ? 'today is ' + fmtTau(tau) + ' out' : 'the date has passed';
     cap.innerHTML = 'Centre: <b>' + esc(name) + '</b> · ' + esc(rel);
@@ -220,12 +222,13 @@
     for (const y of [1925, 1950, 1975]) add(y, String(y), 1);
     for (let y = 1910; y <= 1990; y += 10) if (y % 25 && y !== 1950) add(y, String(y), 2);
     for (const y of [2010, 2020]) add(y, String(y), 1);
-    for (let y = 2001; y <= 2026; y++) if (y !== 2010 && y !== 2020) add(y, String(y), y % 5 === 0 ? 2 : 3);
-    for (let m = 1; m <= 12; m++) {
-      add(decYearFromMs(Date.UTC(2025, m - 1, 1)), MONTHS[m - 1] + ' 2025', 4);
-      add(decYearFromMs(Date.UTC(2026, m - 1, 1)), MONTHS[m - 1] + ' 2026', m === 1 ? 3 : 4);
+    // years up to the reader's own, and the months of this year and last, so the centre on now keeps its labels as time moves on
+    const yNow = new Date(NOW_MS).getUTCFullYear();
+    for (let y = 2001; y <= yNow; y++) if (y !== 2010 && y !== 2020) add(y, String(y), y % 10 === 0 ? 1 : (y % 5 === 0 ? 2 : 3));
+    for (const Y of [yNow - 1, yNow]) for (let m = 1; m <= 12; m++) {
+      add(decYearFromMs(Date.UTC(Y, m - 1, 1)), MONTHS[m - 1] + ' ' + Y, Y === yNow && m === 1 ? 3 : 4);
     }
-    return t.filter(k => !(k.label.indexOf('2026') >= 0 && k.rank === 4 && k.y > 2026.9));
+    return t;
   })();
   /* looking ahead: the months of the coming year, then years and round decades */
   const TICKS_AHEAD = (() => {
@@ -597,7 +600,7 @@
      ahead), travel toward the centre that continues past that floor builds up pressure, drawn as a
      ring growing from the centre; enough of it turns the spiral round, to look ahead (or back). The
      view lands a few years out, and the next scroll in either direction means what it always means:
-     in, toward today; out, away from it. Centred on Doomsday or 2045 there is no today at the centre
+     in, toward today; out, away from it. Centred on 2045 there is no today at the centre
      to pass through, so the floor is a plain stop and the Looking ahead button is the way across. */
   let pushTimer = 0, quietUntil = 0;
   const live = msg => { const n = $('#vplive'); if (n) { n.textContent = ''; setTimeout(() => { n.textContent = msg; }, 30); } };
@@ -1054,9 +1057,7 @@
   $('#fcshow').addEventListener('change', ev => { S.fc = ev.target.checked; syncMode(); requestDraw(); });
 
   const vpSel = $('#vp');
-  const passed = NOW_MS >= VPS.doomsday.ms;
   vpSel.innerHTML =
-    '<option value="doomsday">Doomsday · 13 Nov 2026' + (passed ? ' (passed)' : '') + '</option>' +
     '<option value="now">Now</option>' +
     '<option value="k2045">2045 · Kurzweil</option>';
   vpSel.addEventListener('change', () => {
@@ -1303,7 +1304,7 @@
   document.querySelectorAll('[data-count="key"]').forEach(n => { n.textContent = EVENTS.filter(e => e.w === 3).length; });
   document.querySelectorAll('[data-count="models"]').forEach(n => { n.textContent = EVENTS.filter(e => e.th === 'model').length; });
   document.querySelectorAll('[data-count="forecasts"]').forEach(n => { n.textContent = FC.length; });
-  setCentre(passed ? 'now' : 'doomsday');
+  setCentre('now');
   vpSel.value = S.vp;
   renderLaneChips();
   renderLabChips();
@@ -1311,7 +1312,7 @@
   renderBody();
   renderEras();
   renderFList();
-  const first = fromHash() || 'doomsday';
+  const first = fromHash() || LATEST;
   if (isF(first)) {
     S.sel = first;
     renderList();

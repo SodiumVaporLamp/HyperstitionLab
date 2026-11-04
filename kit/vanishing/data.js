@@ -323,7 +323,7 @@ const EVENTS = [
 /* ---------------- 1946-1979 ---------------- */
 { id: 'macy', d: '1946-03-21', dl: '1946–53', t: 'The Macy conferences', th: 'reck', w: 1,
   x: 'Ten small meetings in New York brought together McCulloch, Pitts, Wiener, von Neumann, Shannon, Margaret Mead, Gregory Bateson and others to work out a shared science of feedback and communication in machines, brains and societies. The young physicist Heinz von Foerster co-edited the transcripts.',
-  o: 'The same von Foerster wrote the 1960 Doomsday paper whose date is one of this spiral’s centres.',
+  o: 'The same von Foerster wrote the 1960 Doomsday paper, further in on the spiral.',
   s: [['Macy conferences', W + 'Macy_conferences']] },
 
 { id: 'transistor', d: '1947-12-23', t: 'The transistor', th: 'cap', w: 2,
@@ -397,9 +397,9 @@ const EVENTS = [
   o: 'A machine as its own opponent and teacher. AlphaGo’s line starts on a checkerboard.',
   s: [['Arthur Samuel', W + 'Arthur_Samuel_(computer_scientist)']] },
 
-{ id: 'doomsday', d: '1960-11-04', t: 'Doomsday: Friday, 13 November, A.D. 2026', short: 'The Doomsday paper', th: 'hyp', w: 3,
+{ id: 'doomsday', d: '1960-11-04', t: 'Doomsday: Friday, 13 November, A.D. 2026', short: 'The Doomsday paper', th: 'hyp', w: 2,
   x: 'Heinz von Foerster, Patricia Mora and Lawrence Amiot fitted two thousand years of world population estimates to a curve that grows faster than exponentially and reaches infinity in finite time, and put the date in the title of their paper in Science. They argued that people who cooperate grow faster the more of them there are, and hoped the warning would prompt population control.',
-  o: 'The spiral can be centred on this date, and opens on it until the date arrives. Hyperbolic growth is the curve singularity arguments are built on. Population growth bent away from it in the 1960s, so the date became a curiosity.',
+  o: 'Hyperbolic growth is the curve singularity arguments are built on. Population growth bent away from it in the 1960s, so the date became a curiosity.',
   s: [['Science 132:1291 (1960)', 'https://doi.org/10.1126/science.132.3436.1291'], ['Scott Alexander, “1960: The Year the Singularity Was Cancelled”', 'https://slatestarcodex.com/2019/04/22/1960-the-year-the-singularity-was-cancelled/']] },
 
 { id: 'god-golem', d: '1964-03-15', t: 'Wiener’s God & Golem, Inc.', th: 'hyp', w: 2,

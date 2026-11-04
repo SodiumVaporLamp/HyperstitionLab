@@ -40,7 +40,6 @@ function kLabelFor(Y) {
 
 /* ---------- vanishing points ---------- */
 const VPS = {
-  doomsday: { name: 'Doomsday', when: 'Friday 13 November 2026', ms: Date.UTC(2026, 10, 13, 0, 0) },
   now: { name: 'Now', when: '', ms: null },
   k2045: { name: '2045', when: '1 January 2045', ms: Date.UTC(2045, 0, 1) }
 };

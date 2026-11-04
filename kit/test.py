@@ -231,11 +231,15 @@ def vanishing(browser):
     st = lambda: pg.evaluate('window.__vanishing.state')
     box = pg.query_selector('#tunnel').bounding_box()
 
-    def nexts():
+    def nexts():   # the page opens on the latest milestone, so step back first
         s0 = st()['sel']
         for _ in range(3):
+            pg.click('#prev'); pg.wait_for_timeout(1500)
+        s1 = st()['sel']
+        assert s1 != s0, 'Prev did not move'
+        for _ in range(3):
             pg.click('#next'); pg.wait_for_timeout(1500)
-        assert st()['sel'] != s0, 'Next did not move'
+        assert st()['sel'] != s1, 'Next did not move'
     step(tag, 'Prev/Next', nexts)
 
     def click_mark():
@@ -273,7 +277,7 @@ def vanishing(browser):
     step(tag, 'filters', filters)
 
     def centres():
-        for vp in ['k2045', 'now', 'doomsday']:
+        for vp in ['k2045', 'now']:
             pg.select_option('#vp', vp); pg.wait_for_timeout(500)
             assert st()['vp'] == vp, vp
         pg.click('#eras .chip:has-text("Today")'); pg.wait_for_timeout(1800)
@@ -390,6 +394,16 @@ def ring_year(f):
     return dec_year(end_of(f[key]))
 
 
+def latest_milestone(when):
+    """The id of the most recent milestone dated up to `when`, worked out with node from the data."""
+    ms = int(when.timestamp() * 1000)
+    js = ("const L = require('./vanishing/logic.js'), { EVENTS } = require('./vanishing/data.js');"
+          f"const y = L.decYearFromMs({ms});"
+          "const c = EVENTS.map(e => ({ id: e.id, y: L.parseD(e.d).y })).sort((a, b) => a.y - b.y).filter(e => e.y <= y);"
+          "process.stdout.write(c[c.length - 1].id);")
+    return subprocess.run(['node', '-e', js], cwd=ROOT, capture_output=True, text=True, check=True).stdout
+
+
 def expected_status(f, now):
     o = f.get('outcome')
     if o and (not o.get('after') or now >= start_of(o['after'])):
@@ -436,12 +450,13 @@ def forecasts_clock(browser):
 
         def specifics():
             vp = pg.evaluate('window.__vanishing.state.vp')
+            assert vp == 'now', f'the page should open centred on now, not {vp}'
+            assert pg.eval_on_selector_all('#vp option', 'els => els.map(e => e.value)') == ['now', 'k2045'], 'centres offered'
+            sel, want = pg.evaluate('window.__vanishing.state.sel'), latest_milestone(when)
+            assert sel == want, f'the page should open on the most recent milestone, {want}, not {sel}'
             if name == 'today':
-                assert vp == 'doomsday', f'default centre {vp}'
                 assert 'f-doomsday' in pg.eval_on_selector_all('#fc-open .fi', 'els => els.map(e => e.dataset.id)')
             if name == 'nov14':
-                assert vp == 'now', f'after 13 November the page should open on now, not {vp}'
-                assert '(passed)' in pg.inner_text('#vp option[value="doomsday"]')
                 pg.click('.fi[data-id="f-doomsday"]'); pg.wait_for_timeout(500)
                 st = fstate(pg)
                 assert not st['ahead'], 'a resolved forecast is shown in the history view'
@@ -599,7 +614,7 @@ def forecasts_geometry(browser):
 
 
 def crossing(browser):
-    """The one-day floor: a plain stop centred on Doomsday or 2045; centred on now, going on past it
+    """The one-day floor: a plain stop centred on 2045; centred on now, going on past it
     turns the spiral round to look ahead, and back. By wheel, pinch, keyboard and the button."""
     when = CLOCKS['today']
     ctx, pg, tag = open_page(browser, 'desk', 'light', 'vanishing', when=when, reduced_motion='reduce')
@@ -607,14 +622,14 @@ def crossing(browser):
     pg.mouse.move(box['x'] + box['width'] / 2 + 90, box['y'] + box['height'] / 2)
 
     def stops():
-        for vp in ('doomsday', 'k2045'):
+        for vp in ('k2045',):
             pg.select_option('#vp', vp); pg.wait_for_timeout(200); to_floor(pg)
             for _ in range(10):
                 pg.mouse.wheel(0, -120); pg.wait_for_timeout(30)
             st = fstate(pg)
             assert not st['ahead'] and st['vp'] == vp and abs(st['D'] - st['DMIN']) < 1e-6, f'{vp}: {st}'
             assert 'starts from today' in st['tag'], f'{vp}: head tag reads {st["tag"]!r}'
-    step(tag, 'Doomsday and 2045 stop at the floor', stops)
+    step(tag, '2045 stops at the floor', stops)
 
     def wheel():
         pg.select_option('#vp', 'now'); pg.wait_for_timeout(200); to_floor(pg)
@@ -660,14 +675,14 @@ def crossing(browser):
     step(tag, 'crossing by keyboard', keys)
 
     def button():
-        pg.select_option('#vp', 'doomsday'); pg.wait_for_timeout(200)
+        pg.select_option('#vp', 'k2045'); pg.wait_for_timeout(200)
         set_depth(pg, 1.0)
         pg.click('#ahead'); pg.wait_for_timeout(200)
         st = fstate(pg)
         assert st['ahead'] and pg.get_attribute('#ahead', 'aria-pressed') == 'true', f'button on: {st}'
         pg.click('#ahead'); pg.wait_for_timeout(200)
         st = fstate(pg)
-        assert not st['ahead'] and st['vp'] == 'doomsday' and abs(st['D'] - 1.0) < 1e-6, f'button off returns where it was: {st}'
+        assert not st['ahead'] and st['vp'] == 'k2045' and abs(st['D'] - 1.0) < 1e-6, f'button off returns where it was: {st}'
     step(tag, 'the Looking ahead button', button)
     ctx.close()
 

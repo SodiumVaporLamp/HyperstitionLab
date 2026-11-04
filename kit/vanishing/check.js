@@ -22,7 +22,6 @@ const seen = new Set();
 const k = process.argv.indexOf('--now');
 const now = k > 0 ? Date.parse(process.argv[k + 1] + 'T12:00:00Z') : Date.now();
 if (Number.isNaN(now)) { console.log('--now wants a date: YYYY-MM-DD'); process.exit(2); }
-const doom = VPS.doomsday.ms;
 const style = (e, k, v, verbatim) => {
   if (v == null) return;
   if (typeof v !== 'string') { err(e, `${k} must be text`); return; }
@@ -71,7 +70,6 @@ for (const e of EVENTS) {
   if (p) {
     const ms = p.D ? Date.UTC(p.Y, p.M - 1, p.D) : null;
     if (ms && ms > now) warn(e, 'dated in the future');
-    if (ms && ms >= doom) warn(e, 'dated on or after 13 Nov 2026: under the Doomsday centre it is squeezed against the centre');
   }
 }
 /* see: links to other milestones, shown both ways under "Elsewhere on the spiral" */
