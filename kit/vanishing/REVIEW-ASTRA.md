@@ -57,6 +57,46 @@ As with Argon’s review, everything here is a lead until it has been checked ag
 
 The Mercator bearing (about 8.3° north of west for a 2.5-fold contraction per turn, which matches `loxodrome_check.py`’s 81.70° off north); the Antikythera card crediting the planetary gearing to the 2021 reconstruction; the 1999 date of Digital Hyperstition; Microsoft’s FY2024–26 cash additions and Ireland’s 6,973 → 7,663 GWh; and the Fable 5.2 figures (1,000 agents, 30 hours, a proof seven times shorter), which the 11 November session had also read in Anthropic’s announcement.
 
+## Checked on 11 November (second session)
+
+A claude.ai session opened the sources below and edited 22 milestone cards and four forecast cards. No milestone was added or removed, so the counts stand at 288 and 20. Every finding held at least in part; none was dropped.
+
+**Group C**
+
+- `unitdistance`. Astra was right. The proof paper (“Planar Point Sets with Many Unit Distances”, on OpenAI’s CDN) prints “the original AI-written prompt given to the internal model”, which asks for Erdős’s bound to be proved or disproved. OpenAI’s announcement does say the proof came from a model not “targeted at the unit distance problem in particular”, in a list about how the system was built, and it also says the model was being evaluated “on a collection of Erdős problems”. So the card’s “aimed at the problem” echoed OpenAI, and the `o`’s “nobody had pointed at it” was wrong. Both lines were rewritten, and the proof paper is now a source.
+- `fable5`. Anthropic’s 9 June post calls Fable 5 “a Mythos-class model that we’ve made safe for general use” and says Mythos 5 goes out through Project Glasswing “as an upgrade to Claude Mythos Preview”. The card now says the first Mythos-class model made generally available, on paid plans and the API. The post is now a source.
+- `frontiermath`, `gpt55`. Epoch’s own page did not show its table to the fetch tool, so the figures come from LM Council’s table, which credits Epoch’s data (snapshot of 18 August): Fable 5 (max) 87.8%, GPT-5.5 Pro (xhigh) 78.0%, GPT-5.5 (xhigh) 72.5%. Four other trackers give the same three numbers. One, benchleader.com, lists Fable 5 (max) at 90.2%; it was not used. Both cards now carry the exact figures. Something Astra did not raise: these scores are on version 2 of the Tier 4 set (43 problems, released 12 June, per Epoch’s page), and the “under 10 percent in January” was on version 1, so the card now says which is which. The AI Weekly source was replaced with The Decoder’s report.
+- `f-survey-2024`. The paper’s section 3.2 gives n = 537 for the fixed-probabilities framing and n = 471 for fixed-years. It does not print the sum, so the card gives the two numbers and “about two thirds”. `who` and `say` are unchanged.
+- `f-dartmouth`. McCarthy’s 2006 slides, under “What came out of Dartmouth?”, say the main thing was “the concept of artificial intelligence as a branch of science”. The card quotes those nine words. They were read through the fetch tool twice, not from the raw page, so the quotation is kept to the phrase both reads returned.
+
+**Group A** (source opened in brackets)
+
+- `boole`: classes, 1 the universe, 0 the empty class, addition only for disjoint classes; Shannon’s sentence now says the two-valued algebra descended from it. [Stanford Encyclopedia, “The Algebra of Logic Tradition”; Burris’s papers]
+- `frege`: “the first fully formal logic” is now “a formal calculus with quantifiers and variables”; Russell’s letter of June 1902 is placed against the Basic Laws of Arithmetic, whose second volume was in press. “Nested” was left out, since no source opened here used the word. [Stanford Encyclopedia, “Russell’s Paradox”]
+- `markov`: vowels and consonants, with Astra’s sentence and no numbers; the `o` now reads “vowel or consonant from the letter before”. [Hayes (2013)]
+- `saussure`: a concept and a sound-image, not a name and a thing. [Baskin’s translation, part 1, chapter 1]
+- `godel`: “whose axioms can be listed mechanically”, and “neither prove nor refute” in place of “true statements it cannot prove”, which the Stanford entry calls a common misreading. [Stanford Encyclopedia; the card’s Wikipedia source, on true arithmetic]
+- `arpanet`: the Stanford Research Institute in Menlo Park. [NPR, 2009; UCLA]
+- `openai-lp`: first-round investors, lower caps expected later. [OpenAI, “OpenAI LP”]
+- `copilot`: the “first mass-market product” claim is gone; the card gives OpenAI’s count of more than 300 GPT-3 applications in March 2021. [OpenAI, 25 March 2021]
+- `dalle2`: OpenAI began inviting a million people in July. [OpenAI, 20 July 2022]
+- `mistral7b`: announced on 27 September under Apache 2.0, with the torrent kept. [mistral.ai]
+- `llama31`: “Meta’s largest open-weight model, at 405 billion parameters”. Astra suggested “the largest dense open-weight model yet”. Switch-C (1.6 trillion parameters, on Hugging Face under Apache 2.0) confirms the old line was wrong, but nothing opened here proves the narrower superlative, so the card makes neither claim.
+- `sonnet35new`: Haiku announced on 22 October and released in November (4 November, per The Decoder). [Anthropic, 22 October 2024]
+- `deepseekv3`, `deepseek`: $5.576 million for 2.788 million H800 GPU-hours at $2 an hour, covering pre-training, context extension and post-training, with earlier research and ablations left out. [DeepSeek-V3 Technical Report, table 1]
+- `opus5`: the comparison is now the upgraded Claude 3.5 Sonnet’s 49 percent in October 2024. [Anthropic, 22 October 2024]
+- `f-moore`: “the number of components per chip at which each component cost least to make”, and the 1975 review “judged it by another measure, the most complex chips made”. The verdict is unchanged. [Moore (1965), p. 115]
+
+**Group B**
+
+- `gpt1`: “some 7,000 self-published books, which its paper called unpublished”. [the GPT-1 paper’s sentence as quoted by Wikipedia and aiwiki; Bandy and Vincent (2021)]
+- `f-turing`: the sentence was reworded, not dropped, because the verdict “late” needs the 25 years. The card now says this was not the first claim and names Eugene Goostman’s disputed 33 percent at the Royal Society in 2014. SVL may prefer Astra’s plain deletion. [Wikipedia; Ars Technica, June 2014]
+- `macy`: nine in New York and the last in Princeton. The transactions of the tenth conference give “April 22, 23, and 24, 1953, Princeton, N. J.” on the title page. The Nassau Inn was not confirmed and is not on the card. The American Society for Cybernetics’ events list puts the tenth in New York City, against the transactions.
+
+**Not done**
+
+- The live artifact was not compared byte for byte with `artifacts-live`: the read tool in this session returns the page into the conversation, not a saved copy. Its version id is dated 3 November 2026 (update 11), which is the last republish the kit records.
+
 ## How to finish
 
 1. Run the session start in `CLAUDE.md`, from a place that can reach the sources above.
