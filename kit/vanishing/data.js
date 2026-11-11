@@ -267,10 +267,10 @@ const EVENTS = [
   o: 'Meaning as position in a system of differences. An embedding space is that idea turned into coordinates.',
   s: [['Course in General Linguistics', W + 'Course_in_General_Linguistics']] },
 
-{ id: 'rur', d: '1921-01-25', t: 'R.U.R. names the robot', th: 'hyp', w: 2,
-  x: 'Karel Čapek’s play Rossum’s Universal Robots premiered in Prague. Its manufactured workers, roboti, from the Czech robota for forced labour, rise up and wipe out humanity. Within a few years the word was in every major language. Čapek credited his brother Josef with coining it.',
+{ id: 'rur', d: '1920-11', t: 'R.U.R. names the robot', th: 'hyp', w: 2,
+  x: 'Karel Čapek’s play Rossum’s Universal Robots was published in Prague in November 1920 by Aventinum, with a woodcut cover by his brother Josef. An amateur company staged it first, in Hradec Králové on 2 January 1921, ahead of the National Theatre’s premiere in Prague on 25 January. Its manufactured workers, roboti, from the Czech robota for forced labour, rise up and wipe out humanity. Within a few years the word was in every major language. Čapek credited Josef with coining it.',
   o: 'The robot is born as a worker and a revolt in a single word. A fiction’s coinage became the industry’s noun.',
-  s: [['R.U.R.', W + 'R.U.R.']] },
+  s: [['R.U.R.', W + 'R.U.R.'], ['Czech Ministry of Foreign Affairs: “Robot” celebrates 100 years', 'https://mzv.gov.cz/copenhagen/en/news/x2021/the_czech_word_robot_celebrates_its_1.html']] },
 
 { id: 'godel', d: '1930-09-07', t: 'Gödel at Königsberg', th: 'reck', w: 3,
   x: 'At a conference in Königsberg, the 24-year-old Kurt Gödel briefly announced that any consistent formal system rich enough for arithmetic contains true statements it cannot prove. The next day, in the same city, Hilbert gave a radio address ending “Wir müssen wissen. Wir werden wissen.” (We must know. We will know.) The words are on his gravestone.',

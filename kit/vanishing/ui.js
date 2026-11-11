@@ -981,9 +981,9 @@
         '<text class="pval" x="' + (x + bw / 2) + '" y="' + (y - 5) + '">' + c.n + '</text>' +
         '<text class="pyr" x="' + (x + bw / 2) + '" y="' + (H - 5) + '">' + (partial ? c.y + '*' : c.y) + '</text></g>';
     }).join('');
-    $('#pace').innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Model releases per year on this spiral' + (S.lab ? ', ' + esc(LABS[S.lab]) : '') + ': ' +
+    $('#pace').innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Selected model milestones per year on this spiral' + (S.lab ? ', ' + esc(LABS[S.lab]) : '') + ': ' +
       counts.map(c => c.y + ' ' + c.n).join(', ') + '"><line class="pbase" x1="0" x2="' + W + '" y1="' + (top + ph) + '" y2="' + (top + ph) + '"></line>' + bars + '</svg>';
-    $('#pace-title').textContent = 'Model releases per year' + (S.lab ? ' · ' + LABS[S.lab] : '');
+    $('#pace-title').textContent = 'Selected model milestones per year' + (S.lab ? ' · ' + LABS[S.lab] : '');
   }
   /* the body of the machine: two single-series bar charts in the Notes, drawn like the releases chart.
      BODY in data.js holds the figures; the summary sentences and tables are computed from it. */

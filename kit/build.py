@@ -139,8 +139,8 @@ def build_vanishing():
            shared(page, 'vanishing', False).replace('{{LAB_LINK}}', LAB_ART).replace('{{TS_LINK}}', TS_ART))
     src = (shared(page, 'vanishing', True).replace('{{LAB_LINK}}', 'index.html')
            .replace('{{TS_LINK}}', 'time-sorcery.html').replace(FIT_META, ''))
-    desc = ("The history of AI on a zoomable logarithmic spiral, from the first ledgers to this month, "
-            "centred on von Foerster's 1960 Doomsday date.")
+    desc = ("A history of AI on a logarithmic spiral, from the first ledgers to the present, "
+            "with dated forecasts extending into the future.")
     s = wr(os.path.join(SITE, 'vanishing-point.html'), standalone(src, 'Vanishing Point', desc))
     return 'vanishing-point.html', a, 'vanishing-point.html', s
 
