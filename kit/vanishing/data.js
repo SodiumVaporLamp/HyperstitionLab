@@ -1346,7 +1346,11 @@ const EVENTS = [
   s: [['Moonshot AI: Kimi K3.1 Pro', 'https://www.kimi.ai/blog/kimi-k3-1-pro'], ['Unite.AI on Kimi K3.1 Pro', 'https://www.unite.ai/moonshot-ai-releases-kimi-k3-1-pro-first-model-in-new-k3-1-series/']] },
 { id: 'gemini4carbon', d: '2026-10-28', t: 'Gemini 4 Carbon', th: 'model', lab: 'google', w: 2,
   x: 'Two weeks after Argon, Google released Carbon first to a subset of cyber defenders, to be widened to trusted partners through its Fairwind Program, with developers, businesses and consumers to follow. Google said it ranked first on version 5.0 of the Artificial Analysis Intelligence Index, at 59.',
-  s: [['Google: Gemini 4 Carbon', 'https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/'], ['9to5Google, 28 October 2026', 'https://9to5google.com/2026/10/28/gemini-4-carbon-announcement/']] }
+  s: [['Google: Gemini 4 Carbon', 'https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/'], ['9to5Google, 28 October 2026', 'https://9to5google.com/2026/10/28/gemini-4-carbon-announcement/']] },
+{ id: 'fable52', d: '2026-11-09', t: 'Claude Fable 5.2 and Mythos 5.2', th: 'model', lab: 'anthropic', w: 1,
+  x: 'Anthropic said a team of 1,000 Fable 5.2 agents formalised Fermat’s Last Theorem in 30 hours, against eleven days for the first formalisation, with a proof seven times shorter.',
+  s: [['Anthropic’s announcement', 'https://www.anthropic.com/claude-fable-and-mythos-5-2']],
+  see: ['flt'] }
 ];
 
 /* ================= The body of the machine: two measured series for the Notes =================
