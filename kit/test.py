@@ -243,8 +243,7 @@ def vanishing(browser):
     step(tag, 'Prev/Next', nexts)
 
     def click_mark():
-        hits = pg.evaluate('window.__vanishing.hits()')
-        big = [h for h in hits if h['rad'] > 3 and 60 < h['x'] < box['width'] - 60 and 60 < h['y'] < box['height'] - 60]
+        big = marks_in_view(pg, box, 60)
         h = big[len(big) // 3]
         pg.mouse.click(box['x'] + h['x'], box['y'] + h['y']); pg.wait_for_timeout(1500)
         assert st()['sel'] == h['id'], f"clicked {h['id']}, selected {st()['sel']}"
@@ -320,9 +319,8 @@ def vanishing(browser):
 
     def tap():
         pg.query_selector('#tunnel').scroll_into_view_if_needed(); pg.wait_for_timeout(300)
-        hits = pg.evaluate('window.__vanishing.hits()')
         b = pg.query_selector('#tunnel').bounding_box()
-        h = [x for x in hits if x['rad'] > 3 and 40 < x['x'] < b['width'] - 40 and 40 < x['y'] < b['height'] - 40][2]
+        h = marks_in_view(pg, b, 40)[2]
         pg.touchscreen.tap(b['x'] + h['x'], b['y'] + h['y']); pg.wait_for_timeout(1500)
         assert pg.evaluate('window.__vanishing.state.sel') == h['id'], 'tap did not select'
     step(tag, 'tap a mark', tap)
@@ -421,6 +419,26 @@ def fstate(pg):
 def set_depth(pg, D):
     pg.evaluate("v => { const s = document.querySelector('#depth'); s.value = v; s.dispatchEvent(new Event('input')); }", f'{-D:.4f}')
     pg.wait_for_timeout(150)
+
+
+def marks_in_view(pg, box, pad, need=3):
+    """Marks big enough to hit, at least pad px inside the tunnel, at least `need` of them.
+    The page opens at the newest milestone's depth. When that milestone is only a day or two old
+    (as every fresh scout card is), the view sits near the one-day floor and holds hardly any
+    other marks, so step out with the depth slider until it holds enough."""
+    def pick():
+        return [h for h in pg.evaluate('window.__vanishing.hits()')
+                if h['rad'] > 3 and pad < h['x'] < box['width'] - pad and pad < h['y'] < box['height'] - pad]
+    marks = pick()
+    for D in (-1.5, -0.5, 0.3, 1.0):
+        if len(marks) >= need:
+            break
+        if pg.evaluate('window.__vanishing.state.D') >= D:
+            continue
+        set_depth(pg, D); pg.wait_for_timeout(400)
+        marks = pick()
+    assert len(marks) >= need, f'only {len(marks)} marks to hit in view, even stepped out to depth {pg.evaluate("window.__vanishing.state.D"):.2f}'
+    return marks
 
 
 def to_floor(pg):

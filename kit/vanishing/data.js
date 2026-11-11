@@ -1114,6 +1114,13 @@ const EVENTS = [
       ['ABC News on the breach, 24 September 2026', 'https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078'],
       ['The Next Web', 'https://thenextweb.com/news/australia-plans-ai-safety-regulator-after-openai-agent-breach']],
   see: ['hfincident', 's1-breakout'] },
+{ id: 'alphaproof-signal', d: '2026-11-10', t: 'AlphaProof Code checks Signal', th: 'reck', w: 2,
+  x: 'Google DeepMind reported that AlphaProof Code, a framework of AI agents, had proved security properties of libsignal, the reference implementation of the Signal Protocol, in its compiled machine code. The proofs cover the post-quantum PQXDH handshake and the Triple Ratchet in version 0.105.4, built for 64-bit Arm, for one-to-one sessions: forward secrecy, recovery after a compromise, authentication, and a handshake that stays secret even if a later attacker breaks its classical Diffie–Hellman exchange. Agents running Gemini 4 Carbon and Claude Opus 5.5 drafted the specifications, about 26,000 trusted lines with a model of the processor, and people directed and approved them. Teams of 40 to 80 agents running Gemini 4 Carbon then wrote about 6.5 million lines of Lean proof, checked by Lean’s kernel. A team of five took four weeks; the paper sets this beside about twenty person-years for the seL4 kernel. As a test, the authors put back two old, fixed bugs and proved that the altered programs broke the guarantees. No new flaws in the code were reported, though the work found errors in published analyses of the protocol. The app around the library, side channels and group chats were outside the proofs.',
+  o: 'Three weeks after models found PHP2Shell in code nobody had read closely, models proved a piece of code right in proofs nobody will read. What people still have to read and trust shrank to the specifications.',
+  s: [['Google DeepMind: AlphaProof Code (paper and artefacts)', 'https://google-deepmind.github.io/code-verification/'],
+      ['The paper (PDF)', 'https://storage.googleapis.com/gdm-deepmind-com-prod-public/media/documents/Formal_Verification_of_Signal_4.pdf'],
+      ['CyberInsider, 11 November 2026', 'https://cyberinsider.com/google-deepmind-signal-encryption-machine-code-verification/']],
+  see: ['flt', 'php2shell'] },
 /* ---------------- model releases ---------------- */
 { id: 'dalle', d: '2021-01-05', t: 'DALL·E', th: 'model', lab: 'openai', w: 1,
   x: 'OpenAI showed DALL·E, a version of GPT-3 that drew images from text descriptions, such as an armchair in the shape of an avocado.',
