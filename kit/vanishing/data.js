@@ -1121,6 +1121,13 @@ const EVENTS = [
       ['The paper (PDF)', 'https://storage.googleapis.com/gdm-deepmind-com-prod-public/media/documents/Formal_Verification_of_Signal_4.pdf'],
       ['CyberInsider, 11 November 2026', 'https://cyberinsider.com/google-deepmind-signal-encryption-machine-code-verification/']],
   see: ['flt', 'php2shell'] },
+{ id: 'freeze-suit', d: '2026-11-12', t: 'Nonprofits sue to freeze new models', short: 'Suit to freeze new models', th: 'hyp', w: 1,
+  x: 'Four nonprofits, the Irreplaceable Education Fund, Public Citizen, Heat Initiative and the Alliance for Secure AI, sued Anthropic, Google, Meta, OpenAI and SpaceXSI in San Francisco Superior Court under California’s unfair competition law. They alleged that the companies endangered public health and interfered with the use of property such as computer systems, and could not stop their own systems causing “catastrophic” harm. They asked for an emergency injunction halting the training and deployment of next-generation models until the companies could show the technology was under human control. The companies did not immediately comment.',
+  o: 'In 2023 the pause letter asked the labs to stop. This asks a judge to make them.',
+  s: [['Public Citizen, 12 November 2026', 'https://www.citizen.org/news/coalition-of-nonprofits-files-landmark-lawsuit-to-stop-development-of-advanced-ai-systems-at-anthropic-google-meta-openai-and-spacexsi-that-proliferate-bioweapons-and-cyberattacks/'],
+      ['Al Jazeera, 12 November 2026', 'https://www.aljazeera.com/news/2026/11/12/us-nonprofits-sue-tech-giants-to-halt-ai-development'],
+      ['ABC News (AP)', 'https://abcnews.com/Technology/wireStory/advocacy-groups-sue-ai-giants-freeze-new-models-138081070']],
+  see: ['pause'] },
 /* ---------------- model releases ---------------- */
 { id: 'dalle', d: '2021-01-05', t: 'DALL·E', th: 'model', lab: 'openai', w: 1,
   x: 'OpenAI showed DALL·E, a version of GPT-3 that drew images from text descriptions, such as an armchair in the shape of an avocado.',
@@ -1365,7 +1372,10 @@ const EVENTS = [
 { id: 'fable52', d: '2026-11-09', t: 'Claude Fable 5.2 and Mythos 5.2', th: 'model', lab: 'anthropic', w: 1,
   x: 'Anthropic said a team of 1,000 Fable 5.2 agents formalised Fermat’s Last Theorem in 30 hours, against eleven days for the first formalisation, with a proof seven times shorter.',
   s: [['Anthropic’s announcement', 'https://www.anthropic.com/claude-fable-and-mythos-5-2']],
-  see: ['flt'] }
+  see: ['flt'] },
+{ id: 'gemini4hydrogen', d: '2026-11-12', t: 'Gemini 4 Hydrogen', th: 'model', lab: 'google', w: 1,
+  x: 'The successor to Gemini 3.8 Flash, released in the Gemini API, AI Studio, the Gemini app and Search at $1.50 and $7.50 per million input and output tokens. Google said it finished tasks about 2.5 times as fast as Flash; Artificial Analysis scored it 51 on its Intelligence Index at its default high setting, against 31 for Flash.',
+  s: [['Google: Gemini 4 Hydrogen', 'https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/'], ['VentureBeat, 12 November 2026', 'https://venturebeat.com/technology/google-launches-gemini-4-hydrogen-a-faster-smarter-pricier-flash-successor']] }
 ];
 
 /* ================= The body of the machine: two measured series for the Notes =================
