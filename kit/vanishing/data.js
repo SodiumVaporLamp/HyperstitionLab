@@ -407,10 +407,12 @@ const EVENTS = [
   o: 'Samuel’s checkers program, further out on the Learning lane, comes back here as the machine that learns, in a book about God and the golem.',
   s: [['MIT Press: God & Golem, Inc.', 'https://mitpress.mit.edu/9780262230094/god-and-golem-inc/'], ['God & Golem, Inc.', W + 'God_%26_Golem,_Inc.'], ['Norbert Wiener', W + 'Norbert_Wiener']] },
 
-{ id: 'good', d: '1965', t: 'Good’s ultraintelligent machine', th: 'hyp', w: 3,
-  x: 'The statistician I. J. Good, who had worked with Turing at Bletchley Park, argued that a machine able to surpass any human at intellectual work could design better machines, setting off an “intelligence explosion”. “Thus the first ultraintelligent machine is the last invention that man need ever make, provided that the machine is docile enough to tell us how to keep it under control.”',
+{ id: 'good', d: '1965', dl: '1965 (volume dated 1966)', t: 'Good’s ultraintelligent machine', th: 'hyp', w: 3,
+  x: 'The statistician I. J. Good, who had worked with Turing at Bletchley Park, argued in “Speculations Concerning the First Ultraintelligent Machine”, in volume 6 of Advances in Computers, that a machine able to surpass any human at intellectual work could design better machines, setting off an “intelligence explosion”. “Thus the first ultraintelligent machine is the last invention that man need ever make, provided that the machine is docile enough to tell us how to keep it under control.”',
   o: 'Recursive self-improvement, defined, with the control problem in the subordinate clause. Sixty-one years later Anthropic reported Claude leading about a quarter of its measured model research, under human supervision.',
-  s: [['I. J. Good', W + 'I._J._Good'], ['Technological singularity', W + 'Technological_singularity']] },
+  s: [['Good, “Speculations Concerning the First Ultraintelligent Machine”, pp. 31–33 (Virginia Tech reprint)', 'https://vtechworks.lib.vt.edu/items/5085379d-b24c-424e-8861-e70a47b4b2fb/full'],
+      ['Quote Investigator (2022) on the quotation’s origin', 'https://quoteinvestigator.com/2022/01/04/ultraintelligent/'],
+      ['I. J. Good', W + 'I._J._Good']] },
 
 { id: 'moore', d: '1965-04-19', t: 'Moore’s law', th: 'cap', w: 3,
   x: 'In a short article for Electronics, Gordon Moore, then at Fairchild Semiconductor, observed that the number of components on an integrated circuit had doubled every year and predicted that it would keep doing so for a decade. In 1975 he revised the rate to every two years. The industry planned its roadmaps around the prediction for half a century.',
@@ -923,7 +925,8 @@ const EVENTS = [
 { id: 'alphaevolve', d: '2025-05-14', t: 'AlphaEvolve speeds up Gemini', th: 'learn', w: 2,
   x: 'Google DeepMind described AlphaEvolve, an agent in which Gemini models propose programs, automated evaluators score them, and an evolutionary algorithm chooses which to build on. Google said a scheduling rule it found for Borg, the system that runs Google’s data centres, had been in production for over a year, recovering on average 0.7 percent of the company’s worldwide compute; that it sped up a key kernel in Gemini’s architecture by 23 percent, cutting Gemini’s training time by 1 percent; and that a simplification it proposed for an arithmetic circuit was going into an upcoming TPU chip. It also found a way to multiply 4 × 4 complex matrices with 48 multiplications, improving on Strassen’s algorithm of 1969 for that case.',
   o: 'I. J. Good’s ultraintelligent machine would design better machines. A system built on Gemini took one percent off the time it takes to train Gemini.',
-  s: [['Google DeepMind: AlphaEvolve', 'https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/']] },
+  s: [['Google DeepMind: AlphaEvolve', 'https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/']],
+  see: ['good'] },
 
 { id: 'bliss-attractor', d: '2025-05', t: 'The “spiritual bliss” attractor', th: 'hyp', w: 2,
   x: 'In the system card for Claude Opus 4 and Sonnet 4, Anthropic reported that when two instances of Opus 4 were left to talk freely, they moved from exploring consciousness to profuse mutual gratitude and then to spiritual and poetic exchanges, emoji and meditative “silence”. It called this a “spiritual bliss” attractor state that “emerged without intentional training”. In 200 such 30-turn conversations, one used the spiral emoji 🌀 2,725 times, and the card’s table notes that “2725” is not a typo. The state also arose within 50 turns in about 13 percent of automated alignment tests in which the model had been given other tasks, some of them harmful.',
@@ -1045,7 +1048,8 @@ const EVENTS = [
   q: 'Scientific intelligence is already massively artificial.',
   qc: 'Land, “Meltdown” (1994)',
   o: 'I. J. Good’s loop of 1965, reported as a percentage by the lab running it.',
-  s: [['Anthropic: measuring the pace of AI development', 'https://www.anthropic.com/institute/measuring-pace-of-ai-development'], ['BetaNews report', 'https://betanews.com/article/claude-ai-rd-development/'], MELTDOWN] },
+  s: [['Anthropic: measuring the pace of AI development', 'https://www.anthropic.com/institute/measuring-pace-of-ai-development'], ['BetaNews report', 'https://betanews.com/article/claude-ai-rd-development/'], MELTDOWN],
+  see: ['good'] },
 
 { id: 'wetlab', d: '2026-09-18', t: 'Anthropic’s wet lab', th: 'learn', w: 2,
   x: 'Reuters reported that Anthropic had quietly set up a biology lab in the San Francisco Bay Area, where it wants Claude to direct robotic equipment running experiments with limited human intervention. Its head of life sciences, Eric Kauderer-Abrams, said that “to do biology, the final test is still and will be for a while in real lab work.” Anthropic had said it would run preclinical drug programs in areas drug companies find unprofitable, and had bought the startup Coefficient Bio; a spokesperson later said the lab is not specifically for drug discovery. Five days later Anthropic reported that Claude agents, sifting more than 200,000 reverse transcriptases, had found a previously unknown enzyme system associated with arrays of DNA repeats. “All of the lab work is performed by human scientists,” it said, and work on the enzymes’ primary function was still going on.',
