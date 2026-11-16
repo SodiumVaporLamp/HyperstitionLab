@@ -1375,7 +1375,10 @@ const EVENTS = [
   see: ['flt'] },
 { id: 'gemini4hydrogen', d: '2026-11-12', t: 'Gemini 4 Hydrogen', th: 'model', lab: 'google', w: 1,
   x: 'The successor to Gemini 3.8 Flash, released in the Gemini API, AI Studio, the Gemini app and Search at $1.50 and $7.50 per million input and output tokens. Google said it finished tasks about 2.5 times as fast as Flash; Artificial Analysis scored it 51 on its Intelligence Index at its default high setting, against 31 for Flash.',
-  s: [['Google: Gemini 4 Hydrogen', 'https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/'], ['VentureBeat, 12 November 2026', 'https://venturebeat.com/technology/google-launches-gemini-4-hydrogen-a-faster-smarter-pricier-flash-successor']] }
+  s: [['Google: Gemini 4 Hydrogen', 'https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/'], ['VentureBeat, 12 November 2026', 'https://venturebeat.com/technology/google-launches-gemini-4-hydrogen-a-faster-smarter-pricier-flash-successor']] },
+{ id: 'qwen4max', d: '2026-11-16', t: 'Qwen4-Max', th: 'model', lab: 'china', org: 'Alibaba', w: 1,
+  x: 'Alibaba’s new flagship, a 2.4-trillion-parameter mixture of experts with a million-token context, at $1.50 and $4.50 per million input and output tokens. Unlike many earlier Qwen releases its weights were not published; Alibaba said smaller Qwen4 models would be open.',
+  s: [['Qwen: Qwen4-Max', 'https://qwen.ai/blog?id=qwen4-max'], ['The Next Web, 16 November 2026', 'https://thenextweb.com/news/alibaba-launches-qwen4-max-flagship-ai-model-without-open-weights'], ['TechNode, 16 November 2026', 'https://technode.com/2026/11/16/alibaba-launches-qwen4-max-with-lower-api-prices-and-a-million-token-context-window/']] }
 ];
 
 /* ================= The body of the machine: two measured series for the Notes =================
